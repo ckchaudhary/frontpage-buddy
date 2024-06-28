@@ -12,7 +12,10 @@
     "autoload": {
         "psr-4": {
             "RecycleBin\\FrontPageBuddy\\": "src/"
-        }
+        },
+		"files": [
+			"src/functions.php"
+		]
     },
     "require": {}
 }

@@ -1,0 +1,151 @@
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+/* ++++++++++++++++++++++++++++++++++++
+Manage Screens
+++++++++++++++++++++++++++++++++++++ */
+#bpfp_widgets_ui_wrapper{ margin-top: 30px; }
+
+table.vtop tr td{ 
+    vertical-align: top; 
+}
+
+.bpfp_widget{
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    margin: 0 0 20px;
+    position: relative;
+}
+
+.bpfp_widget .widget_name{
+    background: #ddd;
+    padding: 0 10px;
+}
+    .bpfp_widget .widget_name > span{ 
+        display: block; 
+    }
+        .bpfp_widget .widget_name > span a{ 
+            display: inline-block; 
+            float: right; 
+            margin-left: 10px; 
+            margin-right: -10px;
+            padding: 0 3px; 
+            outline: none;
+        }
+        .bpfp_widget .widget_name > span a.lnk_toggle_widget_details{
+            height: 25px;
+            padding: 0 10px;
+            background: url( 'toggle-arrow-2x.png' ) no-repeat top left;
+            background-position: -10px -10px;
+        }
+            .bpfp_widget.expanded .widget_name > span a.lnk_toggle_widget_details{
+                background-position: -10px -55px;
+            }
+
+.bpfp_widget .widget_description{ padding: 10px; }
+
+.bpfp_widget .loading_overlay,
+#bpfp_widgets_ui_wrapper .preloading_overlay{
+    display: none;
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    margin: 0; padding: 0;
+    text-align: center;
+}
+.bpfp_widget.loading .loading_overlay, #bpfp_widgets_ui_wrapper.loading .preloading_overlay{
+    display: block;
+}
+    .bpfp_widget .loading_overlay .helper,
+    #bpfp_widgets_ui_wrapper .preloading_overlay .helper{
+        display: inline-block; 
+        height: 100%;
+        vertical-align: middle;
+    }
+    .bpfp_widget .loading_overlay img,
+    #bpfp_widgets_ui_wrapper .preloading_overlay img{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+#bpfp_widgets_ui{ position: relative; min-height: 100px; }
+    
+.bpfp_widget .field{
+    margin-bottom: 10px;
+}
+    .bpfp_widget .field.field-submit [type="submit"],
+    .bpfp_widget .field.field-submit .lnk_delete_widget{
+        display: inline-block; vertical-align: middle
+    }
+
+    .bpfp_widget .field.field-submit .lnk_delete_widget{
+        margin-left: 10px; color: #b94a48;
+    }
+
+.bpfp_widget .alert, .bpfp_status .alert{
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 10px 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+    .bpfp_widget .alert-error, .bpfp_status .alert-error{
+        color: #b94a48;
+        background-color: #f2dede;
+        border-color: #eed3d7;
+    }
+    .bpfp_widget .alert-success, .bpfp_status .alert-success{
+        color: #468847;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+    
+.bpfp_added_widgets .bpfp_widget .widget_name{
+    cursor: move;
+}
+
+.trumbowyg-button-pane button{
+    height: 25px; width: 25px;
+    padding: 1px 1px !important;
+}
+
+.trumbowyg-button-pane .trumbowyg-button-group:not(:empty) + .trumbowyg-button-group::before{
+    height: 30px;
+    margin: 0 2px; width: 0;
+}
+
+.trumbowyg-button-pane::after{
+    top: 31px; height: 0;
+}
+
+body.admin-bar .trumbowyg-fullscreen{
+    top: 33px;
+}
+/* _________________________________ */
+
+/* ++++++++++++++++++++++++++++++++++++
+Output Screens
+++++++++++++++++++++++++++++++++++++ */
+.bpfp_widgets_wrapper{
+    margin: 20px 0;
+}
+
+.bpfp_widget_output{
+    margin: 10px 0;
+    box-sizing: border-box;
+    padding: 10px;
+}

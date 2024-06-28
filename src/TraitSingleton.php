@@ -2,12 +2,12 @@
 /**
  * Reusable singleton trait
  *
- * @package Helpers
+ * @package FrontPageBuddy
  */
 
-namespace RecycleBin\Helpers;
+namespace RecycleBin\FrontPageBuddy;
 
-if ( ! trait_exists( '\RecycleBin\Helpers\Singleton' ) ) {
+if ( ! trait_exists( '\RecycleBin\FrontPageBuddy\TraitSingleton' ) ) {
 
 	/**
 	 * Singleton base class for having singleton implementation.
@@ -17,9 +17,9 @@ if ( ! trait_exists( '\RecycleBin\Helpers\Singleton' ) ) {
 	 *
 	 * /!\ The get_instance method have to be implemented !
 	 *
-	 * @package Helpers
+	 * @package FrontPageBuddy
 	 */
-	trait Singleton {
+	trait TraitSingleton {
 
 		/**
 		 * The singleton object.
