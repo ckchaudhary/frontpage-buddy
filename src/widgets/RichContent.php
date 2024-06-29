@@ -21,7 +21,7 @@ class RichContent extends Widget {
 	 */
 	public function __construct( $args = '' ) {
 		$this->type              = 'richcontent';
-		$this->name              = 'Rich Text';
+		$this->name              = __( 'Rich Text', 'frontpage-buddy' );
 		$this->description       = __( 'Add text/copy, headings, links, lists, insert images, etc.', 'frontpage-buddy' );
 		$link                    = '<a href="https://blogs.recycleb.in/2024/07/frontpage-buddy-custom-front-pages-for-buddypress-users-groups#widget-richtext">' . __( 'Know More', 'frontpage-buddy' ) . '</a>';
 		// translators: external link to read technical details about the widget.
@@ -29,8 +29,6 @@ class RichContent extends Widget {
 		$this->icon_image_url    = FPBUDDY_PLUGIN_URL . 'assets/images/icon-richtext.png';
 
 		$this->setup( $args );
-
-		add_action( 'frontpage_buddy_widgets_update_data', array( $this, 'filter_update_data' ), 10, 2 );
 	}
 
 	public function get_fields() {
