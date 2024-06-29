@@ -69,9 +69,9 @@ class Collection {
 		$this->widgets = apply_filters(
 			'frontpage_buddy_registered_widgets',
 			array(
-				'richcontent' => '\RecycleBin\FrontPageBuddy\Widgets\RichContent',
-				//'twitterfeed' => '\RecycleBin\FrontPageBuddy\Widgets\TwitterFeed',
-				//'fbpage'      => '\RecycleBin\FrontPageBuddy\Widgets\FBPage',
+				'richcontent'           => '\RecycleBin\FrontPageBuddy\Widgets\RichContent',
+				'instagramprofileembed' => '\RecycleBin\FrontPageBuddy\Widgets\InstagramProfile',
+				'facebookpageembed'     => '\RecycleBin\FrontPageBuddy\Widgets\FacebookPage',
 			)
 		);
 
