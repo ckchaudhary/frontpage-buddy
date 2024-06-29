@@ -38,23 +38,6 @@ class Collection {
 	}
 
 	/**
-	 * Get the component handler for given component type.
-	 *
-	 * @param string $component_type e.g: 'bp_groups' or 'bp_members'.
-	 * @return \RecycleBin\FrontPageBuddy\Components\Component
-	 */
-	public function component( $component_type ) {
-		$component = false;
-		if ( 'bp_members' === $component_type ) {
-			$component = frontpage_buddy()->bp_member_profiles();
-		} elseif ( 'bp_groups' === $component_type ) {
-			$component = frontpage_buddy()->bp_groups();
-		}
-
-		return $component;
-	}
-
-	/**
 	 * Get the list of registered widgets.
 	 *
 	 * @since 1.0.0
@@ -161,7 +144,7 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$component = $this->component( $object_type );
+		$component = frontpage_buddy()->get_component( $object_type );
 		if ( ! $component ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
@@ -206,7 +189,7 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
 		}
 
-		$component = $this->component( $object_type );
+		$component = frontpage_buddy()->get_component( $object_type );
 
 		if ( ! $component ) {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
@@ -264,7 +247,7 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$component = $this->component( $object_type );
+		$component = frontpage_buddy()->get_component( $object_type );
 		if ( ! $component ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
@@ -330,7 +313,7 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!0', 'frontpage-buddy' ) ) );
 		}
 
-		$component = $this->component( $object_type );
+		$component = frontpage_buddy()->get_component( $object_type );
 		if ( ! $component ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request1!', 'frontpage-buddy' ) ) );
 		}

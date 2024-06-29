@@ -79,26 +79,6 @@ class Plugin {
 		return $this->widget_collection;
 	}
 
-	/**
-	 * Groups helper.
-	 *
-	 * @todo: remove this
-	 * @return \RecycleBin\FrontPageBuddy\Components\BPGroups
-	 */
-	public function bp_groups() {
-		return $this->get_component( 'bp_groups' );
-	}
-
-	/**
-	 * Member profiles helper.
-	 *
-	 * @todo: remove this
-	 * @return \RecycleBin\FrontPageBuddy\Components\BPProfiles
-	 */
-	public function bp_member_profiles() {
-		return $this->get_component( 'bp_members' );
-	}
-
 	public function get_all_components() {
 		return $this->components;
 	}
@@ -327,9 +307,10 @@ class Plugin {
 		$need_template_stack = false;
 		$enabled_for         = $this->option( 'enabled_for' );
 
-		if ( bp_is_user() && ! empty( $enabled_for ) && in_array( $this->bp_member_profiles()->get_component_type(), $enabled_for ) ) {
+		$bp_members_component = $this->get_component( 'bp_members' );
+		if ( $bp_members_component && bp_is_user() && ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
 			// Does the current user want to have a custom front page template?
-			$need_template_stack = $this->bp_member_profiles()->has_custom_front_page( bp_displayed_user_id() );
+			$need_template_stack = $bp_members_component->has_custom_front_page( bp_displayed_user_id() );
 		}
 
 		if ( ! $need_template_stack ) {

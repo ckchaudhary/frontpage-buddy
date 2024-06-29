@@ -86,10 +86,10 @@ class MemberProfiles {
 	}
 
 	public function edit_widgets_contents() {
-		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->bp_member_profiles()->get_component_type() . '/manage' );
+		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->get_component( 'bp_members' )->get_component_type() . '/manage' );
 	}
 
 	public function custom_group_boxes() {
-		frontpage_buddy()->bp_member_profiles()->output_frontpage_content( bp_displayed_user_id() );
+		frontpage_buddy()->get_component( 'bp_members' )->output_frontpage_content( bp_displayed_user_id() );
 	}
 }
