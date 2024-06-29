@@ -42,6 +42,20 @@ class BPProfiles extends Component {
 	}
 
 	/**
+	 * Is the current request a custom front page screen.
+	 *
+	 * @param boolean $flag Passed when this is hooked to a filter.
+	 * @return boolean
+	 */
+	public function is_custom_front_page_screen( $flag = false ) {
+		if ( bp_is_user() && 'front' === bp_current_component() ) {
+			$flag = true;
+		}
+
+		return $flag;
+	}
+
+	/**
 	 * Add data for javascript.
 	 *
 	 * @param array $data the first argument of the filter this function is hooked to.

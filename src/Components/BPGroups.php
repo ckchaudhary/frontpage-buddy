@@ -42,6 +42,20 @@ class BPGroups extends Component {
 	}
 
 	/**
+	 * Is the current request a custom front page screen.
+	 *
+	 * @param boolean $flag Passed when this is hooked to a filter.
+	 * @return boolean
+	 */
+	public function is_custom_front_page_screen( $flag = false ) {
+		if ( bp_is_active( 'groups' ) && bp_is_group() && 'home' === bp_current_action() ) {
+			$flag = true;
+		}
+
+		return $flag;
+	}
+
+	/**
 	 * Add data for javascript.
 	 *
 	 * @param array $data the first argument of the filter this function is hooked to.

@@ -65,6 +65,14 @@ abstract class Component {
 	abstract public function is_widgets_edit_screen( $flag = false );
 
 	/**
+	 * Is the current request a custom front page screen.
+	 *
+	 * @param boolean $flag Passed when this is hooked to a filter.
+	 * @return boolean
+	 */
+	abstract public function is_custom_front_page_screen( $flag = false );
+
+	/**
 	 * Add data for javascript.
 	 *
 	 * @param array $data the first argument of the filter this function is hooked to.
@@ -152,6 +160,7 @@ abstract class Component {
 		}
 
 		add_filter( 'frontpage_buddy_is_widgets_edit_screen', array( $this, 'is_widgets_edit_screen' ) );
+		add_filter( 'frontpage_buddy_is_custom_front_page_screen', array( $this, 'is_custom_front_page_screen' ) );
 		add_filter( 'frontpage_buddy_script_data', array( $this, 'script_data' ) );
 	}
 }
