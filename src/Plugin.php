@@ -82,20 +82,31 @@ class Plugin {
 	/**
 	 * Groups helper.
 	 *
+	 * @todo: remove this
 	 * @return \RecycleBin\FrontPageBuddy\Components\BPGroups
 	 */
 	public function bp_groups() {
-		return $this->components['bp_groups'];
+		return $this->get_component( 'bp_groups' );
 	}
 
 	/**
 	 * Member profiles helper.
 	 *
+	 * @todo: remove this
 	 * @return \RecycleBin\FrontPageBuddy\Components\BPProfiles
 	 */
 	public function bp_member_profiles() {
-		return $this->components['bp_members'];
+		return $this->get_component( 'bp_members' );
 	}
+
+	public function get_all_components() {
+		return $this->components;
+	}
+
+	public function get_component( $component_type ) {
+		return isset( $this->components[ $component_type ] ) ? $this->components[ $component_type ] : null;
+	}
+
 
 	/**
 	 * Get the value of one of the plugin options(settings).
@@ -117,9 +128,6 @@ class Plugin {
 	 * @return void
 	 */
 	protected function init() {
-		// Custom load hook, to notify dependent plugins.
-		add_action( 'plugins_loaded', array( $this, 'load_hook' ), 20 );
-
 		// Setup globals.
 		add_action( 'frontpage_buddy_load', array( $this, 'setup_globals' ), 2 );
 
@@ -129,17 +137,11 @@ class Plugin {
 		// Load groups and member profile helpers.
 		add_action( 'frontpage_buddy_load', array( $this, 'load_components' ), 8 );
 
-		// bp_init hook.
-		add_action( 'bp_init', array( $this, 'bp_init' ) );
-	}
-
-	/**
-	 * Custom load hook, to notify dependent plugins.
-	 *
-	 * @return void
-	 */
-	public function load_hook() {
+		// Custom load hook, to notify dependent plugins.
 		do_action( 'frontpage_buddy_load' );
+
+		// init hook.
+		add_action( 'init', array( $this, 'on_init' ) );
 	}
 
 	/**
@@ -205,37 +207,48 @@ class Plugin {
 		$enabled_for = $this->option( 'enabled_for' );
 
 		// Components that may have a front page.
-		$this->components['bp_members'] = new Components\BPProfiles( 'bp_members', 'Member Profiles' );
-		$this->components['bp_groups']  = new Components\BPGroups( 'bp_groups', 'Groups' );
-
-		// buddypress groups helper.
-		if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for ) ) {
-			if ( \bp_is_active( 'groups' ) ) {
-				bp_register_group_extension( '\RecycleBin\FrontPageBuddy\GroupExtension' );
+		$buddypress_active = false;
+		if ( function_exists( '\buddypress' ) ) {
+			$buddypress_active = true;
+			if ( isset( \buddypress()->buddyboss ) ) {
+				// Buddyboss platform is active. We don't support that. yet.
+				$buddypress_active = false;
 			}
 		}
 
-		// buddypress member profiles helper.
-		if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
-			new MemberProfiles();
+		if ( $buddypress_active ) {
+			$this->components['bp_members'] = new Components\BPProfiles( 'bp_members', 'Member Profiles' );
+			$this->components['bp_groups']  = new Components\BPGroups( 'bp_groups', 'Groups' );
 
-			// We need to load our own template file for member's custom front pages.
-			if ( function_exists( 'bp_register_template_stack' ) ) {
-				// add new location in template stack
-				// 13 is between theme and buddypress's template directory
-				bp_register_template_stack( array( $this, 'register_template_stack' ), 13 );
+			// buddypress groups helper.
+			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for ) ) {
+				if ( \bp_is_active( 'groups' ) ) {
+					bp_register_group_extension( '\RecycleBin\FrontPageBuddy\GroupExtension' );
+				}
+			}
 
-				add_filter( 'bp_get_template_stack', array( $this, 'maybe_remove_template_stack' ) );
+			// buddypress member profiles helper.
+			if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
+				new MemberProfiles();
+
+				// We need to load our own template file for member's custom front pages.
+				if ( function_exists( 'bp_register_template_stack' ) ) {
+					// add new location in template stack
+					// 13 is between theme and buddypress's template directory.
+					bp_register_template_stack( array( $this, 'register_template_stack' ), 13 );
+
+					add_filter( 'bp_get_template_stack', array( $this, 'maybe_remove_template_stack' ) );
+				}
 			}
 		}
 	}
 
 	/**
-	 * Run code on bp_init hook
+	 * Run code on on_init hook
 	 *
 	 * @return void
 	 */
-	public function bp_init() {
+	public function on_init() {
 		if ( ( is_admin() || is_network_admin() ) && current_user_can( 'manage_options' ) ) {
 			$this->admin = new Admin();
 		}

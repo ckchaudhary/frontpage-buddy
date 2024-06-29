@@ -211,38 +211,19 @@ class Admin {
 			$enabled_objects = array(); // make sure its an array.
 		}
 
-		if ( function_exists( '\buddypress' ) ) {
-			// Member profiles are always enabled.
-			$component_type = frontpage_buddy()->bp_member_profiles()->get_component_type();
-			$component_name = frontpage_buddy()->bp_member_profiles()->get_component_name();
-			echo "<div class='component'>";
+		$all_components = frontpage_buddy()->get_all_components();
 
-			$checked = in_array( $component_type, $enabled_objects ) ? 'checked' : '';
-			printf(
-				"<label><input type='checkbox' name='%s' value='%s' %s>%s</label>",
-				esc_attr( $this->option_name ) . '[enabled_for][]',
-				esc_attr( $component_type ),
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				$checked,
-				esc_html( $component_name )
-			);
-
-			if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
-				echo '<div class="notice notice-warning inline"><p>';
-				printf(
-					/* translators: 1: 'Member front page' */
-					esc_html__( 'Custom front pages for members is not enabled. Please, go to Appearance > Customize > BuddyPress Nouveau > %s and enable it first.', 'frontpage-buddy' ),
-					esc_html__( 'Member front page', 'buddypress' ),
-				);
-				echo '</p></div>';
-			};
-
-			echo '</div>';
+		if ( empty( $all_components ) ) {
+			?>
+			<div class='notice notice-error inline'>
+				<p><?php esc_html_e( 'Frontpage buddy can only work when either of the following plugins are active: \'BuddyPress\'', 'frontpage-buddy' ); ?></p>
+				<p><?php esc_html_e( 'Not much it can do for now!', 'frontpage-buddy' ); ?></p>
+			</div>
+			<?php
+			return false;
 		}
 
-		if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
-			$component_type = frontpage_buddy()->bp_groups()->get_component_type();
-			$component_name = frontpage_buddy()->bp_groups()->get_component_name();
+		foreach ( $all_components as $component_type => $component_obj ) {
 			echo "<div class='component'>";
 
 			$checked = in_array( $component_type, $enabled_objects ) ? 'checked' : '';
@@ -252,18 +233,30 @@ class Admin {
 				esc_attr( $component_type ),
 				// phpcs:ignore WordPress.Security.EscapeOutput
 				$checked,
-				esc_html( $component_name )
+				esc_html( $component_obj->get_component_name() )
 			);
 
-			if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'group_front_page' ) ) {
-				echo '<div class="notice notice-warning inline"><p>';
-				printf(
-					/* translators: 1: 'Group front page' */
-					esc_html__( 'Custom front pages for members is not enabled. Please, go to Appearance > Customize > BuddyPress Nouveau > %s and enable it first.', 'frontpage-buddy' ),
-					esc_html__( 'Group front page', 'buddypress' ),
-				);
-				echo '</p></div>';
-			};
+			if ( 'bp_members' === $component_type ) {
+				if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
+					echo '<div class="notice notice-warning inline"><p>';
+					printf(
+						/* translators: 1: 'Member front page' */
+						esc_html__( 'Custom front pages for members is not enabled. Please, go to Appearance > Customize > BuddyPress Nouveau > %s and enable it first.', 'frontpage-buddy' ),
+						esc_html__( 'Member front page', 'buddypress' ),
+					);
+					echo '</p></div>';
+				}
+			} elseif ( 'bp_groups' === $component_type ) {
+				if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'group_front_page' ) ) {
+					echo '<div class="notice notice-warning inline"><p>';
+					printf(
+						/* translators: 1: 'Group front page' */
+						esc_html__( 'Custom front pages for members is not enabled. Please, go to Appearance > Customize > BuddyPress Nouveau > %s and enable it first.', 'frontpage-buddy' ),
+						esc_html__( 'Group front page', 'buddypress' ),
+					);
+					echo '</p></div>';
+				}
+			}
 
 			echo '</div>';
 		}
@@ -271,15 +264,12 @@ class Admin {
 
 	public function widget_settings() {
 		$field_name  = __FUNCTION__;
-        $field_value = $this->option( $field_name );
+		$field_value = $this->option( $field_name );
 		$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
 
-		$components = array(
-			frontpage_buddy()->bp_member_profiles()->get_component_type() => frontpage_buddy()->bp_member_profiles()->get_component_name(),
-		);
-
-		if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
-			$components[ frontpage_buddy()->bp_groups()->get_component_type() ] = frontpage_buddy()->bp_groups()->get_component_name();
+		$all_components = frontpage_buddy()->get_all_components();
+		if ( empty( $all_components ) ) {
+			return false;
 		}
 
 		foreach ( $registered_widgets as $widget_type => $widget_class ) {
@@ -292,14 +282,14 @@ class Admin {
 			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $obj->get_description_admin(), array( 'a' => array( 'href' => true ) ) ) . '</p></td></tr>';
 
 			echo '<tr><td>Enabled for</td><td>';
-			foreach ( $components as $component_type => $component_name ) {
+			foreach ( $all_components as $component_type => $component_obj ) {
 				$cb_name = $this->option_name . '[' . $field_name . '][' . $widget_type . '][enabled_for][]';
 				$checked = '';
 				if ( isset( $this_widget_settings['enabled_for'] ) && ! empty( $this_widget_settings['enabled_for'] ) ) {
 					$checked = in_array( $component_type, $this_widget_settings['enabled_for'], true ) ? 'checked' : '';
 				}
 
-				printf( "<label><input type='checkbox' value='%s' name='%s' %s> %s</label>&nbsp;&nbsp;", esc_attr( $component_type ), esc_attr( $cb_name ), $checked, esc_html( $component_name ) );
+				printf( "<label><input type='checkbox' value='%s' name='%s' %s> %s</label>&nbsp;&nbsp;", esc_attr( $component_type ), esc_attr( $cb_name ), $checked, esc_html( $component_obj->get_component_name() ) );
 			}
 			echo '</td></tr>';
 

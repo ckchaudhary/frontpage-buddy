@@ -46,4 +46,4 @@ function frontpage_buddy() {
 }
 
 // Instantiate the main plugin object.
-\add_action( 'bp_include', 'frontpage_buddy' );
+\add_action( 'plugins_loaded', 'frontpage_buddy' );

@@ -41,7 +41,7 @@ class GroupExtension extends \BP_Group_Extension {
 			'enable_nav_item' => true,
 			'screens'         => array(
 				'edit'   => array(
-					'enabled'              => bp_nouveau_get_appearance_settings( 'group_front_page' ),
+					'enabled'              => function_exists( '\bp_nouveau_get_appearance_settings' ) && bp_nouveau_get_appearance_settings( 'group_front_page' ),
 					'slug'                 => 'front-page',
 					'name'                 => __( 'Front Page', 'bp-landing-pages' ),
 					'position'             => 55,
