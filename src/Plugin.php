@@ -263,8 +263,8 @@ class Plugin {
 			wp_enqueue_script( 'trumbowyg', 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js', array( 'jquery' ), '2.27.3', true );
 			wp_enqueue_style( 'trumbowyg', 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css', '2.27.3', true );
 
-			// wp_enqueue_script( 'frontpage_buddy', FPBUDDY_PLUGIN_URL . 'assets/script' . $min . '.js', array( 'jquery', 'jquery-form' ), '1.0.0', true );
-			wp_enqueue_script( 'frontpage_buddy', FPBUDDY_PLUGIN_URL . 'assets/script.js', array( 'jquery', 'jquery-form' ), time(), true );
+			// wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.js', array( 'jquery', 'jquery-form' ), '1.0.0', true );
+			wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor.js', array( 'jquery', 'jquery-form' ), time(), true );
 
 			$data = apply_filters(
 				'frontpage_buddy_script_data',
@@ -292,17 +292,17 @@ class Plugin {
 					'object_id' => 0,
 				)
 			);
-			wp_localize_script( 'frontpage_buddy', 'FRONTPAGE_BUDDY', $data );
+			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
-			// wp_enqueue_style( 'frontpage_buddy', FPBUDDY_PLUGIN_URL . 'assets/style' . $min . '.css', array(), '0.1' );
-			wp_enqueue_style( 'frontpage_buddy', FPBUDDY_PLUGIN_URL . 'assets/style.css', array(), time() );
+			// wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.css', array(), '0.1' );
+			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor.css', array(), time() );
 		}
 
-		// assets for view(front page) screen
-		if ( ( bp_is_user() && 'front' === bp_current_component() ) ||
-			( bp_is_active( 'groups' ) && bp_is_group() && 'home' == bp_current_action() )
-		) {
-			// wp_enqueue_style( 'frontpage_buddy', FPBUDDY_PLUGIN_URL . 'assets/style' . $min . '.css', array(), '0.1' );
+		// Assets for view(front page) screen.
+		$is_custom_front_page_screen = apply_filters( 'frontpage_buddy_is_custom_front_page_screen', false );
+		if ( $is_custom_front_page_screen ) {
+			// wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/view' . $min . '.css', array(), '0.1' );
+			wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/view.css', array(), time() );
 		}
 	}
 
