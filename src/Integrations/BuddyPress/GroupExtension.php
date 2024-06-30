@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RecycleBin\FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -64,7 +64,7 @@ class GroupExtension extends \BP_Group_Extension {
 	 * @return void
 	 */
 	public function settings_screen( $group_id = null ) {
-		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->get_component( 'bp_groups' )->get_component_type() . '/manage' );
+		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->get_integration( 'bp_groups' )->get_integration_type() . '/manage' );
 	}
 
 	/**
@@ -78,6 +78,6 @@ class GroupExtension extends \BP_Group_Extension {
 	}
 
 	public function custom_group_boxes() {
-		frontpage_buddy()->get_component( 'bp_groups' )->output_frontpage_content( bp_get_current_group_id() );
+		frontpage_buddy()->get_integration( 'bp_groups' )->output_frontpage_content( bp_get_current_group_id() );
 	}
 }

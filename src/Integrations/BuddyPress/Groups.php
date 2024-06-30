@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Components;
+namespace RecycleBin\FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
  *  Front page for buddypress groups.
  */
-class BPGroups extends Component {
+class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 
 	/**
 	 * Get/set If the current object has a custom front page.
@@ -63,13 +63,13 @@ class BPGroups extends Component {
 	 */
 	public function script_data( $data ) {
 		if ( bp_is_active( 'groups' ) && bp_is_group() ) {
-			$data['object_type'] = $this->get_component_type();
+			$data['object_type'] = $this->get_integration_type();
 			$data['object_id'] = bp_get_current_group_id();
 		}
 
 		if ( $this->is_widgets_edit_screen() ) {
 			$data['all_widgets'] = array();
-			$all = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_component_type(), bp_get_current_group_id() );
+			$all = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), bp_get_current_group_id() );
 			if ( ! empty( $all ) ) {
 				foreach ( $all as $widget ) {
 					$data['all_widgets'][] = array(
@@ -147,7 +147,7 @@ class BPGroups extends Component {
 	}
 
 	/**
-	 * Can the current user manage given component( group or member )?
+	 * Can the current user manage given group
 	 *
 	 * @param int $object_id group id or user id.
 	 *
@@ -162,6 +162,6 @@ class BPGroups extends Component {
 			$can_manage = true;
 		}
 
-		return apply_filters( 'frontpage_buddy_can_manage', $can_manage, $this->get_component_type(), $object_id );
+		return apply_filters( 'frontpage_buddy_can_manage', $can_manage, $this->get_integration_type(), $object_id );
 	}
 }

@@ -44,8 +44,8 @@ function visual_editor_allowed_html_tags() {
 	);
 }
 
-function show_output( $layout, $widgets, $component_type, $target_id ) {
-	echo get_output( $layout, $widgets, $component_type, $target_id );
+function show_output( $layout, $widgets, $integration_type, $target_id ) {
+	echo get_output( $layout, $widgets, $integration_type, $target_id );
 }
 
 /**
@@ -53,11 +53,11 @@ function show_output( $layout, $widgets, $component_type, $target_id ) {
  *
  * @param [type] $layout
  * @param [type] $widgets
- * @param [type] $component_type
+ * @param [type] $integration_type
  * @param [type] $target_id
  * @return void
  */
-function get_output( $layout, $widgets, $component_type, $target_id ) {
+function get_output( $layout, $widgets, $integration_type, $target_id ) {
 	$html = '';
 
 	$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
@@ -79,7 +79,7 @@ function get_output( $layout, $widgets, $component_type, $target_id ) {
 					}
 				}
 
-				if ( $found && ! frontpage_buddy()->widget_collection()->is_widget_enabled_for( $widget['type'], $component_type, $target_id ) ) {
+				if ( $found && ! frontpage_buddy()->widget_collection()->is_widget_enabled_for( $widget['type'], $integration_type, $target_id ) ) {
 					$found = false;
 				}
 
@@ -91,7 +91,7 @@ function get_output( $layout, $widgets, $component_type, $target_id ) {
 						$widget_obj = new $widget_class(
 							array(
 								'id'          => $widget['id'],
-								'object_type' => $component_type,
+								'object_type' => $integration_type,
 								'object_id'   => $target_id,
 								'options'     => $widget['options'],
 							)

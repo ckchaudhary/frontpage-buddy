@@ -1,48 +1,48 @@
 <?php
 /**
- * Base Component class.
+ * Base Integration class.
  *
  * @package FrontPage Buddy
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Components;
+namespace RecycleBin\FrontPageBuddy;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
- *  Base Component class
+ *  Base Integration class
  */
-abstract class Component {
+abstract class Integration {
 	/**
-	 * Component type. E.g: 'bp_groups', 'bp_members'
+	 * Integration type. E.g: 'bp_groups', 'bp_members'
 	 *
 	 * @var string
 	 */
 	protected $type;
 
 	/**
-	 * Name of the component. E.g: 'Groups', 'Member Profiles'
+	 * Name of the integration. E.g: 'Groups', 'Member Profiles'
 	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
-	 * Get the type of component.
+	 * Get the type of integration.
 	 *
 	 * @return string
 	 */
-	public function get_component_type() {
+	public function get_integration_type() {
 		return $this->type;
 	}
 
 	/**
-	 * Get the name of component.
+	 * Get the name of integration.
 	 *
 	 * @return string
 	 */
-	public function get_component_name() {
+	public function get_integration_name() {
 		return $this->name;
 	}
 
@@ -120,7 +120,7 @@ abstract class Component {
 	abstract public function update_added_widgets( $object_id, $data = array() );
 
 	/**
-	 * Can the current user manage given component( group or member )?
+	 * Can the current user manage given integration( group or member )?
 	 *
 	 * @param int $object_id group id or user id.
 	 *
@@ -139,7 +139,7 @@ abstract class Component {
 		\RecycleBin\FrontPageBuddy\show_output(
 			$this->get_frontpage_layout( $target_id ),
 			$this->get_added_widgets( $target_id ),
-			$this->get_component_type(),
+			$this->get_integration_type(),
 			$target_id
 		);
 	}
@@ -147,7 +147,7 @@ abstract class Component {
 	/**
 	 * Constructor
 	 *
-	 * @param string $type type of the component.
+	 * @param string $type type of the integration.
 	 * @param string $name Name. Optional.
 	 *
 	 * @return void

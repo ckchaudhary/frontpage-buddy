@@ -106,23 +106,23 @@ class Collection {
 	}
 
 	/**
-	 * Is the given widget type enabled for given component?
+	 * Is the given widget type enabled for given integration?
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $widget_type E.g: 'richcontent'.
-	 * @param string $component_type E.g: 'bp_groups'.
+	 * @param string $integration_type E.g: 'bp_groups'.
 	 * @param int    $target_id E.g: group id or member id.
 	 * @return boolean
 	 */
-	public function is_widget_enabled_for( $widget_type, $component_type, $target_id ) {
+	public function is_widget_enabled_for( $widget_type, $integration_type, $target_id ) {
 		$is_enabled = false;
 		$widget_settings = $this->get_widget_settings( $widget_type );
-		if ( isset( $widget_settings['enabled_for'] ) && in_array( $component_type, $widget_settings['enabled_for'], true ) ) {
+		if ( isset( $widget_settings['enabled_for'] ) && in_array( $integration_type, $widget_settings['enabled_for'], true ) ) {
 			$is_enabled = true;
 		}
 
-		return apply_filters( 'frontpage_buddy_is_widget_enabled_for', $is_enabled, $widget_type, $component_type, $target_id );
+		return apply_filters( 'frontpage_buddy_is_widget_enabled_for', $is_enabled, $widget_type, $integration_type, $target_id );
 	}
 
 	/**
@@ -144,17 +144,17 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$component = frontpage_buddy()->get_component( $object_type );
-		if ( ! $component ) {
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		if ( ! $integration ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$can_manage = $component->can_manage( $object_id );
+		$can_manage = $integration->can_manage( $object_id );
 		if ( ! $can_manage ) {
 			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
 		}
 
-		$component->has_custom_front_page( $object_id, $updated_status );
+		$integration->has_custom_front_page( $object_id, $updated_status );
 
 		wp_send_json_success();
 	}
@@ -189,22 +189,22 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
 		}
 
-		$component = frontpage_buddy()->get_component( $object_type );
+		$integration = frontpage_buddy()->get_integration( $object_type );
 
-		if ( ! $component ) {
+		if ( ! $integration ) {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
 		}
 
-		$can_manage = $component->can_manage( $object_id );
+		$can_manage = $integration->can_manage( $object_id );
 
 		if ( ! $can_manage ) {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
 		}
 
-		$component->update_frontpage_layout( $object_id, $layout_sanitized );
+		$integration->update_frontpage_layout( $object_id, $layout_sanitized );
 
 		// Remove discarded widgets.
-		$all_added = $component->get_added_widgets( $object_id );
+		$all_added = $integration->get_added_widgets( $object_id );
 		if ( ! empty( $all_added ) ) {
 			$temp = array();
 			foreach ( $all_added as $old_widget ) {
@@ -223,7 +223,7 @@ class Collection {
 				}
 			}
 
-			$component->update_added_widgets( $object_id, $temp );
+			$integration->update_added_widgets( $object_id, $temp );
 		}
 
 		wp_send_json_success();
@@ -247,12 +247,12 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$component = frontpage_buddy()->get_component( $object_type );
-		if ( ! $component ) {
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		if ( ! $integration ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$can_manage = $component->can_manage( $object_id );
+		$can_manage = $integration->can_manage( $object_id );
 		if ( ! $can_manage ) {
 			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
 		}
@@ -262,7 +262,7 @@ class Collection {
 		}
 
 		$prev_saved_options = array();
-		$saved_widgets = $component->get_added_widgets( $object_id );
+		$saved_widgets = $integration->get_added_widgets( $object_id );
 		if ( ! empty( $saved_widgets ) ) {
 			foreach ( $saved_widgets as $saved_widget ) {
 				if ( $saved_widget['id'] === $widget_id ) {
@@ -313,12 +313,12 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!0', 'frontpage-buddy' ) ) );
 		}
 
-		$component = frontpage_buddy()->get_component( $object_type );
-		if ( ! $component ) {
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		if ( ! $integration ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request1!', 'frontpage-buddy' ) ) );
 		}
 
-		$can_manage = $component->can_manage( $object_id );
+		$can_manage = $integration->can_manage( $object_id );
 		if ( ! $can_manage ) {
 			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
 		}
@@ -358,7 +358,7 @@ class Collection {
 		);
 
 		$existing = false;
-		$saved_widgets = $component->get_added_widgets( $object_id );
+		$saved_widgets = $integration->get_added_widgets( $object_id );
 		$saved_widgets_count = count( $saved_widgets );
 		if ( $saved_widgets_count > 0 ) {
 			for ( $i = 0; $i < $saved_widgets_count; $i++ ) {
@@ -375,7 +375,7 @@ class Collection {
 			$saved_widgets[] = $widget_data_new;
 		}
 
-		$component->update_added_widgets( $object_id, $saved_widgets );
+		$integration->update_added_widgets( $object_id, $saved_widgets );
 		wp_send_json_success( array( 'message' => __( 'Updated', 'frontpage-buddy' ) ) );
 	}
 

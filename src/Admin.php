@@ -211,9 +211,9 @@ class Admin {
 			$enabled_objects = array(); // make sure its an array.
 		}
 
-		$all_components = frontpage_buddy()->get_all_components();
+		$all_integrations = frontpage_buddy()->get_all_integrations();
 
-		if ( empty( $all_components ) ) {
+		if ( empty( $all_integrations ) ) {
 			?>
 			<div class='notice notice-error inline'>
 				<p><?php esc_html_e( 'Frontpage buddy can only work when either of the following plugins are active: \'BuddyPress\'', 'frontpage-buddy' ); ?></p>
@@ -223,20 +223,20 @@ class Admin {
 			return false;
 		}
 
-		foreach ( $all_components as $component_type => $component_obj ) {
-			echo "<div class='component'>";
+		foreach ( $all_integrations as $integration_type => $integration_obj ) {
+			echo "<div class='integration'>";
 
-			$checked = in_array( $component_type, $enabled_objects ) ? 'checked' : '';
+			$checked = in_array( $integration_type, $enabled_objects ) ? 'checked' : '';
 			printf(
 				"<label><input type='checkbox' name='%s' value='%s' %s>%s</label>",
 				esc_attr( $this->option_name ) . '[enabled_for][]',
-				esc_attr( $component_type ),
+				esc_attr( $integration_type ),
 				// phpcs:ignore WordPress.Security.EscapeOutput
 				$checked,
-				esc_html( $component_obj->get_component_name() )
+				esc_html( $integration_obj->get_integration_name() )
 			);
 
-			if ( 'bp_members' === $component_type ) {
+			if ( 'bp_members' === $integration_type ) {
 				if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
 					echo '<div class="notice notice-warning inline"><p>';
 					printf(
@@ -246,7 +246,7 @@ class Admin {
 					);
 					echo '</p></div>';
 				}
-			} elseif ( 'bp_groups' === $component_type ) {
+			} elseif ( 'bp_groups' === $integration_type ) {
 				if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'group_front_page' ) ) {
 					echo '<div class="notice notice-warning inline"><p>';
 					printf(
@@ -267,8 +267,8 @@ class Admin {
 		$field_value = $this->option( $field_name );
 		$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
 
-		$all_components = frontpage_buddy()->get_all_components();
-		if ( empty( $all_components ) ) {
+		$all_integrations = frontpage_buddy()->get_all_integrations();
+		if ( empty( $all_integrations ) ) {
 			return false;
 		}
 
@@ -282,14 +282,14 @@ class Admin {
 			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $obj->get_description_admin(), array( 'a' => array( 'href' => true ) ) ) . '</p></td></tr>';
 
 			echo '<tr><td>Enabled for</td><td>';
-			foreach ( $all_components as $component_type => $component_obj ) {
+			foreach ( $all_integrations as $integration_type => $integration_obj ) {
 				$cb_name = $this->option_name . '[' . $field_name . '][' . $widget_type . '][enabled_for][]';
 				$checked = '';
 				if ( isset( $this_widget_settings['enabled_for'] ) && ! empty( $this_widget_settings['enabled_for'] ) ) {
-					$checked = in_array( $component_type, $this_widget_settings['enabled_for'], true ) ? 'checked' : '';
+					$checked = in_array( $integration_type, $this_widget_settings['enabled_for'], true ) ? 'checked' : '';
 				}
 
-				printf( "<label><input type='checkbox' value='%s' name='%s' %s> %s</label>&nbsp;&nbsp;", esc_attr( $component_type ), esc_attr( $cb_name ), $checked, esc_html( $component_obj->get_component_name() ) );
+				printf( "<label><input type='checkbox' value='%s' name='%s' %s> %s</label>&nbsp;&nbsp;", esc_attr( $integration_type ), esc_attr( $cb_name ), $checked, esc_html( $integration_obj->get_integration_name() ) );
 			}
 			echo '</td></tr>';
 
