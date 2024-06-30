@@ -222,6 +222,16 @@ class Plugin {
 			}
 		}
 
+		// bbpress plugin.
+		if ( function_exists( '\bbpress' ) ) {
+			// Register widget.
+			$this->register_integration( 'bbp_profiles', new Integrations\BBPress\Profiles( 'bbp_profiles', 'User Profiles' ) );
+			// Load helper.
+			if ( ! empty( $enabled_for ) && in_array( 'bbp_profiles', $enabled_for ) ) {
+				Integrations\BBPress\ProfilesHelper::get_instance();
+			}
+		}
+
 		// ultimate-member plugin.
 		if ( function_exists( '\UM' ) ) {
 			// Register widget.
