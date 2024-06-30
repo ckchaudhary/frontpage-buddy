@@ -221,6 +221,16 @@ class Plugin {
 				Integrations\BuddyPress\MemberProfilesHelper::get_instance();
 			}
 		}
+
+		// ultimate-member plugin.
+		if ( function_exists( '\UM' ) ) {
+			// Register widget.
+			$this->register_integration( 'um_member_profiles', new Integrations\UltimateMember\Profiles( 'um_member_profiles', 'Member Profiles' ) );
+			// Load helper.
+			if ( ! empty( $enabled_for ) && in_array( 'um_member_profiles', $enabled_for ) ) {
+				Integrations\UltimateMember\ProfilesHelper::get_instance();
+			}
+		}
 	}
 
 	/**
