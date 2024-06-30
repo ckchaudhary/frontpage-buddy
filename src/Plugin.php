@@ -263,6 +263,7 @@ class Plugin {
 				'frontpage_buddy_script_data',
 				array(
 					'config'       => array(
+						'ajaxurl' => admin_url( 'admin-ajax.php' ),
 						'req' => array(
 							'change_status' => array(
 								'action' => 'frontpage_buddy_change_status',

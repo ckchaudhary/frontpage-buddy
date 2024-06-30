@@ -103,7 +103,7 @@ class FPBuddyWidgetsManager {
 
         jQuery.ajax({
             type: 'POST',
-            url: ajaxurl,
+            url: FRONTPAGE_BUDDY.config.ajaxurl,
             data: data,
         });
     };
@@ -233,7 +233,7 @@ class FPBuddyWidgetsManager {
 
         jQuery.ajax({
             type: 'POST',
-            url: ajaxurl,
+            url: FRONTPAGE_BUDDY.config.ajaxurl,
             data: data,
         });
 	};
@@ -256,7 +256,7 @@ class FPBuddyWidgetsManager {
 
 		jQuery.ajax({
             type: 'GET',
-            url: ajaxurl,
+            url: FRONTPAGE_BUDDY.config.ajaxurl,
             data: data,
         }).done(function( res ){
 			$widget.removeClass( 'loading' );
@@ -436,7 +436,7 @@ class FPBuddyLayoutManager {
 	
 			jQuery.ajax({
 				type: 'POST',
-				url: ajaxurl,
+				url: FRONTPAGE_BUDDY.config.ajaxurl,
 				data: data,
 			});
 		} );
