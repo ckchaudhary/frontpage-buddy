@@ -87,6 +87,17 @@ class Plugin {
 		return isset( $this->integrations[ $type ] ) ? $this->integrations[ $type ] : null;
 	}
 
+	public function register_integration( $type, $obj ) {
+		if ( ! empty( $this->integrations ) && isset( $this->integrations[ $type ] ) ) {
+			return new \WP_Error( 'duplicate_inte', __( 'Please use a unique type.', 'frontpage-buddy' ) );
+		}
+
+		if ( ! \is_a( $obj, '\RecycleBin\FrontPageBuddy\Integration' ) ) {
+			return new \WP_Error( 'invalid_type', __( 'The integration must extend \RecycleBin\FrontPageBuddy\Integration.', 'frontpage-buddy' ) );
+		}
+
+		$this->integrations[ $type ] = $obj;
+	}
 
 	/**
 	 * Get the value of one of the plugin options(settings).
@@ -196,9 +207,7 @@ class Plugin {
 		}
 
 		if ( $buddypress_active ) {
-			$this->integrations['bp_members'] = new Integrations\BuddyPress\Profiles( 'bp_members', 'Member Profiles' );
-			$this->integrations['bp_groups']  = new Integrations\BuddyPress\Groups( 'bp_groups', 'Groups' );
-
+			$this->register_integration( 'bp_groups', new Integrations\BuddyPress\Groups( 'bp_groups', 'Groups' ) );
 			// buddypress groups helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
@@ -206,12 +215,12 @@ class Plugin {
 				}
 			}
 
+			$this->register_integration( 'bp_members', new Integrations\BuddyPress\Profiles( 'bp_members', 'Member Profiles' ) );
 			// buddypress member profiles helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
 				Integrations\BuddyPress\MemberProfilesHelper::get_instance();
 			}
 		}
-
 	}
 
 	/**
