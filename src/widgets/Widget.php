@@ -206,6 +206,8 @@ abstract class Widget {
 	 * @return array of errors, if any.
 	 */
 	public function validate() {
+		$errors = array();
+
 		// Required fields.
 		$fields = $this->get_fields();
 		if ( ! empty( $fields ) ) {

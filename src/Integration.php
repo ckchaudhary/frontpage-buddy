@@ -54,7 +54,15 @@ abstract class Integration {
 	 *
 	 * @return boolean
 	 */
-	abstract public function has_custom_front_page( $object_id, $set = false );
+	public function has_custom_front_page( $object_id, $set = false ) {
+		$flag = false;
+		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
+		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for ) ) {
+			$flag = true;
+		}
+
+		return apply_filters( 'frontpage_buddy_has_custom_front_page', $flag, $this->get_integration_type(), $object_id );
+	}
 
 	/**
 	 * Is the current request a widget edit/manage screen.
