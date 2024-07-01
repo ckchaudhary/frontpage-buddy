@@ -64,7 +64,7 @@ class GroupExtension extends \BP_Group_Extension {
 	 * @return void
 	 */
 	public function settings_screen( $group_id = null ) {
-		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->get_integration( 'bp_groups' )->get_integration_type() . '/manage' );
+		\RecycleBin\FrontPageBuddy\load_template( 'buddypress/groups/manage' );
 	}
 
 	/**

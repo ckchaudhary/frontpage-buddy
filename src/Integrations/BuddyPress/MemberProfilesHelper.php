@@ -97,7 +97,7 @@ class MemberProfilesHelper {
 	}
 
 	public function edit_widgets_contents() {
-		\RecycleBin\FrontPageBuddy\load_template( frontpage_buddy()->get_integration( 'bp_members' )->get_integration_type() . '/manage' );
+		\RecycleBin\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
 	}
 
 	public function custom_group_boxes() {
