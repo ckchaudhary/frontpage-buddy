@@ -374,6 +374,12 @@ Manage Screens
 	box-sizing: border-box;
 }
 
+.fpbuddy_manage_widgets .widget_fields .field input[type="checkbox"],
+.fpbuddy_manage_widgets .widget_fields .field input[type="radio"] {
+	display: inline-block;
+	width: auto;
+	margin-right: 5px;
+}
 
 #buddypress .trumbowyg .trumbowyg-button-pane button,
 #buddypress .trumbowyg .trumbowyg-dropdown button{
