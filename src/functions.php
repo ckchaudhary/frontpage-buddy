@@ -522,3 +522,29 @@ if ( ! function_exists( 'emi_generate_fields' ) ) :
 
 
 endif;
+
+add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\RecycleBin\FrontPageBuddy\widget_title_for_manage_screen', 10, 2 );
+/**
+ * Filters the title for a widget when displayed on manage widgets screens.
+ *
+ * @param  string $title Existing value, if any.
+ * @param  array  $widget Widget details like 'type', 'options' etc.
+ * @return string
+ */
+function widget_title_for_manage_screen( $title, $widget ) {
+	$widget_type = isset( $widget['type'] ) ? $widget['type'] : '';
+	switch ( $widget_type ) {
+		case 'richcontent':
+			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['content'] ) && ! empty( $widget['options']['content'] ) ? wp_strip_all_tags( $widget['options']['content'] ) : '';
+			$title   = substr( $content, 0, 100 );
+			break;
+
+		case 'instagramprofileembed':
+			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['insta_id'] ) && ! empty( $widget['options']['insta_id'] ) ? wp_strip_all_tags( $widget['options']['insta_id'] ) : '';
+			if ( $content ) {
+				$content = trim( $content, ' @' );
+				$title   = '@' . $content;
+			}
+	}
+	return $title;
+}

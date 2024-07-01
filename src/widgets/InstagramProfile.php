@@ -18,7 +18,7 @@ class InstagramProfile extends Widget {
 		$this->type           = 'instagramprofileembed';
 		$this->name           = __( 'Instagram Profile', 'frontpage-buddy' );
 		$this->description    = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
-		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-richtext.png';
+		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-instagram-feed.png';
 
 		$this->setup( $args );
 	}

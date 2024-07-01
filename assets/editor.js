@@ -25,6 +25,11 @@ class FPBuddyWidgetsManager {
 			$form.after( this._l.outer );
 		}
 
+		// Force block layout if insufficient width
+		if ( this._l.parent.width() < 500 ) {
+			this._l.parent.addClass( 'force-dblock' );
+		}
+
 		//bind 'enable custom front page' checkbox event
         jQuery('input[name="has_custom_frontpage"]').change(function () {
 			_class.toggleFPStatus(jQuery(this));
@@ -40,6 +45,12 @@ class FPBuddyWidgetsManager {
 			e.preventDefault();
 			let $widget = jQuery(this).closest('.widget');
 			$widget.addClass( 'state-preview' ).removeClass( 'state-edit' );
+
+			// Set parent to flex layout if all the widgets inside it are in preview sate.
+			let $row = $widget.closest( '.row-contents' );
+			if ( $row.find( '.widget.state-edit' ).length === 0 ) {
+				$row.removeClass( 'dblock' );
+			}
 		});
 		
 		// layout manager
@@ -65,6 +76,25 @@ class FPBuddyWidgetsManager {
             
 			_class.bindWidgetOptsUpdate( $widget );
         });
+
+		// Do things when a widget is updated.
+		_class._l.parent.on( 'widget_updated', '.widget', function(){
+			const $widget = jQuery(this);
+			if ( $widget.hasClass( 'widget-richcontent' ) ) {
+				let html = $widget.find('.field .trumbowyg-box textarea').first().val();
+				if ( html.length > 0 ) {
+					let text = jQuery("<div>").html( html ).text().substring( 0, 100 );
+					$widget.find( '.widget-title' ).text( text );
+				}
+			} else if( $widget.hasClass( 'widget-instagramprofileembed' ) ) {
+				let insta_id = $widget.find('.field [name="insta_id"]').first().val();
+				if ( insta_id.length > 0 ) {
+					insta_id = jQuery.trim( insta_id );
+					insta_id = '@' + insta_id.replace( '@', '' );
+					$widget.find( '.widget-title' ).text( insta_id );
+				}
+			}
+		} );
     };
 
 	getElements() {
@@ -150,10 +180,11 @@ class FPBuddyWidgetsManager {
 		let html = `
 			<div class='widget-content'>
 				<div class="widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
+					<div class="widget-title js-show-settings">${widget_title}</div>
 					<div class="widget-image js-show-settings">
 						<img src='${widget_image}'>
 					</div>
-					<div class="widget-title js-show-settings">${widget_title}</div>
+					
 					<div class="widget-desc">${widget_description}</div>
 
 					<div class="widget-settings"></div>
@@ -179,7 +210,8 @@ class FPBuddyWidgetsManager {
 
 		for ( let i_widget of FRONTPAGE_BUDDY.added_widgets ) {
 			if ( i_widget.id === widget_id ) {
-				widget_type = i_widget.type;
+				widget_type  = i_widget.type;
+				widget_title = i_widget.title;
 				break;
 			}
 		}
@@ -187,7 +219,7 @@ class FPBuddyWidgetsManager {
 		if ( widget_type ) {
 			for ( let i_widget of FRONTPAGE_BUDDY.all_widgets ) {
 				if ( i_widget.type === widget_type ) {
-					widget_title = i_widget.name;
+					widget_title = widget_title.length > 0 ? widget_title : i_widget.name;
 					widget_description = i_widget.description;
 					widget_image = i_widget.icon;
 					is_valid = true;
@@ -202,10 +234,11 @@ class FPBuddyWidgetsManager {
 
 		return `
 			<div class="widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
+			<div class="widget-title js-show-settings">${widget_title}</div>
 				<div class="widget-image js-show-settings">
 					<img src='${widget_image}'>
 				</div>
-				<div class="widget-title js-show-settings">${widget_title}</div>
+				
 				<div class="widget-desc">${widget_description}</div>
 
 				<div class="widget-settings"></div>
@@ -216,10 +249,6 @@ class FPBuddyWidgetsManager {
 				<a href="#"></a>
 			</div>
 		`;
-	};
-
-	getWidgetSettingsScreen ( widget_type, widget_id ) {
-
 	};
 
 	updateLayout ( new_layout ) {
@@ -240,6 +269,7 @@ class FPBuddyWidgetsManager {
 
 	showWidgetOpts ( $widget ) {
 		if ( $widget.find('.widget-settings form').length > 0 ) {
+			$widget.closest('.row-contents').addClass( 'dblock' );
 			$widget.removeClass( 'state-preview' ).addClass( 'state-edit' );
 			return false;
 		}
@@ -261,6 +291,7 @@ class FPBuddyWidgetsManager {
         }).done(function( res ){
 			$widget.removeClass( 'loading' );
 			if ( res.success ) {
+				$widget.closest('.row-contents').addClass( 'dblock' );
 				$widget.find('.widget-settings').html( res.data.html );
 				$widget.removeClass( 'state-preview' ).addClass( 'state-edit' );
 				jQuery(document).trigger( 'fpbuddy_on_widget_edit', [ $widget ] );
@@ -286,6 +317,7 @@ class FPBuddyWidgetsManager {
 					if ( response.data.message ) {
 						$form.append( `<div class="response alert-success">${response.data.message}</div>` );
 					}
+					$widget.trigger( 'widget_updated' );
 					_class._l.parent.trigger( 'content_updated' );
 				} else {
 					if ( response.data.message ) {
@@ -440,6 +472,8 @@ class FPBuddyLayoutManager {
 				data: data,
 			});
 		} );
+
+		// Update widget preview titles when widget 
 	}
 
 	/**

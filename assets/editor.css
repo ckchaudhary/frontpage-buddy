@@ -88,10 +88,7 @@ Manage Screens
 
 .fpbuddy_manage_widgets .lrow {
 	margin-bottom: 30px;
-	border: 1px solid #ccc;
-	box-shadow: 4px 4px 5px 1px rgba(136,136,136,0.7);
-	-webkit-box-shadow: 4px 4px 5px 1px rgba(136,136,136,0.7);
-	-moz-box-shadow: 4px 4px 5px 1px rgba(136,136,136,0.7);
+	border: 2px solid #05789c;
 }
 
 .fpbuddy_manage_widgets .lrow .row-actions{
@@ -99,18 +96,26 @@ Manage Screens
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	border-bottom: 1px solid #ccc;
+	background-color: #05789c;
 	padding: 5px;
 }
 
 .fpbuddy_manage_widgets .lrow .row-contents{
 	padding: 0 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
 }
 
-@media screen and (max-width: 1024px) {
-	.fpbuddy_manage_widgets .lrow .row-contents{
-		display: block;
-	}
+/* toggle between flex and block display */
+.fpbuddy_manage_widgets .lrow .row-contents.dblock{
+	display: block;
+}
+
+/* forced display block - is set dynamically by javascript if the container width is less than 500px */
+.fpbuddy_manage_widgets .force-dblock .lrow .row-contents{
+	display: block;
 }
 
 .fpbuddy_manage_widgets .splitter,
@@ -123,30 +128,21 @@ Manage Screens
 	display: inline-block;
 	height: 20px;
 	width: 20px;
-	background-image: url( 'images/2-columns.png' );
+	background-image: url( 'images/2-columns-white.png' );
 	background-size: cover;
-	filter: opacity( 30% );
 }
 
+/* Hide splitter when a row has 2 columns */
 .fpbuddy_manage_widgets .lrow.lcol-2 .splitter a{
 	display: none;
-}
-
-.fpbuddy_manage_widgets .splitter a:hover{
-	filter: opacity( 80% );
 }
 
 .fpbuddy_manage_widgets .remove_item a{
 	display: inline-block;
 	height: 20px;
 	width: 20px;
-	background-image: url( 'images/close-circle.png' );
+	background-image: url( 'images/close-empty.png' );
 	background-size: cover;
-	filter: opacity( 30% );
-}
-
-.fpbuddy_manage_widgets .remove_item a:hover{
-	filter: opacity( 80% );
 }
 
 .fpbuddy_manage_widgets .remove_item.remove_widget{
@@ -155,7 +151,7 @@ Manage Screens
 	right: -10px;
 }
 .fpbuddy_manage_widgets .remove_item.remove_widget a{
-	background-image: url( 'images/close-circle-alt.png' );
+	background-image: url( 'images/close-filled.png' );
 	height: 20px;
 	width: 20px;
 }
@@ -166,9 +162,8 @@ Manage Screens
 }
 
 .fpbuddy_manage_widgets .lrow .lcol .widget-content{
-	box-shadow: 4px 3px 5px 0px rgba(80,80,80,0.75);
-	-webkit-box-shadow: 4px 3px 5px 0px rgba(80,80,80,0.75);
-	-moz-box-shadow: 4px 3px 5px 0px rgba(80,80,80,0.75);
+	background-color: #ffffff;
+	border: 6px solid #05789c;
 }
 
 .fpbuddy_manage_widgets .row-add-new a {
@@ -194,10 +189,15 @@ Manage Screens
 }
 
 .fpbuddy_manage_widgets .widget .widget-title{
-	padding: 5px 10px;
+	border-radius: 0 !important;
+	background-color: #05789c;
+	color: #ffffff;
 	text-align: center;
-	background: linear-gradient(0deg, #ccc, transparent);
 	cursor: pointer;
+
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .fpbuddy_manage_widgets .widget.state-edit .widget-title{
 	cursor: text;
@@ -208,15 +208,10 @@ Manage Screens
 	display: block;
 	text-align: center;
     line-height: 100%;
-    padding: 5px 0;
-	border: 3px solid #555;
+    padding: 10px 0;
+	min-width: 188px;
+	background-color: #05789c;
     border-radius: 5px;
-	filter: opacity( 60% );
-}
-
-.fpbuddy_manage_widgets .new-widget .expand-widgets-list a:hover,
-.fpbuddy_manage_widgets .new-widget .collapse-widgets-list a:hover{
-	filter: opacity( 100% );
 }
 
 .fpbuddy_manage_widgets .new-widget .expand-widgets-list a span,
@@ -224,16 +219,21 @@ Manage Screens
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background-image: url( 'images/add_circle_icon.png' );
+	background-image: url( 'images/plus-icon-white.png' );
 	background-size: cover;
 }
 
 .fpbuddy_manage_widgets .new-widget .collapse-widgets-list a span{
-	background-image: url( 'images/minus_circle_icon.png' );
+	background-image: url( 'images/up-arrow-white.png' );
 }
 
 .fpbuddy_manage_widgets .row-content.lcol-1 .new-widget .remove_item{
 	display: none;
+}
+
+.fpbuddy_manage_widgets .all-widgets-list{
+	border: 3px solid #05789c;
+    padding: 0 10px;
 }
 
 .fpbuddy_manage_widgets .widget-to-add{
@@ -273,7 +273,7 @@ Manage Screens
 }
 
 .fpbuddy_manage_widgets .widget{
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 }
 
 .fpbuddy_manage_widgets .widget .widget-image{
@@ -287,6 +287,11 @@ Manage Screens
     margin: 20px 0 20px 20px;
     font-style: italic;
     border-left: 3px solid #ccc;
+}
+
+.fpbuddy_manage_widgets .widget.state-preview {
+	max-width: 200px;
+	margin: 0 auto;
 }
 
 .fpbuddy_manage_widgets .widget.state-preview .widget-desc,
