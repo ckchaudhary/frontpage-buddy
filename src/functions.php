@@ -44,18 +44,28 @@ function visual_editor_allowed_html_tags() {
 	);
 }
 
+/**
+ * Show/Print the output for custom front page.
+ *
+ * @param array  $layout Rows and columns.
+ * @param array  $widgets All added widgets.
+ * @param string $integration_type E.g: bp_groups.
+ * @param mixed  $target_id E.g: group id.
+ * @return void
+ */
 function show_output( $layout, $widgets, $integration_type, $target_id ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo get_output( $layout, $widgets, $integration_type, $target_id );
 }
 
 /**
- * Undocumented function
+ * Get the output for custom front page.
  *
- * @param [type] $layout
- * @param [type] $widgets
- * @param [type] $integration_type
- * @param [type] $target_id
- * @return void
+ * @param array  $layout Rows and columns.
+ * @param array  $widgets All added widgets.
+ * @param string $integration_type E.g: bp_groups.
+ * @param mixed  $target_id E.g: group id.
+ * @return string html
  */
 function get_output( $layout, $widgets, $integration_type, $target_id ) {
 	$html = '';
@@ -63,10 +73,9 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 	$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
 
 	if ( ! empty( $layout ) ) {
-		
 		foreach ( $layout as $layout_row ) {
 			$row = array();
-			
+
 			foreach ( $layout_row as $widget_id ) {
 				$found = false;
 				$widget_id = trim( $widget_id );
@@ -84,7 +93,6 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 				}
 
 				if ( $found ) {
-					
 					$widget_obj = false;
 					$widget_class = isset( $registered_widgets[ $widget['type'] ] ) && ! empty( $registered_widgets[ $widget['type'] ] ) ? $registered_widgets[ $widget['type'] ] : false;
 					if ( $widget_class && class_exists( $widget_class ) ) {
@@ -156,373 +164,6 @@ function buffer_template_part( $template ) {
 	return $output;
 }
 
-if ( ! function_exists( 'emi_generate_fields' ) ) :
-	/*
-	 * function to generate the html for given form fields
-	 *
-	 * @param array $fields 
-		an example input
-		$fields = array(
-		'full_name'     => array(
-		'type'          => 'textbox',
-		'label'         => 'Full Name',
-		'sqlcolumn'     => 'user_name',
-		'attributes'    => array(
-		'class'=>'inputtype1',
-		'placeholder'=>'Full Name'
-		),
-		'value'         => 'Mr. XYZ',
-		'description'   => 'Enter your full name including your surname.'
-		),
-
-		'date_of_birth' => array(
-		'type'          => 'textbox',
-		'label'         => 'Date of Birth',
-		'sqlcolumn'     => 'user_dob',
-		'attributes'    => array(
-		'class'=>'jqueryui-date'
-		)
-		),
-
-		'gender'        => array(
-		'type'          => 'radio',
-		'label'         => 'Gender',
-		'sqlcolumn'     => 'user_gender'
-		'options'       => array(
-		'male'      => 'Male',
-		'female'    => 'Female'
-		),
-		'value'         => 'female'
-		),
-
-		'hobbies'        => array(
-		'type'          => 'select',
-		'label'         => 'Hobbies',
-		'sqlcolumn'     => 'user_hobbies',
-		'attributes'    => array(
-		'multiple'=>''
-		)
-		'options'       => array(
-		'11'     => 'Listening to music',
-		'16'     => 'playing games',
-		'5'     => 'Reading',
-		),
-		'value'         => array( '5', '11' )
-		),
-		);
-
-	 *
-	 * @param array $args options
-	 * @return void
-	 */
-	function emi_generate_fields( $fields, $args = '' ) {
-
-		if ( ! $fields || empty( $fields ) ) {
-			return;
-		}
-		if ( ! $args || empty( $args ) ) {
-			$args = array();
-		}
-
-		$defaults = array(
-			'before_list'  => '',
-			'after_list'   => '',
-			'before_field' => '',
-			'after_field'  => '',
-			'form_id'      => 'form1',
-		);
-
-		$args = array_merge( $defaults, $args );
-
-		echo $args['before_list'];
-
-		foreach ( $fields as $field_id => $field ) {
-			$field_defaults = array(
-				'label'         => '',
-				'before'        => '',
-				'before_inside' => '',
-				'after_inside'  => '',
-				'after'         => '',
-				'wrapper_class' => '',
-				'type'          => 'text',
-			);
-
-			$field = wp_parse_args( $field, $field_defaults );
-
-			echo $args['before_field'];
-
-			echo $field['before'];
-
-			$cssclass = 'field field-' . $field_id . ' field-' . $field['type'];
-			if ( $field['wrapper_class'] ) {
-				$cssclass .= ' ' . $field['wrapper_class'];
-			}
-
-			echo "<div class='$cssclass' id='field-" . $field_id . "'>";
-			echo $field['before_inside'];
-
-			switch ( $field['type'] ) {
-				case 'checkbox':
-				case 'radio':
-					// label
-					$html = '<label>' . $field['label'] . '</label>';
-					foreach ( $field['options'] as $option_val => $option_label ) {
-						$html .= "<label class='label_option label_option_" . $field['type'] . "'><input type='" . $field['type'] . "' name='" . $field_id . "[]' value='$option_val' id='$option_val'";
-
-						// checked ?
-						if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
-							if ( is_array( $field['value'] ) ) {
-								if ( in_array( $option_val, $field['value'] ) ) {
-									$html .= " checked='checked'";
-								}
-							} elseif ( $option_val == $field['value'] ) {
-									// $html .= " checked='checked'";
-									$html .= '';
-							}
-						}
-
-						// attributes
-						if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-							foreach ( $field['attributes'] as $att_name => $att_val ) {
-								$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-							}
-						}
-
-						$html .= " />$option_label</label>";
-					}
-
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-
-				case 'select':
-					// label
-					$html  = "<label for='$field_id'>" . $field['label'] . '</label>';
-					$html .= "<select id='$field_id' name='$field_id'";
-
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-
-					$html .= '>';
-
-					foreach ( $field['options'] as $option_val => $option_label ) {
-						$html .= "<option value='$option_val' ";
-
-						// checked ?
-						if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
-							if ( is_array( $field['value'] ) ) {
-								if ( in_array( $option_val, $field['value'] ) ) {
-									$html .= " selected='selected'";
-								}
-							} elseif ( $option_val == $field['value'] ) {
-									$html .= " selected='selected'";
-							}
-						}
-
-						$html .= ">$option_label</option>";
-					}
-
-					$html .= '</select>';
-
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-				case 'textarea':
-					// label
-					$html = "<label for='$field_id'>" . $field['label'] . '</label>';
-
-					$html .= "<textarea type='text' id='$field_id' name='$field_id' ";
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-					$html .= ' >';
-
-					// selected value
-					$field['value'] = esc_textarea( $field['value'] );
-					if ( isset( $field['value'] ) && $field['value'] ) {
-						$html .= $field['value'];
-					}
-
-					$html .= '</textarea>';
-
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-
-				case 'wp_editor':
-					// label
-					$html = "<label for='$field_id'>" . $field['label'] . '</label>';
-
-					$html .= "<textarea type='text' id='$field_id' name='$field_id' ";
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							if ( 'style' == $att_name ) {
-								continue;
-							}
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-
-					// $html .= " style='display:none'";
-					$html .= ' >';
-
-					// selected value
-					$field['value'] = esc_textarea( $field['value'] );
-					if ( isset( $field['value'] ) && $field['value'] ) {
-						$html .= $field['value'];
-					}
-
-					$html .= '</textarea>';
-
-					// $html .= "<div class='content-editor' id='editor-$field_id' data-for='$field_id'>" . $field['value'] . "</div>";
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-
-				case 'button':
-				case 'submit':
-					$html = "<label for='$field_id'>" . $field['label'] . '</label>';
-
-					$field_type = 'submit';
-					if ( isset( $field['type'] ) ) {
-						$field_type = $field['type'];
-					}
-
-					if ( $field_type == 'button' ) {
-						$html .= "<button id='$field_id' name='$field_id'";
-					} else {
-						$html .= "<input type='$field_type' id='$field_id' name='$field_id'";
-					}
-
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-
-					if ( $field_type == 'button' ) {
-						$html .= '>';
-						if ( isset( $field['value'] ) && $field['value'] ) {
-							$html .= $field['value'];
-						}
-						$html .= '</button>';
-					} else {
-						if ( isset( $field['value'] ) && $field['value'] ) {
-							$html .= " value='" . esc_attr( $field['value'] ) . "'";
-						}
-						$html .= ' />';
-					}
-
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-
-				case 'repeater':
-					// label
-
-					$html = '';
-
-					$html .= "<input type='hidden' data-isrepeater='1' id='$field_id' name='$field_id'";
-
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-
-					// selected value
-					if ( isset( $field['value'] ) && $field['value'] ) {
-						$html .= " value='" . esc_attr( $field['value'] ) . "'";
-					}
-
-					$html .= ' />';
-					echo $html;
-
-					if ( function_exists( 'do_action' ) ) {
-						$actionname = 'emi_generate_form_repeater_' . $field_id;
-						do_action( $actionname, $field, $args['form_id'] );
-					}
-
-					break;
-
-				case 'label':
-					echo $html = "<label for='$field_id'>" . $field['label'] . '</label>';
-					break;
-
-				default:
-					// label
-					$html = "<label for='$field_id'>" . $field['label'] . '</label>';
-
-					$html .= "<input type='{$field[ 'type' ]}' id='$field_id' name='$field_id'";
-
-					// attributes
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= " $att_name='" . esc_attr( $att_val ) . "'";
-						}
-					}
-
-					// selected value
-					$field['value'] = $field['value'];
-					if ( isset( $field['value'] ) && $field['value'] ) {
-						$html .= " value='" . esc_attr( $field['value'] ) . "'";
-					}
-
-					$html .= ' />';
-
-					// description
-					if ( isset( $field['description'] ) && $field['description'] ) {
-						$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-					}
-
-					echo $html;
-					break;
-			}
-
-			echo $field['after_inside'];
-			echo '</div><!-- .field -->';
-
-			echo $field['after'];
-			echo $args['after_field'];
-		}
-
-		echo $args['after_list'];
-	}
-
-
-
-endif;
-
 add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\RecycleBin\FrontPageBuddy\widget_title_for_manage_screen', 10, 2 );
 /**
  * Filters the title for a widget when displayed on manage widgets screens.
@@ -547,4 +188,281 @@ function widget_title_for_manage_screen( $title, $widget ) {
 			}
 	}
 	return $title;
+}
+
+/**
+ * Function to generate the html for given form fields.
+ *
+ * @param array $fields list of fields.
+ * @param array $args Options.
+ * @return void
+ */
+function generate_form_fields( $fields, $args = '' ) {
+
+	if ( ! $fields || empty( $fields ) ) {
+		return;
+	}
+	if ( ! $args || empty( $args ) ) {
+		$args = array();
+	}
+
+	$defaults = array(
+		'before_list'  => '',
+		'after_list'   => '',
+		'before_field' => '',
+		'after_field'  => '',
+		'form_id'      => '',
+	);
+
+	$args = array_merge( $defaults, $args );
+
+	// phpcs:ignore WordPress.Security.EscapeOutput
+	echo $args['before_list'];
+
+	foreach ( $fields as $field_name => $field ) {
+		$field_defaults = array(
+			'id'            => '',
+			'label'         => '',
+			'before'        => '',
+			'before_inside' => '',
+			'after_inside'  => '',
+			'after'         => '',
+			'wrapper_class' => '',
+			'type'          => 'text',
+		);
+		$field = wp_parse_args( $field, $field_defaults );
+
+		$field_id = $field_name . '_' . \uniqid();
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['before_field'];
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $field['before'];
+
+		$cssclass = 'field field-' . $field_name . ' field-' . $field['type'];
+		if ( $field['wrapper_class'] ) {
+			$cssclass .= ' ' . $field['wrapper_class'];
+		}
+
+		echo "<div class='" . esc_attr( $cssclass ) . "'>";
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $field['before_inside'];
+
+		switch ( $field['type'] ) {
+			case 'checkbox':
+			case 'radio':
+				// Label.
+				$html = '<label>' . esc_html( $field['label'] ) . '</label>';
+				foreach ( $field['options'] as $option_val => $option_label ) {
+					$html .= sprintf(
+						'<label class="label_option label_option_%1$s"><input type="%1$s" name="%2$s[]" value="%3$s"',
+						esc_attr( $field['type'] ),
+						esc_attr( $field_name ),
+						esc_attr( $option_val )
+					);
+
+					// Checked ?
+					if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
+						if ( is_array( $field['value'] ) ) {
+							if ( in_array( $option_val, $field['value'] ) ) {
+								$html .= " checked='checked'";
+							}
+						} elseif ( $option_val == $field['value'] ) {
+							$html .= '';
+						}
+					}
+
+					// Attributes.
+					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+						foreach ( $field['attributes'] as $att_name => $att_val ) {
+							$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+						}
+					}
+
+					$html .= ' />' . esc_html( $option_label ) . '</label>';
+				}
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= "<span class='field_description'>" . $field['description'] . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+
+			case 'select':
+				// Label.
+				$html = sprintf(
+					'<label for="%1$s">%2$s</label><select id="%1$s" name="%3$s"',
+					esc_attr( $field_id ),
+					esc_html( $field['label'] ),
+					esc_attr( $field_name )
+				);
+
+				// Attributes.
+				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+					foreach ( $field['attributes'] as $att_name => $att_val ) {
+						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+					}
+				}
+
+				$html .= '>';
+
+				foreach ( $field['options'] as $option_val => $option_label ) {
+					$html .= "<option value='" . esc_attr( $option_val ) . "' ";
+
+					// checked ?
+					if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
+						if ( is_array( $field['value'] ) ) {
+							if ( in_array( $option_val, $field['value'] ) ) {
+								$html .= " selected='selected'";
+							}
+						} elseif ( $option_val == $field['value'] ) {
+								$html .= " selected='selected'";
+						}
+					}
+
+					$html .= '>' . esc_html( $option_label ) . '</option>';
+				}
+
+				$html .= '</select>';
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= "<span class='field_description'>" . esc_html( $field['description'] ) . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+			case 'textarea':
+			case 'wp_editor':
+				// Label.
+				$html = sprintf(
+					'<label for="%1$s">%$2s</label><textarea id="%1$s" name="%3$s"',
+					esc_attr( $field_id ),
+					esc_html( $field['label'] ),
+					esc_attr( $field_name )
+				);
+
+				// Attributes.
+				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+					foreach ( $field['attributes'] as $att_name => $att_val ) {
+						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+					}
+				}
+				$html .= ' >';
+
+				$field['value'] = esc_textarea( $field['value'] );
+				if ( isset( $field['value'] ) && $field['value'] ) {
+					$html .= $field['value'];
+				}
+
+				$html .= '</textarea>';
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= "<span class='field_description'>" . esc_html( $field['description'] ) . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+
+			case 'button':
+			case 'submit':
+				$html = '<label for="' . esc_attr( $field_id ) . '">' . esc_html( $field['label'] ) . '</label>';
+
+				$field_type = 'submit';
+				if ( isset( $field['type'] ) ) {
+					$field_type = $field['type'];
+				}
+
+				if ( 'button' === $field_type ) {
+					$html .= '<button id="' . esc_attr( $field_id ) . '" name="' . esc_attr( $field_name ) . '" ';
+				} else {
+					$html .= '<input type="' . esc_attr( $field_type ) . '" id="' . esc_attr( $field_id ) . '" name="' . esc_attr( $field_name ) . '" ';
+				}
+
+				// Attributes.
+				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+					foreach ( $field['attributes'] as $att_name => $att_val ) {
+						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+					}
+				}
+
+				if ( 'button' === $field_type ) {
+					$html .= '>';
+					if ( isset( $field['value'] ) && $field['value'] ) {
+						$html .= $field['value'];
+					}
+					$html .= '</button>';
+				} else {
+					if ( isset( $field['value'] ) && $field['value'] ) {
+						$html .= ' value="' . esc_attr( $field['value'] ) . '" ';
+					}
+					$html .= ' />';
+				}
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= '<span class="field_description">' . esc_html( $field['description'] ) . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+
+			case 'label':
+				echo '<label for="' . esc_attr( $field_id ) . '" >' . esc_html( $field['label'] ) . '</label>';
+				break;
+
+			default:
+				// Label.
+				$html = sprintf(
+					'<label for="%1$s">%2$s</label><input id="%1$s" name="%3$s" type="%4$s"',
+					esc_attr( $field_id ),
+					esc_html( $field['label'] ),
+					esc_attr( $field_name ),
+					esc_attr( $field[ 'type' ] )
+				);
+
+				// Attributes.
+				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+					foreach ( $field['attributes'] as $att_name => $att_val ) {
+						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+					}
+				}
+
+				// Value.
+				if ( isset( $field['value'] ) ) {
+					$html .= ' value="' . esc_attr( $field['value'] ) . '" ';
+				}
+
+				$html .= ' />';
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= '<span class="field_description">' . esc_html( $field['description'] ) . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+		}
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $field['after_inside'];
+		echo '</div><!-- .field -->';
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $field['after'];
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['after_field'];
+	}
+
+	// phpcs:ignore WordPress.Security.EscapeOutput
+	echo $args['after_list'];
 }

@@ -277,7 +277,7 @@ abstract class Widget {
 				$delete_link      = sprintf( "<a class='lnk_delete_widget' href='#' title='%s'>%s</a>", __( 'Delete this widget', 'bp-landing-pages' ), __( 'Delete', 'bp-landing-pages' ) );
 				$fields           = $this->get_fields();
 				if ( ! empty( $fields ) ) {
-					\RecycleBin\FrontPageBuddy\emi_generate_fields( $fields );
+					\RecycleBin\FrontPageBuddy\generate_form_fields( $fields );
 				}
 				?>
 
