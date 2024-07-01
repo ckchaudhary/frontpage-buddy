@@ -73,6 +73,14 @@ abstract class Integration {
 	abstract public function is_widgets_edit_screen( $flag = false );
 
 	/**
+	 * When on manage widget screen, get the id of the object being edited.
+	 * E.g: current user id, group id etc.
+	 *
+	 * @return mixed
+	 */
+	abstract public function get_editable_object_id();
+
+	/**
 	 * Is the current request a custom front page screen.
 	 *
 	 * @param boolean $flag Passed when this is hooked to a filter.
@@ -86,7 +94,46 @@ abstract class Integration {
 	 * @param array $data the first argument of the filter this function is hooked to.
 	 * @return array
 	 */
-	abstract public function script_data( $data );
+	public function manage_screen_script_data( $data ) {
+		if ( ! $this->is_widgets_edit_screen() ) {
+			return $data;
+		}
+
+		$data['object_type'] = $this->get_integration_type();
+		$data['object_id']   = $this->get_editable_object_id();
+		if ( $data['object_id'] ) {
+			$data['all_widgets'] = array();
+			$all = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), $data['object_id'] );
+			if ( ! empty( $all ) ) {
+				foreach ( $all as $widget ) {
+					$data['all_widgets'][] = array(
+						'type'        => $widget->type,
+						'name'        => $widget->name,
+						'description' => $widget->description,
+						'icon'        => $widget->icon_image_url,
+					);
+				}
+			}
+
+			$added_widgets = $this->get_added_widgets( $data['object_id'] );
+			if ( ! empty( $added_widgets ) ) {
+				$temp = array();
+				foreach ( $added_widgets as $widget ) {
+					$title = apply_filters( 'frontpage_buddy_widget_title_for_manage_screen', '', $widget );
+					$widget['title'] = $title;
+					unset( $widget['options'] );
+
+					$temp[] = $widget;
+				}
+				$added_widgets = $temp;
+			}
+			$data['added_widgets'] = $added_widgets;
+
+			$data['fp_layout'] = $this->get_frontpage_layout( $data['object_id'] );
+		}
+
+		return $data;
+	}
 
 	/**
 	 * Get the layout for front page.
@@ -169,6 +216,6 @@ abstract class Integration {
 
 		add_filter( 'frontpage_buddy_is_widgets_edit_screen', array( $this, 'is_widgets_edit_screen' ) );
 		add_filter( 'frontpage_buddy_is_custom_front_page_screen', array( $this, 'is_custom_front_page_screen' ) );
-		add_filter( 'frontpage_buddy_script_data', array( $this, 'script_data' ) );
+		add_filter( 'frontpage_buddy_script_data', array( $this, 'manage_screen_script_data' ) );
 	}
 }

@@ -65,46 +65,13 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	}
 
 	/**
-	 * Add data for javascript.
+	 * When on manage widget screen, get the id of the object being edited.
+	 * E.g: current user id, group id etc.
 	 *
-	 * @param array $data the first argument of the filter this function is hooked to.
-	 * @return array
+	 * @return mixed
 	 */
-	public function script_data( $data ) {
-		if ( um_is_core_page( 'user' ) ) {
-			$data['object_type'] = $this->get_integration_type();
-			$data['object_id']   = (int) UM()->user()->target_id;
-		}
-
-		if ( $this->is_widgets_edit_screen() ) {
-			$data['all_widgets'] = array();
-			$all = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), $data['object_id'] );
-			if ( ! empty( $all ) ) {
-				foreach ( $all as $widget ) {
-					$data['all_widgets'][] = array(
-						'type'        => $widget->type,
-						'name'        => $widget->name,
-						'description' => $widget->description,
-						'icon'        => $widget->icon_image_url,
-					);
-				}
-			}
-
-			$added_widgets = $this->get_added_widgets( $data['object_id'] );
-			if ( ! empty( $added_widgets ) ) {
-				$temp = array();
-				foreach ( $added_widgets as $widget ) {
-					unset( $widget['options'] );
-					$temp[] = $widget;
-				}
-				$added_widgets = $temp;
-			}
-			$data['added_widgets'] = $added_widgets;
-
-			$data['fp_layout'] = $this->get_frontpage_layout( $data['object_id'] );
-		}
-
-		return $data;
+	public function get_editable_object_id() {
+		return (int) UM()->user()->target_id;
 	}
 
 	/**
