@@ -14,7 +14,8 @@
             "RecycleBin\\FrontPageBuddy\\": "src/"
         },
 		"files": [
-			"src/functions.php"
+			"src/functions-misc.php",
+			"src/functions-widgets.php"
 		]
     },
     "require": {}
