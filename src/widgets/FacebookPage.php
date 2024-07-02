@@ -1,6 +1,6 @@
 <?php
 /**
- * Richcontent widget.
+ * Facebook page embed widget.
  *
  * @package FrontPage Buddy
  * @since 1.0.0
@@ -17,10 +17,11 @@ class FacebookPage extends Widget {
 	/**
 	 * Constructor.
 	 *
-	 * @param mixed $args Initial data.
+	 * @param string $type A unique identifier.
+	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
 	 */
-	public function __construct( $args = '' ) {
-		$this->type           = 'facebookpageembed';
+	public function __construct( $type, $args = '' ) {
+		$this->type           = $type;
 		$this->name           = __( 'Facebook Page', 'frontpage-buddy' );
 		$this->description    = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
 		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-fb-pages.png';

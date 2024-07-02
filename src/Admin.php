@@ -274,7 +274,7 @@ class Admin {
 
 		foreach ( $registered_widgets as $widget_type => $widget_class ) {
 			$this_widget_settings = isset( $field_value[ $widget_type ] ) ? $field_value[ $widget_type ] : array();
-			$obj = new $widget_class();
+			$obj = new $widget_class( $widget_type );
 			echo '<table class="table widefat form-table">';
 			echo '<thead><tr><td colspan="100%"><strong>' . esc_html( $obj->name ) . '</strong></td></tr></thead>';
 			echo '<tbody>';

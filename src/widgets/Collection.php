@@ -55,6 +55,7 @@ class Collection {
 				'richcontent'           => '\RecycleBin\FrontPageBuddy\Widgets\RichContent',
 				'instagramprofileembed' => '\RecycleBin\FrontPageBuddy\Widgets\InstagramProfile',
 				'facebookpageembed'     => '\RecycleBin\FrontPageBuddy\Widgets\FacebookPage',
+				'youtubeembed'          => '\RecycleBin\FrontPageBuddy\Widgets\YoutubeEmbed',
 			)
 		);
 
@@ -86,7 +87,7 @@ class Collection {
 				}
 
 				if ( $this->is_widget_enabled_for( $widget_type, $object_type, $object_id ) ) {
-					$avl_widgets[] = new $widget_class();
+					$avl_widgets[] = new $widget_class( $widget_type );
 				}
 			}
 		}
@@ -211,7 +212,7 @@ class Collection {
 				$found = false;
 				foreach ( $layout_sanitized as $row ) {
 					foreach ( $row as $new_widget_id ) {
-						if ( $new_widget_id === $old_widget[ 'id' ] ) {
+						if ( $new_widget_id === $old_widget['id'] ) {
 							$found = true;
 							break 2;
 						}
@@ -276,6 +277,7 @@ class Collection {
 		$widget_class = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
 		if ( $widget_class && class_exists( $widget_class ) ) {
 			$widget_obj = new $widget_class(
+				$widget_type,
 				array(
 					'id'          => $widget_id,
 					'object_type' => $object_type,
@@ -332,6 +334,7 @@ class Collection {
 		$widget_class = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
 		if ( $widget_class && class_exists( $widget_class ) ) {
 			$widget_obj = new $widget_class(
+				$widget_type,
 				array(
 					'id'          => $widget_id,
 					'object_type' => $object_type,

@@ -63,6 +63,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 					$widget_class = isset( $registered_widgets[ $widget['type'] ] ) && ! empty( $registered_widgets[ $widget['type'] ] ) ? $registered_widgets[ $widget['type'] ] : false;
 					if ( $widget_class && class_exists( $widget_class ) ) {
 						$widget_obj = new $widget_class(
+							$widget['type'],
 							array(
 								'id'          => $widget['id'],
 								'object_type' => $integration_type,

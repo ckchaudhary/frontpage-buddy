@@ -14,8 +14,14 @@ defined( 'ABSPATH' ) ? '' : exit();
  *  Embed twitter feed.
  */
 class InstagramProfile extends Widget {
-	public function __construct( $args = '' ) {
-		$this->type           = 'instagramprofileembed';
+	/**
+	 * Constructor.
+	 *
+	 * @param string $type A unique identifier.
+	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 */
+	public function __construct( $type, $args = '' ) {
+		$this->type           = $type;
 		$this->name           = __( 'Instagram Profile', 'frontpage-buddy' );
 		$this->description    = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
 		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-instagram-feed.png';

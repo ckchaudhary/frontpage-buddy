@@ -14,8 +14,14 @@ defined( 'ABSPATH' ) ? '' : exit();
  *  Embed twitter feed.
  */
 class TwitterFeed extends Widget {
-	public function __construct( $args = '' ) {
-		$this->type           = 'twitterfeed';
+	/**
+	 * Constructor.
+	 *
+	 * @param string $type A unique identifier.
+	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 */
+	public function __construct( $type, $args = '' ) {
+		$this->type           = $type;
 		$this->name           = 'X Feed';
 		$this->description    = 'Display your X/Twitter feed.';
 		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-x-feed.png';
@@ -23,7 +29,7 @@ class TwitterFeed extends Widget {
 		$this->setup( $args );
 	}
 
-	public function output() {
+	public function get_output() {
 		$tw_handle = $this->options['username'];
 
 		if ( ! $tw_handle ) {
