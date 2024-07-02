@@ -155,6 +155,15 @@ function widget_title_for_manage_screen( $title, $widget ) {
 				$content = trim( $content, ' @' );
 				$title   = '@' . $content . ' - instagram';
 			}
+			break;
+
+		case 'twitterprofile':
+			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['username'] ) && ! empty( $widget['options']['username'] ) ? wp_strip_all_tags( $widget['options']['username'] ) : '';
+			if ( $content ) {
+				$content = trim( $content, ' @' );
+				$title   = '@' . $content . ' - X';
+			}
+			break;
 	}
 	return $title;
 }

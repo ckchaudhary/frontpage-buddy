@@ -56,6 +56,7 @@ class Collection {
 				'instagramprofileembed' => '\RecycleBin\FrontPageBuddy\Widgets\InstagramProfile',
 				'facebookpageembed'     => '\RecycleBin\FrontPageBuddy\Widgets\FacebookPage',
 				'youtubeembed'          => '\RecycleBin\FrontPageBuddy\Widgets\YoutubeEmbed',
+				'twitterprofile'        => '\RecycleBin\FrontPageBuddy\Widgets\TwitterProfile',
 			)
 		);
 
