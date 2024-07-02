@@ -32,6 +32,11 @@ class RichContent extends Widget {
 		$this->setup( $args );
 	}
 
+	/**
+	 * Get the fields for setting up this widget.
+	 *
+	 * @return array
+	 */
 	public function get_fields() {
 		$fields = array();
 
@@ -45,6 +50,11 @@ class RichContent extends Widget {
 		return $fields;
 	}
 
+	/**
+	 * Get the html output for this widget.
+	 *
+	 * @return string
+	 */
 	public function get_output() {
 		return $this->view_field_val( 'content' );
 	}

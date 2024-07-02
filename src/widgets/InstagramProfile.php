@@ -29,6 +29,11 @@ class InstagramProfile extends Widget {
 		$this->setup( $args );
 	}
 
+	/**
+	 * Get the fields for setting up this widget.
+	 *
+	 * @return array
+	 */
 	public function get_fields() {
 		$fields = array();
 
@@ -42,6 +47,11 @@ class InstagramProfile extends Widget {
 		return $fields;
 	}
 
+	/**
+	 * Get the html output for this widget.
+	 *
+	 * @return string
+	 */
 	public function get_output() {
 		$insta_id = $this->view_field_val( 'insta_id' );
 		$insta_id = trim( $insta_id, ' /@' );
@@ -51,7 +61,7 @@ class InstagramProfile extends Widget {
 
 		$instagram_url = 'https://www.instagram.com/' . $insta_id . '/';
 
-		wp_enqueue_script( 'instagram-embed', 'https://www.instagram.com/embed.js', array(), '12' );
+		wp_enqueue_script( 'instagram-embed', 'https://www.instagram.com/embed.js', array(), '12', array( 'in_footer' => true ) );
 
 		/* setting width 100% is mandatory so that the instagram widget can take up full space of its container */
 		return sprintf( "<blockquote class='instagram-media' data-instgrm-permalink='%s' data-instgrm-version='12' style='width:100%%;'></blockquote>", esc_attr( $instagram_url ) );

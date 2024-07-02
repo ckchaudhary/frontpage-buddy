@@ -93,6 +93,13 @@ class FPBuddyWidgetsManager {
 					insta_id = '@' + insta_id.replace( '@', '' ) + ' - instagram';
 					$widget.find( '.widget-title' ).text( insta_id );
 				}
+			} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
+				let insta_id = $widget.find('.field [name="username"]').first().val();
+				if ( insta_id.length > 0 ) {
+					insta_id = jQuery.trim( insta_id );
+					insta_id = '@' + insta_id.replace( '@', '' ) + ' - X';
+					$widget.find( '.widget-title' ).text( insta_id );
+				}
 			}
 		} );
     };
