@@ -118,7 +118,7 @@ class Collection {
 	 * @return boolean
 	 */
 	public function is_widget_enabled_for( $widget_type, $integration_type, $target_id ) {
-		$is_enabled = false;
+		$is_enabled      = false;
 		$widget_settings = $this->get_widget_settings( $widget_type );
 		if ( isset( $widget_settings['enabled_for'] ) && in_array( $integration_type, $widget_settings['enabled_for'], true ) ) {
 			$is_enabled = true;
@@ -139,8 +139,8 @@ class Collection {
 
 		$updated_status = isset( $_POST['updated_status'] ) && ! empty( $_POST['updated_status'] ) ? sanitize_text_field( wp_unslash( $_POST['updated_status'] ) ) : '';
 		$updated_status = 'yes' === $updated_status ? 'yes' : 'no';
-		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
-		$object_id = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
+		$object_type    = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
+		$object_id      = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
 
 		if ( empty( $object_id ) || empty( $object_type ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
@@ -172,7 +172,7 @@ class Collection {
 		check_ajax_referer( 'frontpage_buddy_update_layout' );
 
 		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
-		$object_id = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
+		$object_id   = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
 		// phpcs:disable
 		$layout_raw = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? map_deep( wp_unslash( $_POST['layout'] ), '\sanitize_text_field' ) : '';
 		// phpcs:enable
@@ -267,7 +267,7 @@ class Collection {
 		}
 
 		$prev_saved_options = array();
-		$saved_widgets = $integration->get_added_widgets( $object_id );
+		$saved_widgets      = $integration->get_added_widgets( $object_id );
 		if ( ! empty( $saved_widgets ) ) {
 			foreach ( $saved_widgets as $saved_widget ) {
 				if ( $saved_widget['id'] === $widget_id ) {
@@ -277,8 +277,8 @@ class Collection {
 		}
 
 		$registered_widgets = $this->get_registered_widgets();
-		$widget_obj = false;
-		$widget_class = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
+		$widget_obj         = false;
+		$widget_class       = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
 		if ( $widget_class && class_exists( $widget_class ) ) {
 			$widget_obj = new $widget_class(
 				$widget_type,
@@ -334,8 +334,8 @@ class Collection {
 		}
 
 		$registered_widgets = $this->get_registered_widgets();
-		$widget_obj = false;
-		$widget_class = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
+		$widget_obj         = false;
+		$widget_class       = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
 		if ( $widget_class && class_exists( $widget_class ) ) {
 			$widget_obj = new $widget_class(
 				$widget_type,
@@ -364,15 +364,15 @@ class Collection {
 			'options'      => $widget_obj->options,
 		);
 
-		$existing = false;
-		$saved_widgets = $integration->get_added_widgets( $object_id );
+		$existing            = false;
+		$saved_widgets       = $integration->get_added_widgets( $object_id );
 		$saved_widgets_count = count( $saved_widgets );
 		if ( $saved_widgets_count > 0 ) {
 			for ( $i = 0; $i < $saved_widgets_count; $i++ ) {
 				$saved_widget = $saved_widgets[ $i ];
 				if ( $saved_widget['id'] === $widget_data_new['id'] ) {
 					$saved_widgets[ $i ] = $widget_data_new;
-					$existing = true;
+					$existing            = true;
 					break;
 				}
 			}

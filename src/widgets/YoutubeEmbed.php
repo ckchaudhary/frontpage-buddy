@@ -36,7 +36,7 @@ class YoutubeEmbed extends Widget {
 	 */
 	public function get_fields() {
 		return array(
-			'url' => array(
+			'url'         => array(
 				'type'        => 'url',
 				'label'       => __( 'Video url', 'frontpage-buddy' ),
 				'description' => __( 'Enter the youtube video url.', 'frontpage-buddy' ),
@@ -74,7 +74,7 @@ class YoutubeEmbed extends Widget {
 		$full_embed_url = 'https://www.youtube.com/embed/' . $youtube_id;
 		$wh_attr        = 'width="560" height="315"';
 
-		$fluid_width = $this->view_field_val( 'fluid_width' );
+		$fluid_width      = $this->view_field_val( 'fluid_width' );
 		$full_width_class = ! empty( $fluid_width ) && 'yes' === $fluid_width ? 'fr-full-width' : '';
 
 		$yt_attr = '?disablekb=1&rel=0';
@@ -99,7 +99,7 @@ class YoutubeEmbed extends Widget {
 			}
 		}
 		if ( isset( $parts['path'] ) ) {
-			$path = explode( '/', trim( $parts['path'], '/' ) );
+			$path       = explode( '/', trim( $parts['path'], '/' ) );
 			$count_path = count( $path );
 			return $path[ $count_path - 1 ];
 		}

@@ -36,20 +36,20 @@ class TwitterProfile extends Widget {
 	 */
 	public function get_fields() {
 		return array(
-			'username'  => array(
+			'username'   => array(
 				'type'        => 'text',
 				'label'       => __( 'X/Twitter Handle', 'frontpage-buddy' ),
 				'value'       => ! empty( $this->edit_field_value( 'username' ) ) ? $this->edit_field_value( 'username' ) : '',
 				'attributes'  => array( 'placeholder' => __( 'E.g: @johndoe', 'frontpage-buddy' ) ),
 				'is_required' => true,
 			),
-			'width'    => array(
+			'width'      => array(
 				'type'       => 'number',
 				'label'      => __( 'Width', 'frontpage-buddy' ),
 				'value'      => ! empty( $this->edit_field_value( 'twidth' ) ) ? $this->edit_field_value( 'twidth' ) : '',
 				'attributes' => array( 'placeholder' => __( 'Width in pixels (optional)', 'frontpage-buddy' ) ),
 			),
-			'height'   => array(
+			'height'     => array(
 				'type'       => 'number',
 				'label'      => __( 'Height', 'frontpage-buddy' ),
 				'value'      => ! empty( $this->edit_field_value( 'theight' ) ) ? $this->edit_field_value( 'theight' ) : '',
@@ -81,7 +81,7 @@ class TwitterProfile extends Widget {
 		}
 
 		$profile_url = 'https://twitter.com/' . $twitter_id;
-		$width = (int) $this->view_field_val( 'width' );
+		$width       = (int) $this->view_field_val( 'width' );
 		if ( $width < 100 ) {
 			$width = 500;
 		}
