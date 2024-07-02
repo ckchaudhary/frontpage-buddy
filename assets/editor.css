@@ -363,6 +363,13 @@ Manage Screens
 }
 
 .fpbuddy_manage_widgets .widget_fields .field{
+	padding: 5px;
+	background: #ffffff;
+}
+.fpbuddy_manage_widgets .widget_fields .field:nth-child(even){
+	background: #f4f4f4;
+}
+.fpbuddy_manage_widgets .widget_fields .field:last-of-type{
 	margin-bottom: 10px;
 }
 

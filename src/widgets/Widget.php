@@ -121,7 +121,10 @@ abstract class Widget {
 	 */
 	public function edit_field_value( $field_name ) {
 		$val = isset( $this->options[ $field_name ] ) ? $this->options[ $field_name ] : '';
-		$val = stripslashes( $val );
+		if ( ! empty( $val ) ) {
+			$val = is_array( $val ) ? stripslashes_deep( $val ) : stripslashes( $val );
+		}
+
 		return apply_filters( 'frontpage_buddy_edit_field_value', $val, $field_name, $this );
 	}
 
@@ -134,7 +137,9 @@ abstract class Widget {
 	public function view_field_val( $field_name ) {
 		// For now, its same as edit_field_val.
 		$val = isset( $this->options[ $field_name ] ) ? $this->options[ $field_name ] : '';
-		$val = stripslashes( $val );
+		if ( ! empty( $val ) ) {
+			$val = is_array( $val ) ? stripslashes_deep( $val ) : stripslashes( $val );
+		}
 		return apply_filters( 'frontpage_buddy_view_field_value', $val, $field_name, $this );
 	}
 
@@ -231,7 +236,7 @@ abstract class Widget {
 	 * @since 1.0.0
 	 * @param string $field_name self explanator.
 	 * @param array  $field_attr field propterties like field type etc.
-	 * @return string
+	 * @return mixed
 	 */
 	public function sanitize_field_value_for_db( $field_name, $field_attr ) {
 		$sanitized_value = '';
@@ -243,6 +248,22 @@ abstract class Widget {
 					$sanitized_value = wp_kses( wp_unslash( $_POST[ $field_name ] ), \RecycleBin\FrontPageBuddy\visual_editor_allowed_html_tags() );
 				}
 
+				break;
+
+			case 'checkbox':
+			case 'radio':
+				// phpcs:disable
+				if ( isset( $_POST[ $field_name ] ) && ! empty( $_POST[ $field_name ] ) ) {
+					$sanitized_value = array();
+					if ( is_array( $_POST[ $field_name ] ) ) {
+						foreach ( $_POST[ $field_name ] as $raw_value ) {
+							$sanitized_value[] = sanitize_text_field( wp_unslash( $raw_value ) );
+						}
+					} else {
+						$sanitized_value[] = sanitize_text_field( wp_unslash( $_POST[ $field_name ] ) );
+					}
+				}
+				// phpcs:enable
 				break;
 
 			default:

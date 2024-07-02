@@ -184,7 +184,7 @@ function widget_title_for_manage_screen( $title, $widget ) {
 			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['insta_id'] ) && ! empty( $widget['options']['insta_id'] ) ? wp_strip_all_tags( $widget['options']['insta_id'] ) : '';
 			if ( $content ) {
 				$content = trim( $content, ' @' );
-				$title   = '@' . $content;
+				$title   = '@' . $content . ' - instagram';
 			}
 	}
 	return $title;
@@ -265,10 +265,10 @@ function generate_form_fields( $fields, $args = '' ) {
 					// Checked ?
 					if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
 						if ( is_array( $field['value'] ) ) {
-							if ( in_array( $option_val, $field['value'] ) ) {
+							if ( in_array( $option_val, $field['value'], true ) ) {
 								$html .= " checked='checked'";
 							}
-						} elseif ( $option_val == $field['value'] ) {
+						} elseif ( $option_val === $field['value'] ) {
 							$html .= '';
 						}
 					}

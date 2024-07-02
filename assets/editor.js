@@ -90,7 +90,7 @@ class FPBuddyWidgetsManager {
 				let insta_id = $widget.find('.field [name="insta_id"]').first().val();
 				if ( insta_id.length > 0 ) {
 					insta_id = jQuery.trim( insta_id );
-					insta_id = '@' + insta_id.replace( '@', '' );
+					insta_id = '@' + insta_id.replace( '@', '' ) + ' - instagram';
 					$widget.find( '.widget-title' ).text( insta_id );
 				}
 			}
