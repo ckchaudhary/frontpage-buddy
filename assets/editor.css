@@ -8,7 +8,6 @@ body.buddypress.group-admin.front-page #bp-group-edit--submit-wrapper{
 }
 
 /* Switch UI */
-.buddypress-wrap .standard-form label.fpbuddy-switch,
 label.fpbuddy-switch {
 	display: flex;
 	flex-direction: row;
@@ -54,7 +53,7 @@ label.fpbuddy-switch span.switch-mask::before {
 	-o-transition:		all 0.5s ease-out;
 }
 label.fpbuddy-switch input:checked + span.switch-mask {
-	background-color: #8c02af;
+	background-color: #05789c;
 }
 label.fpbuddy-switch input:checked + span.switch-mask::before {
 	transform:			translateX(20px);
@@ -342,35 +341,20 @@ Manage Screens
         vertical-align: middle;
     }
 
-
-/* hide the images but keep those there to be able to set a responsive background image*/
-.fpbuddy_manage_widgets .widget.widget-twitterfeed .widget-image img,
-.fpbuddy_manage_widgets .widget.widget-richcontent .widget-image img,
-.fpbuddy_manage_widgets .widget.widget-fbpage .widget-image img{
-	visibility: hidden;
-}
-.fpbuddy_manage_widgets .widget.widget-twitterfeed .widget-image{
-	background-image: url( 'images/icon-x-feed.png' );
-	background-size: cover;
-}
-.fpbuddy_manage_widgets .widget.widget-richcontent .widget-image{
-	background-image: url( 'images/icon-richtext.png' );
-	background-size: cover;
-}
-.fpbuddy_manage_widgets .widget.widget-fbpage .widget-image{
-	background-image: url( 'images/icon-fb-pages.png' );
-	background-size: cover;
-}
-
 .fpbuddy_manage_widgets .widget_fields .field{
 	padding: 5px;
-	background: #ffffff;
+	background: #f4f4f4;
 }
 .fpbuddy_manage_widgets .widget_fields .field:nth-child(even){
-	background: #f4f4f4;
+	background: #ffffff;
 }
 .fpbuddy_manage_widgets .widget_fields .field:last-of-type{
 	margin-bottom: 10px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field .field_description{
+	font-size: smaller;
+	font-style: italic;
 }
 
 .fpbuddy_manage_widgets .widget_fields .field input,
@@ -386,6 +370,14 @@ Manage Screens
 	display: inline-block;
 	width: auto;
 	margin-right: 5px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"]{
+	display: none;
+}
+
+.fpbuddy_manage_widgets .widget_fields .trumbowyg{
+	background: #ffffff;
 }
 
 #buddypress .trumbowyg .trumbowyg-button-pane button,
