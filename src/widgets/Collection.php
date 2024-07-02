@@ -138,7 +138,7 @@ class Collection {
 		check_ajax_referer( 'frontpage_buddy_change_status' );
 
 		$updated_status = isset( $_POST['updated_status'] ) && ! empty( $_POST['updated_status'] ) ? sanitize_text_field( wp_unslash( $_POST['updated_status'] ) ) : '';
-		$updated_status = 'yes' == $updated_status ? 'yes' : 'no';
+		$updated_status = 'yes' === $updated_status ? 'yes' : 'no';
 		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
 		$object_id = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
 
@@ -173,7 +173,10 @@ class Collection {
 
 		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
 		$object_id = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
-		$layout_raw = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? $_POST['layout'] : '';
+		// phpcs:disable
+		$layout_raw = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? map_deep( wp_unslash( $_POST['layout'] ), '\sanitize_text_field' ) : '';
+		// phpcs:enable
+
 		$layout_sanitized = array();
 		if ( ! empty( $layout_raw ) ) {
 			foreach ( $layout_raw as $row ) {
@@ -381,18 +384,5 @@ class Collection {
 
 		$integration->update_added_widgets( $object_id, $saved_widgets );
 		wp_send_json_success( array( 'message' => __( 'Updated', 'frontpage-buddy' ) ) );
-	}
-
-	/**
-	 * Output
-	 *
-	 * @param [type] $object_id
-	 * @param [type] $object_type
-	 * @return void
-	 */
-	public function print_widgets_output( $object_id, $object_type ) {
-		if ( empty( $object_id ) || empty( $object_type ) ) {
-			return;
-		}
 	}
 }

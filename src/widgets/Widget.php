@@ -187,7 +187,7 @@ abstract class Widget {
 		$fields         = $this->get_fields();
 		if ( ! empty( $fields ) ) {
 			foreach ( $fields as $field_name => $field_attr ) {
-				if ( in_array( $field_attr['type'], $excluded_types ) ) {
+				if ( in_array( $field_attr['type'], $excluded_types, true ) ) {
 					continue;
 				}
 
@@ -287,8 +287,8 @@ abstract class Widget {
 		?>
 		<form method="POST" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>">
 			<?php wp_nonce_field( 'frontpage_buddy_widget_opts_update', '_wpnonce', false ); ?>
-			<input type="hidden" name="widget_id" value="<?php echo $this->get_id(); ?>" >
-			<input type="hidden" name="widget_type" value="<?php echo $this->type; ?>" >
+			<input type="hidden" name="widget_id" value="<?php echo esc_attr( $this->get_id() ); ?>" >
+			<input type="hidden" name="widget_type" value="<?php echo esc_attr( $this->type ); ?>" >
 			<input type="hidden" name="action" value="frontpage_buddy_widget_opts_update" >
 			<input type="hidden" name="object_type" value="<?php echo esc_attr( $this->object_type ); ?>">
 			<input type="hidden" name="object_id" value="<?php echo esc_attr( $this->object_id ); ?>">
@@ -302,8 +302,8 @@ abstract class Widget {
 				}
 				?>
 
-				<button type="submit"><?php _e( 'Update', 'frontpage-buddy' ); ?></button>
-				<a href="#" class="close-widget-settings"><?php _e( 'Close', 'frontpage-buddy' ); ?></a>
+				<button type="submit"><?php esc_html_e( 'Update', 'frontpage-buddy' ); ?></button>
+				<a href="#" class="close-widget-settings"><?php esc_html_e( 'Close', 'frontpage-buddy' ); ?></a>
 			</div>
 
 		</form>
