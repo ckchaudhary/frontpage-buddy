@@ -144,6 +144,44 @@ function generate_form_fields( $fields, $args = '' ) {
 				echo $html;
 				break;
 
+			case 'switch':
+				$html = '';
+				if ( isset( $field['label'] ) && ! empty( $field['label'] ) ) {
+					$html .= '<label>' . esc_html( $field['label'] ) . '</label>';
+				}
+
+				// Attributes.
+				$attributes = isset( $field['value'] ) && 'yes' === $field['value'] ? 'checked' : '';
+				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+					foreach ( $field['attributes'] as $att_name => $att_val ) {
+						$attributes .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+					}
+				}
+
+				$html .= sprintf(
+					'<label class="fpbuddy-switch">	
+						<input type="checkbox" name="%1$s" value="yes" %2$s>
+						<span class="switch-mask"></span>
+						<span class="switch-labels">
+							<span class="label-on">%3$s</span>
+							<span class="label-off">%4$s</span>
+						</span>
+					</label>',
+					esc_attr( $field_name ),
+					$attributes,
+					esc_html( $field['label_on'] ),
+					esc_html( $field['label_off'] )
+				);
+
+				// Description.
+				if ( isset( $field['description'] ) && $field['description'] ) {
+					$html .= "<span class='field_description'>" . $field['description'] . '</span>';
+				}
+
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				echo $html;
+				break;
+
 			case 'select':
 				// Label.
 				$html = sprintf(
@@ -193,7 +231,7 @@ function generate_form_fields( $fields, $args = '' ) {
 			case 'wp_editor':
 				// Label.
 				$html = sprintf(
-					'<label for="%1$s">%$2s</label><textarea id="%1$s" name="%3$s"',
+					'<label for="%1$s">%2$s</label><textarea id="%1$s" name="%3$s"',
 					esc_attr( $field_id ),
 					esc_html( $field['label'] ),
 					esc_attr( $field_name )
