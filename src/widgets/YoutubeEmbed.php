@@ -52,21 +52,6 @@ class YoutubeEmbed extends Widget {
 				'label_off' => __( 'Fixed', 'frontpage-buddy' ),
 				'label_on'  => __( 'Fluid', 'frontpage-buddy' ),
 			),
-
-			/*
-			'width'	=> array(
-				'type'		  => 'select',
-				'label'		  => __( 'Width', 'frontpage-buddy' ),
-				'value'		  => ! empty( $this->edit_field_value( 'width' ) ) ? $this->edit_field_value( 'width' ) : 'full',
-				'is_required' => true,
-				'options'	  => array(
-					'full'   => __( 'Full Width', 'frontpage-buddy' ),
-					'large'  => __( 'Large', 'frontpage-buddy' ),
-					'medium' => __( 'Medium', 'frontpage-buddy' ),
-					'small'  => __( 'Small', 'frontpage-buddy' ),
-				),
-			)
-			*/
 		);
 	}
 
@@ -104,7 +89,7 @@ class YoutubeEmbed extends Widget {
 	 * @return string
 	 */
 	public function getYoutubeIdFromUrl( $url ) {
-		$parts = parse_url( $url );
+		$parts = wp_parse_url( $url );
 		if ( isset( $parts['query'] ) ) {
 			parse_str( $parts['query'], $qs );
 			if ( isset( $qs['v'] ) ) {

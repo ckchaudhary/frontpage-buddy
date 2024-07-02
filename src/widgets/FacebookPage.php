@@ -58,8 +58,8 @@ class FacebookPage extends Widget {
 		$html .= 'data-show-posts="' . esc_attr( $showposts ) . '" ';
 
 		$html .= 'data-adapt-container-width="1" ';
-		$html .= 'data-width="600">';
-		$html .= 'data-height="500" ';
+		$html .= 'data-width="600"';
+		$html .= 'data-height="500" >';
 
 		$html .= '<blockquote cite="' . esc_attr( $fp_page_url ) . '" class="fb-xfbml-parse-ignore">';
 		$html .= '<a href="' . esc_attr( $fp_page_url ) . '"></a>';
