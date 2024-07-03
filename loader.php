@@ -34,6 +34,10 @@ if ( ! defined( 'FPBUDDY_PLUGIN_URL' ) ) {
 	define( 'FPBUDDY_PLUGIN_URL', $plugin_url );
 }
 
+if ( ! defined( 'FPBUDDY_PLUGIN_VERSION' ) ) {
+	define( 'FPBUDDY_PLUGIN_VERSION', '1.0.0' );
+}
+
 /**
  * Returns the main plugin object.
  *

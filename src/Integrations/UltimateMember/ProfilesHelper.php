@@ -23,6 +23,11 @@ class ProfilesHelper {
 		add_action( 'um_profile_content_main', array( $this, 'um_profile_content_main' ) );
 	}
 
+	/**
+	 * Load the manage-widgets screen or show the widgets ouptut.
+	 *
+	 * @return void
+	 */
 	public function um_profile_content_main() {
 		if ( um_is_on_edit_profile() ) {
 			\RecycleBin\FrontPageBuddy\load_template( 'ultimate-member/profiles/manage' );

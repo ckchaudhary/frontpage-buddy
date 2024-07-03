@@ -47,6 +47,13 @@ abstract class Integration {
 	}
 
 	/**
+	 * Get details about this integration, to be displayed in admin settings screen.
+	 *
+	 * @return string
+	 */
+	abstract public function get_admin_description();
+
+	/**
 	 * Get/set If the current object has a custom front page.
 	 *
 	 * @param int    $object_id Id of member or group.
@@ -217,5 +224,26 @@ abstract class Integration {
 		add_filter( 'frontpage_buddy_is_widgets_edit_screen', array( $this, 'is_widgets_edit_screen' ) );
 		add_filter( 'frontpage_buddy_is_custom_front_page_screen', array( $this, 'is_custom_front_page_screen' ) );
 		add_filter( 'frontpage_buddy_script_data', array( $this, 'manage_screen_script_data' ) );
+	}
+
+	/**
+	 * Get the fields for specific settings for this integration, if any.
+	 *
+	 * @return array
+	 */
+	public function get_settings_fields() {
+		return array();
+	}
+
+	/**
+	 * Get an option's/setting's value.
+	 *
+	 * @param string $option_name name of the option.
+	 * @return mixed
+	 */
+	public function get_option( $option_name ) {
+		$all_integrations = frontpage_buddy()->option( 'integrations' );
+		$all_options = ! empty( $all_integrations ) && isset( $all_integrations[ $this->type ] ) && ! empty( $all_integrations[ $this->type ] ) ? $all_integrations[ $this->type ] : array();
+		return isset( $all_options[ $option_name ] ) ? $all_options[ $option_name ] : null;
 	}
 }

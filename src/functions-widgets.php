@@ -133,6 +133,51 @@ function visual_editor_allowed_html_tags() {
 	);
 }
 
+/**
+ * Get the list of html tags( and their attributes ) allowed.
+ * This is used to sanitize the contents of integration and widget descriptions, before showing those in admin settings screen( and elsewhere, if applicable ).
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function admin_descriptions_allowed_html_tags() {
+	return apply_filters(
+		'fronpage_buddy_admin_descriptions_allowed_html_tags',
+		array(
+			'h2' => array(),
+			'h3' => array(),
+			'h4' => array(),
+			'div' => array(
+				'class' => array(),
+			),
+			'p' => array(
+				'class' => array(),
+			),
+			'span' => array(
+				'class' => array(),
+			),
+			'br' => array(),
+			'em' => array(),
+			'strong' => array(),
+			'del' => array(),
+			'a' => array(
+				'href'  => array(),
+				'title' => array(),
+				'class' => array(),
+			),
+			'img' => array(
+				'src' => array(),
+				'alt' => array(),
+				'class' => array(),
+			),
+			'ul' => array(),
+			'ol' => array(),
+			'li' => array(),
+			'hr' => array(),
+		)
+	);
+}
+
 add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\RecycleBin\FrontPageBuddy\widget_title_for_manage_screen', 10, 2 );
 /**
  * Filters the title for a widget when displayed on manage widgets screens.

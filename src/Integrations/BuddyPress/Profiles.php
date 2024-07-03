@@ -16,6 +16,78 @@ defined( 'ABSPATH' ) ? '' : exit();
 class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 
 	/**
+	 * Get details about this integration, to be displayed in admin settings screen.
+	 *
+	 * @return string
+	 */
+	public function get_admin_description() {
+		$notice_class = 'notice-info';
+		if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
+			$notice_class = 'notice-warning';
+		}
+
+		$cf_enabled = false;
+		if ( function_exists( '\bp_nouveau_get_appearance_settings' ) ) {
+			if ( \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
+				$cf_enabled = true;
+			}
+		}
+		$html  = '<p>' . __( 'This enables all members of your buddypress site to customize their front page.', 'frontpage-buddy' ) . '</p>';
+		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following option is not enabled:', 'frontpage-buddy' ) . '</p>';
+
+		$html .= '<ul>';
+		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Member front page', 'buddypress' ) . ' &gt; ' . __( 'Enable default front page for member profiles.', 'buddypress' );
+		$html .= $cf_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
+		$html .= '</li>';
+		$html .= '</ul>';
+
+		return $html;
+	}
+
+	/**
+	 * Get the fields for specific settings for this integration, if any.
+	 *
+	 * @return array
+	 */
+	public function get_settings_fields() {
+		$show_prompt = $this->get_option( 'show_encourage_prompt' );
+		$show_prompt = 'yes' === $show_prompt ? 'yes' : '';
+
+		$prompt_text = $this->get_option( 'show_encourage_prompt' );
+		if ( $prompt_text ) {
+			$prompt_text = trim( $prompt_text );
+		}
+		if ( ! $prompt_text ) {
+			$prompt_text = sprintf(
+				/* translators: 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a> */
+				__( 'Customize your profile\'s front page by going %s.', 'frontpage-buddy' ),
+				'{{LINK}}'
+			);
+		}
+
+		return array(
+			'show_encourage_prompt' => array(
+				'type'        => 'switch',
+				'label'       => __( 'Show prompt when viewing one\'s own profile?', 'frontpage-buddy' ),
+				'value'       => $show_prompt,
+				'label_off'   => __( 'No', 'frontpage-buddy' ),
+				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'description' => __( 'If enabled, when a member visits their profile, they see a small prompt at the top. This can be used to encourage members to add content to their front page. This can also be used to add a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
+			),
+			'encourage_prompt_text' => array(
+				'type'        => 'textarea',
+				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'       => $prompt_text,
+				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
+				'attributes'  => array(
+					'rows' => 3,
+					'cols' => 50,
+				),
+			),
+		);
+	}
+
+	/**
 	 * Get/set If the current object has a custom front page.
 	 *
 	 * @param int    $object_id Id of member or group.

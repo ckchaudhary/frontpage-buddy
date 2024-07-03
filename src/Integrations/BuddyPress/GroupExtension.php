@@ -77,6 +77,11 @@ class GroupExtension extends \BP_Group_Extension {
 		// Nothing here.
 	}
 
+	/**
+	 * Print the output for custom front page widgets.
+	 *
+	 * @return void
+	 */
 	public function custom_group_boxes() {
 		frontpage_buddy()->get_integration( 'bp_groups' )->output_frontpage_content( bp_get_current_group_id() );
 	}

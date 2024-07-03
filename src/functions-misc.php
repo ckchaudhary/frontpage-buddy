@@ -49,7 +49,7 @@ function buffer_template_part( $template ) {
  * @param array $args Options.
  * @return void
  */
-function generate_form_fields( $fields, $args = '' ) {
+function generate_form_fields_new( $fields, $args = '' ) {
 
 	if ( ! $fields || empty( $fields ) ) {
 		return;
@@ -59,11 +59,17 @@ function generate_form_fields( $fields, $args = '' ) {
 	}
 
 	$defaults = array(
-		'before_list'  => '',
-		'after_list'   => '',
-		'before_field' => '',
-		'after_field'  => '',
-		'form_id'      => '',
+		'before_list'   => '',
+		'after_list'    => '',
+
+		'before_field'  => '<div class="{{FIELD_CLASS}}">',
+		'after_field'   => '</div><!-- .field -->',
+
+		'before_label'  => '',
+		'after_label'   => '',
+
+		'before_input'  => '',
+		'after_input'   => '',
 	);
 
 	$args = array_merge( $defaults, $args );
@@ -73,39 +79,51 @@ function generate_form_fields( $fields, $args = '' ) {
 
 	foreach ( $fields as $field_name => $field ) {
 		$field_defaults = array(
+			'type'          => 'text',
 			'id'            => '',
 			'label'         => '',
 			'before'        => '',
-			'before_inside' => '',
-			'after_inside'  => '',
 			'after'         => '',
 			'wrapper_class' => '',
-			'type'          => 'text',
 		);
 		$field = wp_parse_args( $field, $field_defaults );
 
-		$field_id = $field_name . '_' . \uniqid();
-
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['before_field'];
-
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $field['before'];
+		$field_id = $field['id'];
+		if ( empty( $field_id ) ) {
+			$field_id = $field_name . '_' . \uniqid();
+		}
 
 		$cssclass = 'field field-' . $field_name . ' field-' . $field['type'];
 		if ( $field['wrapper_class'] ) {
 			$cssclass .= ' ' . $field['wrapper_class'];
 		}
 
-		echo "<div class='" . esc_attr( $cssclass ) . "'>";
 		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $field['before_inside'];
+		echo str_replace( '{{FIELD_CLASS}}', $cssclass, $args['before_field'] );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['before_label'];
+		if ( isset( $field['label'] ) && ! empty( $field['label'] ) ) {
+			echo '<label>' . esc_html( $field['label'] ) . '</label>';
+		}
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['after_label'];
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['before_input'];
+
+		$html = $field['before'];
+
+		$input_attributes = '';
+		if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
+			foreach ( $field['attributes'] as $att_name => $att_val ) {
+				$input_attributes .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
+			}
+		}
 		switch ( $field['type'] ) {
 			case 'checkbox':
 			case 'radio':
 				// Label.
-				$html = '<label>' . esc_html( $field['label'] ) . '</label>';
 				foreach ( $field['options'] as $option_val => $option_label ) {
 					$html .= sprintf(
 						'<label class="label_option label_option_%1$s"><input type="%1$s" name="%2$s[]" value="%3$s"',
@@ -125,80 +143,39 @@ function generate_form_fields( $fields, $args = '' ) {
 						}
 					}
 
-					// Attributes.
-					if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-						foreach ( $field['attributes'] as $att_name => $att_val ) {
-							$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-						}
-					}
-
-					$html .= ' />' . esc_html( $option_label ) . '</label>';
+					$html .= $input_attributes . ' />' . esc_html( $option_label ) . '</label>';
 				}
 
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
 				break;
 
 			case 'switch':
-				$html = '';
-				if ( isset( $field['label'] ) && ! empty( $field['label'] ) ) {
-					$html .= '<label>' . esc_html( $field['label'] ) . '</label>';
-				}
-
-				// Attributes.
-				$attributes = isset( $field['value'] ) && 'yes' === $field['value'] ? 'checked' : '';
-				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-					foreach ( $field['attributes'] as $att_name => $att_val ) {
-						$attributes .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-					}
-				}
-
+				$field_val = isset( $field['value'] ) ? $field['value'] : 'yes';
 				$html .= sprintf(
 					'<label class="fpbuddy-switch">	
-						<input type="checkbox" name="%1$s" value="yes" %2$s>
+						<input type="checkbox" name="%1$s" value="%2$s" %3$s>
 						<span class="switch-mask"></span>
 						<span class="switch-labels">
-							<span class="label-on">%3$s</span>
-							<span class="label-off">%4$s</span>
+							<span class="label-on">%4$s</span>
+							<span class="label-off">%5$s</span>
 						</span>
 					</label>',
 					esc_attr( $field_name ),
-					$attributes,
+					esc_attr( $field_val ),
+					$input_attributes,
 					esc_html( $field['label_on'] ),
 					esc_html( $field['label_off'] )
 				);
-
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= "<span class='field_description'>" . $field['description'] . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
 				break;
 
 			case 'select':
 				// Label.
-				$html = sprintf(
-					'<label for="%1$s">%2$s</label><select id="%1$s" name="%3$s"',
+				$html .= sprintf(
+					'<select id="%1$s" name="%2$s"',
 					esc_attr( $field_id ),
-					esc_html( $field['label'] ),
 					esc_attr( $field_name )
 				);
 
-				// Attributes.
-				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-					foreach ( $field['attributes'] as $att_name => $att_val ) {
-						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-					}
-				}
-
-				$html .= '>';
+				$html .= $input_attributes . ' >';
 
 				foreach ( $field['options'] as $option_val => $option_label ) {
 					$html .= "<option value='" . esc_attr( $option_val ) . "' ";
@@ -219,31 +196,17 @@ function generate_form_fields( $fields, $args = '' ) {
 
 				$html .= '</select>';
 
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= "<span class='field_description'>" . esc_html( $field['description'] ) . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
 				break;
 			case 'textarea':
 			case 'wp_editor':
 				// Label.
 				$html = sprintf(
-					'<label for="%1$s">%2$s</label><textarea id="%1$s" name="%3$s"',
+					'<textarea id="%1$s" name="%2$s"',
 					esc_attr( $field_id ),
-					esc_html( $field['label'] ),
 					esc_attr( $field_name )
 				);
 
-				// Attributes.
-				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-					foreach ( $field['attributes'] as $att_name => $att_val ) {
-						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-					}
-				}
-				$html .= ' >';
+				$html .= $input_attributes . ' >';
 
 				$field['value'] = esc_textarea( $field['value'] );
 				if ( isset( $field['value'] ) && $field['value'] ) {
@@ -251,20 +214,10 @@ function generate_form_fields( $fields, $args = '' ) {
 				}
 
 				$html .= '</textarea>';
-
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= "<span class='field_description'>" . esc_html( $field['description'] ) . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
 				break;
 
 			case 'button':
 			case 'submit':
-				$html = '<label for="' . esc_attr( $field_id ) . '">' . esc_html( $field['label'] ) . '</label>';
-
 				$field_type = 'submit';
 				if ( isset( $field['type'] ) ) {
 					$field_type = $field['type'];
@@ -276,17 +229,12 @@ function generate_form_fields( $fields, $args = '' ) {
 					$html .= '<input type="' . esc_attr( $field_type ) . '" id="' . esc_attr( $field_id ) . '" name="' . esc_attr( $field_name ) . '" ';
 				}
 
-				// Attributes.
-				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-					foreach ( $field['attributes'] as $att_name => $att_val ) {
-						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-					}
-				}
+				$html .= $input_attributes;
 
 				if ( 'button' === $field_type ) {
 					$html .= '>';
 					if ( isset( $field['value'] ) && $field['value'] ) {
-						$html .= $field['value'];
+						$html .= esc_html( $field['value'] );
 					}
 					$html .= '</button>';
 				} else {
@@ -295,36 +243,18 @@ function generate_form_fields( $fields, $args = '' ) {
 					}
 					$html .= ' />';
 				}
-
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= '<span class="field_description">' . esc_html( $field['description'] ) . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
-				break;
-
-			case 'label':
-				echo '<label for="' . esc_attr( $field_id ) . '" >' . esc_html( $field['label'] ) . '</label>';
 				break;
 
 			default:
 				// Label.
 				$html = sprintf(
-					'<label for="%1$s">%2$s</label><input id="%1$s" name="%3$s" type="%4$s"',
+					'<input id="%1$s" name="%2$s" type="%3$s"',
 					esc_attr( $field_id ),
-					esc_html( $field['label'] ),
 					esc_attr( $field_name ),
 					esc_attr( $field[ 'type' ] )
 				);
 
-				// Attributes.
-				if ( isset( $field['attributes'] ) && ! empty( $field['attributes'] ) ) {
-					foreach ( $field['attributes'] as $att_name => $att_val ) {
-						$html .= sprintf( ' %s="%s" ', esc_html( $att_name ), esc_attr( $att_val ) );
-					}
-				}
+				$html .= $input_attributes;
 
 				// Value.
 				if ( isset( $field['value'] ) ) {
@@ -332,23 +262,22 @@ function generate_form_fields( $fields, $args = '' ) {
 				}
 
 				$html .= ' />';
-
-				// Description.
-				if ( isset( $field['description'] ) && $field['description'] ) {
-					$html .= '<span class="field_description">' . esc_html( $field['description'] ) . '</span>';
-				}
-
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				echo $html;
 				break;
 		}
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $field['after_inside'];
-		echo '</div><!-- .field -->';
+		// Description.
+		if ( isset( $field['description'] ) && $field['description'] ) {
+			$html .= "<span class='field_description'>" . $field['description'] . '</span>';
+		}
+
+		$html .= $field['after'];
 
 		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $field['after'];
+		echo $html;
+
+		// phpcs:ignore WordPress.Security.EscapeOutput
+		echo $args['after_input'];
+
 		// phpcs:ignore WordPress.Security.EscapeOutput
 		echo $args['after_field'];
 	}

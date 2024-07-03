@@ -35,6 +35,10 @@ class TwitterProfile extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
+		$attrs_dark_theme = array();
+		if ( 'yes' == $this->edit_field_value( 'dark_theme' ) ) {
+			$attrs_dark_theme['checked'] = 'checked';
+		}
 		return array(
 			'username'   => array(
 				'type'        => 'text',
@@ -56,11 +60,11 @@ class TwitterProfile extends Widget {
 				'attributes' => array( 'placeholder' => __( 'Height in pixels (optional)', 'frontpage-buddy' ) ),
 			),
 			'dark_theme' => array(
-				'type'      => 'switch',
-				'label'     => __( 'Use dark theme', 'frontpage-buddy' ),
-				'value'     => ! empty( $this->edit_field_value( 'dark_theme' ) ) ? $this->edit_field_value( 'dark_theme' ) : '',
-				'label_off' => __( 'No', 'frontpage-buddy' ),
-				'label_on'  => __( 'Yes', 'frontpage-buddy' ),
+				'type'       => 'switch',
+				'label'      => __( 'Use dark theme', 'frontpage-buddy' ),
+				'label_off'  => __( 'No', 'frontpage-buddy' ),
+				'label_on'   => __( 'Yes', 'frontpage-buddy' ),
+				'attributes' => $attrs_dark_theme,
 			),
 		);
 	}

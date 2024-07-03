@@ -16,6 +16,16 @@ defined( 'ABSPATH' ) ? '' : exit();
 class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 
 	/**
+	 * Get details about this integration, to be displayed in admin settings screen.
+	 *
+	 * @return string
+	 */
+	public function get_admin_description() {
+		$html = __( 'This enables all members of your forums to customize their profile page.', 'frontpage-buddy' );
+		return $html;
+	}
+
+	/**
 	 * Get/set If the current object has a custom front page.
 	 *
 	 * @param int    $object_id Id of member or group.
@@ -24,9 +34,9 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function has_custom_front_page( $object_id, $set = false ) {
-		$flag = false;
+		$flag        = false;
 		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
-		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for ) ) {
+		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for, true ) ) {
 			$flag = true;
 		}
 

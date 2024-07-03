@@ -52,10 +52,16 @@ class MemberProfilesHelper {
 		}
 	}
 
+	/**
+	 * Add navigation links.
+	 * One is added under members>xyz>settings.
+	 *
+	 * @return void
+	 */
 	public function bp_setup_nav() {
 		$add_nav     = false;
 		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
-		if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
+		if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for, true ) ) {
 			$add_nav = true;
 		}
 
@@ -82,6 +88,11 @@ class MemberProfilesHelper {
 		return false;
 	}
 
+	/**
+	 * Function to handle the output for the new subnav item added under settings.
+	 *
+	 * @return mixed
+	 */
 	public function screen_edit_widgets() {
 		if ( ! bp_is_user() ) {
 			return false;
@@ -92,28 +103,54 @@ class MemberProfilesHelper {
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Title for the new subnav item added under settings.
+	 *
+	 * @return void
+	 */
 	public function edit_widgets_title() {
 		echo esc_html( apply_filters( 'frontpage_buddy_member_edit_widgets_title', __( 'Customize your front page', 'frontpage-buddy' ) ) );
 	}
 
+	/**
+	 * Content for the new subnav item added under settings.
+	 *
+	 * @return void
+	 */
 	public function edit_widgets_contents() {
 		\RecycleBin\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
 	}
 
+	/**
+	 * Print the output for custom front page widgets.
+	 *
+	 * @return void
+	 */
 	public function custom_group_boxes() {
 		frontpage_buddy()->get_integration( 'bp_members' )->output_frontpage_content( bp_displayed_user_id() );
 	}
 
+	/**
+	 * Register this plugin's templates folder into buddypress' template stack.
+	 *
+	 * @return string
+	 */
 	public function register_template_stack() {
 		return FPBUDDY_PLUGIN_DIR . 'templates';
 	}
 
-	function maybe_remove_template_stack( $stack ) {
+	/**
+	 * Conditionally remove this plugin's templates folder from buddypress' template stack.
+	 *
+	 * @param array $stack All registered template locations.
+	 * @return array
+	 */
+	public function maybe_remove_template_stack( $stack ) {
 		$need_template_stack = false;
 		$enabled_for         = frontpage_buddy()->option( 'enabled_for' );
 
 		$bp_members_integration = frontpage_buddy()->get_integration( 'bp_members' );
-		if ( $bp_members_integration && bp_is_user() && ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
+		if ( $bp_members_integration && bp_is_user() && ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for, true ) ) {
 			// Does the current user want to have a custom front page template?
 			$need_template_stack = $bp_members_integration->has_custom_front_page( bp_displayed_user_id() );
 		}

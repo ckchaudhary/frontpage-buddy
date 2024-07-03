@@ -35,6 +35,10 @@ class YoutubeEmbed extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
+		$attrs_fluid_width = array();
+		if ( 'yes' === $this->edit_field_value( 'width' ) ) {
+			$attrs_fluid_width['checked'] = 'checked';
+		}
 		return array(
 			'url'         => array(
 				'type'        => 'url',
@@ -46,11 +50,11 @@ class YoutubeEmbed extends Widget {
 			),
 
 			'fluid_width' => array(
-				'type'      => 'switch',
-				'label'     => __( 'Player width', 'frontpage-buddy' ),
-				'value'     => ! empty( $this->edit_field_value( 'width' ) ) ? $this->edit_field_value( 'width' ) : '',
-				'label_off' => __( 'Fixed', 'frontpage-buddy' ),
-				'label_on'  => __( 'Fluid', 'frontpage-buddy' ),
+				'type'       => 'switch',
+				'label'      => __( 'Player width', 'frontpage-buddy' ),
+				'label_off'  => __( 'Fixed', 'frontpage-buddy' ),
+				'label_on'   => __( 'Fluid', 'frontpage-buddy' ),
+				'attributes' => $attrs_fluid_width,
 			),
 		);
 	}

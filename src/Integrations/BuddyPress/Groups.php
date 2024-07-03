@@ -16,6 +16,85 @@ defined( 'ABSPATH' ) ? '' : exit();
 class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 
 	/**
+	 * Get details about this integration, to be displayed in admin settings screen.
+	 *
+	 * @return string
+	 */
+	public function get_admin_description() {
+		$cf_enabled = false;
+		$cf_boxes_enabled = false;
+		if ( function_exists( '\bp_nouveau_get_appearance_settings' ) ) {
+			if ( \bp_nouveau_get_appearance_settings( 'group_front_page' ) ) {
+				$cf_enabled = true;
+			}
+
+			if ( \bp_nouveau_get_appearance_settings( 'group_front_boxes' ) ) {
+				$cf_boxes_enabled = true;
+			}
+		}
+
+		$html  = '<p>' . __( 'This enables administrators of all BuddyPress groups to customize a group\'s front page.', 'frontpage-buddy' ) . '</p>';
+
+		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following options are not enabled:', 'frontpage-buddy:' ) . '</p>';
+		$html .= '<ul>';
+
+		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'buddypress' ) . ' &gt; ' . __( 'Enable custom front pages for groups.', 'buddypress' );
+		$html .= $cf_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
+		$html .= '</li>';
+
+		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'buddypress' ) . ' &gt; ' . __( 'Enable custom boxes for group homepages...', 'frontpage-buddy' );
+		$html .= $cf_boxes_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
+		$html .= '</li>';
+
+		$html .= '</ul>';
+
+		return $html;
+	}
+
+	/**
+	 * Get the fields for specific settings for this integration, if any.
+	 *
+	 * @return array
+	 */
+	public function get_settings_fields() {
+		$show_prompt = $this->get_option( 'show_encourage_prompt' );
+		$show_prompt = 'yes' === $show_prompt ? 'yes' : '';
+
+		$prompt_text = $this->get_option( 'show_encourage_prompt' );
+		if ( $prompt_text ) {
+			$prompt_text = trim( $prompt_text );
+		}
+		if ( ! $prompt_text ) {
+			$prompt_text = sprintf(
+				/* translators: 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a> */
+				__( 'Customize this group\'s front page by going %s.', 'frontpage-buddy' ),
+				'{{LINK}}'
+			);
+		}
+
+		return array(
+			'show_encourage_prompt' => array(
+				'type'        => 'switch',
+				'label'       => __( 'Show prompt to group admins?', 'frontpage-buddy' ),
+				'value'       => $show_prompt,
+				'label_off'   => __( 'No', 'frontpage-buddy' ),
+				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'description' => __( 'If enabled, when a group administrator visits the group\'s front page, they see a small prompt at the top. This can be used to encourage group admins to provide necessary information on front page. This can also be used to add a link to the page where the group admin can customize the front page.', 'frontpage-buddy' ),
+			),
+			'encourage_prompt_text' => array(
+				'type'        => 'textarea',
+				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'       => $prompt_text,
+				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the front page can be customized.', 'frontpage-buddy' ),
+				'attributes'  => array(
+					'rows' => 3,
+					'cols' => 50,
+				),
+			),
+		);
+	}
+
+	/**
 	 * Get/set If the current object has a custom front page.
 	 *
 	 * @param int    $object_id Id of member or group.
@@ -34,7 +113,7 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function is_widgets_edit_screen( $flag = false ) {
-		if ( bp_is_active( 'groups' ) && bp_is_group() && 'admin' == bp_current_action() && bp_action_variable( 0 ) === 'front-page' ) {
+		if ( bp_is_active( 'groups' ) && bp_is_group() && 'admin' === bp_current_action() && bp_action_variable( 0 ) === 'front-page' ) {
 			$flag = true;
 		}
 

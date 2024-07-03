@@ -24,10 +24,20 @@ class ProfilesHelper {
 		add_action( 'bbp_user_edit_after', array( $this, 'show_manage_screen' ) );
 	}
 
+	/**
+	 * Print the output for custom front page widgets.
+	 *
+	 * @return void
+	 */
 	public function show_output() {
 		frontpage_buddy()->get_integration( 'bbp_profiles' )->output_frontpage_content( \bbp_get_displayed_user_id() );
 	}
 
+	/**
+	 * Load the manage-widgets screen.
+	 *
+	 * @return void
+	 */
 	public function show_manage_screen() {
 		\RecycleBin\FrontPageBuddy\load_template( 'bbpress/profiles/manage' );
 	}
