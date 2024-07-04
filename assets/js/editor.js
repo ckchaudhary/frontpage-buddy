@@ -346,6 +346,13 @@ class FPBuddyLayoutManager {
 
 		_class.initLayout( this.initial_content );
 
+		_class._l.parent.sortable({
+			'items' : ' > .row-content',
+			update: function( event, ui ) {
+				_class._l.parent.trigger( 'content_updated' );
+			}
+		});
+
 		// Add new row
 		_class._l.parent.on( 'click', '.row-add-new a',  function(e){
 			e.preventDefault();

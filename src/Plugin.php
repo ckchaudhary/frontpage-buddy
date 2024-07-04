@@ -325,7 +325,7 @@ class Plugin {
 			);
 			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
-			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/ecss/ditor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/css/editor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
 		}
 
 		// Assets for view(front page) screen.

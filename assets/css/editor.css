@@ -97,6 +97,7 @@ Manage Screens
 	justify-content: space-between;
 	background-color: #05789c;
 	padding: 5px;
+	cursor: move;
 }
 
 .fpbuddy_manage_widgets .lrow .row-contents{
@@ -127,7 +128,7 @@ Manage Screens
 	display: inline-block;
 	height: 20px;
 	width: 20px;
-	background-image: url( 'images/2-columns-white.png' );
+	background-image: url( '../images/2-columns-white.png' );
 	background-size: cover;
 }
 
@@ -140,7 +141,7 @@ Manage Screens
 	display: inline-block;
 	height: 20px;
 	width: 20px;
-	background-image: url( 'images/close-empty.png' );
+	background-image: url( '../images/close-empty.png' );
 	background-size: cover;
 }
 
@@ -150,7 +151,7 @@ Manage Screens
 	right: -10px;
 }
 .fpbuddy_manage_widgets .remove_item.remove_widget a{
-	background-image: url( 'images/close-filled.png' );
+	background-image: url( '../images/close-filled.png' );
 	height: 20px;
 	width: 20px;
 }
@@ -183,7 +184,7 @@ Manage Screens
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background-image: url( 'images/add_circle_icon.png' );
+	background-image: url( '../images/add_circle_icon.png' );
 	background-size: cover;
 }
 
@@ -218,12 +219,12 @@ Manage Screens
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background-image: url( 'images/plus-icon-white.png' );
+	background-image: url( '../images/plus-icon-white.png' );
 	background-size: cover;
 }
 
 .fpbuddy_manage_widgets .new-widget .collapse-widgets-list a span{
-	background-image: url( 'images/up-arrow-white.png' );
+	background-image: url( '../images/up-arrow-white.png' );
 }
 
 .fpbuddy_manage_widgets .row-content.lcol-1 .new-widget .remove_item{
@@ -258,7 +259,7 @@ Manage Screens
 	display: inline-block;
 	width: 25px;
 	height: 25px;
-	background-image: url( 'images/add_circle_icon.png' );
+	background-image: url( '../images/add_circle_icon.png' );
 	background-size: cover;
 	filter: opacity( 50% );
 }
