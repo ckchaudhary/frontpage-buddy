@@ -5,17 +5,17 @@ var gulp = require("gulp"),
     terser = require("gulp-terser");
 
 function minifyCSS() {
-  return gulp.src("./assets/editor.css")
+  return gulp.src("./assets/css/editor.css")
     .pipe(rename("editor.min.css"))
     .pipe(cleanCSS())
-    .pipe(gulp.dest("./assets"));
+    .pipe(gulp.dest("./assets/css"));
 }
 
 function minifyJS() {
-  return gulp.src("./assets/editor.js")
+  return gulp.src("./assets/js/editor.js")
     .pipe(rename("editor.min.js"))
     .pipe(terser())
-    .pipe(gulp.dest("./assets"));
+    .pipe(gulp.dest("./assets/js"));
 }
 
 exports.default = gulp.parallel(minifyCSS, minifyJS);
