@@ -90,6 +90,17 @@ Manage Screens
 	border: 2px solid #05789c;
 }
 
+/* placeholder row during sorting */
+.fpbuddy_manage_widgets .lrow.sortable-placeholder {
+	height: 150px;
+	background: #f7f7d5;
+}
+
+/* set an opaque background color during sorting - for better experience. */
+.fpbuddy_manage_widgets .lrow.ui-sortable-helper{
+	background: #fff;
+}
+
 .fpbuddy_manage_widgets .lrow .row-actions{
 	display: flex;
 	flex-direction: row;
