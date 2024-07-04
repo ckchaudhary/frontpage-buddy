@@ -184,7 +184,6 @@ class Admin {
 		register_setting( $this->option_name, $this->option_name, array( $this, 'plugin_options_validate' ) );
 
 		add_settings_section( 'general_section', '', array( $this, 'section_general' ), __FILE__ );
-		// add_settings_field( 'enabled_for', __( 'Enable landing pages for', 'frontpage-buddy' ), array( $this, 'enabled_for' ), __FILE__, 'general_section' );
 		add_settings_field( 'integrations', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'integrations' ), __FILE__, 'general_section' );
 		add_settings_field( 'widget_settings', __( 'Widget Settings', 'frontpage-buddy' ), array( $this, 'widget_settings' ), __FILE__, 'general_section' );
 	}
@@ -220,52 +219,6 @@ class Admin {
 	 */
 	public function plugin_options_validate( $input ) {
 		return $input; // No validations for now.
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return boolean
-	 */
-	public function enabled_for() {
-		$enabled_objects = $this->option( 'enabled_for' );
-		if ( empty( $enabled_objects ) ) {
-			$enabled_objects = array(); // make sure its an array.
-		}
-
-		$all_integrations = frontpage_buddy()->get_all_integrations();
-
-		if ( empty( $all_integrations ) ) {
-			?>
-			<div class='notice notice-error inline'>
-				<?php
-				printf(
-					/* translators: %s: list of plugins frontpage-buddy works with. */
-					'<p>' . esc_html__( 'Frontpage buddy can only work when either of the following plugins are active: %s', 'frontpage-buddy' ) . '.</p>'
-					. '<p>' . esc_html__( 'Not much it can do for now!', 'frontpage-buddy' ) . '</p>',
-					'BuddyPress, bbPress, UltimateMember'
-				);
-				?>
-			</div>
-			<?php
-			return false;
-		}
-
-		foreach ( $all_integrations as $integration_type => $integration_obj ) {
-			echo "<div class='integration'>";
-
-			$checked = in_array( $integration_type, $enabled_objects, true ) ? 'checked' : '';
-			printf(
-				"<label><input type='checkbox' name='%s' value='%s' %s>%s</label>",
-				esc_attr( $this->option_name ) . '[enabled_for][]',
-				esc_attr( $integration_type ),
-				// phpcs:ignore WordPress.Security.EscapeOutput
-				$checked,
-				esc_html( $integration_obj->get_integration_name() )
-			);
-
-			echo '</div>';
-		}
 	}
 
 	/**
