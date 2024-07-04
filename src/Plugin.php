@@ -289,10 +289,12 @@ class Plugin {
 
 		// assets for edit-widgets screen.
 		if ( $is_edit_widgets_screen ) {
-			wp_enqueue_script( 'trumbowyg', 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js', array( 'jquery' ), '2.27.3', array( 'in_footer' => true ) );
-			wp_enqueue_style( 'trumbowyg', 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css', array(), '2.27.3' );
+			wp_enqueue_script( 'trumbowyg', FPBUDDY_PLUGIN_URL . 'assets/trumbowyg/trumbowyg.min.js', array( 'jquery' ), '2.27.3', array( 'in_footer' => true ) );
+			wp_enqueue_style( 'trumbowyg', FPBUDDY_PLUGIN_URL . 'assets/trumbowyg/ui/trumbowyg.min.css', array(), '2.27.3' );
 
-			wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.js', array( 'jquery', 'jquery-form' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
+			wp_enqueue_style( 'jquery-ui-theme-smoothness', FPBUDDY_PLUGIN_URL . 'assets/css/jquery-ui.min.css', array(), '1.13.3' );
+
+			wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/js/editor' . $min . '.js', array( 'jquery', 'jquery-form', 'jquery-ui-sortable' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
 
 			$data = apply_filters(
 				'frontpage_buddy_script_data',
@@ -323,13 +325,13 @@ class Plugin {
 			);
 			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
-			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/ecss/ditor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
 		}
 
 		// Assets for view(front page) screen.
 		$is_custom_front_page_screen = apply_filters( 'frontpage_buddy_is_custom_front_page_screen', false );
 		if ( $is_custom_front_page_screen ) {
-			wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/view.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/css/view.css', array(), FPBUDDY_PLUGIN_VERSION );
 		}
 	}
 }

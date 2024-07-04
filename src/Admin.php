@@ -199,7 +199,7 @@ class Admin {
 			return false;
 		}
 
-		wp_enqueue_style( 'frontpage-buddy', FPBUDDY_PLUGIN_URL . 'assets/admin.css', array(), FPBUDDY_PLUGIN_VERSION );
+		wp_enqueue_style( 'frontpage-buddy', FPBUDDY_PLUGIN_URL . 'assets/css/admin.css', array(), FPBUDDY_PLUGIN_VERSION );
 	}
 
 	/**
