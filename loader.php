@@ -8,6 +8,7 @@
  * Author URI: https://www.recycleb.in/u/chandan/
  * Text Domain: fontpage-buddy
  * Domain Path: /languages
+ * Licence: GPLv2
  *
  * @package FrontPage Buddy
  */
