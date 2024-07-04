@@ -348,6 +348,7 @@ class FPBuddyLayoutManager {
 
 		_class._l.parent.sortable({
 			'items' : ' > .row-content',
+			'handle' : '.row-actions',
 			'placeholder' : 'lrow sortable-placeholder',
 			update: function( event, ui ) {
 				_class._l.parent.trigger( 'content_updated' );
