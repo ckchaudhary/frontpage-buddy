@@ -23,7 +23,7 @@ class Plugin {
 	 * @var array
 	 */
 	private $default_options = array(
-		'enabled_for'     => array( 'bp_members' ),
+		'enabled_for' => array( 'bp_members' ),
 	);
 
 	/**
@@ -282,15 +282,15 @@ class Plugin {
 			$data = apply_filters(
 				'frontpage_buddy_script_data',
 				array(
-					'config'       => array(
-						'ajaxurl' => admin_url( 'admin-ajax.php' ),
-						'req' => array(
-							'change_status' => array(
+					'config'      => array(
+						'ajaxurl'     => admin_url( 'admin-ajax.php' ),
+						'req'         => array(
+							'change_status'   => array(
 								'action' => 'frontpage_buddy_change_status',
 								'nonce'  => wp_create_nonce( 'frontpage_buddy_change_status' ),
 							),
 
-							'update_layout' => array(
+							'update_layout'   => array(
 								'action' => 'frontpage_buddy_update_layout',
 								'nonce'  => wp_create_nonce( 'frontpage_buddy_update_layout' ),
 							),
@@ -303,7 +303,7 @@ class Plugin {
 						'img_spinner' => network_home_url( 'wp-includes/images/spinner.gif' ),
 					),
 					'object_type' => '',
-					'object_id' => 0,
+					'object_id'   => 0,
 				)
 			);
 			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );

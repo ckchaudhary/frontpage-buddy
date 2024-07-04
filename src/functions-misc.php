@@ -59,17 +59,17 @@ function generate_form_fields( $fields, $args = '' ) {
 	}
 
 	$defaults = array(
-		'before_list'   => '',
-		'after_list'    => '',
+		'before_list'  => '',
+		'after_list'   => '',
 
-		'before_field'  => '<div class="{{FIELD_CLASS}}">',
-		'after_field'   => '</div><!-- .field -->',
+		'before_field' => '<div class="{{FIELD_CLASS}}">',
+		'after_field'  => '</div><!-- .field -->',
 
-		'before_label'  => '',
-		'after_label'   => '',
+		'before_label' => '',
+		'after_label'  => '',
 
-		'before_input'  => '',
-		'after_input'   => '',
+		'before_input' => '',
+		'after_input'  => '',
 	);
 
 	$args = array_merge( $defaults, $args );
@@ -86,7 +86,7 @@ function generate_form_fields( $fields, $args = '' ) {
 			'after'         => '',
 			'wrapper_class' => '',
 		);
-		$field = wp_parse_args( $field, $field_defaults );
+		$field          = wp_parse_args( $field, $field_defaults );
 
 		$field_id = $field['id'];
 		if ( empty( $field_id ) ) {
@@ -150,7 +150,7 @@ function generate_form_fields( $fields, $args = '' ) {
 
 			case 'switch':
 				$field_val = isset( $field['value'] ) ? $field['value'] : 'yes';
-				$html .= sprintf(
+				$html     .= sprintf(
 					'<label class="fpbuddy-switch">	
 						<input type="checkbox" name="%1$s" value="%2$s" %3$s>
 						<span class="switch-mask"></span>
@@ -251,7 +251,7 @@ function generate_form_fields( $fields, $args = '' ) {
 					'<input id="%1$s" name="%2$s" type="%3$s"',
 					esc_attr( $field_id ),
 					esc_attr( $field_name ),
-					esc_attr( $field[ 'type' ] )
+					esc_attr( $field['type'] )
 				);
 
 				$html .= $input_attributes;

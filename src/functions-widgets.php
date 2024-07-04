@@ -43,7 +43,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 			$row = array();
 
 			foreach ( $layout_row as $widget_id ) {
-				$found = false;
+				$found     = false;
 				$widget_id = trim( $widget_id );
 				if ( ! empty( $widgets ) ) {
 					foreach ( $widgets as $widget ) {
@@ -59,7 +59,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 				}
 
 				if ( $found ) {
-					$widget_obj = false;
+					$widget_obj   = false;
 					$widget_class = isset( $registered_widgets[ $widget['type'] ] ) && ! empty( $registered_widgets[ $widget['type'] ] ) ? $registered_widgets[ $widget['type'] ] : false;
 					if ( $widget_class && class_exists( $widget_class ) ) {
 						$widget_obj = new $widget_class(
@@ -84,11 +84,11 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 
 			if ( ! empty( $row ) ) {
 				$col_count = count( $row );
-				$html .= sprintf( "<div class='fpbuddy-widget-row has-%d-fpcols'>", $col_count );
+				$html     .= sprintf( "<div class='fpbuddy-widget-row has-%d-fpcols'>", $col_count );
 
 				for ( $i = 0; $i < $col_count; $i++ ) {
 					$this_col_num = $i + 1;
-					$html .= sprintf( "<div class='fp-col fp-col-%d-of-%d'><div class='fp-col-contents'>%s</div></div>", $this_col_num, $col_count, stripslashes( $row[ $i ] ) );
+					$html        .= sprintf( "<div class='fp-col fp-col-%d-of-%d'><div class='fp-col-contents'>%s</div></div>", $this_col_num, $col_count, stripslashes( $row[ $i ] ) );
 				}
 
 				$html .= '</div>';
@@ -110,25 +110,25 @@ function visual_editor_allowed_html_tags() {
 	return apply_filters(
 		'fronpage_buddy_visual_editor_allowed_html_tags',
 		array(
-			'h2' => array(),
-			'h3' => array(),
-			'h4' => array(),
-			'p' => array(),
-			'br' => array(),
-			'em' => array(),
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'p'      => array(),
+			'br'     => array(),
+			'em'     => array(),
 			'strong' => array(),
-			'del' => array(),
-			'a' => array(
+			'del'    => array(),
+			'a'      => array(
 				'href'  => array(),
 				'title' => array(),
 			),
-			'img' => array(
+			'img'    => array(
 				'src' => array(),
 				'alt' => array(),
 			),
-			'ul' => array(),
-			'ol' => array(),
-			'hr' => array(),
+			'ul'     => array(),
+			'ol'     => array(),
+			'hr'     => array(),
 		)
 	);
 }
@@ -144,36 +144,36 @@ function admin_descriptions_allowed_html_tags() {
 	return apply_filters(
 		'fronpage_buddy_admin_descriptions_allowed_html_tags',
 		array(
-			'h2' => array(),
-			'h3' => array(),
-			'h4' => array(),
-			'div' => array(
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'div'    => array(
 				'class' => array(),
 			),
-			'p' => array(
+			'p'      => array(
 				'class' => array(),
 			),
-			'span' => array(
+			'span'   => array(
 				'class' => array(),
 			),
-			'br' => array(),
-			'em' => array(),
+			'br'     => array(),
+			'em'     => array(),
 			'strong' => array(),
-			'del' => array(),
-			'a' => array(
+			'del'    => array(),
+			'a'      => array(
 				'href'  => array(),
 				'title' => array(),
 				'class' => array(),
 			),
-			'img' => array(
-				'src' => array(),
-				'alt' => array(),
+			'img'    => array(
+				'src'   => array(),
+				'alt'   => array(),
 				'class' => array(),
 			),
-			'ul' => array(),
-			'ol' => array(),
-			'li' => array(),
-			'hr' => array(),
+			'ul'     => array(),
+			'ol'     => array(),
+			'li'     => array(),
+			'hr'     => array(),
 		)
 	);
 }

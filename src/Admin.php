@@ -184,7 +184,7 @@ class Admin {
 		register_setting( $this->option_name, $this->option_name, array( $this, 'plugin_options_validate' ) );
 
 		add_settings_section( 'general_section', '', array( $this, 'section_general' ), __FILE__ );
-		//add_settings_field( 'enabled_for', __( 'Enable landing pages for', 'frontpage-buddy' ), array( $this, 'enabled_for' ), __FILE__, 'general_section' );
+		// add_settings_field( 'enabled_for', __( 'Enable landing pages for', 'frontpage-buddy' ), array( $this, 'enabled_for' ), __FILE__, 'general_section' );
 		add_settings_field( 'integrations', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'integrations' ), __FILE__, 'general_section' );
 		add_settings_field( 'widget_settings', __( 'Widget Settings', 'frontpage-buddy' ), array( $this, 'widget_settings' ), __FILE__, 'general_section' );
 	}
@@ -330,7 +330,7 @@ class Admin {
 			if ( ! empty( $settings_fields ) ) {
 				$settings_fields_mod = array();
 				foreach ( $settings_fields as $field_name => $v ) {
-					$field_name = $this->option_name . '[' . $main_setting_name . '][' . $integration_type . '][' . $field_name . ']';
+					$field_name                         = $this->option_name . '[' . $main_setting_name . '][' . $integration_type . '][' . $field_name . ']';
 					$settings_fields_mod[ $field_name ] = $v;
 				}
 
@@ -360,8 +360,8 @@ class Admin {
 	 * @return boolean
 	 */
 	public function widget_settings() {
-		$field_name  = __FUNCTION__;
-		$field_value = $this->option( $field_name );
+		$field_name         = __FUNCTION__;
+		$field_value        = $this->option( $field_name );
 		$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
 
 		$all_integrations = frontpage_buddy()->get_all_integrations();
@@ -371,7 +371,7 @@ class Admin {
 
 		foreach ( $registered_widgets as $widget_type => $widget_class ) {
 			$this_widget_settings = isset( $field_value[ $widget_type ] ) ? $field_value[ $widget_type ] : array();
-			$obj = new $widget_class( $widget_type );
+			$obj                  = new $widget_class( $widget_type );
 			echo '<table class="table widefat form-table">';
 			echo '<thead><tr><td colspan="100%"><strong>' . esc_html( $obj->name ) . '</strong></td></tr></thead>';
 			echo '<tbody>';

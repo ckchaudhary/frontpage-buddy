@@ -21,7 +21,7 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return string
 	 */
 	public function get_admin_description() {
-		$cf_enabled = false;
+		$cf_enabled       = false;
 		$cf_boxes_enabled = false;
 		if ( function_exists( '\bp_nouveau_get_appearance_settings' ) ) {
 			if ( \bp_nouveau_get_appearance_settings( 'group_front_page' ) ) {
@@ -33,7 +33,7 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 			}
 		}
 
-		$html  = '<p>' . __( 'This enables administrators of all BuddyPress groups to customize a group\'s front page.', 'frontpage-buddy' ) . '</p>';
+		$html = '<p>' . __( 'This enables administrators of all BuddyPress groups to customize a group\'s front page.', 'frontpage-buddy' ) . '</p>';
 
 		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following options are not enabled:', 'frontpage-buddy:' ) . '</p>';
 		$html .= '<ul>';

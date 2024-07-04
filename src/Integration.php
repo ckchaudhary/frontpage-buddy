@@ -62,7 +62,7 @@ abstract class Integration {
 	 * @return boolean
 	 */
 	public function has_custom_front_page( $object_id, $set = false ) {
-		$flag = false;
+		$flag        = false;
 		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
 		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for ) ) {
 			$flag = true;
@@ -110,7 +110,7 @@ abstract class Integration {
 		$data['object_id']   = $this->get_editable_object_id();
 		if ( $data['object_id'] ) {
 			$data['all_widgets'] = array();
-			$all = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), $data['object_id'] );
+			$all                 = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), $data['object_id'] );
 			if ( ! empty( $all ) ) {
 				foreach ( $all as $widget ) {
 					$data['all_widgets'][] = array(
@@ -126,7 +126,7 @@ abstract class Integration {
 			if ( ! empty( $added_widgets ) ) {
 				$temp = array();
 				foreach ( $added_widgets as $widget ) {
-					$title = apply_filters( 'frontpage_buddy_widget_title_for_manage_screen', '', $widget );
+					$title           = apply_filters( 'frontpage_buddy_widget_title_for_manage_screen', '', $widget );
 					$widget['title'] = $title;
 					unset( $widget['options'] );
 
@@ -243,7 +243,7 @@ abstract class Integration {
 	 */
 	public function get_option( $option_name ) {
 		$all_integrations = frontpage_buddy()->option( 'integrations' );
-		$all_options = ! empty( $all_integrations ) && isset( $all_integrations[ $this->type ] ) && ! empty( $all_integrations[ $this->type ] ) ? $all_integrations[ $this->type ] : array();
+		$all_options      = ! empty( $all_integrations ) && isset( $all_integrations[ $this->type ] ) && ! empty( $all_integrations[ $this->type ] ) ? $all_integrations[ $this->type ] : array();
 		return isset( $all_options[ $option_name ] ) ? $all_options[ $option_name ] : null;
 	}
 }
