@@ -64,7 +64,7 @@ abstract class Integration {
 	public function has_custom_front_page( $object_id, $set = false ) {
 		$flag        = false;
 		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
-		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for ) ) {
+		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for, true ) ) {
 			$flag = true;
 		}
 

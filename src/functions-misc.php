@@ -183,10 +183,10 @@ function generate_form_fields( $fields, $args = '' ) {
 					// checked ?
 					if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
 						if ( is_array( $field['value'] ) ) {
-							if ( in_array( $option_val, $field['value'] ) ) {
+							if ( in_array( $option_val, $field['value'], true ) ) {
 								$html .= " selected='selected'";
 							}
-						} elseif ( $option_val == $field['value'] ) {
+						} elseif ( $option_val === $field['value'] ) {
 								$html .= " selected='selected'";
 						}
 					}

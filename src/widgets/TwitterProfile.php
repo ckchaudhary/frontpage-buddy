@@ -36,7 +36,7 @@ class TwitterProfile extends Widget {
 	 */
 	public function get_fields() {
 		$attrs_dark_theme = array();
-		if ( 'yes' == $this->edit_field_value( 'dark_theme' ) ) {
+		if ( 'yes' === $this->edit_field_value( 'dark_theme' ) ) {
 			$attrs_dark_theme['checked'] = 'checked';
 		}
 		return array(

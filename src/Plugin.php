@@ -18,8 +18,6 @@ class Plugin {
 	 * Default options for the plugin.
 	 * After the user saves options the first time they are loaded from the DB.
 	 *
-	 * @todo: redo this
-	 *
 	 * @var array
 	 */
 	private $default_options = array(
@@ -79,14 +77,32 @@ class Plugin {
 		return $this->widget_collection;
 	}
 
+	/**
+	 * Get all registered integrations.
+	 *
+	 * @return array
+	 */
 	public function get_all_integrations() {
 		return $this->integrations;
 	}
 
+	/**
+	 * Get a registered integration.
+	 *
+	 * @param string $type identifier of the integration.
+	 * @return mixed \RecycleBin\FrontPageBuddy\Integration if found. null otherwise.
+	 */
 	public function get_integration( $type ) {
 		return isset( $this->integrations[ $type ] ) ? $this->integrations[ $type ] : null;
 	}
 
+	/**
+	 * Register an integration.
+	 *
+	 * @param string                                 $type identifier of the integration.
+	 * @param \RecycleBin\FrontPageBuddy\Integration $obj an object of type \RecycleBin\FrontPageBuddy\Integration.
+	 * @return \WP_Error|void \WP_Error if registration failed.
+	 */
 	public function register_integration( $type, $obj ) {
 		if ( ! empty( $this->integrations ) && isset( $this->integrations[ $type ] ) ) {
 			return new \WP_Error( 'duplicate_inte', __( 'Please use a unique type.', 'frontpage-buddy' ) );
@@ -209,7 +225,7 @@ class Plugin {
 		if ( $buddypress_active ) {
 			$this->register_integration( 'bp_groups', new Integrations\BuddyPress\Groups( 'bp_groups', 'BuddyPress Groups' ) );
 			// buddypress groups helper.
-			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for ) ) {
+			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
 					bp_register_group_extension( '\RecycleBin\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
 				}
@@ -217,7 +233,7 @@ class Plugin {
 
 			$this->register_integration( 'bp_members', new Integrations\BuddyPress\Profiles( 'bp_members', 'BuddyPress Member Profiles' ) );
 			// buddypress member profiles helper.
-			if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for ) ) {
+			if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for, true ) ) {
 				Integrations\BuddyPress\MemberProfilesHelper::get_instance();
 			}
 		}
@@ -227,7 +243,7 @@ class Plugin {
 			// Register widget.
 			$this->register_integration( 'bbp_profiles', new Integrations\BBPress\Profiles( 'bbp_profiles', 'bbPress User Profiles' ) );
 			// Load helper.
-			if ( ! empty( $enabled_for ) && in_array( 'bbp_profiles', $enabled_for ) ) {
+			if ( ! empty( $enabled_for ) && in_array( 'bbp_profiles', $enabled_for, true ) ) {
 				Integrations\BBPress\ProfilesHelper::get_instance();
 			}
 		}
@@ -237,7 +253,7 @@ class Plugin {
 			// Register widget.
 			$this->register_integration( 'um_member_profiles', new Integrations\UltimateMember\Profiles( 'um_member_profiles', 'UltimateMember Profiles' ) );
 			// Load helper.
-			if ( ! empty( $enabled_for ) && in_array( 'um_member_profiles', $enabled_for ) ) {
+			if ( ! empty( $enabled_for ) && in_array( 'um_member_profiles', $enabled_for, true ) ) {
 				Integrations\UltimateMember\ProfilesHelper::get_instance();
 			}
 		}
@@ -277,7 +293,6 @@ class Plugin {
 			wp_enqueue_style( 'trumbowyg', 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css', array(), '2.27.3' );
 
 			wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.js', array( 'jquery', 'jquery-form' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
-			/* wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor.js', array( 'jquery', 'jquery-form' ), time(), array( 'in_footer' => true ) ); */
 
 			$data = apply_filters(
 				'frontpage_buddy_script_data',
@@ -309,14 +324,12 @@ class Plugin {
 			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
 			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
-			/* wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/editor.css', array(), FPBUDDY_PLUGIN_VERSION ); */
 		}
 
 		// Assets for view(front page) screen.
 		$is_custom_front_page_screen = apply_filters( 'frontpage_buddy_is_custom_front_page_screen', false );
 		if ( $is_custom_front_page_screen ) {
 			wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/view.css', array(), FPBUDDY_PLUGIN_VERSION );
-			/* wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/view.css', array(), time() ); */
 		}
 	}
 }

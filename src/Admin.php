@@ -156,7 +156,7 @@ class Admin {
 			<form method="post" action="<?php echo esc_attr( $this->form_action ); ?>">
 
 				<?php
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
+				// phpcs:ignore
 				if ( frontpage_buddy()->network_activated && isset( $_GET['updated'] ) ) {
 					echo '<div class="updated"><p>' . esc_attr__( 'Settings updated.', 'bp-msgat' ) . '</p></div>';
 				}
@@ -371,8 +371,8 @@ class Admin {
 			die( 'Access denied!' );
 		}
 
-		if ( isset( $_POST['frontpage_buddy_submit'] ) ) {
-			$submitted = stripslashes_deep( $_POST[ $this->option_name ] );
+		if ( isset( $_POST['frontpage_buddy_submit'] ) && isset( $_POST[ $this->option_name ] ) ) {
+			$submitted = stripslashes_deep( $_POST[ $this->option_name ] );//phpcs:ignore
 			$submitted = $this->plugin_options_validate( $submitted );
 
 			update_site_option( $this->option_name, $submitted );
