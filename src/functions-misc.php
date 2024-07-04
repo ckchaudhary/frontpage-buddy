@@ -49,7 +49,7 @@ function buffer_template_part( $template ) {
  * @param array $args Options.
  * @return void
  */
-function generate_form_fields_new( $fields, $args = '' ) {
+function generate_form_fields( $fields, $args = '' ) {
 
 	if ( ! $fields || empty( $fields ) ) {
 		return;

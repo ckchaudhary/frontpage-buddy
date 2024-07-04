@@ -57,10 +57,12 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return array
 	 */
 	public function get_settings_fields() {
-		$show_prompt = $this->get_option( 'show_encourage_prompt' );
-		$show_prompt = 'yes' === $show_prompt ? 'yes' : '';
+		$attrs_show_prompt = array();
+		if ( 'yes' === $this->get_option( 'show_encourage_prompt' ) ) {
+			$attrs_show_prompt['checked'] = 'checked';
+		}
 
-		$prompt_text = $this->get_option( 'show_encourage_prompt' );
+		$prompt_text = $this->get_option( 'encourage_prompt_text' );
 		if ( $prompt_text ) {
 			$prompt_text = trim( $prompt_text );
 		}
@@ -76,9 +78,9 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 			'show_encourage_prompt' => array(
 				'type'        => 'switch',
 				'label'       => __( 'Show prompt to group admins?', 'frontpage-buddy' ),
-				'value'       => $show_prompt,
 				'label_off'   => __( 'No', 'frontpage-buddy' ),
 				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'attributes'  => $attrs_show_prompt,
 				'description' => __( 'If enabled, when a group administrator visits the group\'s front page, they see a small prompt at the top. This can be used to encourage group admins to provide necessary information on front page. This can also be used to add a link to the page where the group admin can customize the front page.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(

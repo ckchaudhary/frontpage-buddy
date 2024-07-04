@@ -83,6 +83,30 @@ class GroupExtension extends \BP_Group_Extension {
 	 * @return void
 	 */
 	public function custom_group_boxes() {
-		frontpage_buddy()->get_integration( 'bp_groups' )->output_frontpage_content( bp_get_current_group_id() );
+		$integration = frontpage_buddy()->get_integration( 'bp_groups' );
+		if ( $integration ) {
+			if ( $integration->can_manage( \bp_get_current_group_id() ) ) {
+				// Show prompt?
+				if ( 'yes' === $integration->get_option( 'show_encourage_prompt' ) ) {
+					$prompt_text = $integration->get_option( 'encourage_prompt_text' );
+					if ( $prompt_text ) {
+						$manage_link = sprintf(
+							'<a href="%s">%s</a>',
+							bp_get_group_manage_url( \bp_get_current_group_id() ) . $this->subnav_slug . '/',
+							__( 'here', 'frontpage-buddy' )
+						);
+						$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
+						echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
+						// Allow html as it is provided by admins.
+						// phpcs:ignore WordPress.Security.EscapeOutput
+						echo $prompt_text;
+						echo '</div></div>';
+					}
+				}
+			}
+
+			// Show widgets output.
+			$integration->output_frontpage_content( bp_get_current_group_id() );
+		}
 	}
 }

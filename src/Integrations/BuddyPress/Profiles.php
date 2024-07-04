@@ -50,10 +50,12 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return array
 	 */
 	public function get_settings_fields() {
-		$show_prompt = $this->get_option( 'show_encourage_prompt' );
-		$show_prompt = 'yes' === $show_prompt ? 'yes' : '';
+		$attrs_show_prompt = array();
+		if ( 'yes' === $this->get_option( 'show_encourage_prompt' ) ) {
+			$attrs_show_prompt['checked'] = 'checked';
+		}
 
-		$prompt_text = $this->get_option( 'show_encourage_prompt' );
+		$prompt_text = $this->get_option( 'encourage_prompt_text' );
 		if ( $prompt_text ) {
 			$prompt_text = trim( $prompt_text );
 		}
@@ -69,9 +71,9 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 			'show_encourage_prompt' => array(
 				'type'        => 'switch',
 				'label'       => __( 'Show prompt when viewing one\'s own profile?', 'frontpage-buddy' ),
-				'value'       => $show_prompt,
 				'label_off'   => __( 'No', 'frontpage-buddy' ),
 				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'attributes'  => $attrs_show_prompt,
 				'description' => __( 'If enabled, when a member visits their profile, they see a small prompt at the top. This can be used to encourage members to add content to their front page. This can also be used to add a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(

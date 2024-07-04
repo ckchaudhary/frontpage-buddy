@@ -274,8 +274,7 @@ class Admin {
 	 * @return boolean
 	 */
 	public function integrations() {
-		$field_name = __FUNCTION__;
-		$integration_options = $this->option( $field_name );
+		$main_setting_name = __FUNCTION__;
 
 		$enabled_objects = $this->option( 'enabled_for' );
 		if ( empty( $enabled_objects ) ) {
@@ -331,7 +330,7 @@ class Admin {
 			if ( ! empty( $settings_fields ) ) {
 				$settings_fields_mod = array();
 				foreach ( $settings_fields as $field_name => $v ) {
-					$field_name = $this->option_name . '[' . $field_name . '][' . $integration_type . '][' . $field_name . ']';
+					$field_name = $this->option_name . '[' . $main_setting_name . '][' . $integration_type . '][' . $field_name . ']';
 					$settings_fields_mod[ $field_name ] = $v;
 				}
 
