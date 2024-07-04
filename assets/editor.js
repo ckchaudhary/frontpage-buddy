@@ -115,8 +115,7 @@ class FPBuddyWidgetsManager {
 	};
 
     toggleFPStatus ($checkbox) {
-		const _class = this;
-        let enabled = 'no';
+		let enabled = 'no';
 
         if ($checkbox.is( ':checked' )) {
             enabled = 'yes';
@@ -258,22 +257,6 @@ class FPBuddyWidgetsManager {
 		`;
 	};
 
-	updateLayout ( new_layout ) {
-		let data = {
-            'action': FRONTPAGE_BUDDY.config.req.update_layout.action,
-            '_wpnonce': FRONTPAGE_BUDDY.config.req.update_layout.nonce,
-			'object_type' : FRONTPAGE_BUDDY.object_type,
-			'object_id' : FRONTPAGE_BUDDY.object_id,
-			'layout': layout,
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: FRONTPAGE_BUDDY.config.ajaxurl,
-            data: data,
-        });
-	};
-
 	showWidgetOpts ( $widget ) {
 		if ( $widget.find('.widget-settings form').length > 0 ) {
 			$widget.closest('.row-contents').addClass( 'dblock' );
@@ -318,7 +301,7 @@ class FPBuddyWidgetsManager {
                 $widget.find('.response').remove();
                 $widget.addClass('loading');
             },
-            success: function (response, status) {
+            success: function (response) {
 				$widget.removeClass( 'loading' );
 				if ( response.success ) {
 					if ( response.data.message ) {
@@ -354,10 +337,10 @@ class FPBuddyLayoutManager {
 
 	setup () {
 		const _class = this;
-		if ( _class.options.hasOwnProperty( 'parent' ) ) {
+		if ( Object.prototype.hasOwnProperty.call( _class.options, 'parent' ) ) {
 			_class._l.parent = _class.options.parent;
 		} 
-		if ( ! _class._l.hasOwnProperty( 'parent' ) ) {
+		if ( ! Object.prototype.hasOwnProperty.call( _class._l, 'parent' ) ) {
 			return false;
 		}
 
