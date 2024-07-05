@@ -136,8 +136,8 @@ class Admin {
 	public function admin_menu() {
 		$this->generate_hook_sufix = add_submenu_page(
 			$this->settings_page,
-			__( 'FrontPage Buddy', 'fontpage-buddy' ),
-			__( 'FrontPage Buddy', 'fontpage-buddy' ),
+			__( 'FrontPage Buddy', 'frontpage-buddy' ),
+			__( 'FrontPage Buddy', 'frontpage-buddy' ),
 			$this->capability,
 			$this->plugin_slug,
 			array( $this, 'options_page' ),
@@ -158,7 +158,7 @@ class Admin {
 				<?php
 				// phpcs:ignore
 				if ( frontpage_buddy()->network_activated && isset( $_GET['updated'] ) ) {
-					echo '<div class="updated"><p>' . esc_attr__( 'Settings updated.', 'bp-msgat' ) . '</p></div>';
+					echo '<div class="updated"><p>' . esc_attr__( 'Settings updated.', 'frontpage-buddy' ) . '</p></div>';
 				}
 				?>
 
