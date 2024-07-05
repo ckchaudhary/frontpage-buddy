@@ -43,7 +43,7 @@ class GroupExtension extends \BP_Group_Extension {
 				'edit'   => array(
 					'enabled'              => function_exists( '\bp_nouveau_get_appearance_settings' ) && bp_nouveau_get_appearance_settings( 'group_front_page' ),
 					'slug'                 => 'front-page',
-					'name'                 => __( 'Front Page', 'bp-landing-pages' ),
+					'name'                 => __( 'Front Page', 'frontpage-buddy' ),
 					'position'             => 55,
 					'screen_callback'      => array( $this, 'settings_screen' ),
 					'screen_save_callback' => array( $this, 'settings_screen_save' ),

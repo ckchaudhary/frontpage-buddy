@@ -316,12 +316,12 @@ class Collection {
 		$object_type = isset( $_REQUEST['object_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['object_type'] ) ) : '';
 		$object_id   = isset( $_REQUEST['object_id'] ) ? absint( wp_unslash( $_REQUEST['object_id'] ) ) : 0;
 		if ( empty( $widget_type ) || empty( $widget_id ) || empty( $object_type ) || empty( $object_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!0', 'frontpage-buddy' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
 		$integration = frontpage_buddy()->get_integration( $object_type );
 		if ( ! $integration ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request1!', 'frontpage-buddy' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
 		$can_manage = $integration->can_manage( $object_id );
@@ -348,7 +348,7 @@ class Collection {
 		}
 
 		if ( ! $widget_obj ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request1!', 'frontpage-buddy' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
 		$update_status = $widget_obj->update();
