@@ -19,12 +19,12 @@ defined( 'ABSPATH' ) ? '' : exit();
  */
 function load_template( $template ) {
 	$template .= '.php';
-	if ( file_exists( get_stylesheet_directory() . '/frontpage_buddy/' . $template ) ) {
-		include get_stylesheet_directory() . '/frontpage_buddy/' . $template;
-	} elseif ( file_exists( get_template_directory() . '/frontpage_buddy/' . $template ) ) {
-		include get_template_directory() . '/frontpage_buddy/' . $template;
+	if ( file_exists( get_stylesheet_directory() . '/frontpage-buddy/' . $template ) ) {
+		include get_stylesheet_directory() . '/frontpage-buddy/' . $template;
+	} elseif ( file_exists( get_template_directory() . '/frontpage-buddy/' . $template ) ) {
+		include get_template_directory() . '/frontpage-buddy/' . $template;
 	} else {
-		include FPBUDDY_PLUGIN_DIR . 'templates/frontpage_buddy/' . $template;
+		include FPBUDDY_PLUGIN_DIR . 'templates/frontpage-buddy/' . $template;
 	}
 }
 
