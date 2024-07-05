@@ -1,6 +1,6 @@
 {
-    "name": "recyclebin/fontpage-buddy",
-    "description": "The Frontpage Buddy plugin for BuddyPress",
+    "name": "recyclebin/frontpage-buddy",
+    "description": "The Frontpage Buddy plugin for WordPress",
     "type": "wordpress-plugin",
 	"version": "1.0.0",
 	"authors": [
