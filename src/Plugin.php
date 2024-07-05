@@ -317,7 +317,7 @@ class Plugin {
 								'nonce'  => wp_create_nonce( 'frontpage_buddy_widget_opts_get' ),
 							),
 						),
-						'img_spinner' => network_home_url( 'wp-includes/images/spinner.gif' ),
+						'img_spinner' => FPBUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
 					),
 					'object_type' => '',
 					'object_id'   => 0,

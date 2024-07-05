@@ -55,7 +55,7 @@ $is_enabled = frontpage_buddy()->bp_groups()->has_custom_front_page();
 				<div class="fpbuddy_container">
 					<div class="fpbuddy_content">
 						<div id="fpbuddy_fp_layout_outer">
-							<img src="<?php echo network_home_url( 'wp-includes/images/spinner.gif' ); ?>" class="img_loading" >
+							<img src="<?php echo esc_attr( FPBUDDY_PLUGIN_URL ); ?>assets/images/spinner.gif" class="img_loading" >
 						</div>
 					</div>
 				</div>
