@@ -37,13 +37,13 @@ class FPBuddyWidgetsManager {
 
 		// Preview to settings
 		_class._l.parent.on( 'click', '.widget.state-preview .widget-image,.widget.state-preview .widget-title', function(){
-			_class.showWidgetOpts( jQuery(this).closest('.widget') );
+			_class.showWidgetOpts( jQuery(this).closest('.fp-widget') );
 		} );
 
 		// Settings to preview
 		_class._l.parent.on( 'click', '.close-widget-settings', function(e){
 			e.preventDefault();
-			let $widget = jQuery(this).closest('.widget');
+			let $widget = jQuery(this).closest('.fp-widget');
 			$widget.addClass( 'state-preview' ).removeClass( 'state-edit' );
 
 			// Set parent to flex layout if all the widgets inside it are in preview sate.
@@ -78,7 +78,7 @@ class FPBuddyWidgetsManager {
         });
 
 		// Do things when a widget is updated.
-		_class._l.parent.on( 'widget_updated', '.widget', function(){
+		_class._l.parent.on( 'widget_updated', '.fp-widget', function(){
 			const $widget = jQuery(this);
 			if ( $widget.hasClass( 'widget-richcontent' ) ) {
 				let html = $widget.find('.field .trumbowyg-box textarea').first().val();
@@ -204,7 +204,7 @@ class FPBuddyWidgetsManager {
 		`;
 
 		$el_container.html( html );
-		this.showWidgetOpts( $el_container.find('.widget') );
+		this.showWidgetOpts( $el_container.find('.fp-widget') );
 	};
 
 	getWidgetContents( widget_id ) {
@@ -448,7 +448,7 @@ class FPBuddyLayoutManager {
 			let new_layout = [];
 			jQuery( _class._l.parent ).find( ".row-content" ).each( function(){
 				let widgets = [];
-				jQuery(this).find(".widget").each( function(){
+				jQuery(this).find(".fp-widget").each( function(){
 					widgets.push( jQuery(this).data('id'));
 				});
 

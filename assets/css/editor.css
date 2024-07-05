@@ -199,7 +199,7 @@ Manage Screens
 	background-size: cover;
 }
 
-.fpbuddy_manage_widgets .widget .widget-title{
+.fpbuddy_manage_widgets .fp-widget .widget-title{
 	border-radius: 0 !important;
 	background-color: #05789c;
 	color: #ffffff;
@@ -283,16 +283,12 @@ Manage Screens
 	padding: 5px;
 }
 
-.fpbuddy_manage_widgets .widget{
-	/* border: 1px solid #ddd; */
-}
-
-.fpbuddy_manage_widgets .widget .widget-image{
+.fpbuddy_manage_widgets .fp-widget .widget-image{
 	min-height: 100px;
 	cursor: pointer;
 }
 
-.fpbuddy_manage_widgets .widget .widget-desc{
+.fpbuddy_manage_widgets .fp-widget .widget-desc{
 	font-size: smaller;
     padding-left: 10px;
     margin: 20px 0 20px 20px;
@@ -318,19 +314,19 @@ Manage Screens
 	display: block;
 }
 
-.fpbuddy_manage_widgets .widget .widget-image img{
+.fpbuddy_manage_widgets .fp-widget .widget-image img{
 	width: 100%;
 	max-width: 200px;
 }
 
-.fpbuddy_manage_widgets .widget .widget-title,
-.fpbuddy_manage_widgets .widget .widget-desc,
-.fpbuddy_manage_widgets .widget .widget-settings {
+.fpbuddy_manage_widgets .fp-widget .widget-title,
+.fpbuddy_manage_widgets .fp-widget .widget-desc,
+.fpbuddy_manage_widgets .fp-widget .widget-settings {
 	padding: 3px;
 }
 
 
-.fpbuddy_manage_widgets .widget .loading_overlay{
+.fpbuddy_manage_widgets .fp-widget .loading_overlay{
     display: none;
     background: rgba(255, 255, 255, 0.7);
     position: absolute;
@@ -343,12 +339,12 @@ Manage Screens
     display: block;
 	z-index: 20;
 }
-	.fpbuddy_manage_widgets .widget .loading_overlay .helper{
+	.fpbuddy_manage_widgets .fp-widget .loading_overlay .helper{
         display: inline-block; 
         height: 100%;
         vertical-align: middle;
     }
-    .fpbuddy_manage_widgets .widget .loading_overlay img{
+    .fpbuddy_manage_widgets .fp-widget .loading_overlay img{
         display: inline-block;
         vertical-align: middle;
     }
@@ -400,7 +396,7 @@ body.admin-bar .fpbuddy_manage_widgets .trumbowyg-fullscreen{
     top: 33px;
 }
 
-.fpbuddy_manage_widgets .widget .response{
+.fpbuddy_manage_widgets .fp-widget .response{
 	padding: 8px 35px 8px 14px;
     margin-bottom: 10px 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -411,13 +407,13 @@ body.admin-bar .fpbuddy_manage_widgets .trumbowyg-fullscreen{
     border-radius: 4px;
 }
 
-.fpbuddy_manage_widgets .widget .response.alert-error{
+.fpbuddy_manage_widgets .fp-widget .response.alert-error{
 	color: #b94a48;
 	background-color: #f2dede;
 	border-color: #eed3d7;
 }
 
-.fpbuddy_manage_widgets .widget .response.alert-success{
+.fpbuddy_manage_widgets .fp-widget .response.alert-success{
 	color: #468847;
 	background-color: #dff0d8;
 	border-color: #d6e9c6;
