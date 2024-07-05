@@ -62,11 +62,6 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function is_custom_front_page_screen( $flag = false ) {
-		/**
-		 * Possible checks
-		 * if ( um_queried_user() && um_is_core_page( 'user' ) ) {
-		 */
-
 		if ( um_is_core_page( 'user' ) && ! um_is_on_edit_profile() ) {
 			$flag = true;
 		}
