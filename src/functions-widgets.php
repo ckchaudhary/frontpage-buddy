@@ -128,6 +128,7 @@ function visual_editor_allowed_html_tags() {
 			),
 			'ul'     => array(),
 			'ol'     => array(),
+			'li'     => array(),
 			'hr'     => array(),
 		)
 	);
