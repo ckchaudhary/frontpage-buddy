@@ -1,0 +1,392 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: FrontPage Buddy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-05 06:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.10; wp-6.5.5\n"
+"X-Domain: frontpage-buddy"
+
+#. 'field name' can not be empty.
+#: src/Widgets/Widget.php:224
+#, php-format
+msgid "%s can not be empty."
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:18
+msgid ""
+"A custom front page for this group is not enabled yet. Before enabling it, "
+"make sure you have added some content for the front page."
+msgstr ""
+
+#: src/Widgets/Collection.php:156 src/Widgets/Collection.php:262
+#: src/Widgets/Collection.php:329
+msgid "Access denied!"
+msgstr ""
+
+#: src/Widgets/RichContent.php:26
+msgid "Add text/copy, headings, links, lists, insert images, etc."
+msgstr ""
+
+#: src/Widgets/Widget.php:305
+msgid "Close"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:42
+#: src/Integrations/BuddyPress/Groups.php:46
+#: src/Integrations/BuddyPress/Profiles.php:40
+msgid "Currently disabled"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:42
+#: src/Integrations/BuddyPress/Groups.php:46
+#: src/Integrations/BuddyPress/Profiles.php:40
+msgid "Currently enabled"
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage.php:15
+msgid "Customize group's front page"
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage.php:20
+msgid ""
+"Customize this group's front page by adding text, images, embedding your "
+"social media feed, etc."
+msgstr ""
+
+#. 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a>
+#: src/Integrations/BuddyPress/Groups.php:72
+#, php-format
+msgid "Customize this group's front page by going %s."
+msgstr ""
+
+#: src/Integrations/BuddyPress/MemberProfilesHelper.php:104
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:46
+msgid "Customize your front page"
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:51
+#: templates/frontpage-buddy/buddypress/profiles/manage.php:16
+msgid ""
+"Customize your front page by adding text, images, embedding your social "
+"media feed, etc."
+msgstr ""
+
+#. 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a>
+#: src/Integrations/BuddyPress/Profiles.php:65
+#, php-format
+msgid "Customize your profile's front page by going %s."
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:26
+msgid "Display any X/Twitter profile's feed."
+msgstr ""
+
+#. external link to read technical details about the widget.
+#: src/Widgets/RichContent.php:29
+#, php-format
+msgid ""
+"Displays a rich-text-editor, allowing users to enter text, links, images etc."
+" Also has basic formatting options like 'bold', 'italics', etc. %s"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:47
+msgid "E.g: @johndoe"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:26
+msgid "Embed a youtube video."
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:26
+msgid "Embed and promote any Facebook Page."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:45
+msgid "Enable custom boxes for group homepages..."
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:22
+msgid "Enable custom front page?"
+msgstr ""
+
+#: src/Admin.php:274
+msgid "Enable this integration?"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:46
+msgid "Enter the youtube video url."
+msgstr ""
+
+#: src/Widgets/Collection.php:194 src/Widgets/Collection.php:200
+#: src/Widgets/Collection.php:206
+msgid "Error"
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:25
+msgid "Facebook Page"
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:83
+msgid "Facebook Page URL"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:55
+msgid "Fixed"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:56
+msgid "Fluid"
+msgstr ""
+
+#: src/Integrations/BuddyPress/GroupExtension.php:38
+#: src/Integrations/BuddyPress/GroupExtension.php:46
+#: src/Integrations/BuddyPress/MemberProfilesHelper.php:39
+msgid "Front Page"
+msgstr ""
+
+#. %s: list of plugins frontpage-buddy works with.
+#: src/Admin.php:245
+#, php-format
+msgid ""
+"Frontpage buddy can only work when either of the following plugins are "
+"active: %s"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:36
+msgid "Frontpage Buddy has no effect if the following option is not enabled:"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:58
+msgid "Height"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:60
+msgid "Height in pixels (optional)"
+msgstr ""
+
+#: src/Integrations/BuddyPress/GroupExtension.php:96
+#: src/Integrations/BuddyPress/MemberProfilesHelper.php:188
+msgid "here"
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:97
+msgid "Hide Cover Photo"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:84
+msgid ""
+"If enabled, when a group administrator visits the group's front page, they "
+"see a small prompt at the top. This can be used to encourage group admins to "
+"provide necessary information on front page. This can also be used to add a "
+"link to the page where the group admin can customize the front page."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:77
+msgid ""
+"If enabled, when a member visits their profile, they see a small prompt at "
+"the top. This can be used to encourage members to add content to their front "
+"page. This can also be used to add a link to the page where the member can "
+"customize their front page."
+msgstr ""
+
+#: src/Widgets/InstagramProfile.php:25
+msgid "Instagram Profile"
+msgstr ""
+
+#: src/Admin.php:187
+msgid "Integrations"
+msgstr ""
+
+#: src/Widgets/Collection.php:146 src/Widgets/Collection.php:151
+#: src/Widgets/Collection.php:252 src/Widgets/Collection.php:257
+#: src/Widgets/Collection.php:295 src/Widgets/Collection.php:319
+msgid "Invalid request!"
+msgstr ""
+
+#: src/Widgets/RichContent.php:27
+msgid "Know More"
+msgstr ""
+
+#: src/Admin.php:276 src/Widgets/TwitterProfile.php:65
+#: src/Integrations/BuddyPress/Groups.php:81
+#: src/Integrations/BuddyPress/Profiles.php:74
+msgid "No"
+msgstr ""
+
+#: src/Admin.php:246
+msgid "Not much it can do for now!"
+msgstr ""
+
+#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:15
+#: templates/frontpage-buddy/bbpress/profiles/manage.php:15
+msgid "Personalize your profile"
+msgstr ""
+
+#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:20
+#: templates/frontpage-buddy/bbpress/profiles/manage.php:20
+msgid ""
+"Personalize your profile by adding text, images, embedding your social media "
+"feed, etc."
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Personalized front pages for buddypress members & groups, bbpress profiles "
+"and 'Ultimate Member' profiles."
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:54
+msgid "Player width"
+msgstr ""
+
+#: src/Plugin.php:108
+msgid "Please use a unique type."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:88
+#: src/Integrations/BuddyPress/Profiles.php:81
+msgid "Prompt text"
+msgstr ""
+
+#: src/Widgets/RichContent.php:25
+msgid "Rich Text"
+msgstr ""
+
+#: src/Admin.php:410
+msgid "Settings"
+msgstr ""
+
+#: src/Admin.php:161
+msgid "Settings updated."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:80
+msgid "Show prompt to group admins?"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:73
+msgid "Show prompt when viewing one's own profile?"
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:103
+msgid "Show Recent Posts"
+msgstr ""
+
+#: src/Widgets/InstagramProfile.php:26
+msgid "Showcase an instagram profile."
+msgstr ""
+
+#: src/Plugin.php:112
+msgid "The integration must extend \\RecycleBin\\FrontPageBuddy\\Integration."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:90
+msgid ""
+"The text to be displayed inside the aforementioned prompt. You can use the "
+"placeholder {{LINK}} which will automatically be replaced with a link to the "
+"page where the front page can be customized."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:83
+msgid ""
+"The text to be displayed inside the aforementioned prompt. You can use the "
+"placeholder {{LINK}} which will automatically be replaced with a link to the "
+"page where the member can customize their front page."
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:85
+msgid "The url of the facebook page"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:36
+msgid ""
+"This enables administrators of all BuddyPress groups to customize a group's "
+"front page."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:35
+msgid ""
+"This enables all members of your buddypress site to customize their front "
+"page."
+msgstr ""
+
+#: src/Integrations/BBPress/Profiles.php:24
+msgid ""
+"This enables all members of your forums to customize their profile page."
+msgstr ""
+
+#: src/Integrations/UltimateMember/Profiles.php:24
+msgid "This enables all users to customize their profile page."
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:34
+msgid "This group now has a custom front page!"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:25
+msgid "Twitter Profile Feed"
+msgstr ""
+
+#: src/Widgets/Widget.php:304
+msgid "Update"
+msgstr ""
+
+#: src/Widgets/Collection.php:386 src/Widgets/Widget.php:204
+msgid "Updated"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:64
+msgid "Use dark theme"
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:91
+msgid "Use Small Header"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:45
+msgid "Video url"
+msgstr ""
+
+#: templates/frontpage-buddy/buddypress/groups/manage-old.php:36
+msgid "View"
+msgstr ""
+
+#: src/Widgets/Collection.php:266 src/Widgets/Collection.php:333
+msgid "Widget not available"
+msgstr ""
+
+#: src/Admin.php:188
+msgid "Widget Settings"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:52
+msgid "Width"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:54
+msgid "Width in pixels (optional)"
+msgstr ""
+
+#: src/Widgets/TwitterProfile.php:45
+msgid "X/Twitter Handle"
+msgstr ""
+
+#: src/Admin.php:277 src/Widgets/TwitterProfile.php:66
+#: src/Integrations/BuddyPress/Groups.php:82
+#: src/Integrations/BuddyPress/Profiles.php:75
+msgid "Yes"
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:25
+msgid "Youtube Video"
+msgstr ""
