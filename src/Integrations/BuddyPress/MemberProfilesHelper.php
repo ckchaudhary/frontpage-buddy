@@ -40,16 +40,8 @@ class MemberProfilesHelper {
 
 		add_action( 'bp_setup_nav', array( $this, 'bp_setup_nav' ) );
 
-		add_action( 'members_custom_group_boxes', array( $this, 'custom_group_boxes' ) );
-
-		// We need to load our own template file for member's custom front pages.
-		if ( function_exists( 'bp_register_template_stack' ) ) {
-			// add new location in template stack
-			// 13 is between theme and buddypress's template directory.
-			bp_register_template_stack( array( $this, 'register_template_stack' ), 13 );
-
-			add_filter( 'bp_get_template_stack', array( $this, 'maybe_remove_template_stack' ) );
-		}
+		add_filter( 'is_active_sidebar', array( $this, 'is_buddypress_members_sidebar_active' ), 20, 2 );
+		add_action( 'dynamic_sidebar_after', array( $this, 'after_buddypress_members_sidebar' ), 20 );
 	}
 
 	/**
@@ -122,14 +114,70 @@ class MemberProfilesHelper {
 	}
 
 	/**
-	 * Print the output for custom front page widgets.
+	 * Filters whether a dynamic sidebar is considered "active".
 	 *
+	 * @param bool       $is_active Whether or not the sidebar should be considered "active".
+	 *                                      In other words, whether the sidebar contains any widgets.
+	 * @param int|string $index     Index, name, or ID of the dynamic sidebar.
+	 * @return boolean
+	 */
+	public function is_buddypress_members_sidebar_active( $is_active, $index ) {
+		if ( $is_active ) {
+			return $is_active;// No need to check anything.
+		}
+
+		if ( 'sidebar-buddypress-members' !== $index ) {
+			return $is_active;// No need to check anything.
+		}
+
+		/**
+		 * Output of the custom front page is printed inside this sidebar.
+		 * So if there are no widgets added to this sidebar, the sidebar is never printed and thus the custom front page content is also not displayed.
+		 * So we hijack it and return true even if there are no widgets added to this sidebar.
+		 */
+		if ( \bp_is_user() ) {
+			$integration = frontpage_buddy()->get_integration( 'bp_members' );
+			if ( $integration->has_custom_front_page( \bp_displayed_user_id() ) ) {
+				$is_active = true;
+			}
+		}
+
+		return $is_active;
+	}
+
+	/**
+	 * Show outuput at the end of buddypress members sidebar.
+	 *
+	 * @param int|string $index Index, name, or ID of the dynamic sidebar.
 	 * @return void
 	 */
-	public function custom_group_boxes() {
+	public function after_buddypress_members_sidebar( $index ) {
+		if ( 'sidebar-buddypress-members' === $index ) {
+			$integration = frontpage_buddy()->get_integration( 'bp_members' );
+			if ( $integration->has_custom_front_page( \bp_displayed_user_id() ) ) {
+				$this->print_output( \bp_displayed_user_id() );
+			}
+		}
+	}
+
+	/**
+	 * Print the output for custom front page widgets.
+	 *
+	 * @param int $user_id id of the user. Default bp_displayed_user_id().
+	 * @return bool
+	 */
+	public function print_output( $user_id = false ) {
+		if ( ! $user_id ) {
+			$user_id = \bp_displayed_user_id();
+		}
+
+		if ( ! $user_id ) {
+			return false;
+		}
+
 		$integration = frontpage_buddy()->get_integration( 'bp_members' );
 		if ( $integration ) {
-			if ( $integration->can_manage( \bp_displayed_user_id() ) ) {
+			if ( $integration->can_manage( $user_id ) ) {
 				// Show prompt?
 				if ( 'yes' === $integration->get_option( 'show_encourage_prompt' ) ) {
 					$prompt_text = $integration->get_option( 'encourage_prompt_text' );
@@ -150,47 +198,7 @@ class MemberProfilesHelper {
 			}
 
 			// Show widgets output.
-			$integration->output_frontpage_content( \bp_displayed_user_id() );
+			$integration->output_frontpage_content( $user_id );
 		}
-	}
-
-	/**
-	 * Register this plugin's templates folder into buddypress' template stack.
-	 *
-	 * @return string
-	 */
-	public function register_template_stack() {
-		return FPBUDDY_PLUGIN_DIR . 'templates';
-	}
-
-	/**
-	 * Conditionally remove this plugin's templates folder from buddypress' template stack.
-	 *
-	 * @param array $stack All registered template locations.
-	 * @return array
-	 */
-	public function maybe_remove_template_stack( $stack ) {
-		$need_template_stack = false;
-		$enabled_for         = frontpage_buddy()->option( 'enabled_for' );
-
-		$bp_members_integration = frontpage_buddy()->get_integration( 'bp_members' );
-		if ( $bp_members_integration && bp_is_user() && ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for, true ) ) {
-			// Does the current user want to have a custom front page template?
-			$need_template_stack = $bp_members_integration->has_custom_front_page( bp_displayed_user_id() );
-		}
-
-		if ( ! $need_template_stack ) {
-			// Remove this plugin's template stack.
-			$new_stack = array();
-			foreach ( $stack as $filepath ) {
-				if ( strpos( $filepath, FPBUDDY_PLUGIN_DIR ) === false ) {
-					$new_stack[] = $filepath;
-				}
-			}
-
-			return $new_stack;
-		}
-
-		return $stack;
 	}
 }
