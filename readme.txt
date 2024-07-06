@@ -5,7 +5,7 @@ Tags: buddypress, bbpress, ultimate-members
 Requires PHP: 5.6
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 3.0.0
+Stable tag: 1.0.0
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,30 +19,29 @@ It builds upon the default functionality of few other plugins. Currently it has 
 
 ### 1. BuddyPress
 
-- **Member profiles:** BuddyPress member profiles have always been very impersonal. This plugin allows your website's members to take control of their profile pages and add information about themselves. Your members can customise their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc. Check screenshots to see a preview.
+- **Member profiles:** BuddyPress member profiles have always been very impersonal. This plugin allows your website's members to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc. Check screenshots to see a preview.
 
-- **Groups** Allow group admins to customise the group's front page by adding details about the group, embedding images & videos, promoting related social media profiles, etc. Check screenshots to see a preview.
+- **Groups** Allow group admins to customize the group's front page by adding details about the group, embedding images & videos, promoting related social media profiles, etc. Check screenshots to see a preview.
 
 ### 2. bbPress
 
-This plugin allows your bbPress forum's  members to take control of their profile pages and add information about themselves. Your members can customise their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc.
+This plugin allows your bbPress forum's  members to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc.
 
 ### 3. Ultimate Member
 
-This plugin allows your 'Ultimate Member' website's users to take control of their profile pages and add information about themselves. Your members can customise their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc.  
+This plugin allows your 'Ultimate Member' website's users to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc.  
 
 `Integration with other, compatible plugins may be added in future.`
 
-.............................................................................
+.......................................
 
 ### Widgets
 
 This plugin provides a list of 'widgets' that can be added to the custom front pages. These are completely unrelated to standard WordPress widgets and are called so for the lack of a better word. These represent the type of content that can be added to custom front pages. Some of the 'widgets' this plugins provides are 'rich content', 'facebook page embed', 'instagram profile embed', 'youtube video embed', etc. As an administrator you have full control on which widgets you allow.
-.............................................................................
+
+.......................................
 
 [Read More](https://blogs.recycleb.in/?p=47 "Plugin documentation") about the integrations and widgets [here](https://blogs.recycleb.in/?p=47 "Plugin documentation").
-
----------------------------------
 
 
 == Installation ==
@@ -53,15 +52,6 @@ This plugin provides a list of 'widgets' that can be added to the custom front p
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-
 == Screenshots ==
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif).
@@ -69,6 +59,9 @@ Answer to foo bar dilemma.
 
 == Changelog ==
 
+= 1.0.0 =
+
+* Initial Release
 
 == Upgrade Notice ==
 
