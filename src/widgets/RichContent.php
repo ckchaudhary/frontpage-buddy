@@ -38,8 +38,7 @@ class RichContent extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
-		$fields = array();
-
+		$fields = $this->get_default_fields();
 		$fields['content'] = array(
 			'type'        => 'wp_editor',
 			'label'       => '',
@@ -56,6 +55,8 @@ class RichContent extends Widget {
 	 * @return string
 	 */
 	public function get_output() {
-		return $this->view_field_val( 'content' );
+		$html = $this->view_field_val( 'content' );
+
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
 	}
 }

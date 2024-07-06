@@ -35,10 +35,10 @@ class InstagramProfile extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
-		$fields = array();
+		$fields = $this->get_default_fields();
 
 		$fields['insta_id'] = array(
-			'type'        => 'textbox',
+			'type'        => 'text',
 			'label'       => 'Instagram Id',
 			'value'       => ! empty( $this->edit_field_value( 'insta_id' ) ) ? $this->edit_field_value( 'insta_id' ) : '',
 			'is_required' => true,
@@ -64,6 +64,8 @@ class InstagramProfile extends Widget {
 		wp_enqueue_script( 'instagram-embed', 'https://www.instagram.com/embed.js', array(), '12', array( 'in_footer' => true ) );
 
 		/* setting width 100% is mandatory so that the instagram widget can take up full space of its container */
-		return sprintf( "<blockquote class='instagram-media' data-instgrm-permalink='%s' data-instgrm-version='12' style='width:100%%;'></blockquote>", esc_attr( $instagram_url ) );
+		$html = sprintf( "<blockquote class='instagram-media' data-instgrm-permalink='%s' data-instgrm-version='12' style='width:100%%;'></blockquote>", esc_attr( $instagram_url ) );
+
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
 	}
 }

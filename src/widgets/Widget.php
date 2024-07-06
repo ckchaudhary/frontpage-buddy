@@ -310,6 +310,23 @@ abstract class Widget {
 	}
 
 	/**
+	 * Get default fields for all widgets.
+	 *
+	 * @return array
+	 */
+	protected function get_default_fields() {
+		$fields = array(
+			'heading'     => array(
+				'type'  => 'text',
+				'label' => __( 'Heading', 'frontpage-buddy' ),
+				'value' => ! empty( $this->edit_field_value( 'heading' ) ) ? $this->edit_field_value( 'heading' ) : '',
+			),
+		);
+
+		return apply_filters( 'frontpage_buddy_widgets_default_fields', $fields, $this );
+	}
+
+	/**
 	 * Get all the 'fields' for the settings/options screen for this widget.
 	 *
 	 * @return array
@@ -317,9 +334,37 @@ abstract class Widget {
 	abstract public function get_fields();
 
 	/**
-	 * Print the output for this widget.
+	 * Get the output for this widget.
 	 *
 	 * @return void
 	 */
 	abstract public function get_output();
+
+	/**
+	 * Get the html to be appended before the actual output of a widget.
+	 *
+	 * @return string
+	 */
+	public function output_start() {
+		$html = sprintf( '<div class="fp-widget fp-widget-%s">', esc_attr( $this->type ) );
+
+		// Include heading for all.
+		$heading = apply_filters( 'frontpage_buddy_widget_heading', $this->view_field_val( 'heading' ), $this );
+		if ( ! empty( $heading ) ) {
+			$html .= sprintf( '<div class="fp-widget-title"><h2>%s</h2></div>', esc_html( $heading ) );
+		}
+
+		$html .= '<div class="fp-widget-details">';
+
+		return apply_filters( 'frontpage_buddy_widget_output_start', $html, $this );
+	}
+
+	/**
+	 * Get the html to be appended after the actual output of a widget.
+	 *
+	 * @return string
+	 */
+	public function output_end() {
+		return apply_filters( 'frontpage_buddy_widget_output_end', '</div><!-- .fp-widget-details --></div><!-- .fp-widget-->', $this );
+	}
 }

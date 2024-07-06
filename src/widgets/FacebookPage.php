@@ -68,7 +68,7 @@ class FacebookPage extends Widget {
 
 		wp_enqueue_script( 'facebook-sdk', 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0', array(), '20.0', array( 'in_footer' => true ) );
 
-		return $html;
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
 	}
 
 	/**
@@ -77,31 +77,36 @@ class FacebookPage extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
-		return array(
-			'url'         => array(
-				'type'       => 'url',
-				'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
-				'value'      => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
-				'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
-			),
-			'smallheader' => array(
-				'type'    => 'checkbox',
-				'label'   => '',
-				'value'   => ! empty( $this->edit_field_value( 'smallheader' ) ) ? $this->edit_field_value( 'smallheader' ) : '',
-				'options' => array( 'yes' => __( 'Use Small Header', 'frontpage-buddy' ) ),
-			),
-			'hidecover'   => array(
-				'type'    => 'checkbox',
-				'label'   => '',
-				'value'   => ! empty( $this->edit_field_value( 'hidecover' ) ) ? $this->edit_field_value( 'hidecover' ) : '',
-				'options' => array( 'yes' => __( 'Hide Cover Photo', 'frontpage-buddy' ) ),
-			),
-			'showposts'   => array(
-				'type'    => 'checkbox',
-				'label'   => '',
-				'value'   => ! empty( $this->edit_field_value( 'showposts' ) ) ? $this->edit_field_value( 'showposts' ) : '',
-				'options' => array( 'yes' => __( 'Show Recent Posts', 'frontpage-buddy' ) ),
-			),
+		$fields = $this->get_default_fields();
+		
+		$fields['url'] = array(
+			'type'       => 'url',
+			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
+			'value'      => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
+			'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
 		);
+
+		$fields['smallheader'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $this->edit_field_value( 'smallheader' ) ) ? $this->edit_field_value( 'smallheader' ) : '',
+			'options' => array( 'yes' => __( 'Use Small Header', 'frontpage-buddy' ) ),
+		);
+
+		$fields['hidecover'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $this->edit_field_value( 'hidecover' ) ) ? $this->edit_field_value( 'hidecover' ) : '',
+			'options' => array( 'yes' => __( 'Hide Cover Photo', 'frontpage-buddy' ) ),
+		);
+
+		$fields['showposts'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $this->edit_field_value( 'showposts' ) ) ? $this->edit_field_value( 'showposts' ) : '',
+			'options' => array( 'yes' => __( 'Show Recent Posts', 'frontpage-buddy' ) ),
+		);
+
+		return $fields;
 	}
 }

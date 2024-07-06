@@ -35,38 +35,40 @@ class TwitterProfile extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
+		$fields = $this->get_default_fields();
+
 		$attrs_dark_theme = array();
 		if ( 'yes' === $this->edit_field_value( 'dark_theme' ) ) {
 			$attrs_dark_theme['checked'] = 'checked';
 		}
-		return array(
-			'username'   => array(
-				'type'        => 'text',
-				'label'       => __( 'X/Twitter Handle', 'frontpage-buddy' ),
-				'value'       => ! empty( $this->edit_field_value( 'username' ) ) ? $this->edit_field_value( 'username' ) : '',
-				'attributes'  => array( 'placeholder' => __( 'E.g: @johndoe', 'frontpage-buddy' ) ),
-				'is_required' => true,
-			),
-			'width'      => array(
-				'type'       => 'number',
-				'label'      => __( 'Width', 'frontpage-buddy' ),
-				'value'      => ! empty( $this->edit_field_value( 'twidth' ) ) ? $this->edit_field_value( 'twidth' ) : '',
-				'attributes' => array( 'placeholder' => __( 'Width in pixels (optional)', 'frontpage-buddy' ) ),
-			),
-			'height'     => array(
-				'type'       => 'number',
-				'label'      => __( 'Height', 'frontpage-buddy' ),
-				'value'      => ! empty( $this->edit_field_value( 'theight' ) ) ? $this->edit_field_value( 'theight' ) : '',
-				'attributes' => array( 'placeholder' => __( 'Height in pixels (optional)', 'frontpage-buddy' ) ),
-			),
-			'dark_theme' => array(
-				'type'       => 'switch',
-				'label'      => __( 'Use dark theme', 'frontpage-buddy' ),
-				'label_off'  => __( 'No', 'frontpage-buddy' ),
-				'label_on'   => __( 'Yes', 'frontpage-buddy' ),
-				'attributes' => $attrs_dark_theme,
-			),
+		$fields['username'] = array(
+			'type'        => 'text',
+			'label'       => __( 'X/Twitter Handle', 'frontpage-buddy' ),
+			'value'       => ! empty( $this->edit_field_value( 'username' ) ) ? $this->edit_field_value( 'username' ) : '',
+			'attributes'  => array( 'placeholder' => __( 'E.g: @johndoe', 'frontpage-buddy' ) ),
+			'is_required' => true,
 		);
+		$fields['width'] = array(
+			'type'       => 'number',
+			'label'      => __( 'Width', 'frontpage-buddy' ),
+			'value'      => ! empty( $this->edit_field_value( 'twidth' ) ) ? $this->edit_field_value( 'twidth' ) : '',
+			'attributes' => array( 'placeholder' => __( 'Width in pixels (optional)', 'frontpage-buddy' ) ),
+		);
+		$fields['height'] = array(
+			'type'       => 'number',
+			'label'      => __( 'Height', 'frontpage-buddy' ),
+			'value'      => ! empty( $this->edit_field_value( 'theight' ) ) ? $this->edit_field_value( 'theight' ) : '',
+			'attributes' => array( 'placeholder' => __( 'Height in pixels (optional)', 'frontpage-buddy' ) ),
+		);
+		$fields['dark_theme'] = array(
+			'type'       => 'switch',
+			'label'      => __( 'Use dark theme', 'frontpage-buddy' ),
+			'label_off'  => __( 'No', 'frontpage-buddy' ),
+			'label_on'   => __( 'Yes', 'frontpage-buddy' ),
+			'attributes' => $attrs_dark_theme,
+		);
+
+		return $fields;
 	}
 
 	/**
@@ -109,6 +111,6 @@ class TwitterProfile extends Widget {
 
 		wp_enqueue_script( 'twitter-widget', 'https://platform.twitter.com/widgets.js', array(), '1.0', array( 'in_footer' => true ) );
 
-		return $html;
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
 	}
 }

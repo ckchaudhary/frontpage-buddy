@@ -35,28 +35,31 @@ class YoutubeEmbed extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
+		$fields = $this->get_default_fields();
+
 		$attrs_fluid_width = array();
 		if ( 'yes' === $this->edit_field_value( 'width' ) ) {
 			$attrs_fluid_width['checked'] = 'checked';
 		}
-		return array(
-			'url'         => array(
-				'type'        => 'url',
-				'label'       => __( 'Video url', 'frontpage-buddy' ),
-				'description' => __( 'Enter the youtube video url.', 'frontpage-buddy' ),
-				'value'       => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
-				'attributes'  => array( 'placeholder' => 'https://www.youtube.com/watch?v=hdcTmpvDO0I' ),
-				'is_required' => true,
-			),
 
-			'fluid_width' => array(
-				'type'       => 'switch',
-				'label'      => __( 'Player width', 'frontpage-buddy' ),
-				'label_off'  => __( 'Fixed', 'frontpage-buddy' ),
-				'label_on'   => __( 'Fluid', 'frontpage-buddy' ),
-				'attributes' => $attrs_fluid_width,
-			),
+		$fields['url'] = array(
+			'type'        => 'url',
+			'label'       => __( 'Video url', 'frontpage-buddy' ),
+			'description' => __( 'Enter the youtube video url.', 'frontpage-buddy' ),
+			'value'       => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
+			'attributes'  => array( 'placeholder' => 'https://www.youtube.com/watch?v=hdcTmpvDO0I' ),
+			'is_required' => true,
 		);
+
+		$fields['fluid_width'] = array(
+			'type'       => 'switch',
+			'label'      => __( 'Player width', 'frontpage-buddy' ),
+			'label_off'  => __( 'Fixed', 'frontpage-buddy' ),
+			'label_on'   => __( 'Fluid', 'frontpage-buddy' ),
+			'attributes' => $attrs_fluid_width,
+		);
+
+		return $fields;
 	}
 
 	/**
@@ -83,7 +86,8 @@ class YoutubeEmbed extends Widget {
 
 		$yt_attr = '?disablekb=1&rel=0';
 
-		return '<div class="youtube-video-container ' . $full_width_class . '"><iframe ' . $wh_attr . ' style="max-width: 100%" type="text/html" src="' . esc_attr( $full_embed_url ) . esc_url( $yt_attr ) . '" frameborder="0" allowfullscreen></iframe></div>';
+		$html = '<div class="youtube-video-container ' . $full_width_class . '"><iframe ' . $wh_attr . ' style="max-width: 100%" type="text/html" src="' . esc_attr( $full_embed_url ) . esc_url( $yt_attr ) . '" frameborder="0" allowfullscreen></iframe></div>';
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
 	}
 
 	/**
