@@ -26,6 +26,51 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	}
 
 	/**
+	 * Get the fields for specific settings for this integration, if any.
+	 *
+	 * @return array
+	 */
+	public function get_settings_fields() {
+		$attrs_show_prompt = array();
+		if ( 'yes' === $this->get_option( 'show_encourage_prompt' ) ) {
+			$attrs_show_prompt['checked'] = 'checked';
+		}
+
+		$prompt_text = $this->get_option( 'encourage_prompt_text' );
+		if ( $prompt_text ) {
+			$prompt_text = trim( $prompt_text );
+		}
+		if ( ! $prompt_text ) {
+			$prompt_text = sprintf(
+				/* translators: 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a> */
+				__( 'Customize your profile\'s front page by going %s.', 'frontpage-buddy' ),
+				'{{LINK}}'
+			);
+		}
+
+		return array(
+			'show_encourage_prompt' => array(
+				'type'        => 'switch',
+				'label'       => __( 'Show prompt when viewing one\'s own profile?', 'frontpage-buddy' ),
+				'label_off'   => __( 'No', 'frontpage-buddy' ),
+				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'attributes'  => $attrs_show_prompt,
+				'description' => __( 'If enabled, when a member visits their profile, they see a small prompt. This can be used to encourage members to add content to their front page. This can also be used to add a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
+			),
+			'encourage_prompt_text' => array(
+				'type'        => 'textarea',
+				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'       => $prompt_text,
+				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
+				'attributes'  => array(
+					'rows' => 3,
+					'cols' => 50,
+				),
+			),
+		);
+	}
+
+	/**
 	 * Get/set If the current object has a custom front page.
 	 *
 	 * @param int    $object_id Id of member or group.
@@ -131,7 +176,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	public function can_manage( $object_id ) {
 		$can_manage = get_current_user_id() === $object_id;
 
-		if ( ! $can_manage && UM()->roles()->um_current_user_can( 'edit', $object_id ) ) {
+		if ( ! $can_manage && current_user_can( 'edit_user', $object_id ) ) {
 			$can_manage = true;
 		}
 

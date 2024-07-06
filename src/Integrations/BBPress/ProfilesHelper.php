@@ -30,7 +30,29 @@ class ProfilesHelper {
 	 * @return void
 	 */
 	public function show_output() {
-		frontpage_buddy()->get_integration( 'bbp_profiles' )->output_frontpage_content( \bbp_get_displayed_user_id() );
+		$user_id = \bbp_get_displayed_user_id();
+		$integration = frontpage_buddy()->get_integration( 'bbp_profiles' );
+		if ( $integration->can_manage( $user_id ) ) {
+			// Show prompt?
+			if ( 'yes' === $integration->get_option( 'show_encourage_prompt' ) ) {
+				$prompt_text = $integration->get_option( 'encourage_prompt_text' );
+				if ( $prompt_text ) {
+					$manage_link = sprintf(
+						'<a href="%s">%s</a>',
+						\bbp_get_user_profile_edit_url( $user_id ),
+						__( 'here', 'frontpage-buddy' )
+					);
+					$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
+					echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
+					// Allow html as it is provided by admins.
+					// phpcs:ignore WordPress.Security.EscapeOutput
+					echo $prompt_text;
+					echo '</div></div>';
+				}
+			}
+		}
+
+		frontpage_buddy()->get_integration( 'bbp_profiles' )->output_frontpage_content( $user_id );
 	}
 
 	/**
