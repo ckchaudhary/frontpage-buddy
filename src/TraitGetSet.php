@@ -38,21 +38,23 @@ if ( ! trait_exists( '\RecycleBin\FrontPageBuddy\TraitGetSet' ) ) {
 
 		/**
 		 * Magic __set method.
-		 * It first tries to find a function set_property_name and call that if found.
-		 * Otherwise, it tries to find a property $property_name and assign the given value to it.
+		 * It tries to find a function set_property_name and call that if found.
+		 * Otherwise, an exception is thrown.
 		 *
 		 * @param string $property_name name of the property.
 		 * @param mixed  $value value to be set.
 		 *
-		 * @return void
+		 * @return mixed
+		 *
+		 * @throws \Exception When a set_$property_name function was not found.
 		 */
 		public function __set( $property_name, $value ) {
 			$method = 'set_' . $property_name;
 			if ( method_exists( $this, $method ) ) {
-				$this->{$method}( $value );
-			} elseif ( property_exists( $this, $property_name ) ) {
-				$this->$property_name = $value;
+				return $this->{$method}( $value );
 			}
+
+			throw new \Exception( 'No setter method defined.', 500 );
 		}
 	}
 }
