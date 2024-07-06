@@ -105,7 +105,7 @@ class Plugin {
 	 */
 	public function register_integration( $type, $obj ) {
 		if ( ! empty( $this->integrations ) && isset( $this->integrations[ $type ] ) ) {
-			return new \WP_Error( 'duplicate_inte', __( 'Please use a unique type.', 'frontpage-buddy' ) );
+			return new \WP_Error( 'duplicate_integration', __( 'Please use a unique type.', 'frontpage-buddy' ) );
 		}
 
 		if ( ! \is_a( $obj, '\RecycleBin\FrontPageBuddy\Integration' ) ) {
@@ -319,6 +319,11 @@ class Plugin {
 						),
 						'img_spinner' => FPBUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
 					),
+
+					'lang'        => array(
+						'invalid' => __( 'Invalid', 'frontpage-buddy' ),
+					),
+
 					'object_type' => '',
 					'object_id'   => 0,
 				)

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 06:37+0000\n"
+"POT-Creation-Date: 2024-07-05 07:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
@@ -207,9 +207,14 @@ msgstr ""
 msgid "Integrations"
 msgstr ""
 
+#: src/Plugin.php:324
+msgid "Invalid"
+msgstr ""
+
 #: src/Widgets/Collection.php:146 src/Widgets/Collection.php:151
 #: src/Widgets/Collection.php:252 src/Widgets/Collection.php:257
 #: src/Widgets/Collection.php:295 src/Widgets/Collection.php:319
+#: src/Widgets/Collection.php:324 src/Widgets/Collection.php:351
 msgid "Invalid request!"
 msgstr ""
 
