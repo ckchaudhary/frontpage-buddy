@@ -187,6 +187,11 @@ Manage Screens
 	filter: opacity( 60% );
 }
 
+/* bbpress css removes borders on all anchor tags, so we must override that for this link/button */
+#bbpress-forums .fpbuddy_manage_widgets .row-add-new a{
+	border: 3px solid #555;
+}
+
 .fpbuddy_manage_widgets .row-add-new a:hover{
 	filter: opacity( 100% );
 }
@@ -199,7 +204,7 @@ Manage Screens
 	background-size: cover;
 }
 
-.fpbuddy_manage_widgets .fp-widget .widget-title{
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title{
 	border-radius: 0 !important;
 	background-color: #05789c;
 	color: #ffffff;
@@ -210,7 +215,7 @@ Manage Screens
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.fpbuddy_manage_widgets .widget.state-edit .widget-title{
+.fpbuddy_manage_widgets .fp-widget.state-edit .fp-widget-title{
 	cursor: text;
 } 
 
@@ -223,6 +228,11 @@ Manage Screens
 	min-width: 188px;
 	background-color: #05789c;
     border-radius: 5px;
+}
+
+.fpbuddy_manage_widgets .new-widget .collapse-widgets-list a{
+	border-bottom-left-radius: 0;	
+	border-bottom-right-radius: 0;	
 }
 
 .fpbuddy_manage_widgets .new-widget .expand-widgets-list a span,
@@ -258,7 +268,7 @@ Manage Screens
 	padding: 5px;
 }
 
-.fpbuddy_manage_widgets .widget-to-add .widget-title{
+.fpbuddy_manage_widgets .widget-to-add .fp-widget-title{
 	margin-right: 30px;
 }
 
@@ -296,21 +306,21 @@ Manage Screens
     border-left: 3px solid #ccc;
 }
 
-.fpbuddy_manage_widgets .widget.state-preview {
+.fpbuddy_manage_widgets .fp-widget.state-preview {
 	max-width: 200px;
 	margin: 0 auto;
 }
 
-.fpbuddy_manage_widgets .widget.state-preview .widget-desc,
-.fpbuddy_manage_widgets .widget.state-preview .widget-settings{
+.fpbuddy_manage_widgets .fp-widget.state-preview .widget-desc,
+.fpbuddy_manage_widgets .fp-widget.state-preview .widget-settings{
 	display: none;
 }
 
-.fpbuddy_manage_widgets .widget.state-edit .widget-image{
+.fpbuddy_manage_widgets .fp-widget.state-edit .widget-image{
 	display: none;
 }
-.fpbuddy_manage_widgets .widget.state-edit .widget-desc,
-.fpbuddy_manage_widgets .widget.state-edit .widget-settings{
+.fpbuddy_manage_widgets .fp-widget.state-edit .widget-desc,
+.fpbuddy_manage_widgets .fp-widget.state-edit .widget-settings{
 	display: block;
 }
 
@@ -319,7 +329,7 @@ Manage Screens
 	max-width: 200px;
 }
 
-.fpbuddy_manage_widgets .fp-widget .widget-title,
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title,
 .fpbuddy_manage_widgets .fp-widget .widget-desc,
 .fpbuddy_manage_widgets .fp-widget .widget-settings {
 	padding: 3px;
@@ -335,7 +345,7 @@ Manage Screens
     margin: 0; padding: 0;
     text-align: center;
 }
-.fpbuddy_manage_widgets .widget.loading .loading_overlay{
+.fpbuddy_manage_widgets .fp-widget.loading .loading_overlay{
     display: block;
 	z-index: 20;
 }
@@ -380,7 +390,9 @@ Manage Screens
 	margin-right: 5px;
 }
 
-.fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"]{
+.fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"],
+/* bbpress override */
+#bbpress-forums .fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"]{
 	display: none;
 }
 

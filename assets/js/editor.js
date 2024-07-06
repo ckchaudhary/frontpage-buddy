@@ -36,7 +36,7 @@ class FPBuddyWidgetsManager {
 		});
 
 		// Preview to settings
-		_class._l.parent.on( 'click', '.widget.state-preview .widget-image,.widget.state-preview .widget-title', function(){
+		_class._l.parent.on( 'click', '.fp-widget.state-preview .widget-image,.fp-widget.state-preview .fp-widget-title', function(){
 			_class.showWidgetOpts( jQuery(this).closest('.fp-widget') );
 		} );
 
@@ -48,7 +48,7 @@ class FPBuddyWidgetsManager {
 
 			// Set parent to flex layout if all the widgets inside it are in preview sate.
 			let $row = $widget.closest( '.row-contents' );
-			if ( $row.find( '.widget.state-edit' ).length === 0 ) {
+			if ( $row.find( '.fp-widget.state-edit' ).length === 0 ) {
 				$row.removeClass( 'dblock' );
 			}
 		});
@@ -84,21 +84,21 @@ class FPBuddyWidgetsManager {
 				let html = $widget.find('.field .trumbowyg-box textarea').first().val();
 				if ( html.length > 0 ) {
 					let text = jQuery("<div>").html( html ).text().substring( 0, 100 );
-					$widget.find( '.widget-title' ).text( text );
+					$widget.find( '.fp-widget-title' ).text( text );
 				}
 			} else if( $widget.hasClass( 'widget-instagramprofileembed' ) ) {
 				let insta_id = $widget.find('.field [name="insta_id"]').first().val();
 				if ( insta_id.length > 0 ) {
 					insta_id = jQuery.trim( insta_id );
 					insta_id = '@' + insta_id.replace( '@', '' ) + ' - instagram';
-					$widget.find( '.widget-title' ).text( insta_id );
+					$widget.find( '.fp-widget-title' ).text( insta_id );
 				}
 			} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
 				let insta_id = $widget.find('.field [name="username"]').first().val();
 				if ( insta_id.length > 0 ) {
 					insta_id = jQuery.trim( insta_id );
 					insta_id = '@' + insta_id.replace( '@', '' ) + ' - X';
-					$widget.find( '.widget-title' ).text( insta_id );
+					$widget.find( '.fp-widget-title' ).text( insta_id );
 				}
 			}
 		} );
@@ -153,7 +153,7 @@ class FPBuddyWidgetsManager {
 					<div class="widget-choose">
 						<a href="#"></a>
 					</div>	
-					<div class="widget-title">
+					<div class="fp-widget-title">
 						${widget.name}
 					</div>
 				</div>
@@ -185,8 +185,8 @@ class FPBuddyWidgetsManager {
 
 		let html = `
 			<div class='widget-content'>
-				<div class="widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
-					<div class="widget-title js-show-settings">${widget_title}</div>
+				<div class="fp-widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
+					<div class="fp-widget-title js-show-settings">${widget_title}</div>
 					<div class="widget-image js-show-settings">
 						<img src='${widget_image}'>
 					</div>
@@ -235,12 +235,17 @@ class FPBuddyWidgetsManager {
 		}
 
 		if ( !is_valid ) {
-			return 'Invalid!';
+			return `
+				<div>${FRONTPAGE_BUDDY.lang.invalid}</div>
+				<div class="remove_item remove_widget">
+					<a href="#"></a>
+				</div>
+			`;
 		}
 
 		return `
-			<div class="widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
-			<div class="widget-title js-show-settings">${widget_title}</div>
+			<div class="fp-widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
+				<div class="fp-widget-title js-show-settings">${widget_title}</div>
 				<div class="widget-image js-show-settings">
 					<img src='${widget_image}'>
 				</div>
