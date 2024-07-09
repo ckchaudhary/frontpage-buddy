@@ -302,8 +302,10 @@ abstract class Widget {
 				}
 				?>
 
-				<button type="submit"><?php esc_html_e( 'Update', 'frontpage-buddy' ); ?></button>
-				<a href="#" class="close-widget-settings"><?php esc_html_e( 'Close', 'frontpage-buddy' ); ?></a>
+				<div class='fpwidget-submit'>
+					<button type="submit"><?php esc_html_e( 'Update', 'frontpage-buddy' ); ?></button>
+					<a href="#" class="close-widget-settings js-toggle-widget-state"><?php esc_html_e( 'Close', 'frontpage-buddy' ); ?></a>
+				</div>
 			</div>
 
 		</form>
