@@ -47,12 +47,13 @@ abstract class Widget {
 	protected $description_admin = '';
 
 	/**
-	 * The absolute url of the image that acts as an icon for this widget.
+	 * The html to be used for the icon of this widget.
+	 * e.g: <i class="fa fa-add"></i>
 	 * Used in manage-widget screen on front end.
 	 *
 	 * @var string
 	 */
-	protected $icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-richtext.png';
+	protected $icon_image = '<i class="gg-details-more"></i>';
 
 	/**
 	 * Whether this widget can be added more than once on a page. Default true.

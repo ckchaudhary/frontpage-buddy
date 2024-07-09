@@ -24,7 +24,7 @@ class InstagramProfile extends Widget {
 		$this->type           = $type;
 		$this->name           = __( 'Instagram Profile', 'frontpage-buddy' );
 		$this->description    = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
-		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-instagram-feed.png';
+		$this->icon_image     = '<i class="gg-instagram"></i>';
 
 		$this->setup( $args );
 	}

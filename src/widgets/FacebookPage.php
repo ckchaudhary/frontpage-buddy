@@ -24,7 +24,7 @@ class FacebookPage extends Widget {
 		$this->type           = $type;
 		$this->name           = __( 'Facebook Page', 'frontpage-buddy' );
 		$this->description    = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
-		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-fb-pages.png';
+		$this->icon_image     = '<i class="gg-facebook"></i>';
 
 		$this->setup( $args );
 	}

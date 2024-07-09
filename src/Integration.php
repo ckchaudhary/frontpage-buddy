@@ -117,7 +117,7 @@ abstract class Integration {
 						'type'        => $widget->type,
 						'name'        => $widget->name,
 						'description' => $widget->description,
-						'icon'        => $widget->icon_image_url,
+						'icon'        => $widget->icon_image,
 					);
 				}
 			}

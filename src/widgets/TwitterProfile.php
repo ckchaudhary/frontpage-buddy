@@ -24,7 +24,7 @@ class TwitterProfile extends Widget {
 		$this->type           = $type;
 		$this->name           = __( 'Twitter Profile Feed', 'frontpage-buddy' );
 		$this->description    = __( 'Display any X/Twitter profile\'s feed.', 'frontpage-buddy' );
-		$this->icon_image_url = FPBUDDY_PLUGIN_URL . 'assets/images/icon-x-feed.png';
+		$this->icon_image     = '<i class="gg-twitter"></i>';
 
 		$this->setup( $args );
 	}
