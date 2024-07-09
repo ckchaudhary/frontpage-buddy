@@ -1,7 +1,7 @@
 === FrontPage Buddy ===
 Contributors: ckchaudhary
 Donate link: https://www.recycleb.in/u/chandan/
-Tags: buddypress, bbpress, ultimate members, user profiles, group pages, customize profile, customize group
+Tags: buddypress, bbpress, ultimate members, customize profiles, customize groups
 Requires PHP: 5.6
 Requires at least: 5.8
 Tested up to: 6.5
