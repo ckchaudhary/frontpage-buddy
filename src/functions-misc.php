@@ -285,3 +285,24 @@ function generate_form_fields( $fields, $args = '' ) {
 	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo $args['after_list'];
 }
+
+\add_action( 'frontpage_buddy_manage_frontpage__after', '\RecycleBin\FrontPageBuddy\manage_screen_theme_setup' );
+
+/**
+ * Output the colors etc as set in plugin options.
+ * These are output as css variables and are used to style the individual elements.
+ *
+ * @return void
+ */
+function manage_screen_theme_setup() {
+	?>
+	<style type="text/css">
+	.fpbuddy_manage_widgets {
+		--fpbuddy-editor-color-bg: <?php echo esc_attr( frontpage_buddy()->option( 'editor_color_bg' ) ); ?>;
+		--fpbuddy-editor-color-text: <?php echo esc_attr( frontpage_buddy()->option( 'editor_color_text' ) ); ?>;
+		--fpbuddy-editor-color-main: <?php echo esc_attr( frontpage_buddy()->option( 'editor_color_primary' ) ); ?>;
+		--fpbuddy-editor-color-main-contrast: <?php echo esc_attr( frontpage_buddy()->option( 'editor_color_primary_contrast' ) ); ?>;
+	}
+	</style>
+	<?php
+}

@@ -183,9 +183,18 @@ class Admin {
 
 		register_setting( $this->option_name, $this->option_name, array( $this, 'plugin_options_validate' ) );
 
-		add_settings_section( 'general_section', '', array( $this, 'section_general' ), __FILE__ );
-		add_settings_field( 'integrations', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'integrations' ), __FILE__, 'general_section' );
-		add_settings_field( 'widget_settings', __( 'Widget Settings', 'frontpage-buddy' ), array( $this, 'widget_settings' ), __FILE__, 'general_section' );
+		add_settings_section( 'section_integration', '', array( $this, 'section_integration_desc' ), __FILE__ );
+		add_settings_field( 'integrations', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'integrations' ), __FILE__, 'section_integration' );
+
+		add_settings_section( 'section_widgets', '', array( $this, 'section_widgets_desc' ), __FILE__ );
+		add_settings_field( 'widget_settings', __( 'Widgets', 'frontpage-buddy' ), array( $this, 'widget_settings' ), __FILE__, 'section_widgets' );
+
+		add_settings_section( 'section_theme', __( 'Appearance', 'frontpage-buddy' ), array( $this, 'section_theme_desc' ), __FILE__ );
+		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_bg', '', array( $this, 'editor_color_bg' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_primary_contrast', '', array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme' );
 	}
 
 	/**
@@ -199,7 +208,8 @@ class Admin {
 			return false;
 		}
 
-		wp_enqueue_style( 'frontpage-buddy', FPBUDDY_PLUGIN_URL . 'assets/css/admin.css', array(), FPBUDDY_PLUGIN_VERSION );
+		wp_enqueue_style( 'frontpage-buddy-admin', FPBUDDY_PLUGIN_URL . 'assets/css/admin.css', array( 'wp-color-picker' ), FPBUDDY_PLUGIN_VERSION );
+		wp_enqueue_script( 'frontpage-buddy-admin', FPBUDDY_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
 	}
 
 	/**
@@ -207,7 +217,25 @@ class Admin {
 	 *
 	 * @return void
 	 */
-	public function section_general() {
+	public function section_integration_desc() {
+		// Nothing yet.
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function section_widgets_desc() {
+		// Nothing yet.
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function section_theme_desc() {
 		// Nothing yet.
 	}
 
@@ -355,6 +383,110 @@ class Admin {
 			echo '</tbody>';
 			echo '</table>';
 		}
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_theme_settings() {
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Settings for the screen where your website\'s users can manage/edit the front page.', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_bg() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Background Color', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Background color of the entire area.', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_text() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Text Color', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Text color of the entire area.', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_primary() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Primary Color', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Used as: border colors, button colors, etc.', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_primary_contrast() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Primary Color - Contrast', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Constrast color of the primary color', 'frontpage-buddy' )
+		);
 	}
 
 	/**

@@ -1,0 +1,358 @@
+.fpbuddy_manage_widgets{
+	background-color: var( --fpbuddy-editor-color-bg );
+	color: var( --fpbuddy-editor-color-text );
+}
+
+.fpbuddy_manage_widgets a{
+	color: var(--fpbuddy-editor-color-main);
+}
+.fpbuddy_manage_widgets .lrow {
+	margin-bottom: 30px;
+	border: 2px solid var( --fpbuddy-editor-color-main );
+}
+
+/* placeholder row during sorting */
+.fpbuddy_manage_widgets .lrow.sortable-placeholder {
+	height: 150px;
+	background: var( --fpbuddy-editor-color-dd-placeholder );
+}
+
+/* set an opaque background color during sorting - for better experience. */
+.fpbuddy_manage_widgets .lrow.ui-sortable-helper{
+	background: var( --fpbuddy-editor-color-bg );
+}
+
+.fpbuddy_manage_widgets .lrow .row-actions{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	background-color: var( --fpbuddy-editor-color-main );
+	color: var( --fpbuddy-editor-color-main-contrast );
+	padding: 5px;
+	cursor: move;
+}
+
+.fpbuddy_manage_widgets .lrow .row-actions a{
+	color: var( --fpbuddy-editor-color-main-contrast );
+}
+
+.fpbuddy_manage_widgets .lrow .row-actions .fp-mover{
+	line-height: 22px;/* equal to the height of icon */
+}
+	/* vertically align the icon and text */
+	.fpbuddy_manage_widgets .lrow .row-actions .fp-mover i,
+	.fpbuddy_manage_widgets .lrow .row-actions .fp-mover span{
+		vertical-align: middle;
+	}
+	.fpbuddy_manage_widgets .lrow .row-actions .fp-mover span{
+		margin-left: 5px;
+		opacity: 0.5;
+	}
+
+
+.fpbuddy_manage_widgets .lrow .row-contents{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+}
+
+/* toggle between flex and block display */
+.fpbuddy_manage_widgets .lrow .row-contents.dblock{
+	display: block;
+}
+
+.fpbuddy_manage_widgets .remove_item a{
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+}
+
+.fpbuddy_manage_widgets .lrow .lcol{
+	position: relative;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	max-width: 48%;
+}
+
+.fpbuddy_manage_widgets .lrow .row-contents.dblock .lcol{
+	max-width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.fpbuddy_manage_widgets .lrow .lcol .widget-content{
+	background-color: var( --fpbuddy-editor-color-bg );
+	border: 6px solid var( --fpbuddy-editor-color-main );
+}
+
+.fpbuddy_manage_widgets .row-add-new a {
+	display: block;
+    text-align: center;
+    
+	border: 3px solid var( --fpbuddy-editor-color-main );
+    border-radius: 5px;
+
+	padding: 15px 0;
+	line-height: 22px;/* size of the icon */
+
+	color: var( --fpbuddy-editor-color-main );
+	text-transform: capitalize;
+}
+	/* veritcally align the icon and text */
+	.fpbuddy_manage_widgets .row-add-new a span{
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 15px;
+	}
+	.fpbuddy_manage_widgets .row-add-new a span.gg-add{
+		margin-left: 0;
+		transform: scale( 1.5 );
+	}
+
+/* bbpress css removes borders on all anchor tags, so we must override that for this link/button */
+#bbpress-forums .fpbuddy_manage_widgets .row-add-new a{
+	border: 3px solid var( --fpbuddy-editor-color-main );
+}
+
+.fpbuddy_manage_widgets .row-contents .new-widget{
+	margin-top: 10px;
+}
+
+.fpbuddy_manage_widgets .row-contents.dblock .new-widget{
+	text-align: center;
+}
+/* Add new widget button */
+.fpbuddy_manage_widgets .new-widget .expand-widgets-list a{
+	color: var( --fpbuddy-editor-color-main );
+}
+	.fpbuddy_manage_widgets .new-widget .expand-widgets-list a i.gg-add{
+		transform: scale( 1.5 );
+	}
+
+
+.fpbuddy_manage_widgets .collapse-widgets-list{
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: space-between;
+
+	background-color: var(--fpbuddy-editor-color-main);
+	color: var(--fpbuddy-editor-color-main-contrast);
+	padding: 5px;
+}
+
+.fpbuddy_manage_widgets .collapse-widgets-list a{
+	color: var(--fpbuddy-editor-color-main-contrast);
+}
+
+.fpbuddy_manage_widgets .fp-widget .fp-widget-header{
+	background-color: var( --fpbuddy-editor-color-main );
+	color: var(--fpbuddy-editor-color-main-contrast);
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title{
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	line-height: 100%;
+	vertical-align: middle;
+
+	cursor: pointer;
+}
+
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title i{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title span{
+	opacity: 0.5;
+}
+
+.fpbuddy_manage_widgets .fp-widget .remove_item a{
+	color: var(--fpbuddy-editor-color-main-contrast);
+}
+
+.fpbuddy_manage_widgets .new-widget .collapse-widgets-list a{
+	display: block;
+	text-align: center;
+    line-height: 100%;
+    padding: 10px 0;
+	min-width: 188px;
+	background-color: var( --fpbuddy-editor-color-main );
+	color: var( --fpbuddy-editor-color-main-contrast );
+    border-radius: 5px;
+}
+
+.fpbuddy_manage_widgets .new-widget .collapse-widgets-list a{
+	border-bottom-left-radius: 0;	
+	border-bottom-right-radius: 0;	
+}
+
+.fpbuddy_manage_widgets .new-widget .collapse-widgets-list a i{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+}
+
+.fpbuddy_manage_widgets .all-widgets-list{
+	border: 1px solid var(--fpbuddy-editor-color-main);
+	padding: 5px;
+}
+
+.fpbuddy_manage_widgets .all-widgets-list .widget-to-add{
+	margin-bottom: 10px;
+}
+	.fpbuddy_manage_widgets .all-widgets-list .widget-to-add:last-of-type{
+		margin-bottom: 0;
+	}
+
+.fpbuddy_manage_widgets .all-widgets-list .widget-to-add a{
+	display: block;
+	border: 2px solid var(--fpbuddy-editor-color-main);
+	padding: 5px 10px;
+
+	color: var(--fpbuddy-editor-color-main );
+	line-height: 22px;
+}
+.fpbuddy_manage_widgets .all-widgets-list .widget-to-add a i,
+.fpbuddy_manage_widgets .all-widgets-list .widget-to-add a span{
+	display: inline-block;
+	line-height: 100%;
+	vertical-align: middle;
+}
+.fpbuddy_manage_widgets .all-widgets-list .widget-to-add a i{
+	transform: scale(0.8);
+	margin-right: 5px;
+}
+
+.fpbuddy_manage_widgets .fp-widget .widget-desc{
+	font-size: smaller;
+    padding: 5px;
+}
+.fpbuddy_manage_widgets .fp-widget .widget-desc .gg-info{
+	vertical-align: middle;
+    color: var(--fpbuddy-editor-color-main);
+    margin: 0 5px 5px 0;
+}
+
+.fpbuddy_manage_widgets .fp-widget.state-preview .widget-desc,
+.fpbuddy_manage_widgets .fp-widget.state-preview .widget-settings{
+	display: none;
+}
+
+.fpbuddy_manage_widgets .fp-widget.state-edit .widget-desc,
+.fpbuddy_manage_widgets .fp-widget.state-edit .widget-settings{
+	display: block;
+}
+
+.fpbuddy_manage_widgets .fp-widget .fp-widget-title,
+.fpbuddy_manage_widgets .fp-widget .widget-desc,
+.fpbuddy_manage_widgets .fp-widget .widget-settings {
+	padding: 3px;
+}
+
+
+.fpbuddy_manage_widgets .fp-widget .loading_overlay{
+    display: none;
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    margin: 0; padding: 0;
+    text-align: center;
+}
+.fpbuddy_manage_widgets .fp-widget.loading .loading_overlay{
+    display: block;
+	z-index: 20;
+}
+	.fpbuddy_manage_widgets .fp-widget .loading_overlay .helper{
+        display: inline-block; 
+        height: 100%;
+        vertical-align: middle;
+    }
+    .fpbuddy_manage_widgets .fp-widget .loading_overlay img{
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.fpbuddy_manage_widgets .widget_fields .field,
+.fpbuddy_manage_widgets .widget_fields .fpwidget-submit{
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field .field_description{
+	font-size: smaller;
+	font-style: italic;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field input,
+.fpbuddy_manage_widgets .widget_fields .field textarea,
+.fpbuddy_manage_widgets .widget_fields .field select{
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	margin-top: 5px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field input[type="checkbox"],
+.fpbuddy_manage_widgets .widget_fields .field input[type="radio"] {
+	display: inline-block;
+	width: auto;
+	margin-right: 5px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field.field-switch .fpbuddy-switch{
+	margin-top: 5px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"],
+/* bbpress override */
+#bbpress-forums .fpbuddy_manage_widgets .widget_fields .field.field-switch input[type="checkbox"]{
+	display: none;
+}
+
+.fpbuddy_manage_widgets .widget_fields .trumbowyg{
+	background: #ffffff;
+}
+
+#buddypress .trumbowyg .trumbowyg-button-pane button,
+#buddypress .trumbowyg .trumbowyg-dropdown button{
+	background: #fff;
+}
+body.admin-bar .fpbuddy_manage_widgets .trumbowyg-fullscreen{
+    top: 33px;
+}
+
+.fpbuddy_manage_widgets .fp-widget .response{
+	padding: 8px 35px 8px 14px;
+    margin-bottom: 10px 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.fpbuddy_manage_widgets .fp-widget .response.alert-error{
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+}
+
+.fpbuddy_manage_widgets .fp-widget .response.alert-success{
+	color: #468847;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+}

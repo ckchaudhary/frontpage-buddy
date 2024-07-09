@@ -25,9 +25,9 @@ class FPBuddyWidgetsManager {
 			$form.after( this._l.outer );
 		}
 
-		// Force block layout if insufficient width
+		// Add css class if insufficient width
 		if ( this._l.parent.width() < 500 ) {
-			this._l.parent.addClass( 'force-dblock' );
+			this._l.parent.addClass( 'layout-small' );
 		}
 
 		//bind 'enable custom front page' checkbox event
@@ -35,23 +35,23 @@ class FPBuddyWidgetsManager {
 			_class.toggleFPStatus(jQuery(this));
 		});
 
-		// Preview to settings
-		_class._l.parent.on( 'click', '.fp-widget.state-preview .widget-image,.fp-widget.state-preview .fp-widget-title', function(){
-			_class.showWidgetOpts( jQuery(this).closest('.fp-widget') );
-		} );
-
-		// Settings to preview
-		_class._l.parent.on( 'click', '.close-widget-settings', function(e){
+		// Preview to settings & vice-versa
+		_class._l.parent.on( 'click', '.fp-widget .js-toggle-widget-state', function(e){
 			e.preventDefault();
 			let $widget = jQuery(this).closest('.fp-widget');
-			$widget.addClass( 'state-preview' ).removeClass( 'state-edit' );
+			
+			if ( $widget.hasClass( 'state-preview' ) ) {
+				_class.showWidgetOpts( $widget );
+			} else {
+				$widget.addClass( 'state-preview' ).removeClass( 'state-edit' );
 
-			// Set parent to flex layout if all the widgets inside it are in preview sate.
-			let $row = $widget.closest( '.row-contents' );
-			if ( $row.find( '.fp-widget.state-edit' ).length === 0 ) {
-				$row.removeClass( 'dblock' );
+				// Set parent to flex layout if all the widgets inside it are in preview sate.
+				let $row = $widget.closest( '.row-contents' );
+				if ( $row.find( '.fp-widget.state-edit' ).length === 0 && $row.find( '.all-widgets-list' ).length === 0 ) {
+					$row.removeClass( 'dblock' );
+				}
 			}
-		});
+		} );
 		
 		// layout manager
 		_class.layout_manager = new FPBuddyLayoutManager( { 'parent' : _class._l.parent }, FRONTPAGE_BUDDY.fp_layout, _class );
@@ -84,21 +84,21 @@ class FPBuddyWidgetsManager {
 				let html = $widget.find('.field .trumbowyg-box textarea').first().val();
 				if ( html.length > 0 ) {
 					let text = jQuery("<div>").html( html ).text().substring( 0, 100 );
-					$widget.find( '.fp-widget-title' ).text( text );
+					$widget.find( '.fp-widget-title > span:last' ).text( text );
 				}
 			} else if( $widget.hasClass( 'widget-instagramprofileembed' ) ) {
 				let insta_id = $widget.find('.field [name="insta_id"]').first().val();
 				if ( insta_id.length > 0 ) {
 					insta_id = jQuery.trim( insta_id );
 					insta_id = '@' + insta_id.replace( '@', '' ) + ' - instagram';
-					$widget.find( '.fp-widget-title' ).text( insta_id );
+					$widget.find( '.fp-widget-title > span:last' ).text( insta_id );
 				}
 			} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
 				let insta_id = $widget.find('.field [name="username"]').first().val();
 				if ( insta_id.length > 0 ) {
 					insta_id = jQuery.trim( insta_id );
 					insta_id = '@' + insta_id.replace( '@', '' ) + ' - X';
-					$widget.find( '.fp-widget-title' ).text( insta_id );
+					$widget.find( '.fp-widget-title > span:last' ).text( insta_id );
 				}
 			}
 		} );
@@ -149,16 +149,11 @@ class FPBuddyWidgetsManager {
 		for ( let widget of FRONTPAGE_BUDDY.all_widgets ) {
 			html += `
 			<div class="widget-to-add widget-${widget.type}" data-type="${widget.type}">
-				<div class="widget-header">
-					<div class="widget-choose">
-						<a href="#"></a>
-					</div>	
-					<div class="fp-widget-title">
-						${widget.name}
-					</div>
-				</div>
-				<div class="widget-desc">
-					${widget.description}
+				<div class="widget-choose">
+					<a href="#">
+						<i class="gg-add"></i>
+						<span>${widget.name}</span>
+					</a>
 				</div>
 			</div>
 			`;
@@ -171,13 +166,13 @@ class FPBuddyWidgetsManager {
 	initNewWidget ( widget_type, $el_container ) {
 		let widget_id = Date.now() + '_' + Math.random();
 		let widget_title = '';
-		let widget_image = '';
+		let widget_icon = '';
 		let widget_description = '';
 
 		for ( let i_widget of FRONTPAGE_BUDDY.all_widgets ) {
 			if ( i_widget.type === widget_type ) {
 				widget_title = i_widget.name;
-				widget_image = i_widget.icon;
+				widget_icon = i_widget.icon;
 				widget_description = i_widget.description;
 				break;
 			}
@@ -186,21 +181,19 @@ class FPBuddyWidgetsManager {
 		let html = `
 			<div class='widget-content'>
 				<div class="fp-widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
-					<div class="fp-widget-title js-show-settings">${widget_title}</div>
-					<div class="widget-image js-show-settings">
-						<img src='${widget_image}'>
+					<div class="fp-widget-header">
+						<div class="fp-widget-title js-toggle-widget-state">
+							${widget_icon}
+							<span>${widget_title}</span>
+						</div>
+						<div class="remove_item remove_widget">
+							<a href="#"><i class="gg-remove"></i></a>
+						</div>
 					</div>
-					
-					<div class="widget-desc">${widget_description}</div>
-
 					<div class="widget-settings"></div>
 					<div class="loading_overlay"><span class="helper"></span><img src="${FRONTPAGE_BUDDY.config.img_spinner}" ></div>
 				</div>
-			</div>
-
-			<div class="remove_item remove_widget">
-				<a href="#"></a>
-			</div>
+			</div>	
 		`;
 
 		$el_container.html( html );
@@ -211,7 +204,7 @@ class FPBuddyWidgetsManager {
 		let is_valid = false;
 		let widget_type = '';
 		let widget_title = '';
-		let widget_image = '';
+		let widget_icon = '';
 		let widget_description = '';
 
 		for ( let i_widget of FRONTPAGE_BUDDY.added_widgets ) {
@@ -227,7 +220,7 @@ class FPBuddyWidgetsManager {
 				if ( i_widget.type === widget_type ) {
 					widget_title = widget_title.length > 0 ? widget_title : i_widget.name;
 					widget_description = i_widget.description;
-					widget_image = i_widget.icon;
+					widget_icon = i_widget.icon;
 					is_valid = true;
 					break;
 				}
@@ -245,19 +238,21 @@ class FPBuddyWidgetsManager {
 
 		return `
 			<div class="fp-widget state-preview widget-${widget_type}" data-id="${widget_id}" data-type="${widget_type}">
-				<div class="fp-widget-title js-show-settings">${widget_title}</div>
-				<div class="widget-image js-show-settings">
-					<img src='${widget_image}'>
+				<div class="fp-widget-header">
+					<div class="fp-widget-title js-toggle-widget-state">
+						${widget_icon}
+						<span>${widget_title}</span>
+					</div>
+					<div class="remove_item remove_widget">
+						<a href="#"><i class="gg-remove"></i></a>
+					</div>
 				</div>
 				
-				<div class="widget-desc">${widget_description}</div>
+				<div class="widget-desc"><i class="gg-info"></i>${widget_description}</div>
 
 				<div class="widget-settings"></div>
 
 				<div class="loading_overlay"><span class="helper"></span><img src="${FRONTPAGE_BUDDY.config.img_spinner}" ></div>
-			</div>
-			<div class="remove_item remove_widget">
-				<a href="#"></a>
 			</div>
 		`;
 	};
@@ -331,6 +326,7 @@ class FPBuddyLayoutManager {
 	_l = {};
 	initial_content = '';
 	widgets_manager = {};
+	max_cols = 2;
 
 	constructor ( args, content, caller ) {
 		this.options = jQuery.extend( {}, this.options, args )
@@ -366,14 +362,20 @@ class FPBuddyLayoutManager {
 			let html = '<div class="lrow row-content lcol-1">';
 
 			html += '<div class="row-actions">'
-			html += '<div class="splitter"><a href="#"></a></div>';
-			html += "<div class='remove_item remove_row'><a href='#'></a></div>"
+			html += '<div class="fp-mover"><i class="gg-select"></i><span>' + FRONTPAGE_BUDDY.lang.drag_move + '</span></div>';
+			html += '<div class="remove_item remove_row"><a href="#"><i class="gg-remove"></i></a></div>';
 			html += '</div>';
 
 			html += '<div class="row-contents">';
-			html += '<div class="lcol">';
-			html += _class.getExpndWidgetOptionsButton();
-			html += '</div>';
+
+			let col_count = 0;
+			while( col_count < _class.max_cols ) {
+				html += '<div class="lcol">';
+				html += _class.getExpndWidgetOptionsButton();
+				html += '</div>';
+				col_count++;
+			}
+
 			html += '</div>';
 			
 			html += '</div><!-- .row -->';
@@ -384,26 +386,52 @@ class FPBuddyLayoutManager {
 		// Delete row
 		_class._l.parent.on( 'click', ' .remove_row a', function(e){
 			e.preventDefault();
-			jQuery(this).closest( '.lrow' ).remove();
-			_class._l.parent.trigger( 'content_updated' );
+
+			let $row = jQuery(this).closest( '.lrow' );
+			let proceed = true;
+			// Check if at least one widget is added.
+			let has_content = false;
+			if ( $row.find('.fp-widget').length > 0 ) {
+				has_content = false;
+			}
+
+			if ( has_content ) {
+				proceed = confirm( FRONTPAGE_BUDDY.lang.confirm_delete_section );
+			}
+
+			if ( proceed ) {
+				$row.remove();
+				_class._l.parent.trigger( 'content_updated' );
+			}
 		} );
 
 		// Delete columns
 		_class._l.parent.on( 'click', ' .remove_widget a', function(e){
 			e.preventDefault();
-
-			let $row = jQuery(this).closest('.lrow');
 			let $col = jQuery(this).closest('.lcol');
-			if ( $row.hasClass( 'lcol-1' ) ) {
+
+			let proceed = true;
+			let updated_data = false;
+			if ( $col.find('.fp-widget').length ) {
+				updated_data = true;
+				proceed = confirm( FRONTPAGE_BUDDY.lang.confirm_delete_widget );
+			}
+
+			if ( proceed ) {
 				// replace the widget with a 'add-new' widget
 				let html = _class.getExpndWidgetOptionsButton();
 				$col.html( html );
-			} else {
-				$col.remove();
-				$row.removeClass('lcol-2').addClass('lcol-1');
-			}
 
-			_class._l.parent.trigger( 'content_updated' );
+				let $row = $col.closest('.row-contents');
+				// back to flex layout, if possible
+				if ( $row.find( '.fp-widget.state-edit' ).length === 0 && $row.find( '.all-widgets-list' ).length === 0 ) {
+					$row.removeClass( 'dblock' );
+				}
+
+				if ( updated_data ) {
+					_class._l.parent.trigger( 'content_updated' );
+				}
+			}
 		} );
 
 		// Add column
@@ -425,11 +453,13 @@ class FPBuddyLayoutManager {
 			e.preventDefault();
 			let $col = jQuery(this).closest('.lcol');
 			
-			let html = '<div>';
+			let html = '<div class="choose-widget-to-add">';
 			html += _class.getCollapseWidgetOptionsButton();
 			html += _class.widgets_manager.getWidgetsList();
 			html += '</div>';
 			$col.html( html );
+
+			$col.closest('.row-contents').addClass( 'dblock' );
 		});
 
 		// Collapse widgets list
@@ -439,6 +469,12 @@ class FPBuddyLayoutManager {
 			
 			let html = _class.getExpndWidgetOptionsButton();
 			$col.html( html );
+
+			let $row = $col.closest('.row-contents');
+			// back to flex layout, if possible
+			if ( $row.find( '.fp-widget.state-edit' ).length === 0 && $row.find( '.all-widgets-list' ).length === 0 ) {
+				$row.removeClass( 'dblock' );
+			}
 		});
 
 		// Add widget
@@ -498,14 +534,13 @@ class FPBuddyLayoutManager {
 				html += `<div class="lrow row-content ${c_class}">`;
 
 				html += '<div class="row-actions">'
-				html += '<div class="splitter">';
-				html += '<a href="#"></a>';
-				html += '</div>';
-				html += '<div class="remove_item remove_row"><a href="#"></a></div>';
+				html += '<div class="fp-mover"><i class="gg-select"></i><span>' + FRONTPAGE_BUDDY.lang.drag_move + '</span></div>';
+				html += '<div class="remove_item remove_row"><a href="#"><i class="gg-remove"></i></a></div>';
 				html += '</div><!-- .row-actions -->';
 
 				html += '<div class="row-contents">';
 
+				let col_count = 0;
 				for ( let widget_id of row ) {
 					html += '<div class="lcol">';
 					
@@ -518,13 +553,24 @@ class FPBuddyLayoutManager {
 					}
 
 					html += '</div>';
+					col_count++;
+				}
+
+				if ( col_count < _class.max_cols ) {
+					// Add 'add' buttons
+					while( col_count < _class.max_cols ) {
+						html += '<div class="lcol">';
+						html += _class.getExpndWidgetOptionsButton();
+						html += '</div>';
+						col_count++;
+					}
 				}
 
 				html += '</div><!-- .row-contents -->';
 				html += '</div><!-- .row -->';
 			}
 		}
-		html += '<div class="row-add-new"><a href="#"><span></span></a></div>';
+		html += '<div class="row-add-new"><a href="#"><span class="gg-add"></span><span>' + FRONTPAGE_BUDDY.lang.add_section + '</span></a></div>';
 
 		_class._l.parent.html( html );
 	};
@@ -534,23 +580,18 @@ class FPBuddyLayoutManager {
 			<div class="new-widget">
 				<div class="expand-widgets-list">
 					<a href="#">
-						<span></span>
+						<i class="gg-add"></i>
 					</a>
 				</div>
-				<div class="remove_item remove_widget"><a href="#"></a></div>
 			</div>
 		`;
 	};
 
 	getCollapseWidgetOptionsButton () {
 		return `
-			<div class="new-widget">
-				<div class="collapse-widgets-list">
-					<a href="#">
-						<span></span>
-					</a>
-				</div>
-				<div class="remove_item remove_widget"><a href="#"></a></div>
+			<div class="collapse-widgets-list">
+				<div class="fp-widget-title">${FRONTPAGE_BUDDY.lang.choose_widget}</div>
+				<div class="remove_item remove_widget"><a href="#"><i class="gg-remove"></i></a></div>
 			</div>
 		`;
 	};

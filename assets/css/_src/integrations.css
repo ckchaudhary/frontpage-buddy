@@ -1,0 +1,9 @@
+/* Hide buddypress' 'save changes' button on groups>xyz>admin/front-page screen */
+body.buddypress.group-admin.front-page #bp-group-edit--submit-wrapper{
+	display: none;
+}
+
+/* buddypress applies a 2px border radius on all 'body #buddypress div', we don't need that */
+body #buddypress .fpbuddy_manage_widgets div{
+	border-radius: 0;
+}
