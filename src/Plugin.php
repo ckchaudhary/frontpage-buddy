@@ -23,7 +23,7 @@ class Plugin {
 	private $default_options = array(
 		'editor_color_bg'               => '#ffffff',
 		'editor_color_text'             => '#222222',
-		'editor_color_primary'          => '#515151',
+		'editor_color_primary'          => '#0f7ebf',
 		'editor_color_primary_contrast' => '#ffffff',
 	);
 

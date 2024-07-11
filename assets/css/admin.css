@@ -44,7 +44,7 @@ label.fpbuddy-switch span.switch-mask::before {
 	-o-transition:		all 0.5s ease-out;
 }
 label.fpbuddy-switch input:checked + span.switch-mask {
-	background-color: #05789c;
+	background-color: #0c9c05;
 }
 label.fpbuddy-switch input:checked + span.switch-mask::before {
 	transform:			translateX(20px);

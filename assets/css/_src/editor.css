@@ -7,7 +7,7 @@
 	color: var(--fpbuddy-editor-color-main);
 }
 .fpbuddy_manage_widgets .lrow {
-	margin-bottom: 30px;
+	margin-bottom: 60px;
 	border: 2px solid var( --fpbuddy-editor-color-main );
 }
 
@@ -71,7 +71,7 @@
 
 .fpbuddy_manage_widgets .lrow .lcol{
 	position: relative;
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 	max-width: 48%;
 }
