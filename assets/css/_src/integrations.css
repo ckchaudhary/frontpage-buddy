@@ -1,5 +1,5 @@
 /* Hide buddypress' 'save changes' button on groups>xyz>admin/front-page screen */
-body.buddypress.group-admin.front-page #bp-group-edit--submit-wrapper{
+body.buddypress.group-admin.front-page #group-settings-form{
 	display: none;
 }
 

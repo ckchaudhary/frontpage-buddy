@@ -249,11 +249,19 @@ class Plugin {
 			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_members', $enabled_for, true ) ) {
 				Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
 			}
+
+			$this->register_integration( 'buddyboss_groups', new Integrations\BuddyBoss\Groups( 'buddyboss_groups', 'BuddyBoss Social Groups' ) );
+			// group extension.
+			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_groups', $enabled_for, true ) ) {
+				if ( \bp_is_active( 'groups' ) ) {
+					bp_register_group_extension( '\RecycleBin\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
+				}
+			}
 		}
 
 		// bbpress plugin.
 		if ( ! $buddyboss_active && function_exists( '\bbpress' ) ) {
-			// Register widget.
+			// Register integration.
 			$this->register_integration( 'bbp_profiles', new Integrations\BBPress\Profiles( 'bbp_profiles', 'bbPress User Profiles' ) );
 			// Load helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bbp_profiles', $enabled_for, true ) ) {
@@ -263,7 +271,7 @@ class Plugin {
 
 		// ultimate-member plugin.
 		if ( function_exists( '\UM' ) ) {
-			// Register widget.
+			// Register integration.
 			$this->register_integration( 'um_member_profiles', new Integrations\UltimateMember\Profiles( 'um_member_profiles', 'UltimateMember Profiles' ) );
 			// Load helper.
 			if ( ! empty( $enabled_for ) && in_array( 'um_member_profiles', $enabled_for, true ) ) {
