@@ -224,6 +224,7 @@ abstract class Integration {
 		add_filter( 'frontpage_buddy_is_widgets_edit_screen', array( $this, 'is_widgets_edit_screen' ) );
 		add_filter( 'frontpage_buddy_is_custom_front_page_screen', array( $this, 'is_custom_front_page_screen' ) );
 		add_filter( 'frontpage_buddy_script_data', array( $this, 'manage_screen_script_data' ) );
+		add_filter( 'frontpage_buddy_get_integration_option', array( $this, 'filter_option_value' ), 9, 3 );
 	}
 
 	/**
@@ -244,6 +245,28 @@ abstract class Integration {
 	public function get_option( $option_name ) {
 		$all_integrations = frontpage_buddy()->option( 'integrations' );
 		$all_options      = ! empty( $all_integrations ) && isset( $all_integrations[ $this->type ] ) && ! empty( $all_integrations[ $this->type ] ) ? $all_integrations[ $this->type ] : array();
-		return isset( $all_options[ $option_name ] ) ? $all_options[ $option_name ] : null;
+		$opt_value        = isset( $all_options[ $option_name ] ) ? $all_options[ $option_name ] : null;
+
+		return apply_filters( 'frontpage_buddy_get_integration_option', $opt_value, $option_name, $this );
+	}
+
+	/**
+	 * Get an option's/setting's default value.
+	 * This function is to be overloaded by integrations.
+	 *
+	 * @param mixed                                  $option_value value of the option.
+	 * @param string                                 $option_name  name of the option.
+	 * @param \RecycleBin\FrontPageBuddy\Integration $integration  integration object.
+	 *
+	 * @return mixed null if no default value is to be provided.
+	 */
+	public function filter_option_value( $option_value, $option_name, $integration ) {
+		if ( $integration->type !== $this->type ) {
+			return $option_value;
+		}
+
+		// @todo: Furnish default value if required.
+
+		return $option_value;
 	}
 }
