@@ -71,7 +71,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	 * @return string
 	 */
 	public function get_admin_description() {
-		$html = '<p>' . esc_html__( 'This enables all members of your buddypress site to customize their front page.', 'frontpage-buddy' ) . '</p>';
+		$html = '<p>' . esc_html__( 'This enables all members of your buddyboss site to customize their front page.', 'frontpage-buddy' ) . '</p>';
 
 		return $html;
 	}

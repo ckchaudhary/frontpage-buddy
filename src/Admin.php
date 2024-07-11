@@ -183,11 +183,11 @@ class Admin {
 
 		register_setting( $this->option_name, $this->option_name, array( $this, 'plugin_options_validate' ) );
 
-		add_settings_section( 'section_integration', '', array( $this, 'section_integration_desc' ), __FILE__ );
-		add_settings_field( 'integrations', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'integrations' ), __FILE__, 'section_integration' );
+		add_settings_section( 'section_integration', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'section_integration_desc' ), __FILE__ );
+		add_settings_field( 'integrations', '', array( $this, 'integrations' ), __FILE__, 'section_integration' );
 
-		add_settings_section( 'section_widgets', '', array( $this, 'section_widgets_desc' ), __FILE__ );
-		add_settings_field( 'widget_settings', __( 'Widgets', 'frontpage-buddy' ), array( $this, 'widget_settings' ), __FILE__, 'section_widgets' );
+		add_settings_section( 'section_widgets', __( 'Widgets', 'frontpage-buddy' ), array( $this, 'section_widgets_desc' ), __FILE__ );
+		add_settings_field( 'widget_settings', '', array( $this, 'widget_settings' ), __FILE__, 'section_widgets' );
 
 		add_settings_section( 'section_theme', __( 'Appearance', 'frontpage-buddy' ), array( $this, 'section_theme_desc' ), __FILE__ );
 		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme' );
