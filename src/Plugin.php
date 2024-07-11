@@ -217,11 +217,13 @@ class Plugin {
 		$enabled_for = $this->option( 'enabled_for' );
 
 		$buddypress_active = false;
+		$buddyboss_active = false;
 		if ( function_exists( '\buddypress' ) ) {
 			$buddypress_active = true;
 			if ( isset( \buddypress()->buddyboss ) ) {
 				// Buddyboss platform is active. We don't support that. yet.
 				$buddypress_active = false;
+				$buddyboss_active  = true;
 			}
 		}
 
@@ -241,8 +243,16 @@ class Plugin {
 			}
 		}
 
+		if ( $buddyboss_active ) {
+			$this->register_integration( 'buddyboss_members', new Integrations\BuddyBoss\Profiles( 'buddyboss_members', 'BuddyBoss Member Profiles' ) );
+			// buddypress member profiles helper.
+			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_members', $enabled_for, true ) ) {
+				Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
+			}
+		}
+
 		// bbpress plugin.
-		if ( function_exists( '\bbpress' ) ) {
+		if ( ! $buddyboss_active && function_exists( '\bbpress' ) ) {
 			// Register widget.
 			$this->register_integration( 'bbp_profiles', new Integrations\BBPress\Profiles( 'bbp_profiles', 'bbPress User Profiles' ) );
 			// Load helper.
