@@ -103,7 +103,7 @@ class Collection {
 	 * @return array
 	 */
 	public function get_widget_settings( $widget_type ) {
-		$all_widget_settings = frontpage_buddy()->option( 'widget_settings' );
+		$all_widget_settings = frontpage_buddy()->option( 'widgets' );
 		return isset( $all_widget_settings[ $widget_type ] ) && ! empty( $all_widget_settings[ $widget_type ] ) ? $all_widget_settings[ $widget_type ] : array();
 	}
 

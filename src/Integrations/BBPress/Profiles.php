@@ -66,6 +66,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 					'rows' => 3,
 					'cols' => 50,
 				),
+				'sanitization' => 'basic_html',
 			),
 		);
 	}

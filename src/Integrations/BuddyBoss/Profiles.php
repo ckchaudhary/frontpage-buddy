@@ -105,6 +105,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 				'label'       => __( 'Settings menu slug', 'frontpage-buddy' ),
 				'value'       => $this->get_option( 'settings_nav_slug' ),
 				'description' => __( 'Slug of the sub menu item which is added under \'Account\' main menu. This is the screen from where members can customize thier front page.', 'frontpage-buddy' ),
+				'sanitization' => 'slug',
 			),
 			'show_encourage_prompt' => array(
 				'type'        => 'switch',
@@ -123,6 +124,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 					'rows' => 3,
 					'cols' => 50,
 				),
+				'sanitization' => 'basic_html',
 			),
 		);
 	}

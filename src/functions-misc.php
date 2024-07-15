@@ -286,6 +286,180 @@ function generate_form_fields( $fields, $args = '' ) {
 	echo $args['after_list'];
 }
 
+/**
+ * Sanitize the input of a field.
+ *
+ * @param mixed $field_value can be a single value or an array of values.
+ * @param array $field_attrs Details about the field.
+ * @return mixed
+ */
+function sanitize_field( $field_value, $field_attrs ) {
+	global $emi_debugg;
+
+	$sanitization_func = '\sanitize_text_field';
+	$sanitization_type = isset( $field_attrs['sanitization'] ) ? $field_attrs['sanitization'] : '';
+	if ( empty( $sanitization_type ) ) {
+		$sanitization_type = isset( $field_attrs['type'] ) ? $field_attrs['type'] : 'text';
+	}
+
+	if ( 'none' === $sanitization_type ) {
+		return $field_value;
+	}
+	
+	if ( $emi_debugg ) {
+		update_option( 'emi_debug', 'coming here1' );
+	}
+
+	switch ( $sanitization_type ) {
+		case 'switch':
+			$sanitization_func = '\RecycleBin\FrontPageBuddy\sanitize_switch';
+			break;
+
+		case 'email':
+			$sanitization_func = '\sanitize_email';
+			break;
+
+		case 'key':
+			$sanitization_func = '\sanitize_key';
+			break;
+
+		case 'slug':
+			$sanitization_func = '\sanitize_title';
+			break;
+
+		case 'hexcolor':
+			$sanitization_func = '\sanitize_hex_color';
+			break;
+
+		case 'textarea':
+			$sanitization_func = '\sanitize_textarea';
+			break;
+
+		case 'basic_html':
+			$sanitization_func = '\RecycleBin\FrontPageBuddy\sanitize_basic_html';
+			break;
+
+		default:
+			$sanitization_func = '\sanitize_text_field';
+			break;
+	}
+
+	if ( is_scalar( $field_value ) ) {
+		$field_value = call_user_func( $sanitization_func, $field_value );
+	} elseif ( is_array( $field_value ) ) {
+		$count_val = count( $field_value );
+		for ( $i = 0; $i < $count_val; $i++ ) {
+			$field_value[ $i ] = call_user_func( $sanitization_func, $field_value[ $i ] );
+		}
+	}
+
+	return $field_value;
+}
+
+/**
+ * Validate the value of a 'switch' field.
+ *
+ * Returns 'yes' if the value is already 'yes'.
+ * Returns 'no' otherwise.
+ *
+ * @param string $value Current value.
+ * @return string
+ */
+function validate_switch( $value ) {
+	return 'yes' === strtolower( $value ) ? 'yes' : 'no';
+}
+
+/**
+ * Filter the value to include only allowed html tags and their attributes.
+ * Strip all other html.
+ *
+ * @param string $value raw html.
+ * @return string
+ */
+function sanitize_basic_html( $value ) {
+	return wp_kses( $value, basic_html_allowed_tags() );
+}
+
+/**
+ * Get the list of html tags( and their attributes ) allowed.
+ * This is used to sanitize the contents of richcontent widget.
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function visual_editor_allowed_html_tags() {
+	return apply_filters(
+		'fronpage_buddy_visual_editor_allowed_html_tags',
+		array(
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'p'      => array(),
+			'br'     => array(),
+			'em'     => array(),
+			'strong' => array(),
+			'del'    => array(),
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+			),
+			'img'    => array(
+				'src' => array(),
+				'alt' => array(),
+			),
+			'ul'     => array(),
+			'ol'     => array(),
+			'li'     => array(),
+			'hr'     => array(),
+		)
+	);
+}
+
+/**
+ * Get the list of html tags( and their attributes ) allowed.
+ * This is used to sanitize the contents of integration and widget descriptions, before showing those in admin settings screen( and elsewhere, if applicable ).
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function basic_html_allowed_tags() {
+	return apply_filters(
+		'fronpage_buddy_admin_descriptions_allowed_html_tags',
+		array(
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'div'    => array(
+				'class' => array(),
+			),
+			'p'      => array(
+				'class' => array(),
+			),
+			'span'   => array(
+				'class' => array(),
+			),
+			'br'     => array(),
+			'em'     => array(),
+			'strong' => array(),
+			'del'    => array(),
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+				'class' => array(),
+			),
+			'img'    => array(
+				'src'   => array(),
+				'alt'   => array(),
+				'class' => array(),
+			),
+			'ul'     => array(),
+			'ol'     => array(),
+			'li'     => array(),
+			'hr'     => array(),
+		)
+	);
+}
+
 \add_action( 'frontpage_buddy_manage_frontpage__after', '\RecycleBin\FrontPageBuddy\manage_screen_theme_setup' );
 
 /**

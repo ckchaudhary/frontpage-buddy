@@ -187,7 +187,7 @@ class Admin {
 		add_settings_field( 'integrations', '', array( $this, 'integrations' ), __FILE__, 'section_integration' );
 
 		add_settings_section( 'section_widgets', __( 'Widgets', 'frontpage-buddy' ), array( $this, 'section_widgets_desc' ), __FILE__ );
-		add_settings_field( 'widget_settings', '', array( $this, 'widget_settings' ), __FILE__, 'section_widgets' );
+		add_settings_field( 'widgets', '', array( $this, 'widgets' ), __FILE__, 'section_widgets' );
 
 		add_settings_section( 'section_theme', __( 'Appearance', 'frontpage-buddy' ), array( $this, 'section_theme_desc' ), __FILE__ );
 		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme' );
@@ -246,6 +246,60 @@ class Admin {
 	 * @return mixed
 	 */
 	public function plugin_options_validate( $input ) {
+		if ( empty( $input ) ) {
+			return $input;
+		}
+
+		foreach ( $input as $field_name => $field_value ) {
+			switch ( $field_name ) {
+				case 'enabled_for':
+					if ( ! empty( $field_value ) ) {
+						$val_count = count( $field_value );
+						for ( $i = 0; $i < $val_count; $i++ ) {
+							$field_value[ $i ] = sanitize_title( $field_value[ $i ] );
+						}
+					}
+					break;
+
+				case 'editor_color_bg':
+				case 'editor_color_text':
+				case 'editor_color_primary':
+				case 'editor_color_primary_contrast':
+					$field_value = sanitize_hex_color( $field_value );
+					break;
+
+				case 'integrations':
+					if ( ! empty( $field_value ) ) {
+						foreach ( $field_value as $integration_type => $integration_fields ) {
+							$integration = frontpage_buddy()->get_integration( $integration_type );
+							if ( empty( $integration ) ) {
+								$field_value = false;
+							} else {
+								$registered_fields = $integration->get_settings_fields();
+								if ( empty( $registered_fields ) ) {
+									$field_value = false;
+								} else {
+									foreach ( $integration_fields as $i_field_name => $entered_value ) {
+										if ( isset( $registered_fields[ $i_field_name ] ) ) {
+											$integration_fields[ $i_field_name ] = sanitize_field( $entered_value, $registered_fields[ $i_field_name ] );
+										} else {
+											unset( $field_value[ $i_field_name ] );
+										}
+									}
+								}
+							}
+
+							$field_value[ $integration_type ] = $integration_fields;
+						}
+					}
+					break;
+
+				// @todo: sanitize widget prototype settings.
+			}
+
+			$input[ $field_name ] = $field_value;
+		}
+
 		return $input; // No validations for now.
 	}
 
@@ -289,7 +343,7 @@ class Admin {
 			echo '<tbody>';
 
 			echo '<tr class="integration-desc"><td colspan="100%" >';
-			echo wp_kses( $integration_obj->get_admin_description(), admin_descriptions_allowed_html_tags() );
+			echo wp_kses( $integration_obj->get_admin_description(), basic_html_allowed_tags() );
 			echo '</td></tr>';
 
 			$attributes = array();
@@ -340,7 +394,7 @@ class Admin {
 	 *
 	 * @return boolean
 	 */
-	public function widget_settings() {
+	public function widgets() {
 		$field_name         = __FUNCTION__;
 		$field_value        = $this->option( $field_name );
 		$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
