@@ -17,7 +17,7 @@ Allow your website's members to provide detailed information about themselves, e
 
 It builds upon the default functionality of few other plugins. Currently it has integrations for the following plugins:
 
-### 1. BuddyPress
+### 1. BuddyPress & BuddyBoss Platform
 
 - **Member profiles:** BuddyPress member profiles have always been very impersonal. This plugin allows your website's members to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding images and videos, embedding their social media profiles, etc. Check screenshots to see a preview.
 
@@ -49,13 +49,6 @@ This plugin provides a list of 'widgets' that can be added to the custom front p
 1. Upload the plugin files to the `/wp-content/plugins` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->FrontPage Buddy screen to configure the plugin
-
-== Frequently Asked Questions ==
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif).
-2. This is the second screen shot
 
 == Changelog ==
 

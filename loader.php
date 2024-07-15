@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FrontPage Buddy
  * Plugin URI: https://blogs.recycleb.in/?p=47
- * Description: Personalized front pages for buddypress members & groups, bbpress profiles and 'Ultimate Member' profiles.
+ * Description: Personalized front pages for buddypress & buddyboss members & groups, bbpress profiles and 'Ultimate Member' profiles.
  * Version: 1.0.0
  * Author: ckchaudhary
  * Author URI: https://www.recycleb.in/u/chandan/

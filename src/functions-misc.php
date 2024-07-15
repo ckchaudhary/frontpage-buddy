@@ -294,8 +294,6 @@ function generate_form_fields( $fields, $args = '' ) {
  * @return mixed
  */
 function sanitize_field( $field_value, $field_attrs ) {
-	global $emi_debugg;
-
 	$sanitization_func = '\sanitize_text_field';
 	$sanitization_type = isset( $field_attrs['sanitization'] ) ? $field_attrs['sanitization'] : '';
 	if ( empty( $sanitization_type ) ) {
@@ -305,14 +303,10 @@ function sanitize_field( $field_value, $field_attrs ) {
 	if ( 'none' === $sanitization_type ) {
 		return $field_value;
 	}
-	
-	if ( $emi_debugg ) {
-		update_option( 'emi_debug', 'coming here1' );
-	}
 
 	switch ( $sanitization_type ) {
 		case 'switch':
-			$sanitization_func = '\RecycleBin\FrontPageBuddy\sanitize_switch';
+			$sanitization_func = '\RecycleBin\FrontPageBuddy\validate_switch';
 			break;
 
 		case 'email':
