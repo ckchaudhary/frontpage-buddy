@@ -8,7 +8,9 @@
  * Author URI: https://www.recycleb.in/u/chandan/
  * Text Domain: frontpage-buddy
  * Domain Path: /languages
- * Licence: GPLv2
+ *
+ * License: GPLv2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package FrontPage Buddy
  */
