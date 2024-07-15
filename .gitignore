@@ -29,6 +29,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-# overwrite of config.php
-config-local.php 
