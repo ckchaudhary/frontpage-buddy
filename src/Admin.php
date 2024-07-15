@@ -326,7 +326,7 @@ class Admin {
 					/* translators: %s: list of plugins frontpage-buddy works with. */
 					'<p>' . esc_html__( 'Frontpage buddy can only work when either of the following plugins are active: %s', 'frontpage-buddy' ) . '.</p>'
 					. '<p>' . esc_html__( 'Not much it can do for now!', 'frontpage-buddy' ) . '</p>',
-					'BuddyPress, bbPress, UltimateMember'
+					'BuddyPress, BuddyBoss, bbPress, UltimateMember'
 				);
 				?>
 			</div>
