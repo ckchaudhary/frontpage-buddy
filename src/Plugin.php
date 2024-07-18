@@ -221,7 +221,6 @@ class Plugin {
 		if ( function_exists( '\buddypress' ) ) {
 			$buddypress_active = true;
 			if ( isset( \buddypress()->buddyboss ) ) {
-				// Buddyboss platform is active. We don't support that. yet.
 				$buddypress_active = false;
 				$buddyboss_active  = true;
 			}
