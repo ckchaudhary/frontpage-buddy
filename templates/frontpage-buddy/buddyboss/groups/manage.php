@@ -78,11 +78,14 @@ $is_enabled = $integration->has_custom_front_page( bp_get_current_group_id() );
 
 <?php do_action( 'frontpage_buddy_manage_frontpage__after', 'bp_groups' ); ?>
 
-<script>
-	jQuery( ($) => {
-		let fpbuddy_manager = new FPBuddyWidgetsManager( {
-			'el_outer' : '.fpbuddy_manage_widgets',
-			'el_content' : '#fpbuddy_fp_layout_outer',
-		} )
-	});
-</script>
+<?php
+$inline_script  = 'jQuery( ($) => {';
+$inline_script .= 'let fpbuddy_manager = new FPBuddyWidgetsManager({';
+$inline_script .= '"el_outer" : ".fpbuddy_manage_widgets",';
+$inline_script .= '"el_content" : "#fpbuddy_fp_layout_outer",';
+$inline_script .= '})';
+$inline_script .= '});';
+wp_add_inline_script(
+	'frontpage-buddy-editor',
+	$inline_script
+);

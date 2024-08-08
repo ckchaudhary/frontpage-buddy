@@ -356,6 +356,16 @@ class Plugin {
 			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
 			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/css/editor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
+			$css  = '.fpbuddy_manage_widgets {';
+			$css .= '--fpbuddy-editor-color-bg: ' . esc_attr( frontpage_buddy()->option( 'editor_color_bg' ) ) . ';';
+			$css .= '--fpbuddy-editor-color-text: ' . esc_attr( frontpage_buddy()->option( 'editor_color_text' ) ) . ';';
+			$css .= '--fpbuddy-editor-color-main: ' . esc_attr( frontpage_buddy()->option( 'editor_color_primary' ) ) . ';';
+			$css .= '--fpbuddy-editor-color-main-contrast: ' . esc_attr( frontpage_buddy()->option( 'editor_color_primary_contrast' ) ) . ';';
+			$css .= '}';
+			wp_add_inline_style(
+				'frontpage-buddy-editor',
+				$css
+			);
 		}
 
 		// Assets for view(front page) screen.
