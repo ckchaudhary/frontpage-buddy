@@ -217,7 +217,7 @@ class Plugin {
 		$enabled_for = $this->option( 'enabled_for' );
 
 		$buddypress_active = false;
-		$buddyboss_active = false;
+		$buddyboss_active  = false;
 		if ( function_exists( '\buddypress' ) ) {
 			$buddypress_active = true;
 			if ( isset( \buddypress()->buddyboss ) ) {
@@ -341,12 +341,12 @@ class Plugin {
 					),
 
 					'lang'        => array(
-						'invalid' => __( 'Invalid', 'frontpage-buddy' ),
-						'add_section' => __( 'add section', 'frontpage-buddy' ),
-						'drag_move' => __( 'Drag to move up or down', 'frontpage-buddy' ),
+						'invalid'                => __( 'Invalid', 'frontpage-buddy' ),
+						'add_section'            => __( 'add section', 'frontpage-buddy' ),
+						'drag_move'              => __( 'Drag to move up or down', 'frontpage-buddy' ),
 						'confirm_delete_section' => __( 'Are you sure you want to delete this section?', 'frontpage-buddy' ),
-						'confirm_delete_widget' => __( 'Are you sure you want to delete this content?', 'frontpage-buddy' ),
-						'choose_widget' => __( 'Select the type of content.', 'frontpage-buddy' ),
+						'confirm_delete_widget'  => __( 'Are you sure you want to delete this content?', 'frontpage-buddy' ),
+						'choose_widget'          => __( 'Select the type of content.', 'frontpage-buddy' ),
 					),
 
 					'object_type' => '',

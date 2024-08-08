@@ -30,7 +30,7 @@ class ProfilesHelper {
 	 * @return void
 	 */
 	public function show_output() {
-		$user_id = \bbp_get_displayed_user_id();
+		$user_id     = \bbp_get_displayed_user_id();
 		$integration = frontpage_buddy()->get_integration( 'bbp_profiles' );
 		if ( $integration->can_manage( $user_id ) ) {
 			// Show prompt?

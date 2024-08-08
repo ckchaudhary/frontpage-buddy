@@ -37,7 +37,7 @@ class RichContent extends Widget {
 	 * @return array
 	 */
 	public function get_fields() {
-		$fields = $this->get_default_fields();
+		$fields            = $this->get_default_fields();
 		$fields['content'] = array(
 			'type'        => 'wp_editor',
 			'label'       => '',

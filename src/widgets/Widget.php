@@ -319,7 +319,7 @@ abstract class Widget {
 	 */
 	protected function get_default_fields() {
 		$fields = array(
-			'heading'     => array(
+			'heading' => array(
 				'type'  => 'text',
 				'label' => __( 'Heading', 'frontpage-buddy' ),
 				'value' => ! empty( $this->edit_field_value( 'heading' ) ) ? $this->edit_field_value( 'heading' ) : '',

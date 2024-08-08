@@ -21,10 +21,10 @@ class YoutubeEmbed extends Widget {
 	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
 	 */
 	public function __construct( $type, $args = '' ) {
-		$this->type           = $type;
-		$this->name           = __( 'Youtube Video', 'frontpage-buddy' );
-		$this->description    = __( 'Embed a youtube video.', 'frontpage-buddy' );
-		$this->icon_image     = '<i class="gg-youtube"></i>';
+		$this->type        = $type;
+		$this->name        = __( 'Youtube Video', 'frontpage-buddy' );
+		$this->description = __( 'Embed a youtube video.', 'frontpage-buddy' );
+		$this->icon_image  = '<i class="gg-youtube"></i>';
 
 		$this->setup( $args );
 	}

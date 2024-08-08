@@ -23,7 +23,7 @@ class GroupExtension extends \BP_Group_Extension {
 		$integration = frontpage_buddy()->get_integration( 'buddyboss_groups' );
 
 		$enable_nav_item = false;
-		$group_id = bp_get_current_group_id();
+		$group_id        = bp_get_current_group_id();
 		if ( $group_id ) {
 			$enable_nav_item = $integration->has_custom_front_page( $group_id );
 		}
@@ -32,10 +32,10 @@ class GroupExtension extends \BP_Group_Extension {
 			'enable_nav_item'   => $enable_nav_item,
 			'nav_item_position' => 7,
 
-			'slug' => $integration->get_option( 'frontpage_nav_slug' ),
-			'name' => $integration->get_option( 'frontpage_nav_name' ),
+			'slug'              => $integration->get_option( 'frontpage_nav_slug' ),
+			'name'              => $integration->get_option( 'frontpage_nav_name' ),
 
-			'screens' => array(
+			'screens'           => array(
 				'edit'   => array(
 					'enabled'              => true,
 					'slug'                 => $integration->get_option( 'settings_nav_slug' ),

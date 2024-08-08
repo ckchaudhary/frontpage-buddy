@@ -21,10 +21,10 @@ class FacebookPage extends Widget {
 	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
 	 */
 	public function __construct( $type, $args = '' ) {
-		$this->type           = $type;
-		$this->name           = __( 'Facebook Page', 'frontpage-buddy' );
-		$this->description    = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
-		$this->icon_image     = '<i class="gg-facebook"></i>';
+		$this->type        = $type;
+		$this->name        = __( 'Facebook Page', 'frontpage-buddy' );
+		$this->description = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
+		$this->icon_image  = '<i class="gg-facebook"></i>';
 
 		$this->setup( $args );
 	}
@@ -78,7 +78,7 @@ class FacebookPage extends Widget {
 	 */
 	public function get_fields() {
 		$fields = $this->get_default_fields();
-		
+
 		$fields['url'] = array(
 			'type'       => 'url',
 			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),

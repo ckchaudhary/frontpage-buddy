@@ -101,10 +101,10 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 				'description' => __( 'Name of the sub menu item which is added under \'Account\' main menu. This is the screen from where members can customize thier front page.', 'frontpage-buddy' ),
 			),
 			'settings_nav_slug'     => array(
-				'type'        => 'text',
-				'label'       => __( 'Settings menu slug', 'frontpage-buddy' ),
-				'value'       => $this->get_option( 'settings_nav_slug' ),
-				'description' => __( 'Slug of the sub menu item which is added under \'Account\' main menu. This is the screen from where members can customize thier front page.', 'frontpage-buddy' ),
+				'type'         => 'text',
+				'label'        => __( 'Settings menu slug', 'frontpage-buddy' ),
+				'value'        => $this->get_option( 'settings_nav_slug' ),
+				'description'  => __( 'Slug of the sub menu item which is added under \'Account\' main menu. This is the screen from where members can customize thier front page.', 'frontpage-buddy' ),
 				'sanitization' => 'slug',
 			),
 			'show_encourage_prompt' => array(
@@ -116,11 +116,11 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 				'description' => __( 'If enabled, when a member visits their profile, they see a small prompt at the top. This can be used to encourage members to add content to their front page. This can also be used to add a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(
-				'type'        => 'textarea',
-				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
-				'value'       => $this->get_option( 'encourage_prompt_text' ),
-				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
-				'attributes'  => array(
+				'type'         => 'textarea',
+				'label'        => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'        => $this->get_option( 'encourage_prompt_text' ),
+				'description'  => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
+				'attributes'   => array(
 					'rows' => 3,
 					'cols' => 50,
 				),

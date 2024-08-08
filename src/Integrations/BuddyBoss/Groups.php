@@ -66,54 +66,55 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 		}
 
 		return array(
-			'frontpage_nav_name'   => array(
+			'frontpage_nav_name'    => array(
 				'type'        => 'text',
 				'label'       => __( 'Front page menu name', 'frontpage-buddy' ),
 				'value'       => $this->get_option( 'frontpage_nav_name' ),
 				'description' => __( 'Name of the group\'s menu item which displays the front page.', 'frontpage-buddy' ),
 			),
-			'frontpage_nav_slug'   => array(
+			'frontpage_nav_slug'    => array(
 				'type'         => 'text',
 				'label'        => __( 'Front page menu slug', 'frontpage-buddy' ),
 				'value'        => $this->get_option( 'frontpage_nav_slug' ),
 				'description'  => __( 'Slug of the group\'s menu item which displays the front page.', 'frontpage-buddy' ),
 				'sanitization' => 'slug',
 			),
-			'settings_nav_name'    => array(
+			'settings_nav_name'     => array(
 				'type'        => 'text',
 				'label'       => __( 'Settings menu name', 'frontpage-buddy' ),
 				'value'       => $this->get_option( 'settings_nav_name' ),
 				'description' => __( 'Name of the sub menu item which is added under \'Manage\' main menu. This is the screen from where admins can customize group\'s front page.', 'frontpage-buddy' ),
 			),
 
-			/**
-			 * This is used to create css classes for body element.
-			 * That css class is used to hide the default group settings form.
-			 * So making it editable will break that small functionality.
-			 * Untill we find a good solution for that, this setting is disabled.
-			 */
-			/*'settings_nav_slug'     => array(
+			/*
+			This is used to create css classes for body element.
+			That css class is used to hide the default group settings form.
+			So making it editable will break that small functionality.
+			Untill we find a good solution for that, this setting is disabled.
+
+			'settings_nav_slug'     => array(
 				'type'         => 'text',
 				'label'        => __( 'Settings menu slug', 'frontpage-buddy' ),
 				'value'        => $this->get_option( 'settings_nav_slug' ),
 				'description'  => __( 'Slug of the sub menu item which is added under \'Manage\' main menu. This is the screen from where admins can customize group\'s front page.', 'frontpage-buddy' ),
 				'sanitization' => 'slug',
-			),*/
+			),
+			*/
 
 			'show_encourage_prompt' => array(
-				'type'         => 'switch',
-				'label'        => __( 'Show prompt to group admins when viewing group\'s front page?', 'frontpage-buddy' ),
-				'label_off'    => __( 'No', 'frontpage-buddy' ),
-				'label_on'     => __( 'Yes', 'frontpage-buddy' ),
-				'attributes'   => $attrs_show_prompt,
-				'description'  => __( 'If enabled, when a group admin visits the front page of the group, they see a small prompt at the top. This can be used to encourage group admins to add content to the front page. This can also be used to add a link to the page where the front page can be customized.', 'frontpage-buddy' ),
+				'type'        => 'switch',
+				'label'       => __( 'Show prompt to group admins when viewing group\'s front page?', 'frontpage-buddy' ),
+				'label_off'   => __( 'No', 'frontpage-buddy' ),
+				'label_on'    => __( 'Yes', 'frontpage-buddy' ),
+				'attributes'  => $attrs_show_prompt,
+				'description' => __( 'If enabled, when a group admin visits the front page of the group, they see a small prompt at the top. This can be used to encourage group admins to add content to the front page. This can also be used to add a link to the page where the front page can be customized.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(
-				'type'        => 'textarea',
-				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
-				'value'       => $this->get_option( 'encourage_prompt_text' ),
-				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the front page can be customized.', 'frontpage-buddy' ),
-				'attributes'  => array(
+				'type'         => 'textarea',
+				'label'        => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'        => $this->get_option( 'encourage_prompt_text' ),
+				'description'  => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the front page can be customized.', 'frontpage-buddy' ),
+				'attributes'   => array(
 					'rows' => 3,
 					'cols' => 50,
 				),
@@ -201,7 +202,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 		}
 
 		$integration_enabled = false;
-		$enabled_for = frontpage_buddy()->option( 'enabled_for' );
+		$enabled_for         = frontpage_buddy()->option( 'enabled_for' );
 		if ( ! empty( $enabled_for ) && in_array( $this->get_integration_type(), $enabled_for, true ) ) {
 			$integration_enabled = true;
 		}

@@ -84,11 +84,11 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 				'description' => __( 'If enabled, when a group administrator visits the group\'s front page, they see a small prompt at the top. This can be used to encourage group admins to provide necessary information on front page. This can also be used to add a link to the page where the group admin can customize the front page.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(
-				'type'        => 'textarea',
-				'label'       => __( 'Prompt text', 'frontpage-buddy' ),
-				'value'       => $prompt_text,
-				'description' => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the front page can be customized.', 'frontpage-buddy' ),
-				'attributes'  => array(
+				'type'         => 'textarea',
+				'label'        => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'        => $prompt_text,
+				'description'  => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the front page can be customized.', 'frontpage-buddy' ),
+				'attributes'   => array(
 					'rows' => 3,
 					'cols' => 50,
 				),

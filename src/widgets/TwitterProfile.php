@@ -21,10 +21,10 @@ class TwitterProfile extends Widget {
 	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
 	 */
 	public function __construct( $type, $args = '' ) {
-		$this->type           = $type;
-		$this->name           = __( 'Twitter Profile Feed', 'frontpage-buddy' );
-		$this->description    = __( 'Display any X/Twitter profile\'s feed.', 'frontpage-buddy' );
-		$this->icon_image     = '<i class="gg-twitter"></i>';
+		$this->type        = $type;
+		$this->name        = __( 'Twitter Profile Feed', 'frontpage-buddy' );
+		$this->description = __( 'Display any X/Twitter profile\'s feed.', 'frontpage-buddy' );
+		$this->icon_image  = '<i class="gg-twitter"></i>';
 
 		$this->setup( $args );
 	}
@@ -41,20 +41,20 @@ class TwitterProfile extends Widget {
 		if ( 'yes' === $this->edit_field_value( 'dark_theme' ) ) {
 			$attrs_dark_theme['checked'] = 'checked';
 		}
-		$fields['username'] = array(
+		$fields['username']   = array(
 			'type'        => 'text',
 			'label'       => __( 'X/Twitter Handle', 'frontpage-buddy' ),
 			'value'       => ! empty( $this->edit_field_value( 'username' ) ) ? $this->edit_field_value( 'username' ) : '',
 			'attributes'  => array( 'placeholder' => __( 'E.g: @johndoe', 'frontpage-buddy' ) ),
 			'is_required' => true,
 		);
-		$fields['width'] = array(
+		$fields['width']      = array(
 			'type'       => 'number',
 			'label'      => __( 'Width', 'frontpage-buddy' ),
 			'value'      => ! empty( $this->edit_field_value( 'twidth' ) ) ? $this->edit_field_value( 'twidth' ) : '',
 			'attributes' => array( 'placeholder' => __( 'Width in pixels (optional)', 'frontpage-buddy' ) ),
 		);
-		$fields['height'] = array(
+		$fields['height']     = array(
 			'type'       => 'number',
 			'label'      => __( 'Height', 'frontpage-buddy' ),
 			'value'      => ! empty( $this->edit_field_value( 'theight' ) ) ? $this->edit_field_value( 'theight' ) : '',

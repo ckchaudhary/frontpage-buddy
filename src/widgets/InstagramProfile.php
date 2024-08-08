@@ -21,10 +21,10 @@ class InstagramProfile extends Widget {
 	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
 	 */
 	public function __construct( $type, $args = '' ) {
-		$this->type           = $type;
-		$this->name           = __( 'Instagram Profile', 'frontpage-buddy' );
-		$this->description    = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
-		$this->icon_image     = '<i class="gg-instagram"></i>';
+		$this->type        = $type;
+		$this->name        = __( 'Instagram Profile', 'frontpage-buddy' );
+		$this->description = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
+		$this->icon_image  = '<i class="gg-instagram"></i>';
 
 		$this->setup( $args );
 	}
