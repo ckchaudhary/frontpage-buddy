@@ -7,19 +7,19 @@ namespace Composer\Autoload;
 class ComposerStaticInit49fe6d3ec26299dce7df3213d873bc88
 {
     public static $files = array (
-        '96656a3094fb84ba9543fd52c6bdcb73' => __DIR__ . '/../..' . '/src/functions-misc.php',
-        '97db9f1f5fb58d047ff20efaae3df856' => __DIR__ . '/../..' . '/src/functions-widgets.php',
+        'f2902830610809d94244ca1937757e2e' => __DIR__ . '/../..' . '/src/functions-misc.php',
+        '3ae053510df1035a2e9b6532782001ab' => __DIR__ . '/../..' . '/src/functions-widgets.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'R' => 
         array (
-            'RecycleBin\\FrontPageBuddy\\' => 26,
+            'RB\\FrontPageBuddy\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'RecycleBin\\FrontPageBuddy\\' => 
+        'RB\\FrontPageBuddy\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

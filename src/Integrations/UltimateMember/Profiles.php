@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\UltimateMember;
+namespace RB\FrontPageBuddy\Integrations\UltimateMember;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
  *  Front page for ultimate-member profiles.
  */
-class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
+class Profiles extends \RB\FrontPageBuddy\Integration {
 
 	/**
 	 * Get details about this integration, to be displayed in admin settings screen.

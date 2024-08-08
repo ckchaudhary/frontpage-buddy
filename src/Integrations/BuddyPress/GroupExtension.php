@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BuddyPress;
+namespace RB\FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -64,7 +64,7 @@ class GroupExtension extends \BP_Group_Extension {
 	 * @return void
 	 */
 	public function settings_screen( $group_id = null ) {
-		\RecycleBin\FrontPageBuddy\load_template( 'buddypress/groups/manage' );
+		\RB\FrontPageBuddy\load_template( 'buddypress/groups/manage' );
 	}
 
 	/**

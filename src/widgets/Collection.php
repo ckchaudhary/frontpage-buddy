@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Widgets;
+namespace RB\FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) ? '' : exit();
  *  Widget Collections, to add settings screen, etc.
  */
 class Collection {
-	use \RecycleBin\FrontPageBuddy\TraitSingleton;
+	use \RB\FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * The array of all registered widgets.
@@ -52,11 +52,11 @@ class Collection {
 		$this->widgets = apply_filters(
 			'frontpage_buddy_registered_widgets',
 			array(
-				'richcontent'           => '\RecycleBin\FrontPageBuddy\Widgets\RichContent',
-				'instagramprofileembed' => '\RecycleBin\FrontPageBuddy\Widgets\InstagramProfile',
-				'facebookpageembed'     => '\RecycleBin\FrontPageBuddy\Widgets\FacebookPage',
-				'youtubeembed'          => '\RecycleBin\FrontPageBuddy\Widgets\YoutubeEmbed',
-				'twitterprofile'        => '\RecycleBin\FrontPageBuddy\Widgets\TwitterProfile',
+				'richcontent'           => '\RB\FrontPageBuddy\Widgets\RichContent',
+				'instagramprofileembed' => '\RB\FrontPageBuddy\Widgets\InstagramProfile',
+				'facebookpageembed'     => '\RB\FrontPageBuddy\Widgets\FacebookPage',
+				'youtubeembed'          => '\RB\FrontPageBuddy\Widgets\YoutubeEmbed',
+				'twitterprofile'        => '\RB\FrontPageBuddy\Widgets\TwitterProfile',
 			)
 		);
 

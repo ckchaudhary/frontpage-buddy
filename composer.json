@@ -1,5 +1,5 @@
 {
-    "name": "recyclebin/frontpage-buddy",
+    "name": "rb/frontpage-buddy",
     "description": "The Frontpage Buddy plugin for WordPress",
     "type": "wordpress-plugin",
 	"version": "1.0.0",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "RecycleBin\\FrontPageBuddy\\": "src/"
+            "RB\\FrontPageBuddy\\": "src/"
         },
 		"files": [
 			"src/functions-misc.php",

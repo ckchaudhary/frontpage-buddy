@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -306,7 +306,7 @@ function sanitize_field( $field_value, $field_attrs ) {
 
 	switch ( $sanitization_type ) {
 		case 'switch':
-			$sanitization_func = '\RecycleBin\FrontPageBuddy\validate_switch';
+			$sanitization_func = '\RB\FrontPageBuddy\validate_switch';
 			break;
 
 		case 'email':
@@ -330,7 +330,7 @@ function sanitize_field( $field_value, $field_attrs ) {
 			break;
 
 		case 'basic_html':
-			$sanitization_func = '\RecycleBin\FrontPageBuddy\sanitize_basic_html';
+			$sanitization_func = '\RB\FrontPageBuddy\sanitize_basic_html';
 			break;
 
 		default:
@@ -383,7 +383,7 @@ function sanitize_basic_html( $value ) {
  */
 function visual_editor_allowed_html_tags() {
 	return apply_filters(
-		'fronpage_buddy_visual_editor_allowed_html_tags',
+		'frontpage_buddy_visual_editor_allowed_html_tags',
 		array(
 			'h2'     => array(),
 			'h3'     => array(),
@@ -418,7 +418,7 @@ function visual_editor_allowed_html_tags() {
  */
 function basic_html_allowed_tags() {
 	return apply_filters(
-		'fronpage_buddy_admin_descriptions_allowed_html_tags',
+		'frontpage_buddy_admin_descriptions_allowed_html_tags',
 		array(
 			'h2'     => array(),
 			'h3'     => array(),

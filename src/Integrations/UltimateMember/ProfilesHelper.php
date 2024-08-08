@@ -6,13 +6,13 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\UltimateMember;
+namespace RB\FrontPageBuddy\Integrations\UltimateMember;
 
 /**
  * The main plugin class.
  */
 class ProfilesHelper {
-	use \RecycleBin\FrontPageBuddy\TraitSingleton;
+	use \RB\FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * Initiazlie the singleton object.
@@ -30,7 +30,7 @@ class ProfilesHelper {
 	 */
 	public function um_profile_content_main() {
 		if ( um_is_on_edit_profile() ) {
-			\RecycleBin\FrontPageBuddy\load_template( 'ultimate-member/profiles/manage' );
+			\RB\FrontPageBuddy\load_template( 'ultimate-member/profiles/manage' );
 		} else {
 			frontpage_buddy()->get_integration( 'um_member_profiles' )->output_frontpage_content( (int) UM()->user()->target_id );
 		}

@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
 defined( 'ABSPATH' ) ? '' : exit();
 

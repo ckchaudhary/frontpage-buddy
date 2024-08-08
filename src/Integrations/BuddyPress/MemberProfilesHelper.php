@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BuddyPress;
+namespace RB\FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) ? '' : exit();
  * Show the custom front page if enabled.
  */
 class MemberProfilesHelper {
-	use \RecycleBin\FrontPageBuddy\TraitSingleton;
+	use \RB\FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * Name of the subnav item
@@ -110,7 +110,7 @@ class MemberProfilesHelper {
 	 * @return void
 	 */
 	public function edit_widgets_contents() {
-		\RecycleBin\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
+		\RB\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
 	}
 
 	/**

@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Widgets;
+namespace RB\FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) ? '' : exit();
  */
 abstract class Widget {
 
-	use \RecycleBin\FrontPageBuddy\TraitGetSet;
+	use \RB\FrontPageBuddy\TraitGetSet;
 
 	/**
 	 * Widget type - A key to differentiate it from other widget types. E.g: contentblock, twitter_block etc.
@@ -246,7 +246,7 @@ abstract class Widget {
 				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
 				if ( isset( $_POST[ $field_name ] ) && ! empty( $_POST[ $field_name ] ) ) {
 					// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-					$sanitized_value = wp_kses( wp_unslash( $_POST[ $field_name ] ), \RecycleBin\FrontPageBuddy\visual_editor_allowed_html_tags() );
+					$sanitized_value = wp_kses( wp_unslash( $_POST[ $field_name ] ), \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
 				}
 
 				break;
@@ -296,9 +296,9 @@ abstract class Widget {
 
 			<div class="widget_fields">
 				<?php
-				$fields      = $this->get_fields();
+				$fields = $this->get_fields();
 				if ( ! empty( $fields ) ) {
-					\RecycleBin\FrontPageBuddy\generate_form_fields( $fields );
+					\RB\FrontPageBuddy\generate_form_fields( $fields );
 				}
 				?>
 

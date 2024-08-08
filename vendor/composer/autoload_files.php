@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    '96656a3094fb84ba9543fd52c6bdcb73' => $baseDir . '/src/functions-misc.php',
-    '97db9f1f5fb58d047ff20efaae3df856' => $baseDir . '/src/functions-widgets.php',
+    'f2902830610809d94244ca1937757e2e' => $baseDir . '/src/functions-misc.php',
+    '3ae053510df1035a2e9b6532782001ab' => $baseDir . '/src/functions-widgets.php',
 );

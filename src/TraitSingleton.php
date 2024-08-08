@@ -5,9 +5,9 @@
  * @package FrontPageBuddy
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
-if ( ! trait_exists( '\RecycleBin\FrontPageBuddy\TraitSingleton' ) ) {
+if ( ! trait_exists( '\RB\FrontPageBuddy\TraitSingleton' ) ) {
 
 	/**
 	 * Singleton base class for having singleton implementation.

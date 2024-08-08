@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
 /**
  * The main plugin class.
@@ -44,14 +44,14 @@ class Plugin {
 	/**
 	 * The object of Admin class
 	 *
-	 * @var \RecycleBin\FrontPageBuddy\Admin
+	 * @var \RB\FrontPageBuddy\Admin
 	 */
 	private $admin;
 
 	/**
 	 * The object of Widget\Collection class
 	 *
-	 * @var \RecycleBin\FrontPageBuddy\Widgets\Collection
+	 * @var \RB\FrontPageBuddy\Widgets\Collection
 	 */
 	private $widget_collection;
 
@@ -65,7 +65,7 @@ class Plugin {
 	/**
 	 * Get the Admin object.
 	 *
-	 * @return \RecycleBin\FrontPageBuddy\Admin
+	 * @return \RB\FrontPageBuddy\Admin
 	 */
 	public function admin() {
 		return $this->admin;
@@ -74,7 +74,7 @@ class Plugin {
 	/**
 	 * Get the Widget Collections object.
 	 *
-	 * @return \RecycleBin\FrontPageBuddy\Widgets\Collection
+	 * @return \RB\FrontPageBuddy\Widgets\Collection
 	 */
 	public function widget_collection() {
 		return $this->widget_collection;
@@ -93,7 +93,7 @@ class Plugin {
 	 * Get a registered integration.
 	 *
 	 * @param string $type identifier of the integration.
-	 * @return mixed \RecycleBin\FrontPageBuddy\Integration if found. null otherwise.
+	 * @return mixed \RB\FrontPageBuddy\Integration if found. null otherwise.
 	 */
 	public function get_integration( $type ) {
 		return isset( $this->integrations[ $type ] ) ? $this->integrations[ $type ] : null;
@@ -102,8 +102,8 @@ class Plugin {
 	/**
 	 * Register an integration.
 	 *
-	 * @param string                                 $type identifier of the integration.
-	 * @param \RecycleBin\FrontPageBuddy\Integration $obj an object of type \RecycleBin\FrontPageBuddy\Integration.
+	 * @param string                         $type identifier of the integration.
+	 * @param \RB\FrontPageBuddy\Integration $obj an object of type \RB\FrontPageBuddy\Integration.
 	 * @return \WP_Error|void \WP_Error if registration failed.
 	 */
 	public function register_integration( $type, $obj ) {
@@ -111,8 +111,8 @@ class Plugin {
 			return new \WP_Error( 'duplicate_integration', __( 'Please use a unique type.', 'frontpage-buddy' ) );
 		}
 
-		if ( ! \is_a( $obj, '\RecycleBin\FrontPageBuddy\Integration' ) ) {
-			return new \WP_Error( 'invalid_type', __( 'The integration must extend \RecycleBin\FrontPageBuddy\Integration.', 'frontpage-buddy' ) );
+		if ( ! \is_a( $obj, '\RB\FrontPageBuddy\Integration' ) ) {
+			return new \WP_Error( 'invalid_type', __( 'The integration must extend \RB\FrontPageBuddy\Integration.', 'frontpage-buddy' ) );
 		}
 
 		$this->integrations[ $type ] = $obj;
@@ -231,7 +231,7 @@ class Plugin {
 			// buddypress groups helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
-					bp_register_group_extension( '\RecycleBin\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
+					bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
 				}
 			}
 
@@ -253,7 +253,7 @@ class Plugin {
 			// group extension.
 			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
-					bp_register_group_extension( '\RecycleBin\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
+					bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
 				}
 			}
 		}

@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BuddyBoss;
+namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
  *  Front page for buddypress groups.
  */
-class Groups extends \RecycleBin\FrontPageBuddy\Integration {
+class Groups extends \RB\FrontPageBuddy\Integration {
 	/**
 	 * Constructor
 	 *
@@ -126,9 +126,9 @@ class Groups extends \RecycleBin\FrontPageBuddy\Integration {
 	 * Get an option's/setting's default value.
 	 * This function is to be overloaded by integrations.
 	 *
-	 * @param mixed                                  $option_value value of the option.
-	 * @param string                                 $option_name  name of the option.
-	 * @param \RecycleBin\FrontPageBuddy\Integration $integration  integration object.
+	 * @param mixed                          $option_value value of the option.
+	 * @param string                         $option_name  name of the option.
+	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */

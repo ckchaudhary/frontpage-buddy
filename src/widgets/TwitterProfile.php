@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Widgets;
+namespace RB\FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) ? '' : exit();
 

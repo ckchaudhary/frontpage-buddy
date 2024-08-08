@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RecycleBin\\FrontPageBuddy\\' => array($baseDir . '/src'),
+    'RB\\FrontPageBuddy\\' => array($baseDir . '/src'),
 );

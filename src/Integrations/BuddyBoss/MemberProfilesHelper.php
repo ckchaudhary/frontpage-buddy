@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BuddyBoss;
+namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) ? '' : exit();
  * Show the custom front page if enabled.
  */
 class MemberProfilesHelper {
-	use \RecycleBin\FrontPageBuddy\TraitSingleton;
-	use \RecycleBin\FrontPageBuddy\TraitGetSet;
+	use \RB\FrontPageBuddy\TraitSingleton;
+	use \RB\FrontPageBuddy\TraitGetSet;
 
 	/**
 	 * Was the content displayed at least once?
@@ -166,7 +166,7 @@ class MemberProfilesHelper {
 	 * @return void
 	 */
 	public function screen_manage_fp_contents() {
-		\RecycleBin\FrontPageBuddy\load_template( 'buddyboss/profiles/manage' );
+		\RB\FrontPageBuddy\load_template( 'buddyboss/profiles/manage' );
 	}
 
 	/**

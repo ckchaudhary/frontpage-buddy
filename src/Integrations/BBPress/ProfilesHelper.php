@@ -6,13 +6,13 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BBPress;
+namespace RB\FrontPageBuddy\Integrations\BBPress;
 
 /**
  * The main plugin class.
  */
 class ProfilesHelper {
-	use \RecycleBin\FrontPageBuddy\TraitSingleton;
+	use \RB\FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * Initiazlie the singleton object.
@@ -61,6 +61,6 @@ class ProfilesHelper {
 	 * @return void
 	 */
 	public function show_manage_screen() {
-		\RecycleBin\FrontPageBuddy\load_template( 'bbpress/profiles/manage' );
+		\RB\FrontPageBuddy\load_template( 'bbpress/profiles/manage' );
 	}
 }

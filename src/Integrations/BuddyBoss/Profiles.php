@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy\Integrations\BuddyBoss;
+namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
  *  Front page for buddypress member profiles.
  */
-class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
+class Profiles extends \RB\FrontPageBuddy\Integration {
 
 	/**
 	 * Is the front page enabled for all members by default?
@@ -41,7 +41,7 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 			* front page is enabled for all members, automatically.
 			*/
 
-			$helper = \RecycleBin\FrontPageBuddy\Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
+			$helper = \RB\FrontPageBuddy\Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
 			bp_deregister_template_stack( array( $helper, 'register_template_stack' ) );
 
 			$located = bp_locate_template( array( 'members/single/front.php' ), false, false );
@@ -133,9 +133,9 @@ class Profiles extends \RecycleBin\FrontPageBuddy\Integration {
 	 * Get an option's/setting's default value.
 	 * This function is to be overloaded by integrations.
 	 *
-	 * @param mixed                                  $option_value value of the option.
-	 * @param string                                 $option_name  name of the option.
-	 * @param \RecycleBin\FrontPageBuddy\Integration $integration  integration object.
+	 * @param mixed                          $option_value value of the option.
+	 * @param string                         $option_name  name of the option.
+	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */

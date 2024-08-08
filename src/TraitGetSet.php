@@ -5,9 +5,9 @@
  * @package FrontPageBuddy
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
-if ( ! trait_exists( '\RecycleBin\FrontPageBuddy\TraitGetSet' ) ) {
+if ( ! trait_exists( '\RB\FrontPageBuddy\TraitGetSet' ) ) {
 
 	/**
 	 * Magic __get and __set methods.

@@ -46,10 +46,10 @@ if ( ! defined( 'FPBUDDY_PLUGIN_VERSION' ) ) {
  *
  * @since 1.0.0
  *
- * @return \RecycleBin\FrontPageBuddy\Plugin
+ * @return \RB\FrontPageBuddy\Plugin
  */
 function frontpage_buddy() {
-	return \RecycleBin\FrontPageBuddy\Plugin::get_instance();
+	return \RB\FrontPageBuddy\Plugin::get_instance();
 }
 
 // Instantiate the main plugin object.

@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RecycleBin\FrontPageBuddy;
+namespace RB\FrontPageBuddy;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
@@ -198,7 +198,7 @@ abstract class Integration {
 	 * @return void
 	 */
 	public function output_frontpage_content( $target_id ) {
-		\RecycleBin\FrontPageBuddy\show_output(
+		\RB\FrontPageBuddy\show_output(
 			$this->get_frontpage_layout( $target_id ),
 			$this->get_added_widgets( $target_id ),
 			$this->get_integration_type(),
@@ -254,9 +254,9 @@ abstract class Integration {
 	 * Get an option's/setting's default value.
 	 * This function is to be overloaded by integrations.
 	 *
-	 * @param mixed                                  $option_value value of the option.
-	 * @param string                                 $option_name  name of the option.
-	 * @param \RecycleBin\FrontPageBuddy\Integration $integration  integration object.
+	 * @param mixed                          $option_value value of the option.
+	 * @param string                         $option_name  name of the option.
+	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */
