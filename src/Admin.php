@@ -181,7 +181,14 @@ class Admin {
 	public function admin_init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_assets' ) );
 
-		register_setting( $this->option_name, $this->option_name, array( $this, 'plugin_options_validate' ) );
+		register_setting(
+			$this->option_name,
+			$this->option_name,
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => array( $this, 'plugin_options_validate' ),
+			)
+		);
 
 		add_settings_section( 'section_integration', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'section_integration_desc' ), __FILE__ );
 		add_settings_field( 'integrations', '', array( $this, 'integrations' ), __FILE__, 'section_integration' );
@@ -372,8 +379,7 @@ class Admin {
 				$fields = array_merge( $fields, $settings_fields_mod );
 			}
 
-			// phpcs:ignore WordPress.Security.EscapeOutput
-			echo generate_form_fields(
+			$fields_html = generate_form_fields(
 				$fields,
 				array(
 					'before_field' => '<tr class="{{FIELD_CLASS}}">',
@@ -385,6 +391,9 @@ class Admin {
 				)
 			);
 
+			$allowed_tags = wp_parse_args( form_elements_allowed_tags( 'post' ), wp_kses_allowed_html( 'post' ) );
+			echo wp_kses( $fields_html, $allowed_tags );
+
 			echo '</tbody></table>';
 		}
 	}
@@ -395,44 +404,46 @@ class Admin {
 	 * @return boolean
 	 */
 	public function widgets() {
-		$field_name         = __FUNCTION__;
-		$field_value        = $this->option( $field_name );
-		$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
-
-		$all_integrations = frontpage_buddy()->get_all_integrations();
+		$settings_name      = __FUNCTION__;
+		$registered_widgets = frontpage_buddy()->get_all_widget_types();
+		$all_integrations   = frontpage_buddy()->get_all_integrations();
 		if ( empty( $all_integrations ) ) {
 			return false;
 		}
 
-		foreach ( $registered_widgets as $widget_type => $widget_class ) {
-			$this_widget_settings = isset( $field_value[ $widget_type ] ) ? $field_value[ $widget_type ] : array();
-			$obj                  = new $widget_class( $widget_type );
+		foreach ( $registered_widgets as $widget_type => $widget_type_obj ) {
 			echo '<table class="table widefat form-table">';
-			echo '<thead><tr><td colspan="100%"><strong>' . esc_html( $obj->name ) . '</strong></td></tr></thead>';
+			echo '<thead><tr><td colspan="100%"><h3>' . esc_html( $widget_type_obj->name ) . '</h3></td></tr></thead>';
 			echo '<tbody>';
 
-			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $obj->get_description_admin(), array( 'a' => array( 'href' => true ) ) ) . '</p></td></tr>';
-
-			echo '<tr><td>Enabled for</td><td>';
-			foreach ( $all_integrations as $integration_type => $integration_obj ) {
-				$cb_name = $this->option_name . '[' . $field_name . '][' . $widget_type . '][enabled_for][]';
-				$checked = '';
-				if ( isset( $this_widget_settings['enabled_for'] ) && ! empty( $this_widget_settings['enabled_for'] ) ) {
-					$checked = in_array( $integration_type, $this_widget_settings['enabled_for'], true ) ? 'checked' : '';
-				}
-
-				printf(
-					"<label><input type='checkbox' value='%s' name='%s' %s> %s</label>&nbsp;&nbsp;",
-					esc_attr( $integration_type ),
-					esc_attr( $cb_name ),
-					// phpcs:ignore WordPress.Security.EscapeOutput
-					$checked,
-					esc_html( $integration_obj->get_integration_name() )
-				);
-			}
-			echo '</td></tr>';
+			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $widget_type_obj->get_admin_description(), basic_html_allowed_tags() ) . '</p></td></tr>';
 
 			// widget specific settings.
+			$settings_fields = $widget_type_obj->get_settings_fields();
+			if ( ! empty( $settings_fields ) ) {
+				$settings_fields_mod = array();
+				foreach ( $settings_fields as $field_name => $v ) {
+					$field_name                         = $this->option_name . '[' . $settings_name . '][' . $widget_type . '][' . $field_name . ']';
+					$settings_fields_mod[ $field_name ] = $v;
+				}
+
+				$settings_fields = $settings_fields_mod;
+
+				$fields_html = generate_form_fields(
+					$settings_fields,
+					array(
+						'before_field' => '<tr class="{{FIELD_CLASS}}">',
+						'after_field'  => '</tr><!-- .field -->',
+						'before_label' => '<th>',
+						'after_label'  => '</th>',
+						'before_input' => '<td>',
+						'after_input'  => '</td>',
+					)
+				);
+
+				$allowed_tags = wp_parse_args( form_elements_allowed_tags( 'post' ), wp_kses_allowed_html( 'post' ) );
+				echo wp_kses( $fields_html, $allowed_tags );
+			}
 
 			echo '</tbody>';
 			echo '</table>';
@@ -558,10 +569,8 @@ class Admin {
 		}
 
 		if ( isset( $_POST['frontpage_buddy_submit'] ) && isset( $_POST[ $this->option_name ] ) ) {
-			$submitted = stripslashes_deep( $_POST[ $this->option_name ] );//phpcs:ignore
-			$submitted = $this->plugin_options_validate( $submitted );
-
-			update_site_option( $this->option_name, $submitted );
+			$sanitized = sanitize_option( $this->option_name, wp_unslash( $_POST[ $this->option_name ] ) );
+			update_site_option( $this->option_name, $sanitized );
 		}
 
 		// Where are we redirecting to?

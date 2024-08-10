@@ -13,35 +13,114 @@ defined( 'ABSPATH' ) ? '' : exit();
 /**
  *  Richcontent widget.
  */
-class RichContent extends Widget {
+class RichContent extends WidgetType {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $type A unique identifier.
-	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 * @return void
 	 */
-	public function __construct( $type, $args = '' ) {
-		$this->type        = $type;
+	public function __construct() {
+		$this->type        = 'richcontent';
 		$this->name        = __( 'Rich Text', 'frontpage-buddy' );
-		$this->description = __( 'Add text/copy, headings, links, lists, insert images, etc.', 'frontpage-buddy' );
-		$link              = '<a href="https://blogs.recycleb.in/2024/07/frontpage-buddy-custom-front-pages-for-buddypress-users-groups#widget-richtext">' . __( 'Know More', 'frontpage-buddy' ) . '</a>';
-		// translators: external link to read technical details about the widget.
-		$this->description_admin = sprintf( __( "Displays a rich-text-editor, allowing users to enter text, links, images etc. Also has basic formatting options like 'bold', 'italics', etc. %s", 'frontpage-buddy' ), $link );
+		$this->description = __( 'Add text/copy, headings, links, lists etc.', 'frontpage-buddy' );
+		$this->description_admin = __( 'Displays a rich-text-editor, allowing users to enter text, links, etc. Also has basic formatting options like "bold", "italics", etc.', 'frontpage-buddy' );
 
-		$this->setup( $args );
+		parent::__construct();
 	}
 
 	/**
-	 * Get the fields for setting up this widget.
+	 * Get the fields for specific settings of this widget type, if any.
 	 *
 	 * @return array
 	 */
-	public function get_fields() {
-		$fields            = $this->get_default_fields();
+	public function get_settings_fields() {
+		$fields = parent::get_settings_fields();
+
+		$fields['editor_elements'] = array(
+			'type'    => 'checkbox',
+			'label'   => __( 'Editor elements', 'frontpage-buddy' ),
+			'value'   => $this->get_option( 'editor_elements' ),
+			'options' => array(
+				'h2'     => __( 'Heading 2', 'frontpage-buddy' ),
+				'h3'     => __( 'Heading 3', 'frontpage-buddy' ),
+				'h4'     => __( 'Heading 4', 'frontpage-buddy' ),
+
+				'ul'     => __( 'Unorderd list', 'frontpage-buddy' ),
+				'ol'     => __( 'Ordered list', 'frontpage-buddy' ),
+				'p'      => __( 'Paragraph', 'frontpage-buddy' ),
+
+				'br'     => __( 'Line Break', 'frontpage-buddy' ),
+				'hr'     => __( 'Horizontal Rule', 'frontpage-buddy' ),
+
+				'a'      => __( 'Anchor/Link', 'frontpage-buddy' ),
+
+				'em'     => __( 'Emphasis/Italicize', 'frontpage-buddy' ),
+				'strong' => __( 'Bolden', 'frontpage-buddy' ),
+				'del'    => __( 'Strike through', 'frontpage-buddy' ),
+			),
+
+			'description' => __( 'Choose the list of elements allowed in rich text editors.', 'frontpage-buddy' ),
+		);
+
+		return $fields;
+	}
+
+	/**
+	 * Get an option's/setting's default value.
+	 * This function is to be overloaded by widgets.
+	 *
+	 * @param mixed                         $option_value value of the option.
+	 * @param string                        $option_name  name of the option.
+	 * @param \RB\FrontPageBuddy\WidgetType $widget_type  Widget type object.
+	 *
+	 * @return mixed null if no default value is to be provided.
+	 */
+	public function filter_option_value( $option_value, $option_name, $widget_type ) {
+		if ( $widget_type->type !== $this->type ) {
+			return $option_value;
+		}
+
+		switch ( $option_name ) {
+			case 'editor_elements':
+				$option_value = null !== $option_value && ! empty( $option_value ) ? $option_value : array();
+				if ( empty( $option_value ) ) {
+					$option_value = array(
+						'h2',
+						'h3',
+						'h4',
+
+						'ul',
+						'ol',
+						'p',
+
+						'br',
+						'hr',
+
+						'em',
+						'strong',
+						'del',
+					);
+				}
+				break;
+		}
+
+		return $option_value;
+	}
+
+	/**
+	 * Get all the data 'fields' for the settings/options screen for this widget.
+	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 *
+	 * @return array
+	 */
+	public function get_data_fields( $widget ) {
+		$fields = $this->get_default_data_fields( $widget );
+
 		$fields['content'] = array(
 			'type'        => 'wp_editor',
 			'label'       => '',
-			'value'       => ! empty( $this->edit_field_value( 'content' ) ) ? $this->edit_field_value( 'content' ) : '',
+			'value'       => ! empty( $widget->get_data( 'content', 'edit' ) ) ? $widget->get_data( 'content', 'edit' ) : '',
 			'is_required' => true,
 		);
 
@@ -51,11 +130,12 @@ class RichContent extends Widget {
 	/**
 	 * Get the html output for this widget.
 	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
-	public function get_output() {
-		$html = $this->view_field_val( 'content' );
+	public function get_output( $widget ) {
+		$html = $widget->get_data( 'content', 'view' );
 
-		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );
 	}
 }

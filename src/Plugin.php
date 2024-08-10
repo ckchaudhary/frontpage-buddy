@@ -49,11 +49,11 @@ class Plugin {
 	private $admin;
 
 	/**
-	 * The object of Widget\Collection class
+	 * The edit screen manager.
 	 *
-	 * @var \RB\FrontPageBuddy\Widgets\Collection
+	 * @var \RB\FrontPageBuddy\Editor
 	 */
-	private $widget_collection;
+	private $editor;
 
 	/**
 	 * Integrations.
@@ -61,6 +61,13 @@ class Plugin {
 	 * @var array
 	 */
 	private $integrations;
+
+	/**
+	 * Widget Types.
+	 *
+	 * @var array
+	 */
+	private $widget_types;
 
 	/**
 	 * Get the Admin object.
@@ -72,12 +79,12 @@ class Plugin {
 	}
 
 	/**
-	 * Get the Widget Collections object.
+	 * Get the edit screen manager.
 	 *
-	 * @return \RB\FrontPageBuddy\Widgets\Collection
+	 * @return \RB\FrontPageBuddy\Editor
 	 */
-	public function widget_collection() {
-		return $this->widget_collection;
+	public function editor() {
+		return $this->editor;
 	}
 
 	/**
@@ -119,6 +126,44 @@ class Plugin {
 	}
 
 	/**
+	 * Get all registered widget types.
+	 *
+	 * @return array()
+	 */
+	public function get_all_widget_types() {
+		return $this->widget_types;
+	}
+
+	/**
+	 * Get a registered widget type.
+	 *
+	 * @param string $type identifier of the widget type.
+	 * @return \RB\FrontPageBuddy\WidgetType if found. null otherwise.
+	 */
+	public function get_widget_type( $type ) {
+		return isset( $this->widget_types[ $type ] ) ? $this->widget_types[ $type ] : null;
+	}
+
+	/**
+	 * Register a widget type.
+	 *
+	 * @param \RB\FrontPageBuddy\WidgetType $obj an object of type \RB\FrontPageBuddy\WidgetType.
+	 * @return \WP_Error|void \WP_Error if registration failed.
+	 */
+	public function register_widget_type( $obj ) {
+		$type = $obj->type;
+		if ( ! empty( $this->widget_types ) && isset( $this->widget_types[ $type ] ) ) {
+			return new \WP_Error( 'duplicate_widget_type', __( 'Please use a unique type.', 'frontpage-buddy' ) );
+		}
+
+		if ( ! \is_a( $obj, '\RB\FrontPageBuddy\Widgets\WidgetType' ) ) {
+			return new \WP_Error( 'invalid_type', __( 'The widget type must extend \RB\FrontPageBuddy\Widgets\WidgetType.', 'frontpage-buddy' ) );
+		}
+
+		$this->widget_types[ $type ] = $obj;
+	}
+
+	/**
 	 * Get the value of one of the plugin options(settings).
 	 *
 	 * @since 1.0.0
@@ -144,8 +189,11 @@ class Plugin {
 		// Load textdomain.
 		add_action( 'frontpage_buddy_load', array( $this, 'load_plugin_textdomain' ), 4 );
 
-		// Load groups and member profile helpers.
-		add_action( 'frontpage_buddy_load', array( $this, 'load_integrations' ), 8 );
+		// Load integrations.
+		add_action( 'frontpage_buddy_load', array( $this, 'load_integrations' ), 6 );
+
+		// Load widget types.
+		add_action( 'frontpage_buddy_load', array( $this, 'load_widget_types' ), 8 );
 
 		// Custom load hook, to notify dependent plugins.
 		do_action( 'frontpage_buddy_load' );
@@ -209,7 +257,7 @@ class Plugin {
 	}
 
 	/**
-	 * Register group extension if enabled.
+	 * Detect and load suitable integrations.
 	 *
 	 * @return void
 	 */
@@ -280,6 +328,36 @@ class Plugin {
 	}
 
 	/**
+	 * Load all available widget types.
+	 *
+	 * @return void
+	 */
+	public function load_widget_types() {
+		if ( ! empty( $this->widget_types ) ) {
+			return;
+		}
+
+		$all_types = apply_filters(
+			'frontpage_buddy_registered_widgets',
+			array(
+				'\RB\FrontPageBuddy\Widgets\RichContent',
+				'\RB\FrontPageBuddy\Widgets\InstagramProfile',
+				'\RB\FrontPageBuddy\Widgets\FacebookPage',
+				'\RB\FrontPageBuddy\Widgets\YoutubeEmbed',
+				'\RB\FrontPageBuddy\Widgets\TwitterProfile',
+			)
+		);
+
+		if ( ! empty( $all_types ) ) {
+			foreach ( $all_types as $widget_type_class ) {
+				if ( class_exists( $widget_type_class ) ) {
+					$this->register_widget_type( new $widget_type_class() );
+				}
+			}
+		}
+	}
+
+	/**
 	 * Run code on on_init hook
 	 *
 	 * @return void
@@ -289,7 +367,7 @@ class Plugin {
 			$this->admin = new Admin();
 		}
 
-		$this->widget_collection = Widgets\Collection::get_instance();
+		$this->editor = Editor::get_instance();
 
 		// Front End Assets.
 		if ( ! is_admin() && ! is_network_admin() ) {

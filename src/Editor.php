@@ -1,19 +1,19 @@
 <?php
 /**
- * Widget Collection.
+ * Edit screen manager.
  *
  * @package FrontPage Buddy
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace RB\FrontPageBuddy;
 
 defined( 'ABSPATH' ) ? '' : exit();
 
 /**
- *  Widget Collections, to add settings screen, etc.
+ *  Edit screen manager.
  */
-class Collection {
+class Editor {
 	use \RB\FrontPageBuddy\TraitSingleton;
 
 	/**
@@ -35,96 +35,6 @@ class Collection {
 		add_action( 'wp_ajax_frontpage_buddy_update_layout', array( $this, 'ajax_update_layout' ) );
 		add_action( 'wp_ajax_frontpage_buddy_widget_opts_get', array( $this, 'ajax_widget_opts_get' ) );
 		add_action( 'wp_ajax_frontpage_buddy_widget_opts_update', array( $this, 'ajax_widget_opts_update' ) );
-	}
-
-	/**
-	 * Get the list of registered widgets.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-	public function get_registered_widgets() {
-		if ( ! empty( $this->widgets ) ) {
-			return $this->widgets;
-		}
-
-		$this->widgets = apply_filters(
-			'frontpage_buddy_registered_widgets',
-			array(
-				'richcontent'           => '\RB\FrontPageBuddy\Widgets\RichContent',
-				'instagramprofileembed' => '\RB\FrontPageBuddy\Widgets\InstagramProfile',
-				'facebookpageembed'     => '\RB\FrontPageBuddy\Widgets\FacebookPage',
-				'youtubeembed'          => '\RB\FrontPageBuddy\Widgets\YoutubeEmbed',
-				'twitterprofile'        => '\RB\FrontPageBuddy\Widgets\TwitterProfile',
-			)
-		);
-
-		return $this->widgets;
-	}
-
-	/**
-	 * Get the list of available widgets for given object.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $object_type e.g: 'bp_groups' or 'bp_members'.
-	 * @param int    $object_id group id or member id.
-	 *
-	 * @return array
-	 */
-	public function get_available_widgets( $object_type, $object_id ) {
-		if ( empty( $object_id ) || empty( $object_type ) ) {
-			return array();
-		}
-
-		$avl_widgets = array();
-
-		$registered_widgets = $this->get_registered_widgets();
-		if ( ! empty( $registered_widgets ) ) {
-			foreach ( $registered_widgets as $widget_type => $widget_class ) {
-				if ( ! class_exists( $widget_class ) ) {
-					continue;
-				}
-
-				if ( $this->is_widget_enabled_for( $widget_type, $object_type, $object_id ) ) {
-					$avl_widgets[] = new $widget_class( $widget_type );
-				}
-			}
-		}
-
-		return $avl_widgets;
-	}
-
-	/**
-	 * Get settings for a given widget type.
-	 *
-	 * @param string $widget_type self explanatory.
-	 * @return array
-	 */
-	public function get_widget_settings( $widget_type ) {
-		$all_widget_settings = frontpage_buddy()->option( 'widgets' );
-		return isset( $all_widget_settings[ $widget_type ] ) && ! empty( $all_widget_settings[ $widget_type ] ) ? $all_widget_settings[ $widget_type ] : array();
-	}
-
-	/**
-	 * Is the given widget type enabled for given integration?
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $widget_type E.g: 'richcontent'.
-	 * @param string $integration_type E.g: 'bp_groups'.
-	 * @param int    $target_id E.g: group id or member id.
-	 * @return boolean
-	 */
-	public function is_widget_enabled_for( $widget_type, $integration_type, $target_id ) {
-		$is_enabled      = false;
-		$widget_settings = $this->get_widget_settings( $widget_type );
-		if ( isset( $widget_settings['enabled_for'] ) && in_array( $integration_type, $widget_settings['enabled_for'], true ) ) {
-			$is_enabled = true;
-		}
-
-		return apply_filters( 'frontpage_buddy_is_widget_enabled_for', $is_enabled, $widget_type, $integration_type, $target_id );
 	}
 
 	/**
@@ -173,22 +83,7 @@ class Collection {
 
 		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
 		$object_id   = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
-		// phpcs:disable
-		$layout_raw = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? map_deep( wp_unslash( $_POST['layout'] ), '\sanitize_text_field' ) : '';
-		// phpcs:enable
-
-		$layout_sanitized = array();
-		if ( ! empty( $layout_raw ) ) {
-			foreach ( $layout_raw as $row ) {
-				$row_items = count( $row );
-				for ( $i = 0; $i < $row_items; $i++ ) {
-					if ( ! empty( $row[ $i ] ) ) {
-						$row[ $i ] = sanitize_text_field( wp_unslash( $row[ $i ] ) );
-					}
-				}
-				$layout_sanitized[] = $row;
-			}
-		}
+		$layout      = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? map_deep( wp_unslash( $_POST['layout'] ), 'sanitize_text_field' ) : '';
 
 		if ( empty( $object_id ) || empty( $object_type ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
@@ -206,7 +101,7 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
 		}
 
-		$integration->update_frontpage_layout( $object_id, $layout_sanitized );
+		$integration->update_frontpage_layout( $object_id, $layout );
 
 		// Remove discarded widgets.
 		$all_added = $integration->get_added_widgets( $object_id );
@@ -214,7 +109,7 @@ class Collection {
 			$temp = array();
 			foreach ( $all_added as $old_widget ) {
 				$found = false;
-				foreach ( $layout_sanitized as $row ) {
+				foreach ( $layout as $row ) {
 					foreach ( $row as $new_widget_id ) {
 						if ( $new_widget_id === $old_widget['id'] ) {
 							$found = true;
@@ -262,41 +157,39 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
 		}
 
-		if ( ! $this->is_widget_enabled_for( $widget_type, $object_type, $object_id ) ) {
+		$widget_type_obj = frontpage_buddy()->get_widget_type( $widget_type );
+		if ( ! $widget_type_obj->is_enabled_for( $object_type, $object_id ) ) {
 			wp_send_json_error( array( 'message' => __( 'Widget not available', 'frontpage-buddy' ) ) );
 		}
 
-		$prev_saved_options = array();
-		$saved_widgets      = $integration->get_added_widgets( $object_id );
+		$prev_saved_data = array();
+		$saved_widgets   = $integration->get_added_widgets( $object_id );
 		if ( ! empty( $saved_widgets ) ) {
 			foreach ( $saved_widgets as $saved_widget ) {
 				if ( $saved_widget['id'] === $widget_id ) {
-					$prev_saved_options = $saved_widget['options'];
+					if ( ! isset( $saved_widget['data'] ) && isset( $saved_widget['options'] ) ) {
+						$saved_widget['data'] = $saved_widget['options'];
+					}
+					$prev_saved_data = $saved_widget['data'];
 				}
 			}
 		}
 
-		$registered_widgets = $this->get_registered_widgets();
-		$widget_obj         = false;
-		$widget_class       = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
-		if ( $widget_class && class_exists( $widget_class ) ) {
-			$widget_obj = new $widget_class(
-				$widget_type,
-				array(
-					'id'          => $widget_id,
-					'object_type' => $object_type,
-					'object_id'   => $object_id,
-					'options'     => $prev_saved_options,
-				)
-			);
-		}
+		$widget_obj = $widget_type_obj->get_widget(
+			array(
+				'id'          => $widget_id,
+				'object_type' => $object_type,
+				'object_id'   => $object_id,
+				'data'        => $prev_saved_data,
+			)
+		);
 
 		if ( ! $widget_obj ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
 		ob_start();
-		$widget_obj->settings_screen( array( 'state' => 'expanded' ) );
+		$widget_type_obj->widget_input_ui( $widget_obj );
 		$html = ob_get_clean();
 		wp_send_json_success( array( 'html' => $html ) );
 	}
@@ -329,23 +222,18 @@ class Collection {
 			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
 		}
 
-		if ( ! $this->is_widget_enabled_for( $widget_type, $object_type, $object_id ) ) {
+		$widget_type_obj = frontpage_buddy()->get_widget_type( $widget_type );
+		if ( ! $widget_type_obj->is_enabled_for( $object_type, $object_id ) ) {
 			wp_send_json_error( array( 'message' => __( 'Widget not available', 'frontpage-buddy' ) ) );
 		}
 
-		$registered_widgets = $this->get_registered_widgets();
-		$widget_obj         = false;
-		$widget_class       = isset( $registered_widgets[ $widget_type ] ) && ! empty( $registered_widgets[ $widget_type ] ) ? $registered_widgets[ $widget_type ] : false;
-		if ( $widget_class && class_exists( $widget_class ) ) {
-			$widget_obj = new $widget_class(
-				$widget_type,
-				array(
-					'id'          => $widget_id,
-					'object_type' => $object_type,
-					'object_id'   => $object_id,
-				)
-			);
-		}
+		$widget_obj = $widget_type_obj->get_widget(
+			array(
+				'id'          => $widget_id,
+				'object_type' => $object_type,
+				'object_id'   => $object_id,
+			)
+		);
 
 		if ( ! $widget_obj ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
@@ -361,7 +249,7 @@ class Collection {
 			'id'           => $widget_obj->id,
 			'type'         => $widget_obj->type,
 			'last_updated' => time(),
-			'options'      => $widget_obj->options,
+			'data'         => $widget_obj->get_all_data(),
 		);
 
 		$existing            = false;

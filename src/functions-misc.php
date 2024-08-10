@@ -47,10 +47,10 @@ function buffer_template_part( $template ) {
  *
  * @param array $fields list of fields.
  * @param array $args Options.
- * @return void
+ * @return string html
  */
 function generate_form_fields( $fields, $args = '' ) {
-
+	$output = '';
 	if ( ! $fields || empty( $fields ) ) {
 		return;
 	}
@@ -74,8 +74,7 @@ function generate_form_fields( $fields, $args = '' ) {
 
 	$args = array_merge( $defaults, $args );
 
-	// phpcs:ignore WordPress.Security.EscapeOutput
-	echo $args['before_list'];
+	$output .= $args['before_list'];
 
 	foreach ( $fields as $field_name => $field ) {
 		$field_defaults = array(
@@ -98,19 +97,15 @@ function generate_form_fields( $fields, $args = '' ) {
 			$cssclass .= ' ' . $field['wrapper_class'];
 		}
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo str_replace( '{{FIELD_CLASS}}', $cssclass, $args['before_field'] );
+		$output .= str_replace( '{{FIELD_CLASS}}', $cssclass, $args['before_field'] );
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['before_label'];
+		$output .= $args['before_label'];
 		if ( isset( $field['label'] ) && ! empty( $field['label'] ) ) {
-			echo '<label>' . esc_html( $field['label'] ) . '</label>';
+			$output .= '<label>' . esc_html( $field['label'] ) . '</label>';
 		}
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['after_label'];
+		$output .= $args['after_label'];
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['before_input'];
+		$output .= $args['before_input'];
 
 		$html = $field['before'];
 
@@ -272,18 +267,14 @@ function generate_form_fields( $fields, $args = '' ) {
 
 		$html .= $field['after'];
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $html;
+		$output .= $html;
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['after_input'];
+		$output .= $args['after_input'];
 
-		// phpcs:ignore WordPress.Security.EscapeOutput
-		echo $args['after_field'];
+		$output .= $args['after_field'];
 	}
 
-	// phpcs:ignore WordPress.Security.EscapeOutput
-	echo $args['after_list'];
+	return $output;
 }
 
 /**
@@ -382,30 +373,40 @@ function sanitize_basic_html( $value ) {
  * @return array
  */
 function visual_editor_allowed_html_tags() {
+	$rich_text = frontpage_buddy()->get_widget_type( 'richtext' );
+	if ( empty( $rich_text ) ) {
+		return array();
+	}
+
+	$allowed_tags = $rich_text->get_option( 'editor_elements' );
+	if ( empty( $allowed_tags ) ) {
+		return array();
+	}
+
+	$formatted = array();
+	foreach ( $allowed_tags as $tag ) {
+		switch ( $tag ) {
+			case 'a':
+				$formatted[ $tag ] = array(
+					'href'  => true,
+					'title' => true,
+				);
+				break;
+
+			default:
+				$formatted[ $tag ] = true;
+				break;
+		}
+	}
+
+	// If lists are allowed, list items are implicitly allowed.
+	if ( isset( $formatted['ul'] ) || isset( $formatted['ol'] ) ) {
+		$formatted['li'] = true;
+	}
+
 	return apply_filters(
 		'frontpage_buddy_visual_editor_allowed_html_tags',
-		array(
-			'h2'     => array(),
-			'h3'     => array(),
-			'h4'     => array(),
-			'p'      => array(),
-			'br'     => array(),
-			'em'     => array(),
-			'strong' => array(),
-			'del'    => array(),
-			'a'      => array(
-				'href'  => array(),
-				'title' => array(),
-			),
-			'img'    => array(
-				'src' => array(),
-				'alt' => array(),
-			),
-			'ul'     => array(),
-			'ol'     => array(),
-			'li'     => array(),
-			'hr'     => array(),
-		)
+		$formatted
 	);
 }
 
@@ -424,6 +425,25 @@ function basic_html_allowed_tags() {
 			'h3'     => array(),
 			'h4'     => array(),
 			'div'    => array(
+				'class' => array(),
+			),
+			'table'  => array(
+				'id'    => array(),
+				'class' => array(),
+			),
+			'tbody'  => array(
+				'class' => array(),
+			),
+			'thead'  => array(
+				'class' => array(),
+			),
+			'tfoot'  => array(
+				'class' => array(),
+			),
+			'tr'     => array(
+				'class' => array(),
+			),
+			'td'     => array(
 				'class' => array(),
 			),
 			'p'      => array(
@@ -452,4 +472,80 @@ function basic_html_allowed_tags() {
 			'hr'     => array(),
 		)
 	);
+}
+
+/**
+ * Get the list of html tags( and their attributes ) allowed for form elements.
+ * This is used to sanitize the contents of integration and widget setting fields.
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function form_elements_allowed_tags() {
+	$common_attrs = array(
+		'disabled' => true,
+		'readonly' => true,
+		'aria-controls' => true,
+		'aria-current' => true,
+		'aria-describedby' => true,
+		'aria-details' => true,
+		'aria-expanded' => true,
+		'aria-hidden' => true,
+		'aria-label' => true,
+		'aria-labelledby' => true,
+		'aria-live' => true,
+		'data-*' => true,
+		'dir' => true,
+		'hidden' => true,
+		'lang' => true,
+		'style' => true,
+		'title' => true,
+		'role' => true,
+		'xml:lang' => true,
+		'class' => true,
+		'id' => true,
+		'name' => true,
+	);
+	$form_tags = array(
+		'label'  => array_merge(
+			$common_attrs,
+			array(
+				'for' => true,
+			)
+		),
+		'input'  => array_merge(
+			$common_attrs,
+			array(
+				'type'        => true,
+				'checked'     => true,
+				'value'       => true,
+				'placeholder' => true,
+				'min'         => true,
+				'max'         => true,
+			)
+		),
+		'button' => array_merge(
+			$common_attrs,
+			array(
+				'type' => true,
+				'value' => true,
+				'placeholder' => true,
+			)
+		),
+		'select' => array_merge(
+			$common_attrs,
+			array(
+				'multiple' => true,
+				'value' => true,
+				'placeholder' => true,
+			)
+		),
+		'options' => array(
+			'id' => true,
+			'class' => true,
+			'value' => true,
+		),
+	);
+
+	return apply_filters( 'frontpage_buddy_admin_descriptions_allowed_html_tags', $form_tags );
 }

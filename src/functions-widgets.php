@@ -36,13 +36,12 @@ function show_output( $layout, $widgets, $integration_type, $target_id ) {
 function get_output( $layout, $widgets, $integration_type, $target_id ) {
 	$html = '';
 
-	$registered_widgets = frontpage_buddy()->widget_collection()->get_registered_widgets();
-
 	if ( ! empty( $layout ) ) {
 		foreach ( $layout as $layout_row ) {
 			$row = array();
 
 			foreach ( $layout_row as $widget_id ) {
+				$widget_type_obj = false;
 				$found     = false;
 				$widget_id = trim( $widget_id );
 				if ( ! empty( $widgets ) ) {
@@ -54,30 +53,26 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 					}
 				}
 
-				if ( $found && ! frontpage_buddy()->widget_collection()->is_widget_enabled_for( $widget['type'], $integration_type, $target_id ) ) {
-					$found = false;
+				if ( $found ) {
+					$widget_type_obj = frontpage_buddy()->get_widget_type( $found['type'] );
+					if ( is_null( $widget_type_obj ) || ! $widget_type_obj->is_enabled_for( $integration_type ) ) {
+						$found = false;
+					}
 				}
 
 				if ( $found ) {
-					$widget_obj   = false;
-					$widget_class = isset( $registered_widgets[ $widget['type'] ] ) && ! empty( $registered_widgets[ $widget['type'] ] ) ? $registered_widgets[ $widget['type'] ] : false;
-					if ( $widget_class && class_exists( $widget_class ) ) {
-						$widget_obj = new $widget_class(
-							$widget['type'],
-							array(
-								'id'          => $widget['id'],
-								'object_type' => $integration_type,
-								'object_id'   => $target_id,
-								'options'     => $widget['options'],
-							)
-						);
+					$widget_obj = $widget_type_obj->get_widget(
+						array(
+							'id'          => $widget['id'],
+							'object_type' => $integration_type,
+							'object_id'   => $target_id,
+							'data'        => $widget['data'],
+						)
+					);
 
-						$widget_output = $widget_obj->get_output();
-						if ( ! empty( $widget_output ) ) {
-							$row[] = $widget_output;
-						} else {
-							$html .= 'one';
-						}
+					$widget_output = $widget_type_obj->get_output( $widget_obj );
+					if ( ! empty( $widget_output ) ) {
+						$row[] = $widget_output;
 					}
 				}
 			}
@@ -111,12 +106,12 @@ function widget_title_for_manage_screen( $title, $widget ) {
 	$widget_type = isset( $widget['type'] ) ? $widget['type'] : '';
 	switch ( $widget_type ) {
 		case 'richcontent':
-			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['content'] ) && ! empty( $widget['options']['content'] ) ? wp_strip_all_tags( $widget['options']['content'] ) : '';
+			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['content'] ) && ! empty( $widget['data']['content'] ) ? wp_strip_all_tags( $widget['data']['content'] ) : '';
 			$title   = substr( $content, 0, 100 );
 			break;
 
 		case 'instagramprofileembed':
-			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['insta_id'] ) && ! empty( $widget['options']['insta_id'] ) ? wp_strip_all_tags( $widget['options']['insta_id'] ) : '';
+			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['insta_id'] ) && ! empty( $widget['data']['insta_id'] ) ? wp_strip_all_tags( $widget['data']['insta_id'] ) : '';
 			if ( $content ) {
 				$content = trim( $content, ' @' );
 				$title   = '@' . $content . ' - instagram';
@@ -124,7 +119,7 @@ function widget_title_for_manage_screen( $title, $widget ) {
 			break;
 
 		case 'twitterprofile':
-			$content = isset( $widget['options'] ) && ! empty( $widget['options'] ) && isset( $widget['options']['username'] ) && ! empty( $widget['options']['username'] ) ? wp_strip_all_tags( $widget['options']['username'] ) : '';
+			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['username'] ) && ! empty( $widget['data']['username'] ) ? wp_strip_all_tags( $widget['data']['username'] ) : '';
 			if ( $content ) {
 				$content = trim( $content, ' @' );
 				$title   = '@' . $content . ' - X';

@@ -110,15 +110,17 @@ abstract class Integration {
 		$data['object_id']   = $this->get_editable_object_id();
 		if ( $data['object_id'] ) {
 			$data['all_widgets'] = array();
-			$all                 = frontpage_buddy()->widget_collection()->get_available_widgets( $this->get_integration_type(), $data['object_id'] );
-			if ( ! empty( $all ) ) {
-				foreach ( $all as $widget ) {
-					$data['all_widgets'][] = array(
-						'type'        => $widget->type,
-						'name'        => $widget->name,
-						'description' => $widget->description,
-						'icon'        => $widget->icon_image,
-					);
+			$all_widget_types = frontpage_buddy()->get_all_widget_types();
+			if ( ! empty( $all_widget_types ) ) {
+				foreach ( $all_widget_types as $widget_type_obj ) {
+					if ( $widget_type_obj->is_enabled_for( $this->get_integration_type(), $data['object_id'] ) ) {
+						$data['all_widgets'][] = array(
+							'type'        => $widget_type_obj->type,
+							'name'        => $widget_type_obj->name,
+							'description' => $widget_type_obj->description,
+							'icon'        => $widget_type_obj->icon_image,
+						);
+					}
 				}
 			}
 
@@ -128,7 +130,7 @@ abstract class Integration {
 				foreach ( $added_widgets as $widget ) {
 					$title           = apply_filters( 'frontpage_buddy_widget_title_for_manage_screen', '', $widget );
 					$widget['title'] = $title;
-					unset( $widget['options'] );
+					unset( $widget['data'] );
 
 					$temp[] = $widget;
 				}

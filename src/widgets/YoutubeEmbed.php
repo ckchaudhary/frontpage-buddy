@@ -13,32 +13,34 @@ defined( 'ABSPATH' ) ? '' : exit();
 /**
  *  Embed facebook page widget.
  */
-class YoutubeEmbed extends Widget {
+class YoutubeEmbed extends WidgetType {
+
 	/**
 	 * Constructor.
 	 *
-	 * @param string $type A unique identifier.
-	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 * @return void
 	 */
-	public function __construct( $type, $args = '' ) {
-		$this->type        = $type;
+	public function __construct() {
+		$this->type        = 'youtubeembed';
 		$this->name        = __( 'Youtube Video', 'frontpage-buddy' );
 		$this->description = __( 'Embed a youtube video.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-youtube"></i>';
 
-		$this->setup( $args );
+		parent::__construct();
 	}
 
 	/**
-	 * Get the fields for setting up this widget.
+	 * Get all the data 'fields' for the settings/options screen for this widget.
+	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
-	public function get_fields() {
-		$fields = $this->get_default_fields();
+	public function get_data_fields( $widget ) {
+		$fields = $this->get_default_data_fields( $widget );
 
 		$attrs_fluid_width = array();
-		if ( 'yes' === $this->edit_field_value( 'width' ) ) {
+		if ( 'yes' === $widget->get_data( 'width', 'edit' ) ) {
 			$attrs_fluid_width['checked'] = 'checked';
 		}
 
@@ -46,7 +48,7 @@ class YoutubeEmbed extends Widget {
 			'type'        => 'url',
 			'label'       => __( 'Video url', 'frontpage-buddy' ),
 			'description' => __( 'Enter the youtube video url.', 'frontpage-buddy' ),
-			'value'       => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
+			'value'       => ! empty( $widget->get_data( 'url', 'edit' ) ) ? $widget->get_data( 'url', 'edit' ) : '',
 			'attributes'  => array( 'placeholder' => 'https://www.youtube.com/watch?v=hdcTmpvDO0I' ),
 			'is_required' => true,
 		);
@@ -65,10 +67,11 @@ class YoutubeEmbed extends Widget {
 	/**
 	 * Get the html output for this widget.
 	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
-	public function get_output() {
-		$video_url = $this->view_field_val( 'url' );
+	public function get_output( $widget ) {
+		$video_url = $widget->get_data( 'url', 'view' );
 		if ( empty( $video_url ) ) {
 			return '';
 		}
@@ -81,13 +84,13 @@ class YoutubeEmbed extends Widget {
 		$full_embed_url = 'https://www.youtube.com/embed/' . $youtube_id;
 		$wh_attr        = 'width="560" height="315"';
 
-		$fluid_width      = $this->view_field_val( 'fluid_width' );
+		$fluid_width      = $widget->get_data( 'fluid_width', 'view' );
 		$full_width_class = ! empty( $fluid_width ) && 'yes' === $fluid_width ? 'fr-full-width' : '';
 
 		$yt_attr = '?disablekb=1&rel=0';
 
 		$html = '<div class="youtube-video-container ' . $full_width_class . '"><iframe ' . $wh_attr . ' style="max-width: 100%" type="text/html" src="' . esc_attr( $full_embed_url ) . esc_url( $yt_attr ) . '" frameborder="0" allowfullscreen></iframe></div>';
-		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this );
 	}
 
 	/**

@@ -13,34 +13,35 @@ defined( 'ABSPATH' ) ? '' : exit();
 /**
  *  Embed twitter feed.
  */
-class InstagramProfile extends Widget {
+class InstagramProfile extends WidgetType {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $type A unique identifier.
-	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 * @return void
 	 */
-	public function __construct( $type, $args = '' ) {
-		$this->type        = $type;
+	public function __construct() {
+		$this->type        = 'instagramprofile';
 		$this->name        = __( 'Instagram Profile', 'frontpage-buddy' );
 		$this->description = __( 'Showcase an instagram profile.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-instagram"></i>';
 
-		$this->setup( $args );
+		parent::__construct();
 	}
 
 	/**
-	 * Get the fields for setting up this widget.
+	 * Get all the data 'fields' for the settings/options screen for this widget.
+	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
-	public function get_fields() {
-		$fields = $this->get_default_fields();
+	public function get_data_fields( $widget ) {
+		$fields = $this->get_default_data_fields( $widget );
 
 		$fields['insta_id'] = array(
 			'type'        => 'text',
 			'label'       => 'Instagram Id',
-			'value'       => ! empty( $this->edit_field_value( 'insta_id' ) ) ? $this->edit_field_value( 'insta_id' ) : '',
+			'value'       => ! empty( $widget->get_data( 'insta_id', 'edit' ) ) ? $widget->get_data( 'insta_id', 'edit' ) : '',
 			'is_required' => true,
 		);
 
@@ -50,10 +51,11 @@ class InstagramProfile extends Widget {
 	/**
 	 * Get the html output for this widget.
 	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
-	public function get_output() {
-		$insta_id = $this->view_field_val( 'insta_id' );
+	public function get_output( $widget ) {
+		$insta_id = $widget->get_data( 'insta_id', 'view' );
 		$insta_id = trim( $insta_id, ' /@' );
 		if ( empty( $insta_id ) ) {
 			return '';
@@ -66,6 +68,6 @@ class InstagramProfile extends Widget {
 		/* setting width 100% is mandatory so that the instagram widget can take up full space of its container */
 		$html = sprintf( "<blockquote class='instagram-media' data-instgrm-permalink='%s' data-instgrm-version='12' style='width:100%%;'></blockquote>", esc_attr( $instagram_url ) );
 
-		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this );
 	}
 }

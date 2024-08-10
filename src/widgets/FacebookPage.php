@@ -13,39 +13,80 @@ defined( 'ABSPATH' ) ? '' : exit();
 /**
  *  Embed facebook page widget.
  */
-class FacebookPage extends Widget {
+class FacebookPage extends WidgetType {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $type A unique identifier.
-	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 * @return void
 	 */
-	public function __construct( $type, $args = '' ) {
-		$this->type        = $type;
+	public function __construct() {
+		$this->type        = 'facebookpage';
 		$this->name        = __( 'Facebook Page', 'frontpage-buddy' );
 		$this->description = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-facebook"></i>';
 
-		$this->setup( $args );
+		parent::__construct();
+	}
+
+	/**
+	 * Get all the data 'fields' for the settings/options screen for this widget.
+	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 *
+	 * @return array
+	 */
+	public function get_data_fields( $widget ) {
+		$fields = $this->get_default_data_fields( $widget );
+
+		$fields['url'] = array(
+			'type'       => 'url',
+			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
+			'value'      => ! empty( $widget->get_data( 'url', 'edit' ) ) ? $widget->get_data( 'url', 'edit' ) : '',
+			'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
+		);
+
+		$fields['smallheader'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $widget->get_data( 'smallheader', 'edit' ) ) ? $widget->get_data( 'smallheader', 'edit' ) : '',
+			'options' => array( 'yes' => __( 'Use Small Header', 'frontpage-buddy' ) ),
+		);
+
+		$fields['hidecover'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $widget->get_data( 'hidecover', 'edit' ) ) ? $widget->get_data( 'hidecover', 'edit' ) : '',
+			'options' => array( 'yes' => __( 'Hide Cover Photo', 'frontpage-buddy' ) ),
+		);
+
+		$fields['showposts'] = array(
+			'type'    => 'checkbox',
+			'label'   => '',
+			'value'   => ! empty( $widget->get_data( 'showposts', 'edit' ) ) ? $widget->get_data( 'showposts', 'edit' ) : '',
+			'options' => array( 'yes' => __( 'Show Recent Posts', 'frontpage-buddy' ) ),
+		);
+
+		return $fields;
 	}
 
 	/**
 	 * Get the html output for this widget.
 	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
-	public function get_output() {
-		$fp_page_url = $this->view_field_val( 'url' );
+	public function get_output( $widget ) {
+		$fp_page_url = $widget->get_data( 'url', 'view' );
 		$fp_page_url = trim( $fp_page_url, ' /' );
 		if ( empty( $fp_page_url ) ) {
 			return '';
 		}
 
-		$use_small_header = $this->view_field_val( 'smallheader' );
+		$use_small_header = $widget->get_data( 'smallheader', 'view' );
 		$use_small_header = ! empty( $use_small_header ) && in_array( 'yes', $use_small_header, true ) ? 'true' : '';
-		$showposts        = $this->view_field_val( 'showposts' );
+		$showposts        = $widget->get_data( 'showposts', 'view' );
 		$showposts        = ! empty( $showposts ) && in_array( 'yes', $showposts, true ) ? 'true' : '';
-		$hidecover        = $this->view_field_val( 'hidecover' );
+		$hidecover        = $widget->get_data( 'hidecover', 'view' );
 		$hidecover        = ! empty( $hidecover ) && in_array( 'yes', $hidecover, true ) ? 'true' : '';
 
 		$html  = '<div id="fb-root"></div>';
@@ -68,45 +109,6 @@ class FacebookPage extends Widget {
 
 		wp_enqueue_script( 'facebook-sdk', 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0', array(), '20.0', array( 'in_footer' => true ) );
 
-		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
-	}
-
-	/**
-	 * Get the fields for setting up this widget.
-	 *
-	 * @return array
-	 */
-	public function get_fields() {
-		$fields = $this->get_default_fields();
-
-		$fields['url'] = array(
-			'type'       => 'url',
-			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
-			'value'      => ! empty( $this->edit_field_value( 'url' ) ) ? $this->edit_field_value( 'url' ) : '',
-			'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
-		);
-
-		$fields['smallheader'] = array(
-			'type'    => 'checkbox',
-			'label'   => '',
-			'value'   => ! empty( $this->edit_field_value( 'smallheader' ) ) ? $this->edit_field_value( 'smallheader' ) : '',
-			'options' => array( 'yes' => __( 'Use Small Header', 'frontpage-buddy' ) ),
-		);
-
-		$fields['hidecover'] = array(
-			'type'    => 'checkbox',
-			'label'   => '',
-			'value'   => ! empty( $this->edit_field_value( 'hidecover' ) ) ? $this->edit_field_value( 'hidecover' ) : '',
-			'options' => array( 'yes' => __( 'Hide Cover Photo', 'frontpage-buddy' ) ),
-		);
-
-		$fields['showposts'] = array(
-			'type'    => 'checkbox',
-			'label'   => '',
-			'value'   => ! empty( $this->edit_field_value( 'showposts' ) ) ? $this->edit_field_value( 'showposts' ) : '',
-			'options' => array( 'yes' => __( 'Show Recent Posts', 'frontpage-buddy' ) ),
-		);
-
-		return $fields;
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );
 	}
 }

@@ -13,51 +13,53 @@ defined( 'ABSPATH' ) ? '' : exit();
 /**
  *  Embed twitter feed.
  */
-class TwitterProfile extends Widget {
+class TwitterProfile extends WidgetType {
+
 	/**
 	 * Constructor.
 	 *
-	 * @param string $type A unique identifier.
-	 * @param mixed  $args Initial data for the widget. e.g: id, options etc.
+	 * @return void
 	 */
-	public function __construct( $type, $args = '' ) {
-		$this->type        = $type;
+	public function __construct() {
+		$this->type        = 'twitterprofile';
 		$this->name        = __( 'Twitter Profile Feed', 'frontpage-buddy' );
 		$this->description = __( 'Display any X/Twitter profile\'s feed.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-twitter"></i>';
 
-		$this->setup( $args );
+		parent::__construct();
 	}
 
 	/**
-	 * Get the fields for setting up this widget.
+	 * Get all the data 'fields' for the settings/options screen for this widget.
+	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
-	public function get_fields() {
-		$fields = $this->get_default_fields();
+	public function get_data_fields( $widget ) {
+		$fields = $this->get_default_data_fields( $widget );
 
 		$attrs_dark_theme = array();
-		if ( 'yes' === $this->edit_field_value( 'dark_theme' ) ) {
+		if ( 'yes' === $widget->get_data( 'dark_theme', 'edit' ) ) {
 			$attrs_dark_theme['checked'] = 'checked';
 		}
 		$fields['username']   = array(
 			'type'        => 'text',
 			'label'       => __( 'X/Twitter Handle', 'frontpage-buddy' ),
-			'value'       => ! empty( $this->edit_field_value( 'username' ) ) ? $this->edit_field_value( 'username' ) : '',
+			'value'       => ! empty( $widget->get_data( 'username', 'edit' ) ) ? $widget->get_data( 'username', 'edit' ) : '',
 			'attributes'  => array( 'placeholder' => __( 'E.g: @johndoe', 'frontpage-buddy' ) ),
 			'is_required' => true,
 		);
 		$fields['width']      = array(
 			'type'       => 'number',
 			'label'      => __( 'Width', 'frontpage-buddy' ),
-			'value'      => ! empty( $this->edit_field_value( 'twidth' ) ) ? $this->edit_field_value( 'twidth' ) : '',
+			'value'      => ! empty( $widget->get_data( 'twidth', 'edit' ) ) ? $widget->get_data( 'twidth', 'edit' ) : '',
 			'attributes' => array( 'placeholder' => __( 'Width in pixels (optional)', 'frontpage-buddy' ) ),
 		);
 		$fields['height']     = array(
 			'type'       => 'number',
 			'label'      => __( 'Height', 'frontpage-buddy' ),
-			'value'      => ! empty( $this->edit_field_value( 'theight' ) ) ? $this->edit_field_value( 'theight' ) : '',
+			'value'      => ! empty( $widget->get_data( 'theight', 'edit' ) ) ? $widget->get_data( 'theight', 'edit' ) : '',
 			'attributes' => array( 'placeholder' => __( 'Height in pixels (optional)', 'frontpage-buddy' ) ),
 		);
 		$fields['dark_theme'] = array(
@@ -74,10 +76,11 @@ class TwitterProfile extends Widget {
 	/**
 	 * Get the html output for this widget.
 	 *
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
-	public function get_output() {
-		$twitter_id = $this->view_field_val( 'username' );
+	public function get_output( $widget ) {
+		$twitter_id = $widget->get_data( 'username', 'view' );
 		if ( empty( $twitter_id ) ) {
 			return '';
 		}
@@ -87,17 +90,17 @@ class TwitterProfile extends Widget {
 		}
 
 		$profile_url = 'https://twitter.com/' . $twitter_id;
-		$width       = (int) $this->view_field_val( 'width' );
+		$width       = (int) $widget->get_data( 'width', 'view' );
 		if ( $width < 100 ) {
 			$width = 500;
 		}
 
-		$height = (int) $this->view_field_val( 'height' );
+		$height = (int) $widget->get_data( 'height', 'view' );
 		if ( $height < 100 ) {
 			$height = 800;
 		}
 
-		$theme = 'yes' === $this->view_field_val( 'dark_theme' ) ? 'dark' : '';
+		$theme = 'yes' === $widget->get_data( 'dark_theme', 'view' ) ? 'dark' : '';
 
 		$html  = '<div align="center">';
 		$html .= sprintf(
@@ -111,6 +114,6 @@ class TwitterProfile extends Widget {
 
 		wp_enqueue_script( 'twitter-widget', 'https://platform.twitter.com/widgets.js', array(), '1.0', array( 'in_footer' => true ) );
 
-		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start() . $html . $this->output_end(), $this );
+		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this );
 	}
 }
