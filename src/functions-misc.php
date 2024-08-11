@@ -373,105 +373,140 @@ function sanitize_basic_html( $value ) {
  * @return array
  */
 function visual_editor_allowed_html_tags() {
-	$rich_text = frontpage_buddy()->get_widget_type( 'richtext' );
+	$rich_text = frontpage_buddy()->get_widget_type( 'richcontent' );
 	if ( empty( $rich_text ) ) {
 		return array();
 	}
 
-	$allowed_tags = $rich_text->get_option( 'editor_elements' );
-	if ( empty( $allowed_tags ) ) {
+	$editor_elements = $rich_text->get_option( 'editor_elements' );
+	if ( empty( $editor_elements ) ) {
 		return array();
 	}
 
-	$formatted = array();
-	foreach ( $allowed_tags as $tag ) {
-		switch ( $tag ) {
-			case 'a':
-				$formatted[ $tag ] = array(
-					'href'  => true,
-					'title' => true,
-				);
-				break;
+	$tags_allowed = array();
+	$common_attrs = html_elements_common_safe_attrs();
 
-			default:
-				$formatted[ $tag ] = true;
-				break;
+	if ( ! empty( $editor_elements ) ) {
+		if ( in_array( 'formatting', $editor_elements, true ) ) {
+			$tags_allowed['h1'] = $common_attrs;
+			$tags_allowed['h2'] = $common_attrs;
+			$tags_allowed['h3'] = $common_attrs;
+			$tags_allowed['h4'] = $common_attrs;
+			$tags_allowed['h5'] = $common_attrs;
+			$tags_allowed['h6'] = $common_attrs;
+			$tags_allowed['div'] = $common_attrs;
+			$tags_allowed['section'] = $common_attrs;
+			$tags_allowed['p'] = $common_attrs;
+			$tags_allowed['span'] = $common_attrs;
+			$tags_allowed['blockquote'] = $common_attrs;
 		}
-	}
 
-	// If lists are allowed, list items are implicitly allowed.
-	if ( isset( $formatted['ul'] ) || isset( $formatted['ol'] ) ) {
-		$formatted['li'] = true;
+		if ( in_array( 'strong', $editor_elements, true ) ) {
+			$tags_allowed['strong'] = $common_attrs;
+		}
+		if ( in_array( 'em', $editor_elements, true ) ) {
+			$tags_allowed['em'] = $common_attrs;
+		}
+		if ( in_array( 'del', $editor_elements, true ) ) {
+			$tags_allowed['del'] = $common_attrs;
+		}
+		if ( in_array( 'a', $editor_elements, true ) ) {
+			$tags_allowed['a'] = array_merge(
+				$common_attrs,
+				array(
+					'href' => true,
+				)
+			);
+		}
+		$add_list_item = false;
+		if ( in_array( 'ul', $editor_elements, true ) ) {
+			$tags_allowed['ul'] = $common_attrs;
+			$add_list_item = true;
+		}
+		if ( in_array( 'ol', $editor_elements, true ) ) {
+			$tags_allowed['ol'] = $common_attrs;
+			$add_list_item = true;
+		}
+		if ( $add_list_item ) {
+			$tags_allowed['li'] = $common_attrs;
+		}
+
+		if ( in_array( 'hr', $editor_elements, true ) ) {
+			$tags_allowed['hr'] = $common_attrs;
+		}
 	}
 
 	return apply_filters(
 		'frontpage_buddy_visual_editor_allowed_html_tags',
-		$formatted
+		$tags_allowed
 	);
 }
 
 /**
- * Get the list of html tags( and their attributes ) allowed.
- * This is used to sanitize the contents of integration and widget descriptions, before showing those in admin settings screen( and elsewhere, if applicable ).
+ * Get the list of basic & safe html tags( and their attributes ) allowed.
  *
  * @since 1.0.0
  * @return array
  */
 function basic_html_allowed_tags() {
-	return apply_filters(
-		'frontpage_buddy_admin_descriptions_allowed_html_tags',
+	$common_attrs = html_elements_common_safe_attrs();
+
+	$basic_tags = array(
+		'h1',
+		'h2',
+		'h3',
+		'h4',
+		'h5',
+		'h6',
+		'div',
+		'section',
+		'p',
+		'blockquote',
+		'span',
+		'i',
+		'em',
+		'strong',
+		'ins',
+		'del',
+		'sup',
+		'sub',
+		'br',
+		'hr',
+		'table',
+		'thead',
+		'tbody',
+		'tfoot',
+		'tr',
+		'th',
+		'td',
+		'ul',
+		'ol',
+		'li',
+	);
+
+	$compiled = array();
+	foreach ( $basic_tags as $tag ) {
+		$compiled[ $tag ] = $common_attrs;
+	}
+
+	$compiled['a'] = array_merge(
+		$common_attrs,
 		array(
-			'h2'     => array(),
-			'h3'     => array(),
-			'h4'     => array(),
-			'div'    => array(
-				'class' => array(),
-			),
-			'table'  => array(
-				'id'    => array(),
-				'class' => array(),
-			),
-			'tbody'  => array(
-				'class' => array(),
-			),
-			'thead'  => array(
-				'class' => array(),
-			),
-			'tfoot'  => array(
-				'class' => array(),
-			),
-			'tr'     => array(
-				'class' => array(),
-			),
-			'td'     => array(
-				'class' => array(),
-			),
-			'p'      => array(
-				'class' => array(),
-			),
-			'span'   => array(
-				'class' => array(),
-			),
-			'br'     => array(),
-			'em'     => array(),
-			'strong' => array(),
-			'del'    => array(),
-			'a'      => array(
-				'href'  => array(),
-				'title' => array(),
-				'class' => array(),
-			),
-			'img'    => array(
-				'src'   => array(),
-				'alt'   => array(),
-				'class' => array(),
-			),
-			'ul'     => array(),
-			'ol'     => array(),
-			'li'     => array(),
-			'hr'     => array(),
+			'href' => true,
+			'target' => true,
+			'rel' => true,
 		)
 	);
+
+	/*$compiled['img'] = array_merge(
+		$common_attrs,
+		array(
+			'src' => true,
+			'srcset' => true,
+		)
+	);*/
+
+	return apply_filters( 'frontpage_buddy_basic_allowed_html_tags', $compiled );
 }
 
 /**
@@ -482,30 +517,7 @@ function basic_html_allowed_tags() {
  * @return array
  */
 function form_elements_allowed_tags() {
-	$common_attrs = array(
-		'disabled' => true,
-		'readonly' => true,
-		'aria-controls' => true,
-		'aria-current' => true,
-		'aria-describedby' => true,
-		'aria-details' => true,
-		'aria-expanded' => true,
-		'aria-hidden' => true,
-		'aria-label' => true,
-		'aria-labelledby' => true,
-		'aria-live' => true,
-		'data-*' => true,
-		'dir' => true,
-		'hidden' => true,
-		'lang' => true,
-		'style' => true,
-		'title' => true,
-		'role' => true,
-		'xml:lang' => true,
-		'class' => true,
-		'id' => true,
-		'name' => true,
-	);
+	$common_attrs = html_elements_common_safe_attrs();
 	$form_tags = array(
 		'label'  => array_merge(
 			$common_attrs,
@@ -522,6 +534,14 @@ function form_elements_allowed_tags() {
 				'placeholder' => true,
 				'min'         => true,
 				'max'         => true,
+			)
+		),
+		'textarea'  => array_merge(
+			$common_attrs,
+			array(
+				'rows'        => true,
+				'cols'        => true,
+				'placeholder' => true,
 			)
 		),
 		'button' => array_merge(
@@ -547,5 +567,38 @@ function form_elements_allowed_tags() {
 		),
 	);
 
-	return apply_filters( 'frontpage_buddy_admin_descriptions_allowed_html_tags', $form_tags );
+	return apply_filters( 'frontpage_buddy_form_allowed_html_tags', $form_tags );
+}
+
+/**
+ * List of common attributes of html elements.
+ *
+ * @return array
+ */
+function html_elements_common_safe_attrs() {
+	return array(
+		'disabled' => true,
+		'readonly' => true,
+		'aria-controls' => true,
+		'aria-current' => true,
+		'aria-describedby' => true,
+		'aria-details' => true,
+		'aria-expanded' => true,
+		'aria-hidden' => true,
+		'aria-label' => true,
+		'aria-labelledby' => true,
+		'aria-live' => true,
+		'data-*' => true,
+		'dir' => true,
+		'hidden' => true,
+		'lang' => true,
+		'style' => true,
+		'title' => true,
+		'role' => true,
+		'xml:lang' => true,
+		'class' => true,
+		'id' => true,
+		'name' => true,
+		'colspan' => true,
+	);
 }

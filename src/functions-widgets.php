@@ -20,6 +20,7 @@ defined( 'ABSPATH' ) ? '' : exit();
  * @return void
  */
 function show_output( $layout, $widgets, $integration_type, $target_id ) {
+	// The output of each individual widget is validated and escaped by those widgets individually.
 	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo get_output( $layout, $widgets, $integration_type, $target_id );
 }
@@ -70,6 +71,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 						)
 					);
 
+					// This is already escaped and sanitized.
 					$widget_output = $widget_type_obj->get_output( $widget_obj );
 					if ( ! empty( $widget_output ) ) {
 						$row[] = $widget_output;
@@ -83,7 +85,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 
 				for ( $i = 0; $i < $col_count; $i++ ) {
 					$this_col_num = $i + 1;
-					$html        .= sprintf( "<div class='fp-col fp-col-%d-of-%d'><div class='fp-col-contents'>%s</div></div>", $this_col_num, $col_count, stripslashes( $row[ $i ] ) );
+					$html        .= sprintf( "<div class='fp-col fp-col-%d-of-%d'><div class='fp-col-contents'>%s</div></div>", $this_col_num, $col_count, $row[ $i ] );
 				}
 
 				$html .= '</div>';

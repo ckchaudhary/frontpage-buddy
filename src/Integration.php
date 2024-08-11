@@ -120,6 +120,9 @@ abstract class Integration {
 							'description' => $widget_type_obj->description,
 							'icon'        => $widget_type_obj->icon_image,
 						);
+
+						// Any other data that the widget type might want to provide.
+						$data = $widget_type_obj->add_manage_screen_script_data( $data );
 					}
 				}
 			}

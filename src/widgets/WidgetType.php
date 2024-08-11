@@ -19,7 +19,7 @@ abstract class WidgetType {
 
 	/**
 	 * Widget type - A key to differentiate it from other widget types. E.g: contentblock, twitter_block etc.
-	 * This must be unique across all widgets.
+	 * This must be unique across all widget types.
 	 *
 	 * @var string
 	 */
@@ -123,6 +123,18 @@ abstract class WidgetType {
 		// @todo: Furnish default value if required.
 
 		return $option_value;
+	}
+
+	/**
+	 * Add data for scripts on manage front page screen.
+	 * Should only be called if the widgettype is enabled for current integration.
+	 *
+	 * @param array $data Existing data.
+	 * @return array
+	 */
+	public function add_manage_screen_script_data( $data ) {
+		// Child classes should overwrite this method if required.
+		return $data;
 	}
 
 	/**
@@ -318,7 +330,9 @@ abstract class WidgetType {
 				<?php
 				$fields = $this->get_data_fields( $widget );
 				if ( ! empty( $fields ) ) {
-					echo \RB\FrontPageBuddy\generate_form_fields( $fields );
+					$fields_html = \RB\FrontPageBuddy\generate_form_fields( $fields );
+					$allowed_tags = wp_parse_args( \RB\FrontPageBuddy\basic_html_allowed_tags(), \RB\FrontPageBuddy\form_elements_allowed_tags() );
+					echo wp_kses( $fields_html, $allowed_tags );
 				}
 				?>
 

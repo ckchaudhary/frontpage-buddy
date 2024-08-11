@@ -41,25 +41,19 @@ class RichContent extends WidgetType {
 			'label'   => __( 'Editor elements', 'frontpage-buddy' ),
 			'value'   => $this->get_option( 'editor_elements' ),
 			'options' => array(
-				'h2'     => __( 'Heading 2', 'frontpage-buddy' ),
-				'h3'     => __( 'Heading 3', 'frontpage-buddy' ),
-				'h4'     => __( 'Heading 4', 'frontpage-buddy' ),
-
-				'ul'     => __( 'Unorderd list', 'frontpage-buddy' ),
-				'ol'     => __( 'Ordered list', 'frontpage-buddy' ),
-				'p'      => __( 'Paragraph', 'frontpage-buddy' ),
-
-				'br'     => __( 'Line Break', 'frontpage-buddy' ),
-				'hr'     => __( 'Horizontal Rule', 'frontpage-buddy' ),
-
-				'a'      => __( 'Anchor/Link', 'frontpage-buddy' ),
-
+				'undo-redo'  => __( 'Undo & Redo', 'frontpage-buddy' ),
+				'formatting' => __( 'Formatting - Quote/Paragraph/Headers', 'frontpage-buddy' ),
 				'em'     => __( 'Emphasis/Italicize', 'frontpage-buddy' ),
 				'strong' => __( 'Bolden', 'frontpage-buddy' ),
 				'del'    => __( 'Strike through', 'frontpage-buddy' ),
+				'a'      => __( 'Link', 'frontpage-buddy' ),
+				'ul'     => __( 'Unorderd list', 'frontpage-buddy' ),
+				'ol'     => __( 'Ordered list', 'frontpage-buddy' ),
+				'hr'     => __( 'Horizontal Rule', 'frontpage-buddy' ),
+				'fullscreen' => __( 'Full screen', 'frontpage-buddy' ),
 			),
 
-			'description' => __( 'Choose the list of elements allowed in rich text editors.', 'frontpage-buddy' ),
+			'description' => __( 'Choose the buttons/options allowed in rich text editors.', 'frontpage-buddy' ),
 		);
 
 		return $fields;
@@ -85,26 +79,85 @@ class RichContent extends WidgetType {
 				$option_value = null !== $option_value && ! empty( $option_value ) ? $option_value : array();
 				if ( empty( $option_value ) ) {
 					$option_value = array(
-						'h2',
-						'h3',
-						'h4',
-
-						'ul',
-						'ol',
-						'p',
-
-						'br',
-						'hr',
-
+						'undo-redo',
+						'formatting',
+						'removeformat',
 						'em',
 						'strong',
 						'del',
+						'ul',
+						'ol',
+						'hr',
+						'fullscreen',
 					);
 				}
 				break;
 		}
 
 		return $option_value;
+	}
+
+	/**
+	 * Add data for scripts on manage front page screen.
+	 * Should only be called if the widgettype is enabled for current integration.
+	 *
+	 * @param array $data Existing data.
+	 * @return array
+	 */
+	public function add_manage_screen_script_data( $data ) {
+		$trumbowyg_btns = array();
+		$editor_elements = $this->get_option( 'editor_elements' );
+		if ( ! empty( $editor_elements ) ) {
+			if ( in_array( 'undo-redo', $editor_elements, true ) ) {
+				$trumbowyg_btns[] = array( 'undo', 'redo' );
+			}
+
+			if ( in_array( 'formatting', $editor_elements, true ) ) {
+				$trumbowyg_btns[] = array( 'formatting', 'removeformat' );
+			}
+
+			$new_group = array();
+			if ( in_array( 'strong', $editor_elements, true ) ) {
+				$new_group[] = 'strong';
+			}
+			if ( in_array( 'em', $editor_elements, true ) ) {
+				$new_group[] = 'em';
+			}
+			if ( in_array( 'del', $editor_elements, true ) ) {
+				$new_group[] = 'del';
+			}
+			if ( ! empty( $new_group ) ) {
+				$trumbowyg_btns[] = $new_group;
+			}
+
+			if ( in_array( 'a', $editor_elements, true ) ) {
+				$trumbowyg_btns[] = array( 'link' );
+			}
+
+			$new_group = array();
+			if ( in_array( 'ul', $editor_elements, true ) ) {
+				$new_group[] = 'unorderedList';
+			}
+			if ( in_array( 'ol', $editor_elements, true ) ) {
+				$new_group[] = 'orderedList';
+			}
+			if ( ! empty( $new_group ) ) {
+				$trumbowyg_btns[] = $new_group;
+			}
+
+			if ( in_array( 'hr', $editor_elements, true ) ) {
+				$trumbowyg_btns[] = array( 'horizontalRule' );
+			}
+
+			if ( in_array( 'fullscreen', $editor_elements, true ) ) {
+				$trumbowyg_btns[] = array( 'fullscreen' );
+			}
+		}
+
+		$data['rich_content'] = array(
+			'editor_btns' => $trumbowyg_btns,
+		);
+		return $data;
 	}
 
 	/**
@@ -122,6 +175,9 @@ class RichContent extends WidgetType {
 			'label'       => '',
 			'value'       => ! empty( $widget->get_data( 'content', 'edit' ) ) ? $widget->get_data( 'content', 'edit' ) : '',
 			'is_required' => true,
+			'attributes'  => array(
+				'placeholder' => __( 'Enter text here..', 'frontpage-buddy' ),
+			),
 		);
 
 		return $fields;
@@ -135,6 +191,9 @@ class RichContent extends WidgetType {
 	 */
 	public function get_output( $widget ) {
 		$html = $widget->get_data( 'content', 'view' );
+		if ( ! empty( $html ) ) {
+			$html = wp_kses( $html, \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
+		}
 
 		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );
 	}

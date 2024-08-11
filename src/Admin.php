@@ -156,9 +156,9 @@ class Admin {
 			<form method="post" action="<?php echo esc_attr( $this->form_action ); ?>">
 
 				<?php
-				// phpcs:ignore
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( frontpage_buddy()->network_activated && isset( $_GET['updated'] ) ) {
-					echo '<div class="updated"><p>' . esc_attr__( 'Settings updated.', 'frontpage-buddy' ) . '</p></div>';
+					echo '<div class="updated"><p>' . esc_html__( 'Settings updated.', 'frontpage-buddy' ) . '</p></div>';
 				}
 				?>
 
@@ -301,7 +301,29 @@ class Admin {
 					}
 					break;
 
-				// @todo: sanitize widget prototype settings.
+				case 'widgets':
+					if ( ! empty( $field_value ) ) {
+						foreach ( $field_value as $widget_type => $widget_type_fields ) {
+							$widget_type_obj = frontpage_buddy()->get_widget_type( $widget_type );
+							if ( empty( $widget_type_obj ) ) {
+								$field_value = false;
+							} else {
+								$registered_fields = $widget_type_obj->get_settings_fields();
+								if ( empty( $registered_fields ) ) {
+									$field_value = false;
+								} else {
+									foreach ( $widget_type_fields as $i_field_name => $entered_value ) {
+										if ( isset( $registered_fields[ $i_field_name ] ) ) {
+											$widget_type_fields[ $i_field_name ] = sanitize_field( $entered_value, $registered_fields[ $i_field_name ] );
+										} else {
+											unset( $field_value[ $i_field_name ] );
+										}
+									}
+								}
+							}
+						}
+					}
+					break;
 			}
 
 			$input[ $field_name ] = $field_value;
@@ -391,7 +413,7 @@ class Admin {
 				)
 			);
 
-			$allowed_tags = wp_parse_args( form_elements_allowed_tags( 'post' ), wp_kses_allowed_html( 'post' ) );
+			$allowed_tags = wp_parse_args( basic_html_allowed_tags(), form_elements_allowed_tags() );
 			echo wp_kses( $fields_html, $allowed_tags );
 
 			echo '</tbody></table>';
@@ -441,7 +463,7 @@ class Admin {
 					)
 				);
 
-				$allowed_tags = wp_parse_args( form_elements_allowed_tags( 'post' ), wp_kses_allowed_html( 'post' ) );
+				$allowed_tags = wp_parse_args( basic_html_allowed_tags(), form_elements_allowed_tags() );
 				echo wp_kses( $fields_html, $allowed_tags );
 			}
 
