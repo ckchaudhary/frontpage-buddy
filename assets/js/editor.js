@@ -60,17 +60,8 @@ class FPBuddyWidgetsManager {
             if ( $widget.data('type') === 'richcontent' ) {
 				//init visual editor
 				$widget.find('textarea').trumbowyg({
-					btns: [
-						['undo', 'redo'], // Only supported in Blink browsers
-						['formatting'],
-						['strong', 'em', 'del'],
-						['link'],
-						['insertImage'],
-						['unorderedList', 'orderedList'],
-						['horizontalRule'],
-						['removeformat'],
-						['fullscreen']
-					]
+					btns: FRONTPAGE_BUDDY.rich_content.editor_btns,
+					minimalLinks: true,
 				});
 			}
             
