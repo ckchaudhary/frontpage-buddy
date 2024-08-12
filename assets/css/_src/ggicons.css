@@ -316,4 +316,34 @@
 .fpbuddy_manage_widgets .gg-details-more::after {
 	width: 10px;
 	bottom: 0
-} 
+}
+
+/* https://css.gg/icon/close-r */
+.fpbuddy_manage_widgets .gg-close-r {
+	box-sizing: border-box;
+	position: relative;
+	display: block;
+	transform: scale(var(--ggs, 1));
+	width: 18px;
+	height: 18px;
+	border: 1px solid;
+	border-radius: 4px;
+}
+.fpbuddy_manage_widgets .gg-close-r::after,
+.fpbuddy_manage_widgets .gg-close-r::before {
+	content: "";
+	display: block;
+	box-sizing: border-box;
+	position: absolute;
+	width: 10px;
+	height: 2px;
+	background: var( --fpbuddy-editor-color-main-contrast );
+	transform: rotate(45deg);
+	border-radius: 5px;
+	top: 7px;
+	left: 3px;
+}
+.fpbuddy_manage_widgets .gg-close-r::after {
+	transform: rotate(-45deg);
+}
+  

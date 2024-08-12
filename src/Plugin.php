@@ -21,10 +21,12 @@ class Plugin {
 	 * @var array
 	 */
 	private $default_options = array(
-		'editor_color_bg'               => '#ffffff',
-		'editor_color_text'             => '#222222',
-		'editor_color_primary'          => '#0f7ebf',
-		'editor_color_primary_contrast' => '#ffffff',
+		'editor_color_bg'                 => '#ffffff',
+		'editor_color_text'               => '#333333',
+		'editor_color_primary'            => '#235789',
+		'editor_color_primary_contrast'   => '#ffffff',
+		'editor_color_secondary'          => '#b9d6f2',
+		'editor_color_secondary_contrast' => '#000000',
 	);
 
 	/**
@@ -439,6 +441,8 @@ class Plugin {
 			$css .= '--fpbuddy-editor-color-text: ' . esc_attr( frontpage_buddy()->option( 'editor_color_text' ) ) . ';';
 			$css .= '--fpbuddy-editor-color-main: ' . esc_attr( frontpage_buddy()->option( 'editor_color_primary' ) ) . ';';
 			$css .= '--fpbuddy-editor-color-main-contrast: ' . esc_attr( frontpage_buddy()->option( 'editor_color_primary_contrast' ) ) . ';';
+			$css .= '--fpbuddy-editor-color-secondary: ' . esc_attr( frontpage_buddy()->option( 'editor_color_secondary' ) ) . ';';
+			$css .= '--fpbuddy-editor-color-secondary-contrast: ' . esc_attr( frontpage_buddy()->option( 'editor_color_secondary_contrast' ) ) . ';';
 			$css .= '}';
 			wp_add_inline_style(
 				'frontpage-buddy-editor',

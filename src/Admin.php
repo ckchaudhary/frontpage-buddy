@@ -202,6 +202,8 @@ class Admin {
 		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme' );
 		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme' );
 		add_settings_field( 'editor_color_primary_contrast', '', array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_secondary', '', array( $this, 'editor_color_secondary' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_secondary_contrast', '', array( $this, 'editor_color_secondary_contrast' ), __FILE__, 'section_theme' );
 	}
 
 	/**
@@ -549,7 +551,7 @@ class Admin {
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Used as: border colors, button colors, etc.', 'frontpage-buddy' )
+			esc_html__( 'Used as: border colors, button colors, etc. for widgets/columns.', 'frontpage-buddy' )
 		);
 	}
 
@@ -573,6 +575,52 @@ class Admin {
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Constrast color of the primary color', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_secondary() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Secondary Color', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Used as: border colors, button colors, etc. for sections/rows.', 'frontpage-buddy' )
+		);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function editor_color_secondary_contrast() {
+		$field_name  = __FUNCTION__;
+		$field_value = $this->option( $field_name );
+
+		echo '<table><tr><th>' . esc_html__( 'Secondary Color - Contrast', 'frontpage-buddy' ) . '</th><td>';
+		printf(
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			esc_attr( $this->option_name . '[' . $field_name . ']' ),
+			esc_attr( $field_value )
+		);
+		echo '</td></tr></table>';
+
+		printf(
+			'<p class="description">%s</p>',
+			esc_html__( 'Constrast color of the secondary color', 'frontpage-buddy' )
 		);
 	}
 
