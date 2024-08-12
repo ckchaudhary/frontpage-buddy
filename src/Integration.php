@@ -110,7 +110,7 @@ abstract class Integration {
 		$data['object_id']   = $this->get_editable_object_id();
 		if ( $data['object_id'] ) {
 			$data['all_widgets'] = array();
-			$all_widget_types = frontpage_buddy()->get_all_widget_types();
+			$all_widget_types    = frontpage_buddy()->get_all_widget_types();
 			if ( ! empty( $all_widget_types ) ) {
 				foreach ( $all_widget_types as $widget_type_obj ) {
 					if ( $widget_type_obj->is_enabled_for( $this->get_integration_type(), $data['object_id'] ) ) {

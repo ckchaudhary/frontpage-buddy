@@ -330,7 +330,7 @@ abstract class WidgetType {
 				<?php
 				$fields = $this->get_data_fields( $widget );
 				if ( ! empty( $fields ) ) {
-					$fields_html = \RB\FrontPageBuddy\generate_form_fields( $fields );
+					$fields_html  = \RB\FrontPageBuddy\generate_form_fields( $fields );
 					$allowed_tags = wp_parse_args( \RB\FrontPageBuddy\basic_html_allowed_tags(), \RB\FrontPageBuddy\form_elements_allowed_tags() );
 					echo wp_kses( $fields_html, $allowed_tags );
 				}

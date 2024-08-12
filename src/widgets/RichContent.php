@@ -20,9 +20,9 @@ class RichContent extends WidgetType {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->type        = 'richcontent';
-		$this->name        = __( 'Rich Text', 'frontpage-buddy' );
-		$this->description = __( 'Add text/copy, headings, links, lists etc.', 'frontpage-buddy' );
+		$this->type              = 'richcontent';
+		$this->name              = __( 'Rich Text', 'frontpage-buddy' );
+		$this->description       = __( 'Add text/copy, headings, links, lists etc.', 'frontpage-buddy' );
 		$this->description_admin = __( 'Displays a rich-text-editor, allowing users to enter text, links, etc. Also has basic formatting options like "bold", "italics", etc.', 'frontpage-buddy' );
 
 		parent::__construct();
@@ -37,20 +37,23 @@ class RichContent extends WidgetType {
 		$fields = parent::get_settings_fields();
 
 		$fields['editor_elements'] = array(
-			'type'    => 'checkbox',
-			'label'   => __( 'Editor elements', 'frontpage-buddy' ),
-			'value'   => $this->get_option( 'editor_elements' ),
-			'options' => array(
-				'undo-redo'  => __( 'Undo & Redo', 'frontpage-buddy' ),
-				'formatting' => __( 'Formatting - Quote/Paragraph/Headers', 'frontpage-buddy' ),
-				'em'     => __( 'Emphasis/Italicize', 'frontpage-buddy' ),
-				'strong' => __( 'Bolden', 'frontpage-buddy' ),
-				'del'    => __( 'Strike through', 'frontpage-buddy' ),
-				'a'      => __( 'Link', 'frontpage-buddy' ),
-				'ul'     => __( 'Unorderd list', 'frontpage-buddy' ),
-				'ol'     => __( 'Ordered list', 'frontpage-buddy' ),
-				'hr'     => __( 'Horizontal Rule', 'frontpage-buddy' ),
-				'fullscreen' => __( 'Full screen', 'frontpage-buddy' ),
+			'type'        => 'checkbox',
+			'label'       => __( 'Editor elements', 'frontpage-buddy' ),
+			'value'       => $this->get_option( 'editor_elements' ),
+			'options'     => array(
+				'undo-redo'     => __( 'Undo & Redo', 'frontpage-buddy' ),
+				'formatting'    => __( 'Formatting - Quote/Paragraph/Headers', 'frontpage-buddy' ),
+				'justifyLeft'   => __( 'Align left', 'frontpage-buddy' ),
+				'justifyCenter' => __( 'Align center', 'frontpage-buddy' ),
+				'justifyRight'  => __( 'Align right', 'frontpage-buddy' ),
+				'em'            => __( 'Emphasis/Italicize', 'frontpage-buddy' ),
+				'strong'        => __( 'Bolden', 'frontpage-buddy' ),
+				'del'           => __( 'Strike through', 'frontpage-buddy' ),
+				'a'             => __( 'Link', 'frontpage-buddy' ),
+				'ul'            => __( 'Unorderd list', 'frontpage-buddy' ),
+				'ol'            => __( 'Ordered list', 'frontpage-buddy' ),
+				'hr'            => __( 'Horizontal Rule', 'frontpage-buddy' ),
+				'fullscreen'    => __( 'Full screen', 'frontpage-buddy' ),
 			),
 
 			'description' => __( 'Choose the buttons/options allowed in rich text editors.', 'frontpage-buddy' ),
@@ -105,7 +108,7 @@ class RichContent extends WidgetType {
 	 * @return array
 	 */
 	public function add_manage_screen_script_data( $data ) {
-		$trumbowyg_btns = array();
+		$trumbowyg_btns  = array();
 		$editor_elements = $this->get_option( 'editor_elements' );
 		if ( ! empty( $editor_elements ) ) {
 			if ( in_array( 'undo-redo', $editor_elements, true ) ) {
@@ -125,6 +128,20 @@ class RichContent extends WidgetType {
 			}
 			if ( in_array( 'del', $editor_elements, true ) ) {
 				$new_group[] = 'del';
+			}
+			if ( ! empty( $new_group ) ) {
+				$trumbowyg_btns[] = $new_group;
+			}
+
+			$new_group = array();
+			if ( in_array( 'justifyLeft', $editor_elements, true ) ) {
+				$new_group[] = 'justifyLeft';
+			}
+			if ( in_array( 'justifyCenter', $editor_elements, true ) ) {
+				$new_group[] = 'justifyCenter';
+			}
+			if ( in_array( 'justifyRight', $editor_elements, true ) ) {
+				$new_group[] = 'justifyRight';
 			}
 			if ( ! empty( $new_group ) ) {
 				$trumbowyg_btns[] = $new_group;

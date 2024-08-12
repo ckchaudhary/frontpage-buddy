@@ -7,41 +7,46 @@
  *
  * @package BuddyPress
  * @subpackage bp-legacy
+ * @version 1.0.0
  */
 
-do_action( 'bp_before_member_plugin_template' ); 
+do_action( 'bp_before_member_plugin_template' );
 
-do_action( 'bp_before_member_front_template' ); 
+do_action( 'bp_before_member_front_template' );
 ?>
 
 <?php if ( ! bp_is_current_component_core() ) : ?>
 
 <div class="item-list-tabs no-ajax" id="subnav">
-    <ul>
-        <?php bp_get_options_nav(); ?>
+	<ul>
+		<?php bp_get_options_nav(); ?>
 
-        <?php
+		<?php
 
-        /**
-         * Fires inside the member plugin template nav <ul> tag.
-         *
-         * @since 1.2.2
-         */
-        do_action( 'bp_member_plugin_options_nav' ); ?>
-    </ul>
+		/**
+		 * Fires inside the member plugin template nav <ul> tag.
+		 *
+		 * @since 1.2.2
+		 */
+		do_action( 'bp_member_plugin_options_nav' );
+		?>
+	</ul>
 </div><!-- .item-list-tabs -->
 
 <?php endif; ?>
 
 <?php if ( has_action( 'bp_template_title' ) ) : ?>
-    <h3><?php
+	<h3>
+	<?php
 
-    /**
-     * Fires inside the member plugin template <h3> tag.
-     *
-     * @since 1.0.0
-     */
-    do_action( 'bp_template_title' ); ?></h3>
+	/**
+	 * Fires inside the member plugin template <h3> tag.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'bp_template_title' );
+	?>
+	</h3>
 
 <?php endif; ?>
 

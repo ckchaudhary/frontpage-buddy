@@ -71,27 +71,38 @@ class FPBuddyWidgetsManager {
 		// Do things when a widget is updated.
 		_class._l.parent.on( 'widget_updated', '.fp-widget', function(){
 			const $widget = jQuery(this);
-			if ( $widget.hasClass( 'widget-richcontent' ) ) {
-				let html = $widget.find('.field .trumbowyg-box textarea').first().val();
-				if ( html.length > 0 ) {
-					let text = jQuery("<div>").html( html ).text().substring( 0, 100 );
-					$widget.find( '.fp-widget-title > span:last' ).text( text );
-				}
-			} else if( $widget.hasClass( 'widget-instagramprofileembed' ) ) {
-				let insta_id = $widget.find('.field [name="insta_id"]').first().val();
-				if ( insta_id.length > 0 ) {
-					insta_id = jQuery.trim( insta_id );
-					insta_id = '@' + insta_id.replace( '@', '' ) + ' - instagram';
-					$widget.find( '.fp-widget-title > span:last' ).text( insta_id );
-				}
-			} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
-				let insta_id = $widget.find('.field [name="username"]').first().val();
-				if ( insta_id.length > 0 ) {
-					insta_id = jQuery.trim( insta_id );
-					insta_id = '@' + insta_id.replace( '@', '' ) + ' - X';
-					$widget.find( '.fp-widget-title > span:last' ).text( insta_id );
+
+			// Update widget title.
+			let widget_title = $widget.find('.field-heading input').val();
+			if ( widget_title ) {
+				widget_title = jQuery.trim( widget_title );
+			}
+			if ( widget_title ) {
+				widget_title = widget_title.substring( 0, 100 );
+			} else {
+				if ( $widget.hasClass( 'widget-richcontent' ) ) {
+					let html = $widget.find('.field .trumbowyg-box textarea').first().val();
+					if ( html.length > 0 ) {
+						widget_title = jQuery("<div>").html( html ).text().substring( 0, 100 );
+					}
+				} else if( $widget.hasClass( 'widget-instagramprofile' ) ) {
+					let insta_id = $widget.find('.field [name="insta_id"]').first().val();
+					if ( insta_id.length > 0 ) {
+						insta_id = jQuery.trim( insta_id );
+						widget_title = '@' + insta_id.replace( '@', '' ) + ' - instagram';
+					}
+				} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
+					let x_id = $widget.find('.field [name="username"]').first().val();
+					if ( x_id.length > 0 ) {
+						x_id = jQuery.trim( insta_id );
+						widget_title = '@' + x_id.replace( '@', '' ) + ' - X';
+					}
+				} else {
+					widget_title = $widget.attr('data-type');
 				}
 			}
+
+			$widget.find( '.fp-widget-title > span:last' ).text( widget_title );
 		} );
     };
 
@@ -158,13 +169,13 @@ class FPBuddyWidgetsManager {
 		let widget_id = Date.now() + '_' + Math.random();
 		let widget_title = '';
 		let widget_icon = '';
-		let widget_description = '';
+		// let widget_description = '';// Not used, yet.
 
 		for ( let i_widget of FRONTPAGE_BUDDY.all_widgets ) {
 			if ( i_widget.type === widget_type ) {
 				widget_title = i_widget.name;
 				widget_icon = i_widget.icon;
-				widget_description = i_widget.description;
+				// widget_description = i_widget.description;
 				break;
 			}
 		}
@@ -178,7 +189,7 @@ class FPBuddyWidgetsManager {
 							<span>${widget_title}</span>
 						</div>
 						<div class="remove_item remove_widget">
-							<a href="#"><i class="gg-remove"></i></a>
+							<a href="#"><i class="gg-close-r"></i></a>
 						</div>
 					</div>
 					<div class="widget-settings"></div>
@@ -235,7 +246,7 @@ class FPBuddyWidgetsManager {
 						<span>${widget_title}</span>
 					</div>
 					<div class="remove_item remove_widget">
-						<a href="#"><i class="gg-remove"></i></a>
+						<a href="#"><i class="gg-close-r"></i></a>
 					</div>
 				</div>
 				
@@ -354,7 +365,7 @@ class FPBuddyLayoutManager {
 
 			html += '<div class="row-actions">'
 			html += '<div class="fp-mover"><i class="gg-select"></i><span>' + FRONTPAGE_BUDDY.lang.drag_move + '</span></div>';
-			html += '<div class="remove_item remove_row"><a href="#"><i class="gg-remove"></i></a></div>';
+			html += '<div class="remove_item remove_row"><a href="#"><i class="gg-close-r"></i></a></div>';
 			html += '</div>';
 
 			html += '<div class="row-contents">';
@@ -383,7 +394,7 @@ class FPBuddyLayoutManager {
 			// Check if at least one widget is added.
 			let has_content = false;
 			if ( $row.find('.fp-widget').length > 0 ) {
-				has_content = false;
+				has_content = true;
 			}
 
 			if ( has_content ) {
@@ -526,7 +537,7 @@ class FPBuddyLayoutManager {
 
 				html += '<div class="row-actions">'
 				html += '<div class="fp-mover"><i class="gg-select"></i><span>' + FRONTPAGE_BUDDY.lang.drag_move + '</span></div>';
-				html += '<div class="remove_item remove_row"><a href="#"><i class="gg-remove"></i></a></div>';
+				html += '<div class="remove_item remove_row"><a href="#"><i class="gg-close-r"></i></a></div>';
 				html += '</div><!-- .row-actions -->';
 
 				html += '<div class="row-contents">';
@@ -582,8 +593,15 @@ class FPBuddyLayoutManager {
 		return `
 			<div class="collapse-widgets-list">
 				<div class="fp-widget-title">${FRONTPAGE_BUDDY.lang.choose_widget}</div>
-				<div class="remove_item remove_widget"><a href="#"><i class="gg-remove"></i></a></div>
+				<div class="remove_item remove_widget"><a href="#"><i class="gg-close-r"></i></a></div>
 			</div>
 		`;
 	};
 }
+
+jQuery( ($) => {
+	let fpbuddy_manager = new FPBuddyWidgetsManager({
+		"el_outer" : ".fpbuddy_manage_widgets",
+		"el_content" : "#fpbuddy_fp_layout_outer",
+	});
+});

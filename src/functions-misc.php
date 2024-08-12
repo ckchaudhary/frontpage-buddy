@@ -101,7 +101,7 @@ function generate_form_fields( $fields, $args = '' ) {
 
 		$output .= $args['before_label'];
 		if ( isset( $field['label'] ) && ! empty( $field['label'] ) ) {
-			$output .= '<label>' . esc_html( $field['label'] ) . '</label>';
+			$output .= '<label for="' . esc_attr( $field_id ) . '">' . esc_html( $field['label'] ) . '</label>';
 		}
 		$output .= $args['after_label'];
 
@@ -388,16 +388,16 @@ function visual_editor_allowed_html_tags() {
 
 	if ( ! empty( $editor_elements ) ) {
 		if ( in_array( 'formatting', $editor_elements, true ) ) {
-			$tags_allowed['h1'] = $common_attrs;
-			$tags_allowed['h2'] = $common_attrs;
-			$tags_allowed['h3'] = $common_attrs;
-			$tags_allowed['h4'] = $common_attrs;
-			$tags_allowed['h5'] = $common_attrs;
-			$tags_allowed['h6'] = $common_attrs;
-			$tags_allowed['div'] = $common_attrs;
-			$tags_allowed['section'] = $common_attrs;
-			$tags_allowed['p'] = $common_attrs;
-			$tags_allowed['span'] = $common_attrs;
+			$tags_allowed['h1']         = $common_attrs;
+			$tags_allowed['h2']         = $common_attrs;
+			$tags_allowed['h3']         = $common_attrs;
+			$tags_allowed['h4']         = $common_attrs;
+			$tags_allowed['h5']         = $common_attrs;
+			$tags_allowed['h6']         = $common_attrs;
+			$tags_allowed['div']        = $common_attrs;
+			$tags_allowed['section']    = $common_attrs;
+			$tags_allowed['p']          = $common_attrs;
+			$tags_allowed['span']       = $common_attrs;
 			$tags_allowed['blockquote'] = $common_attrs;
 		}
 
@@ -421,11 +421,11 @@ function visual_editor_allowed_html_tags() {
 		$add_list_item = false;
 		if ( in_array( 'ul', $editor_elements, true ) ) {
 			$tags_allowed['ul'] = $common_attrs;
-			$add_list_item = true;
+			$add_list_item      = true;
 		}
 		if ( in_array( 'ol', $editor_elements, true ) ) {
 			$tags_allowed['ol'] = $common_attrs;
-			$add_list_item = true;
+			$add_list_item      = true;
 		}
 		if ( $add_list_item ) {
 			$tags_allowed['li'] = $common_attrs;
@@ -492,13 +492,14 @@ function basic_html_allowed_tags() {
 	$compiled['a'] = array_merge(
 		$common_attrs,
 		array(
-			'href' => true,
+			'href'   => true,
 			'target' => true,
-			'rel' => true,
+			'rel'    => true,
 		)
 	);
 
-	/*$compiled['img'] = array_merge(
+	/*
+	$compiled['img'] = array_merge(
 		$common_attrs,
 		array(
 			'src' => true,
@@ -518,14 +519,14 @@ function basic_html_allowed_tags() {
  */
 function form_elements_allowed_tags() {
 	$common_attrs = html_elements_common_safe_attrs();
-	$form_tags = array(
-		'label'  => array_merge(
+	$form_tags    = array(
+		'label'    => array_merge(
 			$common_attrs,
 			array(
 				'for' => true,
 			)
 		),
-		'input'  => array_merge(
+		'input'    => array_merge(
 			$common_attrs,
 			array(
 				'type'        => true,
@@ -536,7 +537,7 @@ function form_elements_allowed_tags() {
 				'max'         => true,
 			)
 		),
-		'textarea'  => array_merge(
+		'textarea' => array_merge(
 			$common_attrs,
 			array(
 				'rows'        => true,
@@ -544,24 +545,24 @@ function form_elements_allowed_tags() {
 				'placeholder' => true,
 			)
 		),
-		'button' => array_merge(
+		'button'   => array_merge(
 			$common_attrs,
 			array(
-				'type' => true,
-				'value' => true,
+				'type'        => true,
+				'value'       => true,
 				'placeholder' => true,
 			)
 		),
-		'select' => array_merge(
+		'select'   => array_merge(
 			$common_attrs,
 			array(
-				'multiple' => true,
-				'value' => true,
+				'multiple'    => true,
+				'value'       => true,
 				'placeholder' => true,
 			)
 		),
-		'options' => array(
-			'id' => true,
+		'options'  => array(
+			'id'    => true,
 			'class' => true,
 			'value' => true,
 		),
@@ -577,28 +578,28 @@ function form_elements_allowed_tags() {
  */
 function html_elements_common_safe_attrs() {
 	return array(
-		'disabled' => true,
-		'readonly' => true,
-		'aria-controls' => true,
-		'aria-current' => true,
+		'disabled'         => true,
+		'readonly'         => true,
+		'aria-controls'    => true,
+		'aria-current'     => true,
 		'aria-describedby' => true,
-		'aria-details' => true,
-		'aria-expanded' => true,
-		'aria-hidden' => true,
-		'aria-label' => true,
-		'aria-labelledby' => true,
-		'aria-live' => true,
-		'data-*' => true,
-		'dir' => true,
-		'hidden' => true,
-		'lang' => true,
-		'style' => true,
-		'title' => true,
-		'role' => true,
-		'xml:lang' => true,
-		'class' => true,
-		'id' => true,
-		'name' => true,
-		'colspan' => true,
+		'aria-details'     => true,
+		'aria-expanded'    => true,
+		'aria-hidden'      => true,
+		'aria-label'       => true,
+		'aria-labelledby'  => true,
+		'aria-live'        => true,
+		'data-*'           => true,
+		'dir'              => true,
+		'hidden'           => true,
+		'lang'             => true,
+		'style'            => true,
+		'title'            => true,
+		'role'             => true,
+		'xml:lang'         => true,
+		'class'            => true,
+		'id'               => true,
+		'name'             => true,
+		'colspan'          => true,
 	);
 }

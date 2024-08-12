@@ -30,7 +30,7 @@ class Editor {
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
+	protected function init() {
 		add_action( 'wp_ajax_frontpage_buddy_change_status', array( $this, 'ajax_change_status' ) );
 		add_action( 'wp_ajax_frontpage_buddy_update_layout', array( $this, 'ajax_update_layout' ) );
 		add_action( 'wp_ajax_frontpage_buddy_widget_opts_get', array( $this, 'ajax_widget_opts_get' ) );

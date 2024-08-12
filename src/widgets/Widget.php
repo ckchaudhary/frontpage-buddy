@@ -18,8 +18,7 @@ class Widget {
 	use \RB\FrontPageBuddy\TraitGetSet;
 
 	/**
-	 * Widget type - A key to differentiate it from other widget types. E.g: contentblock, twitter_block etc.
-	 * This must be unique across all widgets.
+	 * What type of widget is this?
 	 *
 	 * @var \RB\FrontPageBuddy\WidgetType
 	 */
@@ -47,7 +46,7 @@ class Widget {
 	protected $object_id = false;
 
 	/**
-	 * Data for all fields/settings of the widget.
+	 * Data for all data fields of the widget.
 	 *
 	 * @var array
 	 */

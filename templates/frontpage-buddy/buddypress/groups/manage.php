@@ -2,13 +2,13 @@
 /**
  * Template for manage widgets screen - for buddypress groups.
  *
- * @since 1.0.0
+ * @version 1.0.0
  * @package frontpage-buddy
  */
 
 do_action( 'frontpage_buddy_manage_frontpage__before', 'bp_groups' );
 ?>
-
+<?php /* The css class 'fpbuddy_manage_widgets' is required by javascript */ ?>
 <div class="fpbuddy_manage_widgets fpbuddy_wrapper">
 	<div class="fpbuddy_container">
 		<div class="fpbuddy_title">
@@ -34,15 +34,3 @@ do_action( 'frontpage_buddy_manage_frontpage__before', 'bp_groups' );
 </div>
 
 <?php do_action( 'frontpage_buddy_manage_frontpage__after', 'bp_groups' ); ?>
-
-<?php
-$inline_script  = 'jQuery( ($) => {';
-$inline_script .= 'let fpbuddy_manager = new FPBuddyWidgetsManager({';
-$inline_script .= '"el_outer" : ".fpbuddy_manage_widgets",';
-$inline_script .= '"el_content" : "#fpbuddy_fp_layout_outer",';
-$inline_script .= '})';
-$inline_script .= '});';
-wp_add_inline_script(
-	'frontpage-buddy-editor',
-	$inline_script
-);

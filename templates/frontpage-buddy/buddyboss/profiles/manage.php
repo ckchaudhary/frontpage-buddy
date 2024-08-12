@@ -2,7 +2,7 @@
 /**
  * Template for manage widgets screen - for buddyboss user profiles.
  *
- * @since 1.0.0
+ * @version 1.0.0
  * @package frontpage-buddy
  */
 
@@ -64,15 +64,3 @@ $is_enabled = frontpage_buddy()->get_integration( 'buddyboss_members' )->has_cus
 </div>
 
 <?php do_action( 'frontpage_buddy_manage_frontpage__after', 'buddyboss_members' ); ?>
-
-<?php
-$inline_script  = 'jQuery( ($) => {';
-$inline_script .= 'let fpbuddy_manager = new FPBuddyWidgetsManager({';
-$inline_script .= '"el_outer" : ".fpbuddy_manage_widgets",';
-$inline_script .= '"el_content" : "#fpbuddy_fp_layout_outer",';
-$inline_script .= '})';
-$inline_script .= '});';
-wp_add_inline_script(
-	'frontpage-buddy-editor',
-	$inline_script
-);

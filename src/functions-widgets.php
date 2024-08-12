@@ -43,8 +43,8 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 
 			foreach ( $layout_row as $widget_id ) {
 				$widget_type_obj = false;
-				$found     = false;
-				$widget_id = trim( $widget_id );
+				$found           = false;
+				$widget_id       = trim( $widget_id );
 				if ( ! empty( $widgets ) ) {
 					foreach ( $widgets as $widget ) {
 						if ( $widget['id'] === $widget_id ) {
@@ -105,28 +105,33 @@ add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\RB\FrontPageBudd
  * @return string
  */
 function widget_title_for_manage_screen( $title, $widget ) {
-	$widget_type = isset( $widget['type'] ) ? $widget['type'] : '';
-	switch ( $widget_type ) {
-		case 'richcontent':
-			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['content'] ) && ! empty( $widget['data']['content'] ) ? wp_strip_all_tags( $widget['data']['content'] ) : '';
-			$title   = substr( $content, 0, 100 );
-			break;
+	$title = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['heading'] ) && ! empty( $widget['data']['heading'] ) ? wp_strip_all_tags( $widget['data']['heading'] ) : '';
+	if ( ! empty( $title ) ) {
+		$title = substr( $title, 0, 100 );
+	} else {
+		$widget_type = isset( $widget['type'] ) ? $widget['type'] : '';
+		switch ( $widget_type ) {
+			case 'richcontent':
+				$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['content'] ) && ! empty( $widget['data']['content'] ) ? wp_strip_all_tags( $widget['data']['content'] ) : '';
+				$title   = substr( $content, 0, 100 );
+				break;
 
-		case 'instagramprofileembed':
-			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['insta_id'] ) && ! empty( $widget['data']['insta_id'] ) ? wp_strip_all_tags( $widget['data']['insta_id'] ) : '';
-			if ( $content ) {
-				$content = trim( $content, ' @' );
-				$title   = '@' . $content . ' - instagram';
-			}
-			break;
+			case 'instagramprofile':
+				$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['insta_id'] ) && ! empty( $widget['data']['insta_id'] ) ? wp_strip_all_tags( $widget['data']['insta_id'] ) : '';
+				if ( $content ) {
+					$content = trim( $content, ' @' );
+					$title   = '@' . $content . ' - instagram';
+				}
+				break;
 
-		case 'twitterprofile':
-			$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['username'] ) && ! empty( $widget['data']['username'] ) ? wp_strip_all_tags( $widget['data']['username'] ) : '';
-			if ( $content ) {
-				$content = trim( $content, ' @' );
-				$title   = '@' . $content . ' - X';
-			}
-			break;
+			case 'twitterprofile':
+				$content = isset( $widget['data'] ) && ! empty( $widget['data'] ) && isset( $widget['data']['username'] ) && ! empty( $widget['data']['username'] ) ? wp_strip_all_tags( $widget['data']['username'] ) : '';
+				if ( $content ) {
+					$content = trim( $content, ' @' );
+					$title   = '@' . $content . ' - X';
+				}
+				break;
+		}
 	}
 	return $title;
 }

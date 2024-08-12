@@ -2,7 +2,7 @@
 /**
  * Template for manage widgets screen - for buddypress groups.
  *
- * @since 1.0.0
+ * @version 1.0.0
  * @package frontpage-buddy
  */
 
@@ -34,15 +34,3 @@ do_action( 'frontpage_buddy_manage_frontpage__before', 'um_member_profiles' );
 </div>
 
 <?php do_action( 'frontpage_buddy_manage_frontpage__after', 'um_member_profiles' ); ?>
-
-<?php
-$inline_script  = 'jQuery( ($) => {';
-$inline_script .= 'let fpbuddy_manager = new FPBuddyWidgetsManager({';
-$inline_script .= '"el_outer" : ".fpbuddy_manage_widgets",';
-$inline_script .= '"el_content" : "#fpbuddy_fp_layout_outer",';
-$inline_script .= '})';
-$inline_script .= '});';
-wp_add_inline_script(
-	'frontpage-buddy-editor',
-	$inline_script
-);
