@@ -6,6 +6,8 @@
  * @package frontpage-buddy
  */
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 do_action( 'frontpage_buddy_manage_frontpage__before', 'bp_groups' );
 
 $integration = frontpage_buddy()->get_integration( 'buddyboss_groups' );

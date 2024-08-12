@@ -6,6 +6,8 @@
  * @package frontpage-buddy
  */
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 do_action( 'frontpage_buddy_manage_frontpage__before', 'bp_members' );
 ?>
 <?php /* The css class 'fpbuddy_manage_widgets' is required by javascript */ ?>

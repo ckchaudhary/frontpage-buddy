@@ -8,6 +8,8 @@
 
 namespace RB\FrontPageBuddy\Integrations\UltimateMember;
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 /**
  * The main plugin class.
  */

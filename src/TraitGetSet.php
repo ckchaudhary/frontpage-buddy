@@ -7,6 +7,8 @@
 
 namespace RB\FrontPageBuddy;
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 if ( ! trait_exists( '\RB\FrontPageBuddy\TraitGetSet' ) ) {
 
 	/**

@@ -10,6 +10,8 @@
  * @version 1.0.0
  */
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 do_action( 'bp_before_member_plugin_template' );
 
 do_action( 'bp_before_member_front_template' );

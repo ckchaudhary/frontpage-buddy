@@ -6,6 +6,8 @@
  * @package frontpage-buddy
  */
 
+defined( 'ABSPATH' ) ? '' : exit();
+
 do_action( 'frontpage_buddy_manage_frontpage__before', 'buddyboss_members' );
 
 $is_enabled = frontpage_buddy()->get_integration( 'buddyboss_members' )->has_custom_front_page( bp_displayed_user_id() );
