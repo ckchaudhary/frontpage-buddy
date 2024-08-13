@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-09 05:50+0000\n"
+"Report-Msgid-Bugs-To: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
+"POT-Creation-Date: 2024-08-13 06:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
@@ -17,54 +17,85 @@ msgstr ""
 "X-Domain: frontpage-buddy"
 
 #. 'field name' can not be empty.
-#: src/Widgets/Widget.php:225
+#: src/Widgets/WidgetType.php:257
 #, php-format
 msgid "%s can not be empty."
 msgstr ""
 
-#: src/Widgets/Collection.php:156 src/Widgets/Collection.php:262
-#: src/Widgets/Collection.php:329
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:30
+msgid ""
+"A custom front page for this group is not enabled yet. Before enabling it, "
+"make sure you have added some content for the front page."
+msgstr ""
+
+#: templates/frontpage-buddy/buddyboss/profiles/manage.php:21
+msgid ""
+"A custom front page for your profile is not enabled yet. Before enabling it, "
+"make sure you have added some content for the front page."
+msgstr ""
+
+#: src/Editor.php:66 src/Editor.php:157 src/Editor.php:222
 msgid "Access denied!"
 msgstr ""
 
-#: src/Plugin.php:328
+#: src/Plugin.php:427
 msgid "add section"
 msgstr ""
 
-#: src/Widgets/RichContent.php:26
-msgid "Add text/copy, headings, links, lists, insert images, etc."
+#: src/Widgets/RichContent.php:25
+msgid "Add text/copy, headings, links, lists etc."
 msgstr ""
 
-#: src/Admin.php:192
+#: src/Widgets/RichContent.php:47
+msgid "Align center"
+msgstr ""
+
+#: src/Widgets/RichContent.php:46
+msgid "Align left"
+msgstr ""
+
+#: src/Widgets/RichContent.php:48
+msgid "Align right"
+msgstr ""
+
+#: src/Admin.php:199
 msgid "Appearance"
 msgstr ""
 
-#: src/Plugin.php:331
+#: src/Plugin.php:430
 msgid "Are you sure you want to delete this content?"
 msgstr ""
 
-#: src/Plugin.php:330
+#: src/Plugin.php:429
 msgid "Are you sure you want to delete this section?"
 msgstr ""
 
-#: src/Admin.php:409
+#: src/Admin.php:498
 msgid "Background Color"
 msgstr ""
 
-#: src/Admin.php:419
+#: src/Admin.php:508
 msgid "Background color of the entire area."
 msgstr ""
 
-#. Author of the plugin
-msgid "ckchaudhary"
+#: src/Widgets/RichContent.php:50
+msgid "Bolden"
 msgstr ""
 
-#: src/Widgets/Widget.php:307
+#: src/Widgets/RichContent.php:59
+msgid "Choose the buttons/options allowed in rich text editors."
+msgstr ""
+
+#: src/Widgets/WidgetType.php:341
 msgid "Close"
 msgstr ""
 
-#: src/Admin.php:488
+#: src/Admin.php:577
 msgid "Constrast color of the primary color"
+msgstr ""
+
+#: src/Admin.php:623
+msgid "Constrast color of the secondary color"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:42
@@ -79,11 +110,13 @@ msgstr ""
 msgid "Currently enabled"
 msgstr ""
 
-#: templates/frontpage-buddy/buddypress/groups/manage.php:15
+#: templates/frontpage-buddy/buddypress/groups/manage.php:17
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:60
 msgid "Customize group's front page"
 msgstr ""
 
-#: templates/frontpage-buddy/buddypress/groups/manage.php:20
+#: templates/frontpage-buddy/buddypress/groups/manage.php:22
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:65
 msgid ""
 "Customize this group's front page by adding text, images, embedding your "
 "social media feed, etc."
@@ -96,10 +129,12 @@ msgid "Customize this group's front page by going %s."
 msgstr ""
 
 #: src/Integrations/BuddyPress/MemberProfilesHelper.php:104
+#: src/Integrations/BuddyBoss/MemberProfilesHelper.php:160
 msgid "Customize your front page"
 msgstr ""
 
-#: templates/frontpage-buddy/buddypress/profiles/manage.php:16
+#: templates/frontpage-buddy/buddypress/profiles/manage.php:18
+#: templates/frontpage-buddy/buddyboss/profiles/manage.php:52
 msgid ""
 "Customize your front page by adding text, images, embedding your social "
 "media feed, etc."
@@ -108,6 +143,7 @@ msgstr ""
 #. 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a>
 #: src/Integrations/BuddyPress/Profiles.php:65
 #: src/Integrations/BBPress/Profiles.php:46
+#: src/Integrations/BuddyBoss/Profiles.php:180
 #, php-format
 msgid "Customize your profile's front page by going %s."
 msgstr ""
@@ -116,71 +152,113 @@ msgstr ""
 msgid "Display any X/Twitter profile's feed."
 msgstr ""
 
-#. external link to read technical details about the widget.
-#: src/Widgets/RichContent.php:29
-#, php-format
+#: src/Widgets/RichContent.php:26
 msgid ""
-"Displays a rich-text-editor, allowing users to enter text, links, images etc."
-" Also has basic formatting options like 'bold', 'italics', etc. %s"
+"Displays a rich-text-editor, allowing users to enter text, links, etc. Also "
+"has basic formatting options like \"bold\", \"italics\", etc."
 msgstr ""
 
-#: src/Plugin.php:329
+#: src/Plugin.php:428
 msgid "Drag to move up or down"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:48
+#: src/Widgets/TwitterProfile.php:67
 msgid "E.g: @johndoe"
 msgstr ""
 
-#: src/Admin.php:193
+#: src/Admin.php:200
 msgid "Edit front page"
+msgstr ""
+
+#. 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a>
+#: src/Integrations/BuddyBoss/Groups.php:181
+#, php-format
+msgid "Edit the welcome page by going %s."
+msgstr ""
+
+#: src/Widgets/RichContent.php:41
+msgid "Editor elements"
 msgstr ""
 
 #: src/Widgets/YoutubeEmbed.php:26
 msgid "Embed a youtube video."
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:26
+#: src/Widgets/FacebookPage.php:25
 msgid "Embed and promote any Facebook Page."
+msgstr ""
+
+#: src/Widgets/RichContent.php:49
+msgid "Emphasis/Italicize"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:45
 msgid "Enable custom boxes for group homepages..."
 msgstr ""
 
-#: src/Admin.php:302
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:35
+#: templates/frontpage-buddy/buddyboss/profiles/manage.php:26
+msgid "Enable custom front page?"
+msgstr ""
+
+#: src/Widgets/WidgetType.php:87
+msgid "Enable for"
+msgstr ""
+
+#: src/Admin.php:387
 msgid "Enable this integration?"
 msgstr ""
 
-#: src/Widgets/YoutubeEmbed.php:48
+#: src/Integrations/BuddyBoss/Groups.php:45
+msgid "Enabling this integration will have no effect."
+msgstr ""
+
+#: src/Widgets/RichContent.php:196
+msgid "Enter text here.."
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:67
 msgid "Enter the youtube video url."
 msgstr ""
 
-#: src/Widgets/Collection.php:194 src/Widgets/Collection.php:200
-#: src/Widgets/Collection.php:206
+#: src/Editor.php:89 src/Editor.php:95 src/Editor.php:101
 msgid "Error"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:25
+#: src/Widgets/FacebookPage.php:24
 msgid "Facebook Page"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:84
+#: src/Widgets/FacebookPage.php:60
 msgid "Facebook Page URL"
 msgstr ""
 
-#: src/Widgets/YoutubeEmbed.php:57
+#: src/Widgets/YoutubeEmbed.php:76
 msgid "Fixed"
 msgstr ""
 
-#: src/Widgets/YoutubeEmbed.php:58
+#: src/Widgets/YoutubeEmbed.php:77
 msgid "Fluid"
+msgstr ""
+
+#: src/Widgets/RichContent.php:45
+msgid "Formatting - Quote/Paragraph/Headers"
 msgstr ""
 
 #: src/Integrations/BuddyPress/GroupExtension.php:38
 #: src/Integrations/BuddyPress/GroupExtension.php:46
 #: src/Integrations/BuddyPress/MemberProfilesHelper.php:39
+#: src/Integrations/BuddyBoss/Profiles.php:158
 msgid "Front Page"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:71
+#: src/Integrations/BuddyBoss/Profiles.php:93
+msgid "Front page menu name"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:77
+msgid "Front page menu slug"
 msgstr ""
 
 #. Name of the plugin
@@ -189,7 +267,7 @@ msgid "FrontPage Buddy"
 msgstr ""
 
 #. %s: list of plugins frontpage-buddy works with.
-#: src/Admin.php:273
+#: src/Admin.php:358
 #, php-format
 msgid ""
 "Frontpage buddy can only work when either of the following plugins are "
@@ -200,26 +278,48 @@ msgstr ""
 msgid "Frontpage Buddy has no effect if the following option is not enabled:"
 msgstr ""
 
-#: src/Widgets/Widget.php:324
+#: src/Widgets/RichContent.php:56
+msgid "Full screen"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:44
+msgid "Groups are not enabled."
+msgstr ""
+
+#: src/Widgets/WidgetType.php:184
 msgid "Heading"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:59
+#: src/Widgets/TwitterProfile.php:78
 msgid "Height"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:61
+#: src/Widgets/TwitterProfile.php:80
 msgid "Height in pixels (optional)"
 msgstr ""
 
 #: src/Integrations/BuddyPress/GroupExtension.php:96
 #: src/Integrations/BuddyPress/MemberProfilesHelper.php:188
-#: src/Integrations/BBPress/ProfilesHelper.php:43
+#: src/Integrations/BBPress/ProfilesHelper.php:45
+#: src/Integrations/BuddyBoss/GroupExtension.php:85
+#: src/Integrations/BuddyBoss/MemberProfilesHelper.php:233
 msgid "here"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:100
+#: src/Widgets/FacebookPage.php:76
 msgid "Hide Cover Photo"
+msgstr ""
+
+#: src/Widgets/RichContent.php:55
+msgid "Horizontal Rule"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:110
+msgid ""
+"If enabled, when a group admin visits the front page of the group, they see "
+"a small prompt at the top. This can be used to encourage group admins to add "
+"content to the front page. This can also be used to add a link to the page "
+"where the front page can be customized."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:84
@@ -231,6 +331,7 @@ msgid ""
 msgstr ""
 
 #: src/Integrations/BuddyPress/Profiles.php:77
+#: src/Integrations/BuddyBoss/Profiles.php:116
 msgid ""
 "If enabled, when a member visits their profile, they see a small prompt at "
 "the top. This can be used to encourage members to add content to their front "
@@ -246,47 +347,96 @@ msgid ""
 "customize their front page."
 msgstr ""
 
-#: src/Widgets/InstagramProfile.php:25
+#: src/Widgets/InstagramProfile.php:42 src/Widgets/FacebookPage.php:42
+#: src/Widgets/YoutubeEmbed.php:43 src/Widgets/TwitterProfile.php:43
+msgid "If you have concerns, you should keep this widget disabled."
+msgstr ""
+
+#: src/Widgets/InstagramProfile.php:24
 msgid "Instagram Profile"
 msgstr ""
 
-#: src/Admin.php:187
+#: src/Admin.php:193
 msgid "Integrations"
 msgstr ""
 
-#: src/Plugin.php:327
+#: src/Plugin.php:426
 msgid "Invalid"
 msgstr ""
 
-#: src/Widgets/Collection.php:146 src/Widgets/Collection.php:151
-#: src/Widgets/Collection.php:252 src/Widgets/Collection.php:257
-#: src/Widgets/Collection.php:295 src/Widgets/Collection.php:319
-#: src/Widgets/Collection.php:324 src/Widgets/Collection.php:351
+#: src/Editor.php:56 src/Editor.php:61 src/Editor.php:147 src/Editor.php:152
+#: src/Editor.php:188 src/Editor.php:212 src/Editor.php:217 src/Editor.php:239
 msgid "Invalid request!"
 msgstr ""
 
-#: src/Widgets/RichContent.php:27
-msgid "Know More"
+#. 1: link to https://www.instagram.com/embed.js 2: link to http://developers.facebook.com/policy/ & https://www.facebook.com/privacy/explanation
+#. 1: link to https://connect.facebook.net/en_US/sdk.js 2: link to http://developers.facebook.com/policy/ & https://www.facebook.com/privacy/explanation
+#. 1: link to https://platform.twitter.com/widgets.js 2: link to https://x.com/en/privacy & https://developer.x.com/en/more/developer-terms/agreement-and-policy
+#: src/Widgets/InstagramProfile.php:38 src/Widgets/FacebookPage.php:38
+#: src/Widgets/TwitterProfile.php:39
+#, php-format
+msgid ""
+"It loads a javascript file from %1$s. Please check the policy at %2$s and "
+"ascertain what kind of information is sent to third party servers."
 msgstr ""
 
-#: src/Admin.php:304 src/Widgets/TwitterProfile.php:66
+#. 1: https://www.youtube.com/embed/Youtube-video-id 2: link to https://www.youtube.com/static?gl=CA&template=terms
+#: src/Widgets/YoutubeEmbed.php:39
+#, php-format
+msgid ""
+"It makes use of an iframe to embed a youtube video. The iframe source is set "
+"to %1$s. Please check the policy at %2$s and ascertain what kind of "
+"information is sent to third party servers."
+msgstr ""
+
+#: src/Widgets/RichContent.php:52
+msgid "Link"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:73
+msgid "Name of the group's menu item which displays the front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Profiles.php:95
+msgid "Name of the member profile menu item which displays the front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Profiles.php:101
+msgid ""
+"Name of the sub menu item which is added under 'Account' main menu. This is "
+"the screen from where members can customize thier front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:86
+msgid ""
+"Name of the sub menu item which is added under 'Manage' main menu. This is "
+"the screen from where admins can customize group's front page."
+msgstr ""
+
+#: src/Admin.php:389 src/Widgets/TwitterProfile.php:85
 #: src/Integrations/BuddyPress/Groups.php:81
 #: src/Integrations/BuddyPress/Profiles.php:74
 #: src/Integrations/BBPress/Profiles.php:55
+#: src/Integrations/BuddyBoss/Groups.php:107
+#: src/Integrations/BuddyBoss/Profiles.php:113
 msgid "No"
 msgstr ""
 
-#: src/Admin.php:274
+#: src/Admin.php:359
 msgid "Not much it can do for now!"
 msgstr ""
 
-#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:15
-#: templates/frontpage-buddy/bbpress/profiles/manage.php:15
+#: src/Widgets/RichContent.php:54
+msgid "Ordered list"
+msgstr ""
+
+#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:17
+#: templates/frontpage-buddy/bbpress/profiles/manage.php:18
 msgid "Personalize your profile"
 msgstr ""
 
-#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:20
-#: templates/frontpage-buddy/bbpress/profiles/manage.php:20
+#: templates/frontpage-buddy/ultimate-member/profiles/manage.php:22
+#: templates/frontpage-buddy/bbpress/profiles/manage.php:23
 msgid ""
 "Personalize your profile by adding text, images, embedding your social media "
 "feed, etc."
@@ -294,52 +444,82 @@ msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Personalized front pages for buddypress members & groups, bbpress profiles "
-"and 'Ultimate Member' profiles."
+"Personalized front pages for buddypress & buddyboss members & groups, "
+"bbpress profiles and 'Ultimate Member' profiles."
 msgstr ""
 
-#: src/Widgets/YoutubeEmbed.php:56
+#: src/Widgets/YoutubeEmbed.php:75
 msgid "Player width"
 msgstr ""
 
-#: src/Plugin.php:111
+#: src/Widgets/InstagramProfile.php:32 src/Widgets/FacebookPage.php:32
+#: src/Widgets/YoutubeEmbed.php:33 src/Widgets/TwitterProfile.php:33
+msgid ""
+"Please update your privacy and cookie policies accordingly. It befalls on "
+"you ( the website administrator ) to collect opt-in consent beforehand."
+msgstr ""
+
+#: src/Plugin.php:122 src/Plugin.php:160
 msgid "Please use a unique type."
 msgstr ""
 
-#: src/Admin.php:455
+#: src/Admin.php:544
 msgid "Primary Color"
 msgstr ""
 
-#: src/Admin.php:478
+#: src/Admin.php:567
 msgid "Primary Color - Contrast"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:88
 #: src/Integrations/BuddyPress/Profiles.php:81
 #: src/Integrations/BBPress/Profiles.php:62
+#: src/Integrations/BuddyBoss/Groups.php:114
+#: src/Integrations/BuddyBoss/Profiles.php:120
 msgid "Prompt text"
 msgstr ""
 
-#: src/Widgets/RichContent.php:25
+#: src/Widgets/RichContent.php:24
 msgid "Rich Text"
 msgstr ""
 
-#: src/Plugin.php:332
+#: src/Admin.php:590
+msgid "Secondary Color"
+msgstr ""
+
+#: src/Admin.php:613
+msgid "Secondary Color - Contrast"
+msgstr ""
+
+#: src/Plugin.php:431
 msgid "Select the type of content."
 msgstr ""
 
-#: src/Admin.php:542
+#: src/Admin.php:675
 msgid "Settings"
 msgstr ""
 
-#: src/Admin.php:396
+#: src/Admin.php:485
 msgid ""
 "Settings for the screen where your website's users can manage/edit the front "
 "page."
 msgstr ""
 
+#: src/Integrations/BuddyBoss/Groups.php:84
+#: src/Integrations/BuddyBoss/Profiles.php:99
+msgid "Settings menu name"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Profiles.php:105
+msgid "Settings menu slug"
+msgstr ""
+
 #: src/Admin.php:161
 msgid "Settings updated."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:106
+msgid "Show prompt to group admins when viewing group's front page?"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:80
@@ -348,30 +528,46 @@ msgstr ""
 
 #: src/Integrations/BuddyPress/Profiles.php:73
 #: src/Integrations/BBPress/Profiles.php:54
+#: src/Integrations/BuddyBoss/Profiles.php:112
 msgid "Show prompt when viewing one's own profile?"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:107
+#: src/Widgets/FacebookPage.php:83
 msgid "Show Recent Posts"
 msgstr ""
 
-#: src/Widgets/InstagramProfile.php:26
+#: src/Widgets/InstagramProfile.php:25
 msgid "Showcase an instagram profile."
 msgstr ""
 
-#: src/Admin.php:432
+#: src/Integrations/BuddyBoss/Groups.php:79
+msgid "Slug of the group's menu item which displays the front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Profiles.php:107
+msgid ""
+"Slug of the sub menu item which is added under 'Account' main menu. This is "
+"the screen from where members can customize thier front page."
+msgstr ""
+
+#: src/Widgets/RichContent.php:51
+msgid "Strike through"
+msgstr ""
+
+#: src/Admin.php:521
 msgid "Text Color"
 msgstr ""
 
-#: src/Admin.php:442
+#: src/Admin.php:531
 msgid "Text color of the entire area."
 msgstr ""
 
-#: src/Plugin.php:115
-msgid "The integration must extend \\RecycleBin\\FrontPageBuddy\\Integration."
+#: src/Plugin.php:126
+msgid "The integration must extend \\RB\\FrontPageBuddy\\Integration."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:90
+#: src/Integrations/BuddyBoss/Groups.php:116
 msgid ""
 "The text to be displayed inside the aforementioned prompt. You can use the "
 "placeholder {{LINK}} which will automatically be replaced with a link to the "
@@ -380,20 +576,37 @@ msgstr ""
 
 #: src/Integrations/BuddyPress/Profiles.php:83
 #: src/Integrations/BBPress/Profiles.php:64
+#: src/Integrations/BuddyBoss/Profiles.php:122
 msgid ""
 "The text to be displayed inside the aforementioned prompt. You can use the "
 "placeholder {{LINK}} which will automatically be replaced with a link to the "
 "page where the member can customize their front page."
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:86
+#: src/Widgets/FacebookPage.php:62
 msgid "The url of the facebook page"
+msgstr ""
+
+#: src/Plugin.php:164
+msgid "The widget type must extend \\RB\\FrontPageBuddy\\Widgets\\WidgetType."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:36
 msgid ""
 "This enables administrators of all BuddyPress groups to customize a group's "
 "front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:40
+msgid ""
+"This enables administrators of all BuddyPress groups to customize their "
+"group's front page."
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Profiles.php:74
+msgid ""
+"This enables all members of your buddyboss site to customize their front "
+"page."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Profiles.php:35
@@ -411,59 +624,107 @@ msgstr ""
 msgid "This enables all users to customize their profile page."
 msgstr ""
 
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:48
+msgid "This group has a custom front page."
+msgstr ""
+
+#: src/Widgets/InstagramProfile.php:31 src/Widgets/FacebookPage.php:31
+#: src/Widgets/YoutubeEmbed.php:32 src/Widgets/TwitterProfile.php:32
+msgid ""
+"This widget makes use of an external API which may track your website "
+"visitor's data and may add cookies on their devices."
+msgstr ""
+
 #: src/Widgets/TwitterProfile.php:25
 msgid "Twitter Profile Feed"
 msgstr ""
 
-#: src/Widgets/Widget.php:306
+#: src/Widgets/RichContent.php:44
+msgid "Undo & Redo"
+msgstr ""
+
+#: src/Widgets/RichContent.php:53
+msgid "Unorderd list"
+msgstr ""
+
+#: src/Widgets/WidgetType.php:340
 msgid "Update"
 msgstr ""
 
-#: src/Widgets/Collection.php:386 src/Widgets/Widget.php:205
+#: src/Editor.php:274 src/Widgets/Widget.php:163
 msgid "Updated"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:65
+#: src/Widgets/TwitterProfile.php:84
 msgid "Use dark theme"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:93
+#: src/Widgets/InstagramProfile.php:30 src/Widgets/FacebookPage.php:30
+#: src/Widgets/YoutubeEmbed.php:31 src/Widgets/TwitterProfile.php:31
+msgid "Use of 3rd party service."
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:69
 msgid "Use Small Header"
 msgstr ""
 
-#: src/Admin.php:465
-msgid "Used as: border colors, button colors, etc."
+#: src/Admin.php:600
+msgid "Used as: border colors, button colors, etc. for sections/rows."
 msgstr ""
 
-#: src/Widgets/YoutubeEmbed.php:47
+#: src/Admin.php:554
+msgid "Used as: border colors, button colors, etc. for widgets/columns."
+msgstr ""
+
+#: src/Widgets/YoutubeEmbed.php:66
 msgid "Video url"
 msgstr ""
 
-#: src/Widgets/Collection.php:266 src/Widgets/Collection.php:333
+#: templates/frontpage-buddy/buddyboss/groups/manage.php:50
+#: templates/frontpage-buddy/buddyboss/profiles/manage.php:41
+msgid "View"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:145
+#: src/Integrations/BuddyBoss/Profiles.php:151
+msgid "Welcome"
+msgstr ""
+
+#: src/Integrations/BuddyBoss/Groups.php:159
+msgid "Welcome Page"
+msgstr ""
+
+#: src/Editor.php:162 src/Editor.php:227
 msgid "Widget not available"
 msgstr ""
 
-#: src/Admin.php:190
+#: src/Admin.php:196
 msgid "Widgets"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:53
+#: src/Widgets/TwitterProfile.php:72
 msgid "Width"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:55
+#: src/Widgets/TwitterProfile.php:74
 msgid "Width in pixels (optional)"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:46
+#: src/Widgets/TwitterProfile.php:65
 msgid "X/Twitter Handle"
 msgstr ""
 
-#: src/Admin.php:305 src/Widgets/TwitterProfile.php:67
+#: src/Admin.php:390 src/Widgets/TwitterProfile.php:86
 #: src/Integrations/BuddyPress/Groups.php:82
 #: src/Integrations/BuddyPress/Profiles.php:75
 #: src/Integrations/BBPress/Profiles.php:56
+#: src/Integrations/BuddyBoss/Groups.php:108
+#: src/Integrations/BuddyBoss/Profiles.php:114
 msgid "Yes"
+msgstr ""
+
+#: templates/frontpage-buddy/buddyboss/profiles/manage.php:39
+msgid "Your profile now has a custom front page!"
 msgstr ""
 
 #: src/Widgets/YoutubeEmbed.php:25
