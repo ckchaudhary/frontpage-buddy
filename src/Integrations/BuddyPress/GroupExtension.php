@@ -58,7 +58,7 @@ class GroupExtension extends \BP_Group_Extension {
 	}
 
 	/**
-	 * Undocumented function
+	 * Generate the output for settings screen.
 	 *
 	 * @param int $group_id group id.
 	 * @return void
@@ -68,7 +68,7 @@ class GroupExtension extends \BP_Group_Extension {
 	}
 
 	/**
-	 * Undocumented function
+	 * Save settings screen.
 	 *
 	 * @param int $group_id group id.
 	 * @return void

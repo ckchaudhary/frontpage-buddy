@@ -222,7 +222,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Section description.
 	 *
 	 * @return void
 	 */
@@ -231,7 +231,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Section description.
 	 *
 	 * @return void
 	 */
@@ -240,7 +240,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Section description.
 	 *
 	 * @return void
 	 */
@@ -335,7 +335,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * List available integrations.
 	 *
 	 * @return boolean
 	 */
@@ -475,7 +475,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Section description.
 	 *
 	 * @return void
 	 */
@@ -487,7 +487,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Background color.
 	 *
 	 * @return void
 	 */
@@ -510,7 +510,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Text color.
 	 *
 	 * @return void
 	 */
@@ -533,7 +533,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Primary color.
 	 *
 	 * @return void
 	 */
@@ -556,7 +556,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Primary color - contrast.
 	 *
 	 * @return void
 	 */
@@ -579,7 +579,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Secondary color.
 	 *
 	 * @return void
 	 */
@@ -602,7 +602,7 @@ class Admin {
 	}
 
 	/**
-	 * Undocumented function
+	 * Secondary color - contrast.
 	 *
 	 * @return void
 	 */
@@ -625,7 +625,7 @@ class Admin {
 	}
 
 	/**
-	 * Save settings in
+	 * Save settings when activated network wide.
 	 *
 	 * @return void
 	 */
