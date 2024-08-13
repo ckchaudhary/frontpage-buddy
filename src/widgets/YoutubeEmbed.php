@@ -26,6 +26,23 @@ class YoutubeEmbed extends WidgetType {
 		$this->description = __( 'Embed a youtube video.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-youtube"></i>';
 
+		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a youtube video.' ) . '</p>';
+		$this->description_admin .= '<div class="notice notice-warning inline">';
+		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><br>';
+		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
+		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' ) . ' ';
+		$this->description_admin .= '</p>';
+
+		$this->description_admin .= '<p>';
+		$this->description_admin .= sprintf(
+			/* translators: 1: https://www.youtube.com/embed/Youtube-video-id 2: link to https://www.youtube.com/static?gl=CA&template=terms */
+			esc_html__( 'It makes use of an iframe to embed a youtube video. The iframe source is set to %1$s. Please check the policy at %2$s and ascertain what kind of information is sent to third party servers.', 'frontpage-buddy' ) . ' ',
+			'https://www.youtube.com/embed/<strong>Youtube-video-id</strong>',
+			'<a href="https://www.youtube.com/static?gl=CA&template=terms">https://www.youtube.com/static?gl=CA&template=terms</a>'
+		);
+		$this->description_admin .= esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' );
+		$this->description_admin .= '</p></div>';
+
 		parent::__construct();
 	}
 
