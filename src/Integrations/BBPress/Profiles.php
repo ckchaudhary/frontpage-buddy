@@ -126,7 +126,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return string
 	 */
 	public function get_frontpage_layout( $object_id ) {
-		return get_user_meta( $object_id, '_fpbuddy_page_layout', true );
+		return get_user_meta( $object_id, '_frontpage_buddy_page_layout', true );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return void
 	 */
 	public function update_frontpage_layout( $object_id, $data = '' ) {
-		update_user_meta( $object_id, '_fpbuddy_page_layout', $data );
+		update_user_meta( $object_id, '_frontpage_buddy_page_layout', $data );
 	}
 
 	/**
@@ -147,7 +147,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return array
 	 */
 	public function get_added_widgets( $object_id ) {
-		$all = get_user_meta( $object_id, '_fpbuddy_added_widgets', true );
+		$all = get_user_meta( $object_id, '_frontpage_buddy_added_widgets', true );
 		return ! empty( $all ) ? $all : array();
 	}
 
@@ -164,7 +164,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return void
 	 */
 	public function update_added_widgets( $object_id, $data = array() ) {
-		update_user_meta( $object_id, '_fpbuddy_added_widgets', $data );
+		update_user_meta( $object_id, '_frontpage_buddy_added_widgets', $data );
 	}
 
 	/**

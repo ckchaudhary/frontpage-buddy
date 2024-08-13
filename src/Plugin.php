@@ -178,7 +178,7 @@ class Plugin {
 		$key    = strtolower( $key );
 		$option = isset( $this->options[ $key ] ) ? $this->options[ $key ] : null;
 
-		return apply_filters( 'fpbuddy_option', $option, $key );
+		return apply_filters( 'frontpage_buddy_option', $option, $key );
 	}
 
 	/**

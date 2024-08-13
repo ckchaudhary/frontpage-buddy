@@ -266,7 +266,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 	 * @return string
 	 */
 	public function get_frontpage_layout( $object_id ) {
-		return groups_get_groupmeta( $object_id, '_fpbuddy_page_layout', true );
+		return groups_get_groupmeta( $object_id, '_frontpage_buddy_page_layout', true );
 	}
 
 	/**
@@ -277,7 +277,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 	 * @return void
 	 */
 	public function update_frontpage_layout( $object_id, $data = '' ) {
-		groups_update_groupmeta( $object_id, '_fpbuddy_page_layout', $data );
+		groups_update_groupmeta( $object_id, '_frontpage_buddy_page_layout', $data );
 	}
 
 	/**
@@ -287,7 +287,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 	 * @return array
 	 */
 	public function get_added_widgets( $object_id ) {
-		$all = groups_get_groupmeta( $object_id, '_fpbuddy_added_widgets', true );
+		$all = groups_get_groupmeta( $object_id, '_frontpage_buddy_added_widgets', true );
 		return ! empty( $all ) ? $all : array();
 	}
 
@@ -304,7 +304,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 	 * @return void
 	 */
 	public function update_added_widgets( $object_id, $data = array() ) {
-		groups_update_groupmeta( $object_id, '_fpbuddy_added_widgets', $data );
+		groups_update_groupmeta( $object_id, '_frontpage_buddy_added_widgets', $data );
 	}
 
 	/**
