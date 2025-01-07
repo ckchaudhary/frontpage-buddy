@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The main plugin class.
@@ -190,9 +190,6 @@ class Plugin {
 		// Setup globals.
 		add_action( 'frontpage_buddy_load', array( $this, 'setup_globals' ), 2 );
 
-		// Load textdomain.
-		add_action( 'frontpage_buddy_load', array( $this, 'load_plugin_textdomain' ), 4 );
-
 		// Load integrations.
 		add_action( 'frontpage_buddy_load', array( $this, 'load_integrations' ), 6 );
 
@@ -283,7 +280,7 @@ class Plugin {
 			// buddypress groups helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
-					bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
+					\bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
 				}
 			}
 
@@ -305,7 +302,13 @@ class Plugin {
 			// group extension.
 			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
-					bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
+					/**
+					 * This class_exists check is crucial !
+					 * Otherwise this file is not loaded and function 'bp_register_group_extension' is undefined!
+					 */
+					if ( class_exists( '\BP_Group_Extension' ) ) {
+						\bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
+					}
 				}
 			}
 		}
@@ -377,6 +380,8 @@ class Plugin {
 		if ( ! is_admin() && ! is_network_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
 		}
+
+		$this->load_plugin_textdomain();
 	}
 
 	/**
@@ -435,9 +440,14 @@ class Plugin {
 					'object_id'   => 0,
 				)
 			);
-			wp_localize_script( 'frontpage-buddy-editor', 'FRONTPAGE_BUDDY', $data );
 
-			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/css/editor' . $min . '.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_add_inline_script(
+				'frontpage-buddy-editor',
+				'var FRONTPAGE_BUDDY = ' . wp_json_encode( $data ) . ';',
+				'before'
+			);
+
+			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/css/editor.min.css', array(), FPBUDDY_PLUGIN_VERSION );
 			$css  = '.fpbuddy_manage_widgets {';
 			$css .= '--fpbuddy-editor-color-bg: ' . esc_attr( frontpage_buddy()->option( 'editor_color_bg' ) ) . ';';
 			$css .= '--fpbuddy-editor-color-text: ' . esc_attr( frontpage_buddy()->option( 'editor_color_text' ) ) . ';';

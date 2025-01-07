@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress groups.

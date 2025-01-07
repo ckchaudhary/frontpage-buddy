@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BuddyPress;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress groups.
@@ -35,14 +35,14 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 
 		$html = '<p>' . __( 'This enables administrators of all BuddyPress groups to customize a group\'s front page.', 'frontpage-buddy' ) . '</p>';
 
-		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following options are not enabled:', 'frontpage-buddy:' ) . '</p>';
+		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following options are not enabled:', 'frontpage-buddy' ) . '</p>';
 		$html .= '<ul>';
 
-		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'buddypress' ) . ' &gt; ' . __( 'Enable custom front pages for groups.', 'buddypress' );
+		$html .= '<li>' . __( 'Appearance', 'frontpage-buddy' ) . ' &gt; ' . __( 'Customize', 'frontpage-buddy' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'frontpage-buddy' ) . ' &gt; ' . __( 'Enable custom front pages for groups.', 'frontpage-buddy' );
 		$html .= $cf_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
 		$html .= '</li>';
 
-		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'buddypress' ) . ' &gt; ' . __( 'Enable custom boxes for group homepages...', 'frontpage-buddy' );
+		$html .= '<li>' . __( 'Appearance', 'frontpage-buddy' ) . ' &gt; ' . __( 'Customize', 'frontpage-buddy' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Group front page', 'frontpage-buddy' ) . ' &gt; ' . __( 'Enable custom boxes for group homepages...', 'frontpage-buddy' );
 		$html .= $cf_boxes_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
 		$html .= '</li>';
 

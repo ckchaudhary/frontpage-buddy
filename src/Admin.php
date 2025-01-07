@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Admin class, to add settings screen, etc.
@@ -165,8 +165,10 @@ class Admin {
 				<?php settings_fields( $this->option_name ); ?>
 				<?php do_settings_sections( __FILE__ ); ?>
 
+				<span style="display:none; visibility:hidden;" class="rb_tabify_marker" data-id="frontpage-buddy" data-style="nav"></span>
+
 				<p class="submit">
-					<input name="frontpage_buddy_submit" type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes' ); ?>" />
+					<input name="frontpage_buddy_submit" type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'frontpage-buddy' ); ?>" />
 				</p>
 			</form>
 		</div>
@@ -190,20 +192,37 @@ class Admin {
 			)
 		);
 
-		add_settings_section( 'section_integration', __( 'Integrations', 'frontpage-buddy' ), array( $this, 'section_integration_desc' ), __FILE__ );
-		add_settings_field( 'integrations', '', array( $this, 'integrations' ), __FILE__, 'section_integration' );
+		$label = sprintf(
+			/* translators: %s: html for dashicons-admin-plugins */
+			__( '%s Integrations', 'frontpage-buddy' ),
+			'<span class="dashicons dashicons-admin-plugins"></span> '
+		);
+		add_settings_section( 'section_integration', $label, array( $this, 'section_integration_desc' ), __FILE__ );
 
-		add_settings_section( 'section_widgets', __( 'Widgets', 'frontpage-buddy' ), array( $this, 'section_widgets_desc' ), __FILE__ );
-		add_settings_field( 'widgets', '', array( $this, 'widgets' ), __FILE__, 'section_widgets' );
+		add_settings_field( 'integrations', '', array( $this, 'integrations' ), __FILE__, 'section_integration', array( 'class' => 'hide_field_heading' ) );
 
-		add_settings_section( 'section_theme', __( 'Appearance', 'frontpage-buddy' ), array( $this, 'section_theme_desc' ), __FILE__ );
-		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_bg', '', array( $this, 'editor_color_bg' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_primary_contrast', '', array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_secondary', '', array( $this, 'editor_color_secondary' ), __FILE__, 'section_theme' );
-		add_settings_field( 'editor_color_secondary_contrast', '', array( $this, 'editor_color_secondary_contrast' ), __FILE__, 'section_theme' );
+		$label = sprintf(
+			/* translators: %s: html for dashicons-screenoptions */
+			__( '%s Widgets', 'frontpage-buddy' ),
+			'<span class="dashicons dashicons-screenoptions"></span> '
+		);
+
+		add_settings_section( 'section_widgets', $label, array( $this, 'section_widgets_desc' ), __FILE__ );
+		add_settings_field( 'widgets', '', array( $this, 'widgets' ), __FILE__, 'section_widgets', array( 'class' => 'hide_field_heading' ) );
+
+		$label = sprintf(
+			/* translators: %s: html for dashicons-admin-appearance */
+			__( '%s Appearance', 'frontpage-buddy' ),
+			'<span class="dashicons dashicons-admin-appearance"></span> '
+		);
+		add_settings_section( 'section_theme', $label, array( $this, 'section_theme_desc' ), __FILE__ );
+		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_bg', '', array( $this, 'editor_color_bg' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_primary_contrast', '', array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_secondary', '', array( $this, 'editor_color_secondary' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_secondary_contrast', '', array( $this, 'editor_color_secondary_contrast' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
 	}
 
 	/**
@@ -366,9 +385,9 @@ class Admin {
 		}
 
 		foreach ( $all_integrations as $integration_type => $integration_obj ) {
-			echo '<table class="table widefat striped form-table integration">';
+			echo '<table class="table widefat striped form-table fpbuddy-box integration integration-' . esc_attr( $integration_type ) . '">';
 			echo '<thead><tr class="integration-title"><td colspan="100%">';
-			printf( '<h3>%s</h3>', esc_html( $integration_obj->get_integration_name() ) );
+			printf( '<h3 class="fpbuddy-box-title">%s</h3>', esc_html( $integration_obj->get_integration_name() ) );
 			echo '</td></tr></thead>';
 
 			echo '<tbody>';
@@ -436,8 +455,8 @@ class Admin {
 		}
 
 		foreach ( $registered_widgets as $widget_type => $widget_type_obj ) {
-			echo '<table class="table widefat form-table">';
-			echo '<thead><tr><td colspan="100%"><h3>' . esc_html( $widget_type_obj->name ) . '</h3></td></tr></thead>';
+			echo '<table class="table widefat form-table fpbuddy-box widget-' . esc_attr( $widget_type ) . '">';
+			echo '<thead><tr><td colspan="100%"><h3 class="fpbuddy-box-title">' . esc_html( $widget_type_obj->name ) . '</h3></td></tr></thead>';
 			echo '<tbody>';
 
 			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $widget_type_obj->get_admin_description(), basic_html_allowed_tags() ) . '</p></td></tr>';
@@ -501,12 +520,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Background color of the entire area.', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**
@@ -524,12 +544,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Text color of the entire area.', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**
@@ -547,12 +568,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Used as: border colors, button colors, etc. for widgets/columns.', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**
@@ -570,12 +592,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Constrast color of the primary color', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**
@@ -593,12 +616,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Used as: border colors, button colors, etc. for sections/rows.', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**
@@ -616,12 +640,13 @@ class Admin {
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
-		echo '</td></tr></table>';
 
 		printf(
 			'<p class="description">%s</p>',
 			esc_html__( 'Constrast color of the secondary color', 'frontpage-buddy' )
 		);
+
+		echo '</td></tr></table>';
 	}
 
 	/**

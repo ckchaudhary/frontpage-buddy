@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Base Integration class

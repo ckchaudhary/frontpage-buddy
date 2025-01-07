@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Loads( includes ) the given template file.
@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) ? '' : exit();
  * @return void
  */
 function load_template( $template ) {
+	$template  = sanitize_text_field( $template );
 	$template .= '.php';
 	if ( file_exists( get_stylesheet_directory() . '/frontpage-buddy/' . $template ) ) {
 		include get_stylesheet_directory() . '/frontpage-buddy/' . $template;
@@ -195,7 +196,7 @@ function generate_form_fields( $fields, $args = '' ) {
 			case 'textarea':
 			case 'wp_editor':
 				// Label.
-				$html = sprintf(
+				$html .= sprintf(
 					'<textarea id="%1$s" name="%2$s"',
 					esc_attr( $field_id ),
 					esc_attr( $field_name )
@@ -242,7 +243,7 @@ function generate_form_fields( $fields, $args = '' ) {
 
 			default:
 				// Label.
-				$html = sprintf(
+				$html .= sprintf(
 					'<input id="%1$s" name="%2$s" type="%3$s"',
 					esc_attr( $field_id ),
 					esc_attr( $field_name ),
@@ -498,15 +499,6 @@ function basic_html_allowed_tags() {
 		)
 	);
 
-	/*
-	$compiled['img'] = array_merge(
-		$common_attrs,
-		array(
-			'src' => true,
-			'srcset' => true,
-		)
-	);*/
-
 	return apply_filters( 'frontpage_buddy_basic_allowed_html_tags', $compiled );
 }
 
@@ -515,6 +507,7 @@ function basic_html_allowed_tags() {
  * This is used to sanitize the contents of integration and widget setting fields.
  *
  * @since 1.0.0
+ *
  * @return array
  */
 function form_elements_allowed_tags() {
@@ -569,6 +562,17 @@ function form_elements_allowed_tags() {
 	);
 
 	return apply_filters( 'frontpage_buddy_form_allowed_html_tags', $form_tags );
+}
+
+/**
+ * Get the list of html tags( and their attributes ) allowed for final output of front pages.
+ *
+ * @since 1.0.0
+ * @return array
+ */
+function output_allowed_tags() {
+	$tags = basic_html_allowed_tags();
+	return apply_filters( 'frontpage_buddy_widget_output_allowed_html_tags', $tags );
 }
 
 /**

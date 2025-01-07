@@ -16,7 +16,7 @@
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -38,7 +38,8 @@ if ( ! defined( 'FPBUDDY_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'FPBUDDY_PLUGIN_VERSION' ) ) {
-	define( 'FPBUDDY_PLUGIN_VERSION', '1.0.0' );
+	// define( 'FPBUDDY_PLUGIN_VERSION', '1.0.0' );
+	define( 'FPBUDDY_PLUGIN_VERSION', time() );
 }
 
 /**

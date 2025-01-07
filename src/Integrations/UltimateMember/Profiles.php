@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\UltimateMember;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for ultimate-member profiles.
@@ -73,7 +73,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * When on manage widget screen, get the id of the object being edited.
 	 * E.g: current user id, group id etc.
 	 *
-	 * @return mixed
+	 * @return int
 	 */
 	public function get_editable_object_id() {
 		return (int) UM()->user()->target_id;

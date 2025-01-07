@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Embed facebook page widget.
@@ -26,22 +26,32 @@ class YoutubeEmbed extends WidgetType {
 		$this->description = __( 'Embed a youtube video.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-youtube"></i>';
 
-		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a youtube video.' ) . '</p>';
+		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a youtube video.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '<br>';
 		$this->description_admin .= '<div class="notice notice-warning inline">';
-		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><br>';
+		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
-		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' ) . ' ';
+		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' );
+
+		$this->description_admin .= '</p><p>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Data Usage', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= esc_html__( 'Embedding videos through YouTube iFrame does not involve sending or storing personal user data. However, when a video is played, YouTube may collect data as per their policies.', 'frontpage-buddy' );
+		$this->description_admin .= '<br>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Privacy Note', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= sprintf(
+			/* translators: 1: Link to youtube's privacy policy */
+			esc_html__( 'Please note that YouTube may collect information such as IP addresses and viewing activity when videos are played. For more details, refer to %s.', 'frontpage-buddy' ),
+			'<a href="https://www.youtube.com/t/privacy">' . esc_html__( 'YouTube\'s Privacy Policy', 'frontpage-buddy' ) . '</a>'
+		);
+
 		$this->description_admin .= '</p>';
 
-		$this->description_admin .= '<p>';
-		$this->description_admin .= sprintf(
-			/* translators: 1: https://www.youtube.com/embed/Youtube-video-id 2: link to https://www.youtube.com/static?gl=CA&template=terms */
-			esc_html__( 'It makes use of an iframe to embed a youtube video. The iframe source is set to %1$s. Please check the policy at %2$s and ascertain what kind of information is sent to third party servers.', 'frontpage-buddy' ) . ' ',
-			'https://www.youtube.com/embed/<strong>Youtube-video-id</strong>',
-			'<a href="https://www.youtube.com/static?gl=CA&template=terms">https://www.youtube.com/static?gl=CA&template=terms</a>'
-		);
-		$this->description_admin .= esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' );
-		$this->description_admin .= '</p></div>';
+		$this->description_admin .= '<p>' . esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '</div>';
+
+		\add_filter( 'frontpage_buddy_widget_output_allowed_html_tags', array( $this, 'allow_special_html' ) );
 
 		parent::__construct();
 	}
@@ -108,6 +118,29 @@ class YoutubeEmbed extends WidgetType {
 
 		$html = '<div class="youtube-video-container ' . $full_width_class . '"><iframe ' . $wh_attr . ' style="max-width: 100%" type="text/html" src="' . esc_attr( $full_embed_url ) . esc_url( $yt_attr ) . '" frameborder="0" allowfullscreen></iframe></div>';
 		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this );
+	}
+
+	/**
+	 * Adds 'iframe' to the list of allowed html tags.
+	 *
+	 * @since 1.0.0
+	 * @param array $tags Existing list of tags.
+	 * @return array
+	 */
+	public function allow_special_html( $tags ) {
+		$common_attrs   = \RB\FrontPageBuddy\html_elements_common_safe_attrs();
+		$tags['iframe'] = array_merge(
+			$common_attrs,
+			array(
+				'width'           => true,
+				'height'          => true,
+				'style'           => true,
+				'src'             => true,
+				'frameborder'     => true,
+				'allowfullscreen' => true,
+			)
+		);
+		return $tags;
 	}
 
 	/**

@@ -1,29 +1,29 @@
-.fpbuddy-widget-row{
+.fpbuddy-widget-row {
 	margin-bottom: 1.5rem;
 }
 
-.fpbuddy-widget-row .fp-col{
+.fpbuddy-widget-row .fp-col {
 	width: auto;
 	margin-bottom: 1.5rem;
 }
 
-.fpbuddy-widget-row.has-2-fpcols{
+.fpbuddy-widget-row.has-2-fpcols {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
 }
 
-.fpbuddy-widget-row.has-2-fpcols .fp-col{
+.fpbuddy-widget-row.has-2-fpcols .fp-col {
 	width: 45%;
 }
 
 @media (max-width: 768px) {
-	.fpbuddy-widget-row.has-2-fpcols{
+	.fpbuddy-widget-row.has-2-fpcols {
 		display: block;
 	}
 
-	.fpbuddy-widget-row.has-2-fpcols .fp-col{
+	.fpbuddy-widget-row.has-2-fpcols .fp-col {
 		width: auto;
 	}
 }
@@ -50,7 +50,7 @@
 }
 
 /* Prompts */
-.frontpage-buddy-prompt{
+.frontpage-buddy-prompt {
 	position: relative;
     padding: .75rem 1.25rem;
     margin-bottom: 1rem;
@@ -58,12 +58,12 @@
     border-radius: .25rem;
 }
 
-.frontpage-buddy-prompt.prompt-info{
+.frontpage-buddy-prompt.prompt-info {
 	color: #004085;
     background-color: #cce5ff;
     border-color: #b8daff;
 }
 
-.frontpage-buddy-prompt a{
+.frontpage-buddy-prompt a {
 	text-decoration: underline;
 }

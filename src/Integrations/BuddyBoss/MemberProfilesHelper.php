@@ -9,7 +9,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Add settings screen in member profiles.
@@ -25,6 +25,13 @@ class MemberProfilesHelper {
 	 * @var boolean
 	 */
 	protected $content_displayed = false;
+
+	/**
+	 * Slug for the front page component.
+	 *
+	 * @var string
+	 */
+	protected $fp_component_slug = 'front';
 
 	/**
 	 * Constructor
@@ -68,16 +75,16 @@ class MemberProfilesHelper {
 	}
 
 	/**
-	 * Add this plugin's templates folder in buddboss' template stack.
+	 * Add this plugin's templates folder in buddyboss' template stack.
 	 *
 	 * @return string
 	 */
 	public function register_template_stack() {
-		return FPBUDDY_PLUGIN_DIR . 'templates';
+		return FPBUDDY_PLUGIN_DIR . 'templates/bb-buddypress';
 	}
 
 	/**
-	 * Conditionally, remove this plugin's templates folder from buddboss' template stack.
+	 * Conditionally, remove this plugin's templates folder from buddyboss' template stack.
 	 *
 	 * @param array $stack List of folder paths.
 	 * @return array
@@ -185,7 +192,7 @@ class MemberProfilesHelper {
 		}
 
 		$is_fp = false;
-		if ( 'front' === bp_current_component() ) {
+		if ( bp_current_component() === $this->fp_component_slug ) {
 			$current_action = bp_current_action();
 			if ( ! $current_action || 'public' === $current_action ) {
 				$is_fp = true;
@@ -252,7 +259,7 @@ class MemberProfilesHelper {
 	 * @return array
 	 */
 	public function change_fp_nav( $nav ) {
-		if ( 'front' !== $nav['slug'] ) {
+		if ( $this->fp_component_slug !== $nav['slug'] ) {
 			return $nav;
 		}
 
@@ -275,7 +282,7 @@ class MemberProfilesHelper {
 
 		$integration = frontpage_buddy()->get_integration( 'buddyboss_members' );
 		if ( $integration->has_custom_front_page( $user_id ) ) {
-			$component = 'front';
+			$component = $this->fp_component_slug;
 		}
 
 		return $component;

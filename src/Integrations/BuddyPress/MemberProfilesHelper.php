@@ -9,7 +9,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BuddyPress;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Add settings screen in member profiles.

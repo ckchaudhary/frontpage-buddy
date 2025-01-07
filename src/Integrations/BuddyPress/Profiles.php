@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BuddyPress;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress member profiles.
@@ -21,11 +21,6 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return string
 	 */
 	public function get_admin_description() {
-		$notice_class = 'notice-info';
-		if ( ! function_exists( '\bp_nouveau_get_appearance_settings' ) || ! \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
-			$notice_class = 'notice-warning';
-		}
-
 		$cf_enabled = false;
 		if ( function_exists( '\bp_nouveau_get_appearance_settings' ) ) {
 			if ( \bp_nouveau_get_appearance_settings( 'user_front_page' ) ) {
@@ -36,7 +31,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 		$html .= '<p>' . __( 'Frontpage Buddy has no effect if the following option is not enabled:', 'frontpage-buddy' ) . '</p>';
 
 		$html .= '<ul>';
-		$html .= '<li>' . __( 'Appearance' ) . ' &gt; ' . __( 'Customize' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Member front page', 'buddypress' ) . ' &gt; ' . __( 'Enable default front page for member profiles.', 'buddypress' );
+		$html .= '<li>' . __( 'Appearance', 'frontpage-buddy' ) . ' &gt; ' . __( 'Customize', 'frontpage-buddy' ) . ' &gt; BuddyPress Nouveau &gt; ' . __( 'Member front page', 'frontpage-buddy' ) . ' &gt; ' . __( 'Enable default front page for member profiles.', 'frontpage-buddy' );
 		$html .= $cf_enabled ? '<span class="notice notice-success inline">' . esc_html__( 'Currently enabled', 'frontpage-buddy' ) . '</span>' : '<span class="notice notice-error inline">' . esc_html__( 'Currently disabled', 'frontpage-buddy' ) . '</span>';
 		$html .= '</li>';
 		$html .= '</ul>';

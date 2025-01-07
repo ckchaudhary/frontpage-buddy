@@ -69,17 +69,42 @@ label.fpbuddy-switch input:checked ~ span.switch-labels span.label-off {
 	display: none;
 }
 
-.field .field_description{
+.field .field_description {
 	display: block;
 	margin: 10px 0 5px;
 	font-style: italic;
 }
 
-.field .label_option{
+.field .label_option {
 	display: inline-block;
 	margin:0 20px 10px 0;
 }
 
-.form-table .field th{
+.form-table .field th {
 	padding: 15px 10px;
+}
+
+.form-table tr.hide_field_heading > th {
+	display: none;
+}
+
+.psuedo_subnav_links a {
+	outline: none;
+}
+
+div.psuedo_subnav_target {
+	clear: both;
+	padding-top: 30px;
+}
+
+.fpbuddy-box {
+	margin-bottom: 3em;
+}
+
+.fpbuddy-box thead td {
+	background: #dee3eb;
+}
+
+.fpbuddy-box .fpbuddy-box-title {
+	margin: 0;
 }

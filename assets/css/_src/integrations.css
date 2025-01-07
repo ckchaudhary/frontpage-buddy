@@ -1,9 +1,9 @@
 /* Hide buddypress' 'save changes' button on groups>xyz>admin/front-page screen */
-body.buddypress.group-admin.front-page #group-settings-form{
+body.buddypress.group-admin.front-page #group-settings-form {
 	display: none;
 }
 
 /* buddypress applies a 2px border radius on all 'body #buddypress div', we don't need that */
-body #buddypress .fpbuddy_manage_widgets div{
+body #buddypress .fpbuddy_manage_widgets {
 	border-radius: 0;
 }

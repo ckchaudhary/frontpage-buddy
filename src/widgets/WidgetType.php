@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  The widget type class.
@@ -240,10 +240,12 @@ abstract class WidgetType {
 	/**
 	 * Performs basic validation on data fields before updating.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget   The current widget object.
+	 * @param array                             $new_data New data for all fields.
+	 *
 	 * @return array of errors, if any.
 	 */
-	public function validate( $widget ) {
+	public function validate( $widget, $new_data ) {
 		$errors = array();
 
 		// Required fields.
@@ -251,8 +253,7 @@ abstract class WidgetType {
 		if ( ! empty( $fields ) ) {
 			foreach ( $fields as $field_name => $field_attr ) {
 				if ( isset( $field_attr['is_required'] ) && $field_attr['is_required'] ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-					if ( empty( $_POST[ $field_name ] ) ) {
+					if ( empty( $new_data[ $field_name ] ) ) {
 						// translators: 'field name' can not be empty.
 						$errors[] = sprintf( __( '%s can not be empty.', 'frontpage-buddy' ), $field_attr['label'] );
 					}
@@ -267,42 +268,35 @@ abstract class WidgetType {
 	 * Get the sanitized value for given data field to be saved in database.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name self explanator.
-	 * @param array  $field_attr field propterties like field type etc.
+	 * @param string $field_name  self explanatory.
+	 * @param mixed  $field_value self explanatory.
+	 * @param array  $field_attr  field propterties like field type etc.
 	 * @return mixed
 	 */
-	public function sanitize_field_value_for_db( $field_name, $field_attr ) {
+	public function sanitize_field_value_for_db( $field_name, $field_value, $field_attr ) {
 		$sanitized_value = '';
 		switch ( $field_attr['type'] ) {
 			case 'wp_editor':
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-				if ( isset( $_POST[ $field_name ] ) && ! empty( $_POST[ $field_name ] ) ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-					$sanitized_value = wp_kses( wp_unslash( $_POST[ $field_name ] ), \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
+				if ( $field_value ) {
+					$sanitized_value = wp_kses( wp_unslash( $field_value ), \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
 				}
 
 				break;
 
 			case 'checkbox':
 			case 'radio':
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-				if ( isset( $_POST[ $field_name ] ) && ! empty( $_POST[ $field_name ] ) ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-					if ( is_array( $_POST[ $field_name ] ) ) {
-						// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-						$sanitized_value = map_deep( wp_unslash( $_POST[ $field_name ] ), 'sanitize_text_field' );
+				if ( $field_value ) {
+					if ( is_array( $field_value ) ) {
+						$sanitized_value = map_deep( wp_unslash( $field_value ), 'sanitize_text_field' );
 					} else {
-						// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-						$sanitized_value[] = sanitize_text_field( wp_unslash( $_POST[ $field_name ] ) );
+						$sanitized_value[] = sanitize_text_field( wp_unslash( $field_value ) );
 					}
 				}
 				break;
 
 			default:
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-				if ( isset( $_POST[ $field_name ] ) && ! empty( $_POST[ $field_name ] ) ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified elsewhere.
-					$sanitized_value = sanitize_text_field( wp_unslash( $_POST[ $field_name ] ) );
+				if ( $field_value ) {
+					$sanitized_value = sanitize_text_field( wp_unslash( $field_value ) );
 				}
 				break;
 		}

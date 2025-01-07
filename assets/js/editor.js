@@ -94,7 +94,7 @@ class FPBuddyWidgetsManager {
 				} else if( $widget.hasClass( 'widget-twitterprofile' ) ) {
 					let x_id = $widget.find('.field [name="username"]').first().val();
 					if ( x_id.length > 0 ) {
-						x_id = jQuery.trim( insta_id );
+						x_id = jQuery.trim( x_id );
 						widget_title = '@' + x_id.replace( '@', '' ) + ' - X';
 					}
 				} else {
@@ -514,8 +514,6 @@ class FPBuddyLayoutManager {
 				data: data,
 			});
 		} );
-
-		// Update widget preview titles when widget 
 	}
 
 	/**

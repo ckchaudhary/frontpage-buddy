@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Edit screen manager.
@@ -239,7 +239,7 @@ class Editor {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$update_status = $widget_obj->update();
+		$update_status = $widget_obj->update( $_POST );
 		if ( ! $update_status['status'] ) {
 			// validation erorrs!
 			wp_send_json_error( array( 'message' => $update_status['message'] ) );

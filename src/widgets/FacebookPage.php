@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Embed facebook page widget.
@@ -25,22 +25,30 @@ class FacebookPage extends WidgetType {
 		$this->description = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-facebook"></i>';
 
-		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a facebook page.' ) . '</p>';
+		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a facebook page.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '<br>';
 		$this->description_admin .= '<div class="notice notice-warning inline">';
-		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><br>';
+		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
-		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' ) . ' ';
+		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' );
+
+		$this->description_admin .= '</p><p>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Data Usage', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= esc_html__( 'This integration uses the Facebook JavaScript SDK to fetch and display publicly available Facebook content. No personal user data is stored or transmitted by the plugin.', 'frontpage-buddy' );
+		$this->description_admin .= '<br>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Privacy Note', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= sprintf(
+			/* translators: 1: link to https://www.facebook.com/policy.php */
+			esc_html__( 'Facebook may collect information such as IP addresses and user interaction data when the feed is displayed. For details, refer to %s.', 'frontpage-buddy' ),
+			'<a href="https://www.facebook.com/policy.php">' . esc_html__( 'Facebook\'s Privacy Policy', 'frontpage-buddy' ) . '</a>'
+		);
+
 		$this->description_admin .= '</p>';
 
-		$this->description_admin .= '<p>';
-		$this->description_admin .= sprintf(
-			/* translators: 1: link to https://connect.facebook.net/en_US/sdk.js 2: link to http://developers.facebook.com/policy/ & https://www.facebook.com/privacy/explanation */
-			esc_html__( 'It loads a javascript file from %1$s. Please check the policy at %2$s and ascertain what kind of information is sent to third party servers.', 'frontpage-buddy' ) . ' ',
-			'<a href="https://connect.facebook.net/en_US/sdk.js">https://connect.facebook.net/en_US/sdk.js</a>',
-			'<a href="http://developers.facebook.com/policy/">http://developers.facebook.com/policy/</a> &amp; <a href="https://www.facebook.com/privacy/explanation">https://www.facebook.com/privacy/explanation</a>'
-		);
-		$this->description_admin .= esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' );
-		$this->description_admin .= '</p></div>';
+		$this->description_admin .= '<p>' . esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '</div>';
 
 		parent::__construct();
 	}

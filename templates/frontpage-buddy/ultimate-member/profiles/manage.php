@@ -6,7 +6,7 @@
  * @package frontpage-buddy
  */
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 do_action( 'frontpage_buddy_manage_frontpage__before', 'um_member_profiles' );
 ?>

@@ -1,0 +1,2 @@
+All the individual files inside _src directory are joined together and minified.
+The result is then put into editor.min.css file.

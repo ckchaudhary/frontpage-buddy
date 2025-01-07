@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  The widget class.
@@ -122,18 +122,20 @@ class Widget {
 	/**
 	 * Update widget data.
 	 *
+	 * @param array $new_data New data for all fields.
+	 *
 	 * @return array {
 	 *      @type boolean $status
 	 *      @type string  $message
 	 * }
 	 */
-	public function update() {
+	public function update( $new_data ) {
 		$retval = array(
 			'status'  => false,
 			'message' => '',
 		);
 
-		$validation_errors = $this->widget_type->validate( $this );
+		$validation_errors = $this->widget_type->validate( $this, $new_data );
 
 		if ( ! empty( $validation_errors ) ) {
 			$retval['message'] = implode( '<br>', $validation_errors );
@@ -150,7 +152,8 @@ class Widget {
 					continue;
 				}
 
-				$updated_data[ $field_name ] = $this->widget_type->sanitize_field_value_for_db( $field_name, $field_attr );
+				$field_value                 = isset( $new_data[ $field_name ] ) ? $new_data[ $field_name ] : false;
+				$updated_data[ $field_name ] = $this->widget_type->sanitize_field_value_for_db( $field_name, $field_value, $field_attr );
 			}
 		}
 

@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Richcontent widget.
@@ -188,7 +188,7 @@ class RichContent extends WidgetType {
 		$fields = $this->get_default_data_fields( $widget );
 
 		$fields['content'] = array(
-			'type'        => 'wp_editor',
+			'type'        => 'textarea',
 			'label'       => '',
 			'value'       => ! empty( $widget->get_data( 'content', 'edit' ) ) ? $widget->get_data( 'content', 'edit' ) : '',
 			'is_required' => true,

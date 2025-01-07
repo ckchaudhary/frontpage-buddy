@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Show/Print the output for custom front page.
@@ -20,9 +20,8 @@ defined( 'ABSPATH' ) ? '' : exit();
  * @return void
  */
 function show_output( $layout, $widgets, $integration_type, $target_id ) {
-	// The output of each individual widget is validated and escaped by those widgets individually.
-	// phpcs:ignore WordPress.Security.EscapeOutput
-	echo get_output( $layout, $widgets, $integration_type, $target_id );
+	$output = get_output( $layout, $widgets, $integration_type, $target_id );
+	echo wp_kses( $output, output_allowed_tags() );
 }
 
 /**

@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Widgets;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  *  Embed twitter feed.
@@ -26,22 +26,31 @@ class TwitterProfile extends WidgetType {
 		$this->description = __( 'Display any X/Twitter profile\'s feed.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-twitter"></i>';
 
-		$this->description_admin  = '<p>' . esc_html__( 'Enables your users display an X/Twitter profile\'s feed.' ) . '</p>';
+		$this->description_admin  = '<p>' . esc_html__( 'Enables your users display an X/Twitter profile\'s feed.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '<br>';
+
 		$this->description_admin .= '<div class="notice notice-warning inline">';
-		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><br>';
+		$this->description_admin .= '</p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
-		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' ) . ' ';
+		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' );
+
+		$this->description_admin .= '</p><p>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Data Usage', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= esc_html__( 'The "https://platform.twitter.com/widgets.js" script fetches publicly available Twitter content for display. No personal user data is collected or stored by the plugin.', 'frontpage-buddy' );
+		$this->description_admin .= '<br>';
+
+		$this->description_admin .= '<strong>' . esc_html__( 'Privacy Note', 'frontpage-buddy' ) . ': </strong>';
+		$this->description_admin .= sprintf(
+			/* translators: 1: Link to Twitter's privacy policy */
+			esc_html__( 'When embedding Twitter content, Twitter may collect data such as IP addresses, browser details, and interaction metrics. For more information, refer to %s.', 'frontpage-buddy' ),
+			'<a href="https://twitter.com/en/privacy">' . esc_html__( 'Twitter\'s Privacy Policy', 'frontpage-buddy' ) . '</a>'
+		);
+
 		$this->description_admin .= '</p>';
 
-		$this->description_admin .= '<p>';
-		$this->description_admin .= sprintf(
-			/* translators: 1: link to https://platform.twitter.com/widgets.js 2: link to https://x.com/en/privacy & https://developer.x.com/en/more/developer-terms/agreement-and-policy */
-			esc_html__( 'It loads a javascript file from %1$s. Please check the policy at %2$s and ascertain what kind of information is sent to third party servers.', 'frontpage-buddy' ) . ' ',
-			'<a href="https://platform.twitter.com/widgets.js">https://platform.twitter.com/widgets.js</a>',
-			'<a href="https://x.com/en/privacy">https://x.com/en/privacy</a> &amp; <a href="https://developer.x.com/en/more/developer-terms/agreement-and-policy">https://developer.x.com/en/more/developer-terms/agreement-and-policy</a>'
-		);
-		$this->description_admin .= esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' );
-		$this->description_admin .= '</p></div>';
+		$this->description_admin .= '<p>' . esc_html__( 'If you have concerns, you should keep this widget disabled.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin .= '</div>';
 
 		parent::__construct();
 	}

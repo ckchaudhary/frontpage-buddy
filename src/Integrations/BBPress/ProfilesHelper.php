@@ -8,7 +8,7 @@
 
 namespace RB\FrontPageBuddy\Integrations\BBPress;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The main plugin class.

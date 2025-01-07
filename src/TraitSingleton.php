@@ -7,7 +7,7 @@
 
 namespace RB\FrontPageBuddy;
 
-defined( 'ABSPATH' ) ? '' : exit();
+defined( 'ABSPATH' ) || exit;
 
 if ( ! trait_exists( '\RB\FrontPageBuddy\TraitSingleton' ) ) {
 
