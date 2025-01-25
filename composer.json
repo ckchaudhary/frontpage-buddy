@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "RB\\FrontPageBuddy\\": "src/"
+            "FrontPageBuddy\\": "src/"
         },
 		"files": [
 			"src/functions-misc.php",

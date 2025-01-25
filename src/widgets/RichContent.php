@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -68,7 +68,7 @@ class RichContent extends WidgetType {
 	 *
 	 * @param mixed                         $option_value value of the option.
 	 * @param string                        $option_name  name of the option.
-	 * @param \RB\FrontPageBuddy\WidgetType $widget_type  Widget type object.
+	 * @param \FrontPageBuddy\WidgetType $widget_type  Widget type object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */
@@ -180,7 +180,7 @@ class RichContent extends WidgetType {
 	/**
 	 * Get all the data 'fields' for the settings/options screen for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
@@ -188,7 +188,7 @@ class RichContent extends WidgetType {
 		$fields = $this->get_default_data_fields( $widget );
 
 		$fields['content'] = array(
-			'type'        => 'textarea',
+			'type'        => 'richtext_editor',
 			'label'       => '',
 			'value'       => ! empty( $widget->get_data( 'content', 'edit' ) ) ? $widget->get_data( 'content', 'edit' ) : '',
 			'is_required' => true,
@@ -203,13 +203,13 @@ class RichContent extends WidgetType {
 	/**
 	 * Get the html output for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
 	public function get_output( $widget ) {
 		$html = $widget->get_data( 'content', 'view' );
 		if ( ! empty( $html ) ) {
-			$html = wp_kses( $html, \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
+			$html = wp_kses( $html, \FrontPageBuddy\visual_editor_allowed_html_tags() );
 		}
 
 		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );

@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
+namespace FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress member profiles.
  */
-class Profiles extends \RB\FrontPageBuddy\Integration {
+class Profiles extends \FrontPageBuddy\Integration {
 
 	/**
 	 * Is the front page enabled for all members by default?
@@ -41,7 +41,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 			* front page is enabled for all members, automatically.
 			*/
 
-			$helper = \RB\FrontPageBuddy\Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
+			$helper = \FrontPageBuddy\Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
 			bp_deregister_template_stack( array( $helper, 'register_template_stack' ) );
 
 			$located = bp_locate_template( array( 'members/single/front.php' ), false, false );
@@ -135,7 +135,7 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 *
 	 * @param mixed                          $option_value value of the option.
 	 * @param string                         $option_name  name of the option.
-	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
+	 * @param \FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */

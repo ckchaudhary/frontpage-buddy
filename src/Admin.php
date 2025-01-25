@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -236,8 +236,8 @@ class Admin {
 			return false;
 		}
 
-		wp_enqueue_style( 'frontpage-buddy-admin', FPBUDDY_PLUGIN_URL . 'assets/css/admin.css', array( 'wp-color-picker' ), FPBUDDY_PLUGIN_VERSION );
-		wp_enqueue_script( 'frontpage-buddy-admin', FPBUDDY_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
+		wp_enqueue_style( 'frontpage-buddy-admin', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/css/admin.css', array( 'wp-color-picker' ), FRONTPAGE_BUDDY_PLUGIN_VERSION );
+		wp_enqueue_script( 'frontpage-buddy-admin', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker' ), FRONTPAGE_BUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
 	}
 
 	/**
@@ -692,7 +692,7 @@ class Admin {
 	 */
 	public function add_action_links( $links, $file ) {
 		// Return normal links if not this plugin.
-		if ( plugin_basename( basename( constant( 'FPBUDDY_PLUGIN_DIR' ) ) . '/loader.php' ) !== $file ) {
+		if ( plugin_basename( basename( constant( 'FRONTPAGE_BUDDY_PLUGIN_DIR' ) ) . '/loader.php' ) !== $file ) {
 			return $links;
 		}
 

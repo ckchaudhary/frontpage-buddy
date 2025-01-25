@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
+namespace FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -86,7 +86,7 @@ class GroupExtension extends \BP_Group_Extension {
 						);
 						$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
 						echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
-						echo wp_kses( $prompt_text, \RB\FrontPageBuddy\basic_html_allowed_tags() );
+						echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 						echo '</div></div>';
 					}
 				}
@@ -104,7 +104,7 @@ class GroupExtension extends \BP_Group_Extension {
 	 * @return void
 	 */
 	public function settings_screen( $group_id = null ) {
-		\RB\FrontPageBuddy\load_template( 'buddyboss/groups/manage' );
+		\FrontPageBuddy\load_template( 'buddyboss/groups/manage' );
 	}
 
 	/**

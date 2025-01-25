@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyPress;
+namespace FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress member profiles.
  */
-class Profiles extends \RB\FrontPageBuddy\Integration {
+class Profiles extends \FrontPageBuddy\Integration {
 
 	/**
 	 * Get details about this integration, to be displayed in admin settings screen.

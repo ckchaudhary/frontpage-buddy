@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BBPress;
+namespace FrontPageBuddy\Integrations\BBPress;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for bbpress member profiles.
  */
-class Profiles extends \RB\FrontPageBuddy\Integration {
+class Profiles extends \FrontPageBuddy\Integration {
 
 	/**
 	 * Get details about this integration, to be displayed in admin settings screen.
@@ -96,7 +96,10 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function is_widgets_edit_screen( $flag = false ) {
-		return bbp_is_single_user_edit();
+		if ( bbp_is_single_user_edit() ) {
+			$flag = true;
+		}
+		return $flag;
 	}
 
 	/**
@@ -106,7 +109,10 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function is_custom_front_page_screen( $flag = false ) {
-		return bbp_is_single_user_profile();
+		if ( bbp_is_single_user_profile() ) {
+			$flag = true;
+		}
+		return $flag;
 	}
 
 	/**

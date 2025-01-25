@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *  Edit screen manager.
  */
 class Editor {
-	use \RB\FrontPageBuddy\TraitSingleton;
+	use \FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * The array of all registered widgets.
@@ -239,7 +239,24 @@ class Editor {
 			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
 		}
 
-		$update_status = $widget_obj->update( $_POST );
+		$new_data = array();
+		$widget_fields = $widget_type_obj->get_data_fields( $widget_obj );
+		if ( ! empty( $widget_fields ) ) {
+			foreach ( $widget_fields as $widget_field_name => $widget_field_attr ) {
+				$field_value = null;
+				if ( isset( $_POST[ $widget_field_name ] ) ) {
+					/**
+					 * The posted data is unslashed and sanitized by the function sanitize_field_value_for_db
+					 */
+					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					$field_value = $widget_type_obj->sanitize_field_value_for_db( $widget_field_name, $_POST[ $widget_field_name ], $widget_field_attr );
+				}
+
+				$new_data[ $widget_field_name ] = $field_value;
+			}
+		}
+
+		$update_status = $widget_obj->update( $new_data );
 		if ( ! $update_status['status'] ) {
 			// validation erorrs!
 			wp_send_json_error( array( 'message' => $update_status['message'] ) );

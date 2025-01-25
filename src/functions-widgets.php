@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -95,7 +95,7 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 	return $html;
 }
 
-add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\RB\FrontPageBuddy\widget_title_for_manage_screen', 10, 2 );
+add_filter( 'frontpage_buddy_widget_title_for_manage_screen', '\FrontPageBuddy\widget_title_for_manage_screen', 10, 2 );
 /**
  * Filters the title for a widget when displayed on manage widgets screens.
  *

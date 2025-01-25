@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
 "Report-Msgid-Bugs-To: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
-"POT-Creation-Date: 2025-01-06 13:34+0000\n"
+"POT-Creation-Date: 2025-01-19 06:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Access denied!"
 msgstr ""
 
-#: src/Plugin.php:432
+#: src/Plugin.php:410
 msgid "add section"
 msgstr ""
 
@@ -82,11 +82,11 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: src/Plugin.php:435
+#: src/Plugin.php:413
 msgid "Are you sure you want to delete this content?"
 msgstr ""
 
-#: src/Plugin.php:434
+#: src/Plugin.php:412
 msgid "Are you sure you want to delete this section?"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgid ""
 "has basic formatting options like \"bold\", \"italics\", etc."
 msgstr ""
 
-#: src/Plugin.php:433
+#: src/Plugin.php:411
 msgid "Drag to move up or down"
 msgstr ""
 
@@ -287,7 +287,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#. 1: link to https://www.facebook.com/policy.php
+#. 1: link to https://www.facebook.com/privacy/policy
 #: src/Widgets/FacebookPage.php:44
 #, php-format
 msgid ""
@@ -443,7 +443,7 @@ msgstr ""
 msgid "Instagram's Privacy Policy"
 msgstr ""
 
-#: src/Plugin.php:431
+#: src/Plugin.php:409
 msgid "Invalid"
 msgstr ""
 
@@ -575,7 +575,7 @@ msgstr ""
 msgid "Secondary Color - Contrast"
 msgstr ""
 
-#: src/Plugin.php:436
+#: src/Plugin.php:414
 msgid "Select the type of content."
 msgstr ""
 
@@ -661,7 +661,7 @@ msgid ""
 msgstr ""
 
 #: src/Plugin.php:126
-msgid "The integration must extend \\RB\\FrontPageBuddy\\Integration."
+msgid "The integration must extend \\FrontPageBuddy\\Integration."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:90
@@ -686,7 +686,7 @@ msgid "The url of the facebook page"
 msgstr ""
 
 #: src/Plugin.php:164
-msgid "The widget type must extend \\RB\\FrontPageBuddy\\Widgets\\WidgetType."
+msgid "The widget type must extend \\FrontPageBuddy\\Widgets\\WidgetType."
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:36
@@ -760,7 +760,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: src/Editor.php:274 src/Widgets/Widget.php:166
+#: src/Editor.php:291 src/Widgets/Widget.php:166
 msgid "Updated"
 msgstr ""
 

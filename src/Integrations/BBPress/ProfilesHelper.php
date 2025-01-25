@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BBPress;
+namespace FrontPageBuddy\Integrations\BBPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * The main plugin class.
  */
 class ProfilesHelper {
-	use \RB\FrontPageBuddy\TraitSingleton;
+	use \FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * Initiazlie the singleton object.
@@ -46,7 +46,7 @@ class ProfilesHelper {
 					);
 					$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
 					echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
-					echo wp_kses( $prompt_text, \RB\FrontPageBuddy\basic_html_allowed_tags() );
+					echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 					echo '</div></div>';
 				}
 			}
@@ -61,6 +61,6 @@ class ProfilesHelper {
 	 * @return void
 	 */
 	public function show_manage_screen() {
-		\RB\FrontPageBuddy\load_template( 'bbpress/profiles/manage' );
+		\FrontPageBuddy\load_template( 'bbpress/profiles/manage' );
 	}
 }

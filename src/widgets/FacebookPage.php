@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,9 +40,9 @@ class FacebookPage extends WidgetType {
 
 		$this->description_admin .= '<strong>' . esc_html__( 'Privacy Note', 'frontpage-buddy' ) . ': </strong>';
 		$this->description_admin .= sprintf(
-			/* translators: 1: link to https://www.facebook.com/policy.php */
+			/* translators: 1: link to https://www.facebook.com/privacy/policy */
 			esc_html__( 'Facebook may collect information such as IP addresses and user interaction data when the feed is displayed. For details, refer to %s.', 'frontpage-buddy' ),
-			'<a href="https://www.facebook.com/policy.php">' . esc_html__( 'Facebook\'s Privacy Policy', 'frontpage-buddy' ) . '</a>'
+			'<a href="https://www.facebook.com/privacy/policy">' . esc_html__( 'Facebook\'s Privacy Policy', 'frontpage-buddy' ) . '</a>'
 		);
 
 		$this->description_admin .= '</p>';
@@ -56,7 +56,7 @@ class FacebookPage extends WidgetType {
 	/**
 	 * Get all the data 'fields' for the settings/options screen for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
@@ -97,7 +97,7 @@ class FacebookPage extends WidgetType {
 	/**
 	 * Get the html output for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
 	public function get_output( $widget ) {
@@ -132,7 +132,17 @@ class FacebookPage extends WidgetType {
 		$html .= '</blockquote>';
 		$html .= '</div>';
 
-		wp_enqueue_script( 'facebook-sdk', 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0', array(), '20.0', array( 'in_footer' => true ) );
+		wp_enqueue_script(
+			'facebook-sdk',
+			'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0',
+			array(),
+			// @todo: test and use 21.0
+			'20.0',
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 
 		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );
 	}

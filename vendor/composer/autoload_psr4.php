@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RB\\FrontPageBuddy\\' => array($baseDir . '/src'),
+    'FrontPageBuddy\\' => array($baseDir . '/src'),
 );

@@ -5,11 +5,11 @@
  * @package FrontPageBuddy
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! trait_exists( '\RB\FrontPageBuddy\TraitGetSet' ) ) {
+if ( ! trait_exists( '\FrontPageBuddy\TraitGetSet' ) ) {
 
 	/**
 	 * Magic __get and __set methods.

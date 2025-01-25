@@ -12,14 +12,14 @@ class ComposerStaticInit49fe6d3ec26299dce7df3213d873bc88
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'F' => 
         array (
-            'RB\\FrontPageBuddy\\' => 18,
+            'FrontPageBuddy\\' => 15,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'RB\\FrontPageBuddy\\' => 
+        'FrontPageBuddy\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

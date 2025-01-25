@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,12 +15,12 @@ defined( 'ABSPATH' ) || exit;
  */
 class Widget {
 
-	use \RB\FrontPageBuddy\TraitGetSet;
+	use \FrontPageBuddy\TraitGetSet;
 
 	/**
 	 * What type of widget is this?
 	 *
-	 * @var \RB\FrontPageBuddy\WidgetType
+	 * @var \FrontPageBuddy\WidgetType
 	 */
 	protected $widget_type;
 
@@ -79,7 +79,7 @@ class Widget {
 	 * Constructor.
 	 *
 	 * @param array                                 $args initial data.
-	 * @param \RB\FrontPageBuddy\Widgets\WidgetType $type Widget type object.
+	 * @param \FrontPageBuddy\Widgets\WidgetType $type Widget type object.
 	 */
 	public function __construct( $args, $type ) {
 		if ( ! empty( $args ) ) {

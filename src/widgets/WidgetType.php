@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 abstract class WidgetType {
 
-	use \RB\FrontPageBuddy\TraitGetSet;
+	use \FrontPageBuddy\TraitGetSet;
 
 	/**
 	 * Widget type - A key to differentiate it from other widget types. E.g: contentblock, twitter_block etc.
@@ -111,7 +111,7 @@ abstract class WidgetType {
 	 *
 	 * @param mixed                         $option_value value of the option.
 	 * @param string                        $option_name  name of the option.
-	 * @param \RB\FrontPageBuddy\WidgetType $widget_type  Widget type object.
+	 * @param \FrontPageBuddy\WidgetType $widget_type  Widget type object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */
@@ -164,16 +164,16 @@ abstract class WidgetType {
 	 * Get a new widget object.
 	 *
 	 * @param array $props Widget properties like id, data etc.
-	 * @return \RB\FrontPageBuddy\Widgets\Widget
+	 * @return \FrontPageBuddy\Widgets\Widget
 	 */
 	public function get_widget( $props = array() ) {
-		return new \RB\FrontPageBuddy\Widgets\Widget( $props, $this );
+		return new \FrontPageBuddy\Widgets\Widget( $props, $this );
 	}
 
 	/**
 	 * Get data fields for all widgets.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
@@ -192,7 +192,7 @@ abstract class WidgetType {
 	/**
 	 * Get all the data 'fields' for the settings/options screen for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
@@ -201,7 +201,7 @@ abstract class WidgetType {
 	/**
 	 * Get the output for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return string
 	 */
@@ -210,7 +210,7 @@ abstract class WidgetType {
 	/**
 	 * Get the html to be appended before the actual output of a widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
 	public function output_start( $widget ) {
@@ -230,7 +230,7 @@ abstract class WidgetType {
 	/**
 	 * Get the html to be appended after the actual output of a widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
 	public function output_end( $widget ) {
@@ -240,7 +240,7 @@ abstract class WidgetType {
 	/**
 	 * Performs basic validation on data fields before updating.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget   The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget   The current widget object.
 	 * @param array                             $new_data New data for all fields.
 	 *
 	 * @return array of errors, if any.
@@ -275,10 +275,11 @@ abstract class WidgetType {
 	 */
 	public function sanitize_field_value_for_db( $field_name, $field_value, $field_attr ) {
 		$sanitized_value = '';
+
 		switch ( $field_attr['type'] ) {
-			case 'wp_editor':
+			case 'richtext_editor':
 				if ( $field_value ) {
-					$sanitized_value = wp_kses( wp_unslash( $field_value ), \RB\FrontPageBuddy\visual_editor_allowed_html_tags() );
+					$sanitized_value = wp_kses( wp_unslash( $field_value ), \FrontPageBuddy\visual_editor_allowed_html_tags() );
 				}
 
 				break;
@@ -307,7 +308,7 @@ abstract class WidgetType {
 	/**
 	 * Prints the html for settings/options of the widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return void
 	 */
 	public function widget_input_ui( $widget ) {
@@ -324,8 +325,8 @@ abstract class WidgetType {
 				<?php
 				$fields = $this->get_data_fields( $widget );
 				if ( ! empty( $fields ) ) {
-					$fields_html  = \RB\FrontPageBuddy\generate_form_fields( $fields );
-					$allowed_tags = wp_parse_args( \RB\FrontPageBuddy\basic_html_allowed_tags(), \RB\FrontPageBuddy\form_elements_allowed_tags() );
+					$fields_html  = \FrontPageBuddy\generate_form_fields( $fields );
+					$allowed_tags = wp_parse_args( \FrontPageBuddy\basic_html_allowed_tags(), \FrontPageBuddy\form_elements_allowed_tags() );
 					echo wp_kses( $fields_html, $allowed_tags );
 				}
 				?>

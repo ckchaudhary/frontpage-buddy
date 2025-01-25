@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\UltimateMember;
+namespace FrontPageBuddy\Integrations\UltimateMember;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for ultimate-member profiles.
  */
-class Profiles extends \RB\FrontPageBuddy\Integration {
+class Profiles extends \FrontPageBuddy\Integration {
 
 	/**
 	 * Get details about this integration, to be displayed in admin settings screen.
@@ -50,7 +50,9 @@ class Profiles extends \RB\FrontPageBuddy\Integration {
 	 * @return boolean
 	 */
 	public function is_widgets_edit_screen( $flag = false ) {
-		$flag = um_is_on_edit_profile();
+		if ( um_is_on_edit_profile() ) {
+			$flag = true;
+		}
 
 		return $flag;
 	}

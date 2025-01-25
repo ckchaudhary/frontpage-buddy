@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
+namespace FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
  * Show the custom front page if enabled.
  */
 class MemberProfilesHelper {
-	use \RB\FrontPageBuddy\TraitSingleton;
-	use \RB\FrontPageBuddy\TraitGetSet;
+	use \FrontPageBuddy\TraitSingleton;
+	use \FrontPageBuddy\TraitGetSet;
 
 	/**
 	 * Was the content displayed at least once?
@@ -80,7 +80,7 @@ class MemberProfilesHelper {
 	 * @return string
 	 */
 	public function register_template_stack() {
-		return FPBUDDY_PLUGIN_DIR . 'templates/bb-buddypress';
+		return FRONTPAGE_BUDDY_PLUGIN_DIR . 'templates/bb-buddypress';
 	}
 
 	/**
@@ -106,7 +106,7 @@ class MemberProfilesHelper {
 			// Remove this plugin's template stack.
 			$new_stack = array();
 			foreach ( $stack as $filepath ) {
-				if ( strpos( $filepath, FPBUDDY_PLUGIN_DIR ) === false ) {
+				if ( strpos( $filepath, FRONTPAGE_BUDDY_PLUGIN_DIR ) === false ) {
 					$new_stack[] = $filepath;
 				}
 			}
@@ -173,7 +173,7 @@ class MemberProfilesHelper {
 	 * @return void
 	 */
 	public function screen_manage_fp_contents() {
-		\RB\FrontPageBuddy\load_template( 'buddyboss/profiles/manage' );
+		\FrontPageBuddy\load_template( 'buddyboss/profiles/manage' );
 	}
 
 	/**
@@ -241,7 +241,7 @@ class MemberProfilesHelper {
 						);
 						$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
 						echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
-						echo wp_kses( $prompt_text, \RB\FrontPageBuddy\basic_html_allowed_tags() );
+						echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 						echo '</div></div>';
 					}
 				}

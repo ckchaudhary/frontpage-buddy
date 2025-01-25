@@ -28,7 +28,7 @@ do_action( 'frontpage_buddy_manage_frontpage__before', 'bbp_profiles' );
 					<div class="fpbuddy_content">
 						<?php /* The id must be 'fpbuddy_fp_layout_outer' as it is required by javascript */ ?>
 						<div id="fpbuddy_fp_layout_outer">
-							<img src="<?php echo esc_attr( FPBUDDY_PLUGIN_URL ); ?>assets/images/spinner.gif" class="img_loading" >
+							<img src="<?php echo esc_attr( FRONTPAGE_BUDDY_PLUGIN_URL ); ?>assets/images/spinner.gif" class="img_loading" >
 						</div>
 					</div>
 				</div>

@@ -21,12 +21,12 @@ defined( 'ABSPATH' ) || exit;
 require __DIR__ . '/vendor/autoload.php';
 
 // Directory.
-if ( ! defined( 'FPBUDDY_PLUGIN_DIR' ) ) {
-	define( 'FPBUDDY_PLUGIN_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+if ( ! defined( 'FRONTPAGE_BUDDY_PLUGIN_DIR' ) ) {
+	define( 'FRONTPAGE_BUDDY_PLUGIN_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 }
 
 // Url.
-if ( ! defined( 'FPBUDDY_PLUGIN_URL' ) ) {
+if ( ! defined( 'FRONTPAGE_BUDDY_PLUGIN_URL' ) ) {
 	$plugin_url = trailingslashit( plugin_dir_url( __FILE__ ) );
 
 	// If we're using https, update the protocol.
@@ -34,12 +34,11 @@ if ( ! defined( 'FPBUDDY_PLUGIN_URL' ) ) {
 		$plugin_url = str_replace( 'http://', 'https://', $plugin_url );
 	}
 
-	define( 'FPBUDDY_PLUGIN_URL', $plugin_url );
+	define( 'FRONTPAGE_BUDDY_PLUGIN_URL', $plugin_url );
 }
 
-if ( ! defined( 'FPBUDDY_PLUGIN_VERSION' ) ) {
-	// define( 'FPBUDDY_PLUGIN_VERSION', '1.0.0' );
-	define( 'FPBUDDY_PLUGIN_VERSION', time() );
+if ( ! defined( 'FRONTPAGE_BUDDY_PLUGIN_VERSION' ) ) {
+	define( 'FRONTPAGE_BUDDY_PLUGIN_VERSION', '1.0.0' );
 }
 
 /**
@@ -47,10 +46,10 @@ if ( ! defined( 'FPBUDDY_PLUGIN_VERSION' ) ) {
  *
  * @since 1.0.0
  *
- * @return \RB\FrontPageBuddy\Plugin
+ * @return \FrontPageBuddy\Plugin
  */
 function frontpage_buddy() {
-	return \RB\FrontPageBuddy\Plugin::get_instance();
+	return \FrontPageBuddy\Plugin::get_instance();
 }
 
 // Instantiate the main plugin object.

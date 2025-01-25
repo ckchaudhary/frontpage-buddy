@@ -75,13 +75,13 @@ Please review and do not enable any such widget if deemed necessary. Below are t
 
 - **Purpose:** Enables embedding of Facebook profile feeds or public page feeds.
 - **Data Usage:** This integration uses the Facebook JavaScript SDK to fetch and display publicly available Facebook content. No personal user data is stored or transmitted by the plugin.
-- **Privacy Note:** While the plugin does not store user data, Facebook may collect information such as IP addresses and user interaction data when the feed is displayed. For details, refer to [Facebook's Privacy Policy](https://www.facebook.com/policy.php).
+- **Privacy Note:** While the plugin does not store user data, Facebook may collect information such as IP addresses and user interaction data when the feed is displayed. For details, refer to [Facebook's Privacy Policy](https://www.facebook.com/privacy/policy).
 - **Documentation:** For more information on the Facebook JavaScript SDK, visit the [official documentation](https://developers.facebook.com/docs/javascript).
 
 **Instagram Embed.js**
 
 - **Purpose:** Allows embedding of Instagram posts, photos, and videos within user profiles or other sections of the site.
-- **Data Usage:** The `https://www.instagram.com/embed.js` script fetches publicly available Instagram content for display. The plugin does not collect, transmit, or store any user data.
+- **Data Usage:** The `https://instagram.com/embed.js` script fetches publicly available Instagram content for display. The plugin does not collect, transmit, or store any user data.
 - **Privacy Note:** When embedding Instagram content, Instagram may collect user data such as IP addresses, interaction data, and browser information. For more details, refer to [Instagram's Privacy Policy](https://privacycenter.instagram.com/policy).
 - **Documentation:** For technical details, refer to the [Instagram Embedding Documentation](https://developers.facebook.com/docs/instagram/oembed/).
 

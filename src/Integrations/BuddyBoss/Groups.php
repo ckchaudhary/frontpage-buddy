@@ -6,14 +6,14 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyBoss;
+namespace FrontPageBuddy\Integrations\BuddyBoss;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  *  Front page for buddypress groups.
  */
-class Groups extends \RB\FrontPageBuddy\Integration {
+class Groups extends \FrontPageBuddy\Integration {
 	/**
 	 * Constructor
 	 *
@@ -129,7 +129,7 @@ class Groups extends \RB\FrontPageBuddy\Integration {
 	 *
 	 * @param mixed                          $option_value value of the option.
 	 * @param string                         $option_name  name of the option.
-	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
+	 * @param \FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */

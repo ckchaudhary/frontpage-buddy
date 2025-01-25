@@ -22,7 +22,7 @@ do_action( 'frontpage_buddy_manage_frontpage__before', 'bp_members' );
 				<div class="fpbuddy_container">
 					<div class="fpbuddy_content">
 						<div id="fpbuddy_fp_layout_outer">
-							<img src="<?php echo esc_attr( FPBUDDY_PLUGIN_URL ); ?>assets/images/spinner.gif" class="img_loading" >
+							<img src="<?php echo esc_attr( FRONTPAGE_BUDDY_PLUGIN_URL ); ?>assets/images/spinner.gif" class="img_loading" >
 						</div>
 					</div>
 				</div>

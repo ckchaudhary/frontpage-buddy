@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ function load_template( $template ) {
 	} elseif ( file_exists( get_template_directory() . '/frontpage-buddy/' . $template ) ) {
 		include get_template_directory() . '/frontpage-buddy/' . $template;
 	} else {
-		include FPBUDDY_PLUGIN_DIR . 'templates/frontpage-buddy/' . $template;
+		include FRONTPAGE_BUDDY_PLUGIN_DIR . 'templates/frontpage-buddy/' . $template;
 	}
 }
 
@@ -194,7 +194,7 @@ function generate_form_fields( $fields, $args = '' ) {
 
 				break;
 			case 'textarea':
-			case 'wp_editor':
+			case 'richtext_editor':
 				// Label.
 				$html .= sprintf(
 					'<textarea id="%1$s" name="%2$s"',
@@ -298,7 +298,7 @@ function sanitize_field( $field_value, $field_attrs ) {
 
 	switch ( $sanitization_type ) {
 		case 'switch':
-			$sanitization_func = '\RB\FrontPageBuddy\validate_switch';
+			$sanitization_func = '\FrontPageBuddy\validate_switch';
 			break;
 
 		case 'email':
@@ -322,7 +322,7 @@ function sanitize_field( $field_value, $field_attrs ) {
 			break;
 
 		case 'basic_html':
-			$sanitization_func = '\RB\FrontPageBuddy\sanitize_basic_html';
+			$sanitization_func = '\FrontPageBuddy\sanitize_basic_html';
 			break;
 
 		default:

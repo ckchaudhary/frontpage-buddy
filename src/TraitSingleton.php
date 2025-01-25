@@ -5,11 +5,11 @@
  * @package FrontPageBuddy
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! trait_exists( '\RB\FrontPageBuddy\TraitSingleton' ) ) {
+if ( ! trait_exists( '\FrontPageBuddy\TraitSingleton' ) ) {
 
 	/**
 	 * Singleton base class for having singleton implementation.

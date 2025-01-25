@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,14 +48,14 @@ class Plugin {
 	/**
 	 * The object of Admin class
 	 *
-	 * @var \RB\FrontPageBuddy\Admin
+	 * @var \FrontPageBuddy\Admin
 	 */
 	private $admin;
 
 	/**
 	 * The edit screen manager.
 	 *
-	 * @var \RB\FrontPageBuddy\Editor
+	 * @var \FrontPageBuddy\Editor
 	 */
 	private $editor;
 
@@ -76,7 +76,7 @@ class Plugin {
 	/**
 	 * Get the Admin object.
 	 *
-	 * @return \RB\FrontPageBuddy\Admin
+	 * @return \FrontPageBuddy\Admin
 	 */
 	public function admin() {
 		return $this->admin;
@@ -85,7 +85,7 @@ class Plugin {
 	/**
 	 * Get the edit screen manager.
 	 *
-	 * @return \RB\FrontPageBuddy\Editor
+	 * @return \FrontPageBuddy\Editor
 	 */
 	public function editor() {
 		return $this->editor;
@@ -104,7 +104,7 @@ class Plugin {
 	 * Get a registered integration.
 	 *
 	 * @param string $type identifier of the integration.
-	 * @return mixed \RB\FrontPageBuddy\Integration if found. null otherwise.
+	 * @return mixed \FrontPageBuddy\Integration if found. null otherwise.
 	 */
 	public function get_integration( $type ) {
 		return isset( $this->integrations[ $type ] ) ? $this->integrations[ $type ] : null;
@@ -114,7 +114,7 @@ class Plugin {
 	 * Register an integration.
 	 *
 	 * @param string                         $type identifier of the integration.
-	 * @param \RB\FrontPageBuddy\Integration $obj an object of type \RB\FrontPageBuddy\Integration.
+	 * @param \FrontPageBuddy\Integration $obj an object of type \FrontPageBuddy\Integration.
 	 * @return \WP_Error|void \WP_Error if registration failed.
 	 */
 	public function register_integration( $type, $obj ) {
@@ -122,8 +122,8 @@ class Plugin {
 			return new \WP_Error( 'duplicate_integration', __( 'Please use a unique type.', 'frontpage-buddy' ) );
 		}
 
-		if ( ! \is_a( $obj, '\RB\FrontPageBuddy\Integration' ) ) {
-			return new \WP_Error( 'invalid_type', __( 'The integration must extend \RB\FrontPageBuddy\Integration.', 'frontpage-buddy' ) );
+		if ( ! \is_a( $obj, '\FrontPageBuddy\Integration' ) ) {
+			return new \WP_Error( 'invalid_type', __( 'The integration must extend \FrontPageBuddy\Integration.', 'frontpage-buddy' ) );
 		}
 
 		$this->integrations[ $type ] = $obj;
@@ -142,7 +142,7 @@ class Plugin {
 	 * Get a registered widget type.
 	 *
 	 * @param string $type identifier of the widget type.
-	 * @return \RB\FrontPageBuddy\WidgetType if found. null otherwise.
+	 * @return \FrontPageBuddy\WidgetType if found. null otherwise.
 	 */
 	public function get_widget_type( $type ) {
 		return isset( $this->widget_types[ $type ] ) ? $this->widget_types[ $type ] : null;
@@ -151,7 +151,7 @@ class Plugin {
 	/**
 	 * Register a widget type.
 	 *
-	 * @param \RB\FrontPageBuddy\WidgetType $obj an object of type \RB\FrontPageBuddy\WidgetType.
+	 * @param \FrontPageBuddy\WidgetType $obj an object of type \FrontPageBuddy\WidgetType.
 	 * @return \WP_Error|void \WP_Error if registration failed.
 	 */
 	public function register_widget_type( $obj ) {
@@ -160,8 +160,8 @@ class Plugin {
 			return new \WP_Error( 'duplicate_widget_type', __( 'Please use a unique type.', 'frontpage-buddy' ) );
 		}
 
-		if ( ! \is_a( $obj, '\RB\FrontPageBuddy\Widgets\WidgetType' ) ) {
-			return new \WP_Error( 'invalid_type', __( 'The widget type must extend \RB\FrontPageBuddy\Widgets\WidgetType.', 'frontpage-buddy' ) );
+		if ( ! \is_a( $obj, '\FrontPageBuddy\Widgets\WidgetType' ) ) {
+			return new \WP_Error( 'invalid_type', __( 'The widget type must extend \FrontPageBuddy\Widgets\WidgetType.', 'frontpage-buddy' ) );
 		}
 
 		$this->widget_types[ $type ] = $obj;
@@ -238,26 +238,6 @@ class Plugin {
 	}
 
 	/**
-	 * Loads the textdomain for the plugin.
-	 * Language files are used in this order of preference:
-	 *    - WP_LANG_DIR/plugins/frontpage-buddy-LOCALE.mo
-	 *    - WP_PLUGIN_DIR/frontpage-buddy/languages/frontpage-buddy-LOCALE.mo
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_plugin_textdomain() {
-		/*
-		 * As of WP 4.6, WP has, by this point in the load order, already
-		 * automatically added language files in this location:
-		 * wp-content/languages/plugins/frontpage-buddy-es_ES.mo
-		 * load_plugin_textdomain() also looks for language files in that location,
-		 * then it falls back to translations in the plugin's /languages folder, like
-		 * wp-content/frontpage-buddy/languages/frontpage-buddy-es_ES.mo
-		 */
-		load_plugin_textdomain( 'frontpage-buddy', false, FPBUDDY_PLUGIN_DIR . 'languages' );
-	}
-
-	/**
 	 * Detect and load suitable integrations.
 	 *
 	 * @return void
@@ -280,7 +260,7 @@ class Plugin {
 			// buddypress groups helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
 				if ( \bp_is_active( 'groups' ) ) {
-					\bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
+					\bp_register_group_extension( '\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
 				}
 			}
 
@@ -307,7 +287,7 @@ class Plugin {
 					 * Otherwise this file is not loaded and function 'bp_register_group_extension' is undefined!
 					 */
 					if ( class_exists( '\BP_Group_Extension' ) ) {
-						\bp_register_group_extension( '\RB\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
+						\bp_register_group_extension( '\FrontPageBuddy\Integrations\BuddyBoss\GroupExtension' );
 					}
 				}
 			}
@@ -347,11 +327,11 @@ class Plugin {
 		$all_types = apply_filters(
 			'frontpage_buddy_registered_widgets',
 			array(
-				'\RB\FrontPageBuddy\Widgets\RichContent',
-				'\RB\FrontPageBuddy\Widgets\InstagramProfile',
-				'\RB\FrontPageBuddy\Widgets\FacebookPage',
-				'\RB\FrontPageBuddy\Widgets\YoutubeEmbed',
-				'\RB\FrontPageBuddy\Widgets\TwitterProfile',
+				'\FrontPageBuddy\Widgets\RichContent',
+				'\FrontPageBuddy\Widgets\InstagramProfile',
+				'\FrontPageBuddy\Widgets\FacebookPage',
+				'\FrontPageBuddy\Widgets\YoutubeEmbed',
+				'\FrontPageBuddy\Widgets\TwitterProfile',
 			)
 		);
 
@@ -380,8 +360,6 @@ class Plugin {
 		if ( ! is_admin() && ! is_network_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
 		}
-
-		$this->load_plugin_textdomain();
 	}
 
 	/**
@@ -390,18 +368,16 @@ class Plugin {
 	 * @return void
 	 */
 	public function assets() {
-		$min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 		$is_edit_widgets_screen = apply_filters( 'frontpage_buddy_is_widgets_edit_screen', false );
 
 		// assets for edit-widgets screen.
 		if ( $is_edit_widgets_screen ) {
-			wp_enqueue_script( 'trumbowyg', FPBUDDY_PLUGIN_URL . 'assets/trumbowyg/trumbowyg.min.js', array( 'jquery' ), '2.27.3', array( 'in_footer' => true ) );
-			wp_enqueue_style( 'trumbowyg', FPBUDDY_PLUGIN_URL . 'assets/trumbowyg/ui/trumbowyg.min.css', array(), '2.27.3' );
+			wp_enqueue_script( 'trumbowyg', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/trumbowyg/trumbowyg.min.js', array( 'jquery' ), '2.27.3', array( 'in_footer' => true ) );
+			wp_enqueue_style( 'trumbowyg', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/trumbowyg/ui/trumbowyg.min.css', array(), '2.27.3' );
 
-			wp_enqueue_style( 'jquery-ui-theme-smoothness', FPBUDDY_PLUGIN_URL . 'assets/css/jquery-ui.min.css', array(), '1.13.3' );
+			wp_enqueue_style( 'jquery-ui-theme-smoothness', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/css/jquery-ui.min.css', array(), '1.13.3' );
 
-			wp_enqueue_script( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/js/editor' . $min . '.js', array( 'jquery', 'jquery-form', 'jquery-ui-sortable' ), FPBUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
+			wp_enqueue_script( 'frontpage-buddy-editor', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/js/editor.min.js', array( 'jquery', 'jquery-form', 'jquery-ui-sortable' ), FRONTPAGE_BUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
 
 			$data = apply_filters(
 				'frontpage_buddy_script_data',
@@ -424,7 +400,7 @@ class Plugin {
 								'nonce'  => wp_create_nonce( 'frontpage_buddy_widget_opts_get' ),
 							),
 						),
-						'img_spinner' => FPBUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
+						'img_spinner' => FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
 					),
 
 					'lang'        => array(
@@ -447,7 +423,7 @@ class Plugin {
 				'before'
 			);
 
-			wp_enqueue_style( 'frontpage-buddy-editor', FPBUDDY_PLUGIN_URL . 'assets/css/editor.min.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_enqueue_style( 'frontpage-buddy-editor', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/css/editor.min.css', array(), FRONTPAGE_BUDDY_PLUGIN_VERSION );
 			$css  = '.fpbuddy_manage_widgets {';
 			$css .= '--fpbuddy-editor-color-bg: ' . esc_attr( frontpage_buddy()->option( 'editor_color_bg' ) ) . ';';
 			$css .= '--fpbuddy-editor-color-text: ' . esc_attr( frontpage_buddy()->option( 'editor_color_text' ) ) . ';';
@@ -465,7 +441,7 @@ class Plugin {
 		// Assets for view(front page) screen.
 		$is_custom_front_page_screen = apply_filters( 'frontpage_buddy_is_custom_front_page_screen', false );
 		if ( $is_custom_front_page_screen ) {
-			wp_enqueue_style( 'frontpage-buddy-view', FPBUDDY_PLUGIN_URL . 'assets/css/view.css', array(), FPBUDDY_PLUGIN_VERSION );
+			wp_enqueue_style( 'frontpage-buddy-view', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/css/view.css', array(), FRONTPAGE_BUDDY_PLUGIN_VERSION );
 		}
 	}
 }

@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy;
+namespace FrontPageBuddy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -203,7 +203,7 @@ abstract class Integration {
 	 * @return void
 	 */
 	public function output_frontpage_content( $target_id ) {
-		\RB\FrontPageBuddy\show_output(
+		\FrontPageBuddy\show_output(
 			$this->get_frontpage_layout( $target_id ),
 			$this->get_added_widgets( $target_id ),
 			$this->get_integration_type(),
@@ -261,7 +261,7 @@ abstract class Integration {
 	 *
 	 * @param mixed                          $option_value value of the option.
 	 * @param string                         $option_name  name of the option.
-	 * @param \RB\FrontPageBuddy\Integration $integration  integration object.
+	 * @param \FrontPageBuddy\Integration $integration  integration object.
 	 *
 	 * @return mixed null if no default value is to be provided.
 	 */

@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Integrations\BuddyPress;
+namespace FrontPageBuddy\Integrations\BuddyPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * Show the custom front page if enabled.
  */
 class MemberProfilesHelper {
-	use \RB\FrontPageBuddy\TraitSingleton;
+	use \FrontPageBuddy\TraitSingleton;
 
 	/**
 	 * Name of the subnav item
@@ -110,7 +110,7 @@ class MemberProfilesHelper {
 	 * @return void
 	 */
 	public function edit_widgets_contents() {
-		\RB\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
+		\FrontPageBuddy\load_template( 'buddypress/profiles/manage' );
 	}
 
 	/**
@@ -189,7 +189,7 @@ class MemberProfilesHelper {
 						);
 						$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
 						echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
-						echo wp_kses( $prompt_text, \RB\FrontPageBuddy\basic_html_allowed_tags() );
+						echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 						echo '</div></div>';
 					}
 				}

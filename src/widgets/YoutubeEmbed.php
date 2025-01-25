@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-namespace RB\FrontPageBuddy\Widgets;
+namespace FrontPageBuddy\Widgets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,7 +59,7 @@ class YoutubeEmbed extends WidgetType {
 	/**
 	 * Get all the data 'fields' for the settings/options screen for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 *
 	 * @return array
 	 */
@@ -94,7 +94,7 @@ class YoutubeEmbed extends WidgetType {
 	/**
 	 * Get the html output for this widget.
 	 *
-	 * @param \RB\FrontPageBuddy\Widgets\Widget $widget The current widget object.
+	 * @param \FrontPageBuddy\Widgets\Widget $widget The current widget object.
 	 * @return string
 	 */
 	public function get_output( $widget ) {
@@ -128,7 +128,7 @@ class YoutubeEmbed extends WidgetType {
 	 * @return array
 	 */
 	public function allow_special_html( $tags ) {
-		$common_attrs   = \RB\FrontPageBuddy\html_elements_common_safe_attrs();
+		$common_attrs   = \FrontPageBuddy\html_elements_common_safe_attrs();
 		$tags['iframe'] = array_merge(
 			$common_attrs,
 			array(
