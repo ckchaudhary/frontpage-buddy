@@ -82,9 +82,11 @@ class Profiles extends \FrontPageBuddy\Integration {
 	 * @return array
 	 */
 	public function get_settings_fields() {
-		$attrs_show_prompt = array();
+		$attrs_show_prompt          = array();
+		$prompt_field_wrapper_class = 'is-hidden';
 		if ( 'yes' === $this->get_option( 'show_encourage_prompt' ) ) {
 			$attrs_show_prompt['checked'] = 'checked';
+			$prompt_field_wrapper_class   = '';
 		}
 
 		return array(
@@ -116,15 +118,16 @@ class Profiles extends \FrontPageBuddy\Integration {
 				'description' => __( 'If enabled, when a member visits their profile, they see a small prompt at the top. This can be used to encourage members to add content to their front page. This can also be used to add a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
 			),
 			'encourage_prompt_text' => array(
-				'type'         => 'textarea',
-				'label'        => __( 'Prompt text', 'frontpage-buddy' ),
-				'value'        => $this->get_option( 'encourage_prompt_text' ),
-				'description'  => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{LINK}} which will automatically be replaced with a link to the page where the member can customize their front page.', 'frontpage-buddy' ),
-				'attributes'   => array(
+				'type'          => 'tinymce_tiny',
+				'label'         => __( 'Prompt text', 'frontpage-buddy' ),
+				'value'         => $this->get_option( 'encourage_prompt_text' ),
+				'description'   => __( 'The text to be displayed inside the aforementioned prompt. You can use the placeholder {{EDITOR_URL}} which will automatically be replaced with the url where the member can customize their front page.', 'frontpage-buddy' ),
+				'attributes'    => array(
 					'rows' => 3,
 					'cols' => 50,
 				),
-				'sanitization' => 'basic_html',
+				'sanitization'  => 'basic_html',
+				'wrapper_class' => $prompt_field_wrapper_class,
 			),
 		);
 	}
@@ -175,10 +178,11 @@ class Profiles extends \FrontPageBuddy\Integration {
 			case 'encourage_prompt_text':
 				$option_value = null !== $option_value ? trim( $option_value ) : '';
 				if ( empty( $option_value ) ) {
+					$editor_link  = '<a href="{{EDITOR_URL}}">' . esc_html__( 'here', 'TEXTDOMAIN' ) . '</a>';
 					$option_value = sprintf(
-						/* translators: 1: {{LINK}} . In front end, this gets replaced by <a href='..'>here</a> */
+						/* translators: 1: Link to edit-front-page url. */
 						__( 'Customize your profile\'s front page by going %s.', 'frontpage-buddy' ),
-						'{{LINK}}'
+						$editor_link
 					);
 				}
 				break;

@@ -90,6 +90,7 @@ label.fpbuddy-switch input:checked ~ span.switch-labels span.label-off {
 
 .psuedo_subnav_links a {
 	outline: none;
+	box-shadow: none;
 }
 
 div.psuedo_subnav_target {
@@ -107,4 +108,31 @@ div.psuedo_subnav_target {
 
 .fpbuddy-box .fpbuddy-box-title {
 	margin: 0;
+}
+
+.fpbuddy-box .field.is-hidden{
+	display: none;
+}
+
+.button-link-external .dashicons{
+	vertical-align: middle;
+}
+
+.button-link-external sup .dashicons{
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+.frontpage-buddy-notice-style1{
+	margin: 25px 0 15px;
+	padding: 10px 10px 20px;
+	background: #21202e;
+    color: #fff;
+    text-align: center;
+    border-left-width: 0;
+    border-radius: 10px;
+}
+.frontpage-buddy-notice-style1 .notice-title{
+	color: #fff;
 }

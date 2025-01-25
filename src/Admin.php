@@ -216,7 +216,6 @@ class Admin {
 			'<span class="dashicons dashicons-admin-appearance"></span> '
 		);
 		add_settings_section( 'section_theme', $label, array( $this, 'section_theme_desc' ), __FILE__ );
-		add_settings_field( 'editor_theme_settings', __( 'Edit front page', 'frontpage-buddy' ), array( $this, 'editor_theme_settings' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
 		add_settings_field( 'editor_color_bg', '', array( $this, 'editor_color_bg' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
 		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
 		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
@@ -237,7 +236,7 @@ class Admin {
 		}
 
 		wp_enqueue_style( 'frontpage-buddy-admin', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/css/admin.css', array( 'wp-color-picker' ), FRONTPAGE_BUDDY_PLUGIN_VERSION );
-		wp_enqueue_script( 'frontpage-buddy-admin', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker' ), FRONTPAGE_BUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
+		wp_enqueue_script( 'frontpage-buddy-admin', FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'wp-tinymce' ), FRONTPAGE_BUDDY_PLUGIN_VERSION, array( 'in_footer' => true ) );
 	}
 
 	/**
@@ -246,7 +245,17 @@ class Admin {
 	 * @return void
 	 */
 	public function section_integration_desc() {
-		// Nothing yet.
+		echo '<div class="notice notice-info inline"><p>';
+		esc_html_e( 'FrontPage Buddy extends other plugins\' functionality, by providing better profile pages for users and groups.', 'frontpage-buddy' );
+		echo '<br>';
+
+		printf(
+			/* translators: %s: list of plugins frontpage-buddy works with. */
+			esc_html__( 'Currently it works with the following plugins: %s. It automatically detects if any of those plugins are active on your website and shows you relevant options.', 'frontpage-buddy' ),
+			'BuddyPress, BuddyBoss, bbPress & UltimateMember'
+		);
+
+		echo '</p></div>';
 	}
 
 	/**
@@ -255,7 +264,11 @@ class Admin {
 	 * @return void
 	 */
 	public function section_widgets_desc() {
-		// Nothing yet.
+		echo '<div class="notice notice-info inline"><p>';
+		esc_html_e( 'Widgets are individual blocks of content that can be added on front pages.', 'frontpage-buddy' );
+		echo '<br>';
+		esc_html_e( 'These are completely unrelated to WordPress widgets.', 'frontpage-buddy' );
+		echo '</p></div>';
 	}
 
 	/**
@@ -264,7 +277,9 @@ class Admin {
 	 * @return void
 	 */
 	public function section_theme_desc() {
-		// Nothing yet.
+		echo '<div class="notice notice-info inline"><p>';
+		esc_html_e( 'Settings for the screen where your website\'s users can manage/edit the front page.', 'frontpage-buddy' );
+		echo '</p></div>';
 	}
 
 	/**
@@ -370,15 +385,17 @@ class Admin {
 
 		if ( empty( $all_integrations ) ) {
 			?>
-			<div class='notice notice-error inline'>
-				<?php
-				printf(
-					/* translators: %s: list of plugins frontpage-buddy works with. */
-					'<p>' . esc_html__( 'Frontpage buddy can only work when either of the following plugins are active: %s', 'frontpage-buddy' ) . '.</p>'
-					. '<p>' . esc_html__( 'Not much it can do for now!', 'frontpage-buddy' ) . '</p>',
-					'BuddyPress, BuddyBoss, bbPress, UltimateMember'
-				);
-				?>
+			<div class="notice notice-error notice-alt inline fpbuddy-notice-style1">
+				<h3 class="notice-title"><?php esc_html_e( 'No compatible plugins were found(active).', 'TEXTDOMAIN' ); ?></h3>
+				<p>
+					<?php
+					printf(
+						/* translators: %s: Name of the plugin 'Frontpage buddy'. */
+						esc_html__( '%s will have no effect.', 'TEXTDOMAIN' ),
+						'Frontpage buddy'
+					);
+					?>
+				</p>
 			</div>
 			<?php
 			return false;
@@ -444,14 +461,23 @@ class Admin {
 	/**
 	 * Settings for each registered widget.
 	 *
-	 * @return boolean
+	 * @return void
 	 */
 	public function widgets() {
 		$settings_name      = __FUNCTION__;
 		$registered_widgets = frontpage_buddy()->get_all_widget_types();
 		$all_integrations   = frontpage_buddy()->get_all_integrations();
 		if ( empty( $all_integrations ) ) {
-			return false;
+			?>
+			<div class="notice notice-error notice-alt inline fpbuddy-notice-style1">
+				<p>
+					<?php esc_html_e( 'No compatible plugins were found(active).', 'TEXTDOMAIN' ); ?>
+					<br>
+					<?php esc_html_e( 'List of widgets is unavailable.', 'TEXTDOMAIN' ); ?>
+				</p>
+			</div>
+			<?php
+			return;
 		}
 
 		foreach ( $registered_widgets as $widget_type => $widget_type_obj ) {
@@ -491,18 +517,18 @@ class Admin {
 			echo '</tbody>';
 			echo '</table>';
 		}
-	}
 
-	/**
-	 * Section description.
-	 *
-	 * @return void
-	 */
-	public function editor_theme_settings() {
+		echo '<div class="frontpage-buddy-notice-style1">';
+		echo '<h3 class="notice-title">';
+		esc_html_e( 'Need more widgets for your website?', 'TEXTDOMAIN' );
+		echo '</h3>';
+		echo '<p>';
 		printf(
-			'<p class="description">%s</p>',
-			esc_html__( 'Settings for the screen where your website\'s users can manage/edit the front page.', 'frontpage-buddy' )
+			'<a href="https://www.recycleb.in/u/chandan/" class="button button-hero button-primary button-link-external" target="_blank" rel="noreferrer">%s <sup><span class="dashicons dashicons-external"></span></sup></a>',
+			esc_html__( 'Contact this plugin\'s developer', 'TEXTDOMAIN' )
 		);
+		echo '</p>';
+		echo '</div>';
 	}
 
 	/**

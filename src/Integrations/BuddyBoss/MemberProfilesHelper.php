@@ -234,12 +234,8 @@ class MemberProfilesHelper {
 				if ( 'yes' === $integration->get_option( 'show_encourage_prompt' ) ) {
 					$prompt_text = $integration->get_option( 'encourage_prompt_text' );
 					if ( $prompt_text ) {
-						$manage_link = sprintf(
-							'<a href="%s">%s</a>',
-							\bp_displayed_user_domain() . bp_get_settings_slug() . '/' . $integration->get_option( 'settings_nav_slug' ) . '/',
-							__( 'here', 'frontpage-buddy' )
-						);
-						$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
+						$editor_url = \bp_displayed_user_domain() . bp_get_settings_slug() . '/' . $integration->get_option( 'settings_nav_slug' ) . '/';
+						$prompt_text = str_replace( '{{EDITOR_URL}}', esc_url( $editor_url ), $prompt_text );
 						echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
 						echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 						echo '</div></div>';

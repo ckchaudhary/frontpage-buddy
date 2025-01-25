@@ -10,6 +10,28 @@ jQuery( ($) => {
 			new RBSettingsTabify( screen_id, $form, style );
 		}
 	});
+
+	// .
+	if ( $('.field-tinymce_tiny').length && typeof tinymce === 'object' ) {
+		tinymce.init({
+			selector: '.field-tinymce_tiny textarea', // Target your textarea
+			branding: false, // Remove "Powered by TinyMCE" branding
+			height: 100, // Set height of the editor
+			menubar: false,
+			toolbar: 'bold italic underline | bullist numlist | link', // Basic formatting options
+        	plugins: 'lists link', // Enable necessary plugins
+		});
+	}
+
+	if ( $('input[name$="show_encourage_prompt]"]').length ) {
+		$('input[name$="show_encourage_prompt]"]').change(function(){
+			let field_name = $(this).attr('name').replace( 'show_encourage_prompt', 'encourage_prompt_text' );
+			const $target = $('[name="'+ field_name +'"]');
+			if ( $target.length ) {
+				$target.closest('.field').toggleClass('is-hidden');
+			}
+		});
+	}
 } );
 
 class RBSettingsTabify {

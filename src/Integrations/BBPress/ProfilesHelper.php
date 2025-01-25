@@ -39,12 +39,7 @@ class ProfilesHelper {
 			if ( 'yes' === $integration->get_option( 'show_encourage_prompt' ) ) {
 				$prompt_text = $integration->get_option( 'encourage_prompt_text' );
 				if ( $prompt_text ) {
-					$manage_link = sprintf(
-						'<a href="%s">%s</a>',
-						\bbp_get_user_profile_edit_url( $user_id ),
-						__( 'here', 'frontpage-buddy' )
-					);
-					$prompt_text = str_replace( '{{LINK}}', $manage_link, $prompt_text );
+					$prompt_text = str_replace( '{{EDITOR_URL}}', esc_url( \bbp_get_user_profile_edit_url( $user_id ) ), $prompt_text );
 					echo '<div class="frontpage-buddy-prompt prompt-info"><div class="frontpage-buddy-prompt-content">';
 					echo wp_kses( $prompt_text, \FrontPageBuddy\basic_html_allowed_tags() );
 					echo '</div></div>';

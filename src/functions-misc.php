@@ -92,6 +92,7 @@ function generate_form_fields( $fields, $args = '' ) {
 		if ( empty( $field_id ) ) {
 			$field_id = $field_name . '_' . \uniqid();
 		}
+		$field_id = sanitize_html_id( $field_id );
 
 		$cssclass = 'field field-' . $field_name . ' field-' . $field['type'];
 		if ( $field['wrapper_class'] ) {
@@ -195,6 +196,7 @@ function generate_form_fields( $fields, $args = '' ) {
 				break;
 			case 'textarea':
 			case 'richtext_editor':
+			case 'tinymce_tiny':
 				// Label.
 				$html .= sprintf(
 					'<textarea id="%1$s" name="%2$s"',
@@ -606,4 +608,26 @@ function html_elements_common_safe_attrs() {
 		'name'             => true,
 		'colspan'          => true,
 	);
+}
+
+/**
+ * Sanitize a string to be used as an HTML id attribute.
+ *
+ * @param string $id_val The input string to sanitize.
+ * @return string The sanitized string.
+ */
+function sanitize_html_id( $id_val ) {
+	$id_val = strtolower( $id_val );
+
+	// Replace spaces and other non-URL-friendly characters with a hyphen.
+	$id_val = preg_replace( '/[^a-z0-9_\-\.]+/', '-', $id_val );
+
+	// Ensure the string starts with a letter (prepend 'id-' if necessary).
+	if ( ! preg_match( '/^[a-z]/', $id_val ) ) {
+		$id_val = 'id-' . $id_val;
+	}
+
+	$id_val = trim( $id_val, '-' );
+
+	return $id_val;
 }
