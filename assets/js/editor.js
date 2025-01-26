@@ -169,13 +169,13 @@ class FPBuddyWidgetsManager {
 		let widget_id = Date.now() + '_' + Math.random();
 		let widget_title = '';
 		let widget_icon = '';
-		// let widget_description = '';// Not used, yet.
+		let widget_description = '';
 
 		for ( let i_widget of FRONTPAGE_BUDDY.all_widgets ) {
 			if ( i_widget.type === widget_type ) {
 				widget_title = i_widget.name;
 				widget_icon = i_widget.icon;
-				// widget_description = i_widget.description;
+				widget_description = i_widget.description;
 				break;
 			}
 		}
@@ -192,6 +192,7 @@ class FPBuddyWidgetsManager {
 							<a href="#"><i class="gg-close-r"></i></a>
 						</div>
 					</div>
+					<div class="widget-desc"><i class="gg-info"></i>${widget_description}</div>
 					<div class="widget-settings"></div>
 					<div class="loading_overlay"><span class="helper"></span><img src="${FRONTPAGE_BUDDY.config.img_spinner}" ></div>
 				</div>

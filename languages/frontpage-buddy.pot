@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
 "Report-Msgid-Bugs-To: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
-"POT-Creation-Date: 2025-01-25 11:44+0000\n"
+"POT-Creation-Date: 2025-01-26 06:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
@@ -40,6 +40,12 @@ msgstr ""
 msgid "%s Widgets"
 msgstr ""
 
+#. %s: Name of the plugin 'Frontpage buddy'.
+#: src/Admin.php:394
+#, php-format
+msgid "%s will have no effect."
+msgstr ""
+
 #: templates/frontpage-buddy/buddyboss/groups/manage.php:30
 msgid ""
 "A custom front page for this group is not enabled yet. Before enabling it, "
@@ -56,12 +62,16 @@ msgstr ""
 msgid "Access denied!"
 msgstr ""
 
-#: src/Plugin.php:408
+#: src/Plugin.php:409
 msgid "add section"
 msgstr ""
 
 #: src/Widgets/RichContent.php:25
 msgid "Add text/copy, headings, links, lists etc."
+msgstr ""
+
+#: src/Widgets/MyLinks.php:35
+msgid "Add urls for your website & social profiles."
 msgstr ""
 
 #: src/Widgets/RichContent.php:47
@@ -76,25 +86,29 @@ msgstr ""
 msgid "Align right"
 msgstr ""
 
+#: src/Widgets/MyLinks.php:119
+msgid "Allowed link types"
+msgstr ""
+
 #: src/Integrations/BuddyPress/Groups.php:41
 #: src/Integrations/BuddyPress/Groups.php:45
 #: src/Integrations/BuddyPress/Profiles.php:34
 msgid "Appearance"
 msgstr ""
 
-#: src/Plugin.php:411
+#: src/Plugin.php:412
 msgid "Are you sure you want to delete this content?"
 msgstr ""
 
-#: src/Plugin.php:410
+#: src/Plugin.php:411
 msgid "Are you sure you want to delete this section?"
 msgstr ""
 
-#: src/Admin.php:544
+#: src/Admin.php:543
 msgid "Background Color"
 msgstr ""
 
-#: src/Admin.php:553
+#: src/Admin.php:552
 msgid "Background color of the entire area."
 msgstr ""
 
@@ -110,12 +124,16 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/Admin.php:625
+#: src/Admin.php:624
 msgid "Constrast color of the primary color"
 msgstr ""
 
-#: src/Admin.php:673
+#: src/Admin.php:672
 msgid "Constrast color of the secondary color"
+msgstr ""
+
+#: src/Admin.php:528
+msgid "Contact this plugin's developer"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:42
@@ -131,7 +149,7 @@ msgid "Currently enabled"
 msgstr ""
 
 #. %s: list of plugins frontpage-buddy works with.
-#: src/Admin.php:255
+#: src/Admin.php:254
 #, php-format
 msgid ""
 "Currently it works with the following plugins: %s. It automatically detects "
@@ -198,12 +216,16 @@ msgid ""
 "has basic formatting options like \"bold\", \"italics\", etc."
 msgstr ""
 
-#: src/Plugin.php:409
+#: src/Plugin.php:410
 msgid "Drag to move up or down"
 msgstr ""
 
 #: src/Widgets/TwitterProfile.php:76
 msgid "E.g: @johndoe"
+msgstr ""
+
+#: src/Widgets/MyLinks.php:140
+msgid "E.g: Fine me on"
 msgstr ""
 
 #. 1: Link to edit-front-page url.
@@ -256,12 +278,16 @@ msgstr ""
 msgid "Enable for"
 msgstr ""
 
-#: src/Admin.php:424
+#: src/Admin.php:423
 msgid "Enable this integration?"
 msgstr ""
 
 #: src/Widgets/TwitterProfile.php:29
 msgid "Enables your users display an X/Twitter profile's feed."
+msgstr ""
+
+#: src/Widgets/MyLinks.php:38
+msgid "Enables your users to add urls for website & social profiles."
 msgstr ""
 
 #: src/Widgets/FacebookPage.php:28
@@ -345,7 +371,7 @@ msgstr ""
 msgid "FrontPage Buddy"
 msgstr ""
 
-#: src/Admin.php:250
+#: src/Admin.php:249
 msgid ""
 "FrontPage Buddy extends other plugins' functionality, by providing better "
 "profile pages for users and groups."
@@ -382,6 +408,14 @@ msgstr ""
 
 #: src/Widgets/TwitterProfile.php:89
 msgid "Height in pixels (optional)"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:72
+#: src/Integrations/BuddyPress/Profiles.php:60
+#: src/Integrations/BBPress/Profiles.php:46
+#: src/Integrations/BuddyBoss/Groups.php:182
+#: src/Integrations/BuddyBoss/Profiles.php:181
+msgid "here"
 msgstr ""
 
 #: src/Widgets/FacebookPage.php:84
@@ -438,7 +472,7 @@ msgstr ""
 msgid "Instagram's Privacy Policy"
 msgstr ""
 
-#: src/Plugin.php:407
+#: src/Plugin.php:408
 msgid "Invalid"
 msgstr ""
 
@@ -451,8 +485,16 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
+#: src/Admin.php:476
+msgid "List of widgets is unavailable."
+msgstr ""
+
 #: src/Integrations/BuddyPress/Profiles.php:34
 msgid "Member front page"
+msgstr ""
+
+#: src/Widgets/MyLinks.php:34
+msgid "My Links"
 msgstr ""
 
 #: src/Integrations/BuddyBoss/Groups.php:75
@@ -475,13 +517,21 @@ msgid ""
 "the screen from where admins can customize group's front page."
 msgstr ""
 
-#: src/Admin.php:426 src/Widgets/TwitterProfile.php:94
+#: src/Admin.php:523
+msgid "Need more widgets for your website?"
+msgstr ""
+
+#: src/Admin.php:425 src/Widgets/TwitterProfile.php:94
 #: src/Integrations/BuddyPress/Groups.php:84
 #: src/Integrations/BuddyPress/Profiles.php:72
 #: src/Integrations/BBPress/Profiles.php:58
 #: src/Integrations/BuddyBoss/Groups.php:109
 #: src/Integrations/BuddyBoss/Profiles.php:115
 msgid "No"
+msgstr ""
+
+#: src/Admin.php:389 src/Admin.php:474
+msgid "No compatible plugins were found(active)."
 msgstr ""
 
 #: src/Widgets/RichContent.php:54
@@ -529,11 +579,11 @@ msgstr ""
 msgid "Please use a unique type."
 msgstr ""
 
-#: src/Admin.php:592
+#: src/Admin.php:591
 msgid "Primary Color"
 msgstr ""
 
-#: src/Admin.php:616
+#: src/Admin.php:615
 msgid "Primary Color - Contrast"
 msgstr ""
 
@@ -558,23 +608,23 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: src/Admin.php:640
+#: src/Admin.php:639
 msgid "Secondary Color"
 msgstr ""
 
-#: src/Admin.php:664
+#: src/Admin.php:663
 msgid "Secondary Color - Contrast"
 msgstr ""
 
-#: src/Plugin.php:412
+#: src/Plugin.php:413
 msgid "Select the type of content."
 msgstr ""
 
-#: src/Admin.php:727
+#: src/Admin.php:726
 msgid "Settings"
 msgstr ""
 
-#: src/Admin.php:282
+#: src/Admin.php:281
 msgid ""
 "Settings for the screen where your website's users can manage/edit the front "
 "page."
@@ -629,11 +679,11 @@ msgstr ""
 msgid "Strike through"
 msgstr ""
 
-#: src/Admin.php:568
+#: src/Admin.php:567
 msgid "Text Color"
 msgstr ""
 
-#: src/Admin.php:577
+#: src/Admin.php:576
 msgid "Text color of the entire area."
 msgstr ""
 
@@ -680,7 +730,7 @@ msgstr ""
 msgid "The widget type must extend \\FrontPageBuddy\\Widgets\\WidgetType."
 msgstr ""
 
-#: src/Admin.php:271
+#: src/Admin.php:270
 msgid "These are completely unrelated to WordPress widgets."
 msgstr ""
 
@@ -772,11 +822,11 @@ msgstr ""
 msgid "Use Small Header"
 msgstr ""
 
-#: src/Admin.php:649
+#: src/Admin.php:648
 msgid "Used as: border colors, button colors, etc. for sections/rows."
 msgstr ""
 
-#: src/Admin.php:601
+#: src/Admin.php:600
 msgid "Used as: border colors, button colors, etc. for widgets/columns."
 msgstr ""
 
@@ -820,7 +870,7 @@ msgstr ""
 msgid "Widget not available"
 msgstr ""
 
-#: src/Admin.php:269
+#: src/Admin.php:268
 msgid ""
 "Widgets are individual blocks of content that can be added on front pages."
 msgstr ""
@@ -837,7 +887,7 @@ msgstr ""
 msgid "X/Twitter Handle"
 msgstr ""
 
-#: src/Admin.php:427 src/Widgets/TwitterProfile.php:95
+#: src/Admin.php:426 src/Widgets/TwitterProfile.php:95
 #: src/Integrations/BuddyPress/Groups.php:85
 #: src/Integrations/BuddyPress/Profiles.php:73
 #: src/Integrations/BBPress/Profiles.php:59
@@ -848,6 +898,10 @@ msgstr ""
 
 #: templates/frontpage-buddy/buddyboss/profiles/manage.php:39
 msgid "Your profile now has a custom front page!"
+msgstr ""
+
+#: src/Widgets/MyLinks.php:174
+msgid "your-id"
 msgstr ""
 
 #: src/Widgets/YoutubeEmbed.php:25

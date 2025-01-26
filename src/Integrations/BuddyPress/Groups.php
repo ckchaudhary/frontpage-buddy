@@ -69,7 +69,7 @@ class Groups extends \FrontPageBuddy\Integration {
 			$prompt_text = trim( $prompt_text );
 		}
 		if ( ! $prompt_text ) {
-			$editor_link = '<a href="{{EDITOR_URL}}">' . esc_html__( 'here', 'TEXTDOMAIN' ) . '</a>';
+			$editor_link = '<a href="{{EDITOR_URL}}">' . esc_html__( 'here', 'frontpage-buddy' ) . '</a>';
 			$prompt_text = sprintf(
 				/* translators: 1: Link to edit-front-page url. */
 				__( 'Customize this group\'s front page by going %s.', 'frontpage-buddy' ),

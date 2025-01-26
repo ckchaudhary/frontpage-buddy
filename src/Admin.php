@@ -386,12 +386,12 @@ class Admin {
 		if ( empty( $all_integrations ) ) {
 			?>
 			<div class="notice notice-error notice-alt inline fpbuddy-notice-style1">
-				<h3 class="notice-title"><?php esc_html_e( 'No compatible plugins were found(active).', 'TEXTDOMAIN' ); ?></h3>
+				<h3 class="notice-title"><?php esc_html_e( 'No compatible plugins were found(active).', 'frontpage-buddy' ); ?></h3>
 				<p>
 					<?php
 					printf(
 						/* translators: %s: Name of the plugin 'Frontpage buddy'. */
-						esc_html__( '%s will have no effect.', 'TEXTDOMAIN' ),
+						esc_html__( '%s will have no effect.', 'frontpage-buddy' ),
 						'Frontpage buddy'
 					);
 					?>
@@ -471,9 +471,9 @@ class Admin {
 			?>
 			<div class="notice notice-error notice-alt inline fpbuddy-notice-style1">
 				<p>
-					<?php esc_html_e( 'No compatible plugins were found(active).', 'TEXTDOMAIN' ); ?>
+					<?php esc_html_e( 'No compatible plugins were found(active).', 'frontpage-buddy' ); ?>
 					<br>
-					<?php esc_html_e( 'List of widgets is unavailable.', 'TEXTDOMAIN' ); ?>
+					<?php esc_html_e( 'List of widgets is unavailable.', 'frontpage-buddy' ); ?>
 				</p>
 			</div>
 			<?php
@@ -520,12 +520,12 @@ class Admin {
 
 		echo '<div class="frontpage-buddy-notice-style1">';
 		echo '<h3 class="notice-title">';
-		esc_html_e( 'Need more widgets for your website?', 'TEXTDOMAIN' );
+		esc_html_e( 'Need more widgets for your website?', 'frontpage-buddy' );
 		echo '</h3>';
 		echo '<p>';
 		printf(
 			'<a href="https://www.recycleb.in/u/chandan/" class="button button-hero button-primary button-link-external" target="_blank" rel="noreferrer">%s <sup><span class="dashicons dashicons-external"></span></sup></a>',
-			esc_html__( 'Contact this plugin\'s developer', 'TEXTDOMAIN' )
+			esc_html__( 'Contact this plugin\'s developer', 'frontpage-buddy' )
 		);
 		echo '</p>';
 		echo '</div>';

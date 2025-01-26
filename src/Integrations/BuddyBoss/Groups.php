@@ -179,7 +179,7 @@ class Groups extends \FrontPageBuddy\Integration {
 			case 'encourage_prompt_text':
 				$option_value = null !== $option_value ? trim( $option_value ) : '';
 				if ( empty( $option_value ) ) {
-					$editor_link = '<a href="{{EDITOR_URL}}">' . esc_html__( 'here', 'TEXTDOMAIN' ) . '</a>';
+					$editor_link = '<a href="{{EDITOR_URL}}">' . esc_html__( 'here', 'frontpage-buddy' ) . '</a>';
 					$option_value = sprintf(
 						/* translators: 1: Link to edit-front-page url. */
 						__( 'Edit the welcome page by going %s.', 'frontpage-buddy' ),
