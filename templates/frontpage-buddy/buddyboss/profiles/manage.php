@@ -49,7 +49,7 @@ $is_enabled = frontpage_buddy()->get_integration( 'buddyboss_members' )->has_cus
 	<div class="fpbuddy_container">
 		<div class="fpbuddy_content">
 			<p>
-				<?php esc_html_e( 'Customize your front page by adding text, images, embedding your social media feed, etc.', 'frontpage-buddy' ); ?>
+				<?php esc_html_e( 'Customize your front page by adding text, videos, embedding your social media feed, etc.', 'frontpage-buddy' ); ?>
 			</p>
 			
 			<div class="fpbuddy_added_widgets fpbuddy_wrapper">

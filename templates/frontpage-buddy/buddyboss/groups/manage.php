@@ -62,7 +62,7 @@ $is_enabled = $integration->has_custom_front_page( bp_get_current_group_id() );
 
 		<div class="fpbuddy_content">
 			<p>
-				<?php esc_html_e( 'Customize this group\'s front page by adding text, images, embedding your social media feed, etc.', 'frontpage-buddy' ); ?>
+				<?php esc_html_e( 'Customize this group\'s front page by adding text, videos, embedding your social media feed, etc.', 'frontpage-buddy' ); ?>
 			</p>
 			
 			<div class="fpbuddy_added_widgets fpbuddy_wrapper">
