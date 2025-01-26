@@ -266,7 +266,7 @@ class MyLinks extends WidgetType {
 				 * 2. Remove any preceding '@'.
 				 * 3. Ensure the remaining string has only the following:
 				 *   - alphanumeric characters
-				 *   - underscore, dash and dot
+				 *   - underscore, dash, dot and forward slash
 				 * 4. Replace the placeholder in url pattern with sanitized username.
 				 */
 				$formatted = trim( $formatted, '/' );
@@ -274,7 +274,7 @@ class MyLinks extends WidgetType {
 					$formatted = substr( $formatted, 1 );
 				}
 
-				$formatted = preg_replace( '/[^a-zA-Z0-9._-]/', '', $formatted );
+				$formatted = preg_replace( '/[^a-zA-Z0-9._\/-]/', '', $formatted );
 				if ( ! empty( $formatted ) ) {
 					if ( isset( $link_details['url_pattern'] ) && ! empty( $link_details['url_pattern'] ) ) {
 						$formatted = str_replace( $this->placeholder_field_value, $formatted, $link_details['url_pattern'] );
