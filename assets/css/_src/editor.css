@@ -340,6 +340,92 @@ body.admin-bar .fpbuddy_manage_widgets .trumbowyg-fullscreen {
     top: 33px;
 }
 
+.fpbuddy_manage_widgets .widget_fields .field-group-input{
+	display: flex;
+	align-items: stretch;
+	flex-wrap: nowrap;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-prepend {
+	display: flex;
+	margin-right: -1px;
+	overflow: hidden;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-append {
+	display: flex;
+	margin-left: -1px;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-prepend .group-input-text,
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-append .group-input-text{
+	display: flex;
+	align-items: center;
+	padding: .375rem .75rem;
+	font-size: 0.8rem;
+	line-height: 1.5;
+	text-align: center;
+	color: #495057;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+@media screen and ( max-width: 786px ) {
+	.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-prepend {
+		justify-content: right;
+	}
+	.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-prepend .group-input-text,
+	.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-append .group-input-text{
+		padding: .375rem .15rem;
+		font-size: 0.7rem;
+	}
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-prepend .group-input-text{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input .group-input-append .group-input-text{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input input{
+	display: block;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+
+	position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+	min-width: 120px;
+    margin-bottom: 0;
+	margin-top: 0;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input>input:not(:first-child) {
+	border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.fpbuddy_manage_widgets .widget_fields .field-group-input>input:not(:last-child) {
+	border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .fpbuddy_manage_widgets .fp-widget .response {
 	padding: 8px 35px 8px 14px;
     margin-bottom: 10px 0;

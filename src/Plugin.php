@@ -328,6 +328,7 @@ class Plugin {
 			'frontpage_buddy_registered_widgets',
 			array(
 				'\FrontPageBuddy\Widgets\RichContent',
+				'\FrontPageBuddy\Widgets\MyLinks',
 				'\FrontPageBuddy\Widgets\InstagramProfile',
 				'\FrontPageBuddy\Widgets\FacebookPage',
 				'\FrontPageBuddy\Widgets\YoutubeEmbed',
