@@ -104,9 +104,10 @@ Yes.
 
 == Screenshots ==
 
-1. A sample front page for a user profile.
-2. A samlple edit-front-page screen.
-3. The admin settings screen.
+1. A default member profile page(before) and a sample of the same after making use of this plugin.
+2. A (buddypress)group's default home page (before) and a sample of the same after making use of this plugin.
+3. Edit front page screens.
+4. Plugin's admin settings screens.
 
 == Installation ==
 
