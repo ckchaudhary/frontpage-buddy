@@ -110,7 +110,7 @@ class GroupExtension extends \BP_Group_Extension {
 	 * If the group's frontpage is empty, redirect to another tab of the group like activity, members.
 	 * Group admins aren't redirected.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.1
 	 * @return void
 	 */
 	public function maybe_redirect_empty_frontpage() {

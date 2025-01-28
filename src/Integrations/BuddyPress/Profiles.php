@@ -69,10 +69,10 @@ class Profiles extends \FrontPageBuddy\Integration {
 			'none' => 'Do not redirect',
 		);
 		if ( bp_is_active( 'activity' ) ) {
-			$profile_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'TEXTDOMAIN' );
+			$profile_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'frontpage-buddy' );
 		}
 		if ( bp_is_active( 'xprofile' ) ) {
-			$profile_navs[ bp_get_profile_slug() ] = esc_html__( 'Profile', 'TEXTDOMAIN' );
+			$profile_navs[ bp_get_profile_slug() ] = esc_html__( 'Profile', 'frontpage-buddy' );
 		}
 
 		$redirect_to = $this->get_option( 'redirect_when_empty' );

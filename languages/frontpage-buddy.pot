@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
 "Report-Msgid-Bugs-To: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
-"POT-Creation-Date: 2025-01-26 06:19+0000\n"
+"POT-Creation-Date: 2025-01-28 10:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
@@ -60,6 +60,11 @@ msgstr ""
 
 #: src/Editor.php:66 src/Editor.php:157 src/Editor.php:222
 msgid "Access denied!"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:84
+#: src/Integrations/BuddyPress/Profiles.php:72
+msgid "Activity"
 msgstr ""
 
 #: src/Plugin.php:409
@@ -171,7 +176,7 @@ msgstr ""
 #: templates/frontpage-buddy/buddypress/groups/manage.php:22
 #: templates/frontpage-buddy/buddyboss/groups/manage.php:65
 msgid ""
-"Customize this group's front page by adding text, images, embedding your "
+"Customize this group's front page by adding text, videos, embedding your "
 "social media feed, etc."
 msgstr ""
 
@@ -181,7 +186,7 @@ msgstr ""
 msgid "Customize this group's front page by going %s."
 msgstr ""
 
-#: src/Integrations/BuddyPress/MemberProfilesHelper.php:104
+#: src/Integrations/BuddyPress/MemberProfilesHelper.php:106
 #: src/Integrations/BuddyBoss/MemberProfilesHelper.php:167
 msgid "Customize your front page"
 msgstr ""
@@ -189,7 +194,7 @@ msgstr ""
 #: templates/frontpage-buddy/buddypress/profiles/manage.php:18
 #: templates/frontpage-buddy/buddyboss/profiles/manage.php:52
 msgid ""
-"Customize your front page by adding text, images, embedding your social "
+"Customize your front page by adding text, videos, embedding your social "
 "media feed, etc."
 msgstr ""
 
@@ -418,12 +423,30 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:84
+#: src/Widgets/FacebookPage.php:85
 msgid "Hide Cover Photo"
 msgstr ""
 
 #: src/Widgets/RichContent.php:55
 msgid "Horizontal Rule"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:117
+msgid ""
+"If a group's admins have not added any content for the front page, the front "
+"page will be blank. In such cases, it is better to simply redirect to "
+"another page/tab(e.g: 'Activity' ) of the group. Group admins will not be "
+"redirected though, they'll still see an empty front page with the prompt( "
+"mentioned in previous setting )."
+msgstr ""
+
+#: src/Integrations/BuddyPress/Profiles.php:107
+msgid ""
+"If a member has not added any content for their front page, the front page "
+"will be blank. In such cases, it is better to simply redirect to another "
+"page/tab(e.g: 'Activity' ) of the member's profile. If you are visiting your "
+"own profile, you will not be redirected though, you'll still see an empty "
+"front page with the prompt( mentioned in previous setting )."
 msgstr ""
 
 #: src/Integrations/BuddyBoss/Groups.php:112
@@ -434,7 +457,7 @@ msgid ""
 "where the front page can be customized."
 msgstr ""
 
-#: src/Integrations/BuddyPress/Groups.php:87
+#: src/Integrations/BuddyPress/Groups.php:98
 msgid ""
 "If enabled, when a group administrator visits the group's front page, they "
 "see a small prompt at the top. This can be used to encourage group admins to "
@@ -442,7 +465,7 @@ msgid ""
 "link to the page where the group admin can customize the front page."
 msgstr ""
 
-#: src/Integrations/BuddyPress/Profiles.php:75
+#: src/Integrations/BuddyPress/Profiles.php:88
 #: src/Integrations/BuddyBoss/Profiles.php:118
 msgid ""
 "If enabled, when a member visits their profile, they see a small prompt at "
@@ -493,6 +516,10 @@ msgstr ""
 msgid "Member front page"
 msgstr ""
 
+#: src/Integrations/BuddyPress/Groups.php:86
+msgid "Members"
+msgstr ""
+
 #: src/Widgets/MyLinks.php:34
 msgid "My Links"
 msgstr ""
@@ -522,8 +549,8 @@ msgid "Need more widgets for your website?"
 msgstr ""
 
 #: src/Admin.php:425 src/Widgets/TwitterProfile.php:94
-#: src/Integrations/BuddyPress/Groups.php:84
-#: src/Integrations/BuddyPress/Profiles.php:72
+#: src/Integrations/BuddyPress/Groups.php:95
+#: src/Integrations/BuddyPress/Profiles.php:85
 #: src/Integrations/BBPress/Profiles.php:58
 #: src/Integrations/BuddyBoss/Groups.php:109
 #: src/Integrations/BuddyBoss/Profiles.php:115
@@ -546,7 +573,7 @@ msgstr ""
 #: templates/frontpage-buddy/ultimate-member/profiles/manage.php:22
 #: templates/frontpage-buddy/bbpress/profiles/manage.php:23
 msgid ""
-"Personalize your profile by adding text, images, embedding your social media "
+"Personalize your profile by adding text, videos, embedding your social media "
 "feed, etc."
 msgstr ""
 
@@ -592,12 +619,21 @@ msgstr ""
 msgid "Privacy Note"
 msgstr ""
 
-#: src/Integrations/BuddyPress/Groups.php:91
-#: src/Integrations/BuddyPress/Profiles.php:79
+#: src/Integrations/BuddyPress/Profiles.php:75
+msgid "Profile"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:102
+#: src/Integrations/BuddyPress/Profiles.php:92
 #: src/Integrations/BBPress/Profiles.php:65
 #: src/Integrations/BuddyBoss/Groups.php:116
 #: src/Integrations/BuddyBoss/Profiles.php:122
 msgid "Prompt text"
+msgstr ""
+
+#: src/Integrations/BuddyPress/Groups.php:114
+#: src/Integrations/BuddyPress/Profiles.php:104
+msgid "Redirect empty front page"
 msgstr ""
 
 #: src/Widgets/RichContent.php:24
@@ -647,17 +683,17 @@ msgstr ""
 msgid "Show prompt to group admins when viewing group's front page?"
 msgstr ""
 
-#: src/Integrations/BuddyPress/Groups.php:83
+#: src/Integrations/BuddyPress/Groups.php:94
 msgid "Show prompt to group admins?"
 msgstr ""
 
-#: src/Integrations/BuddyPress/Profiles.php:71
+#: src/Integrations/BuddyPress/Profiles.php:84
 #: src/Integrations/BBPress/Profiles.php:57
 #: src/Integrations/BuddyBoss/Profiles.php:114
 msgid "Show prompt when viewing one's own profile?"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:91
+#: src/Widgets/FacebookPage.php:92
 msgid "Show Recent Posts"
 msgstr ""
 
@@ -705,7 +741,7 @@ msgstr ""
 msgid "The integration must extend \\FrontPageBuddy\\Integration."
 msgstr ""
 
-#: src/Integrations/BuddyPress/Groups.php:93
+#: src/Integrations/BuddyPress/Groups.php:104
 #: src/Integrations/BuddyBoss/Groups.php:118
 msgid ""
 "The text to be displayed inside the aforementioned prompt. You can use the "
@@ -713,7 +749,7 @@ msgid ""
 "where the front page can be customized."
 msgstr ""
 
-#: src/Integrations/BuddyPress/Profiles.php:81
+#: src/Integrations/BuddyPress/Profiles.php:94
 #: src/Integrations/BBPress/Profiles.php:67
 #: src/Integrations/BuddyBoss/Profiles.php:124
 msgid ""
@@ -818,7 +854,7 @@ msgstr ""
 msgid "Use of 3rd party service."
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:77
+#: src/Widgets/FacebookPage.php:78
 msgid "Use Small Header"
 msgstr ""
 
@@ -888,8 +924,8 @@ msgid "X/Twitter Handle"
 msgstr ""
 
 #: src/Admin.php:426 src/Widgets/TwitterProfile.php:95
-#: src/Integrations/BuddyPress/Groups.php:85
-#: src/Integrations/BuddyPress/Profiles.php:73
+#: src/Integrations/BuddyPress/Groups.php:96
+#: src/Integrations/BuddyPress/Profiles.php:86
 #: src/Integrations/BBPress/Profiles.php:59
 #: src/Integrations/BuddyBoss/Groups.php:110
 #: src/Integrations/BuddyBoss/Profiles.php:116

@@ -203,7 +203,7 @@ class MemberProfilesHelper {
 	 * Someone visiting their own profile isn't redirected.
 	 * Admins, or anyone else who can edit others profiles, are also not redirected.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.1
 	 * @return void
 	 */
 	public function maybe_redirect_empty_frontpage() {

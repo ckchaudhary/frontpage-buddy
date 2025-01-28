@@ -5,7 +5,7 @@ Tags: buddypress, buddyboss, bbpress, customize profiles, customize groups, prof
 Requires PHP: 7.4
 Requires at least: 5.8
 Tested up to: 6.7.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,12 @@ Please contact the plugin author if you have suggestions for new integrations or
 3. Use the *Settings* -> *FrontPage Buddy* screen to configure the plugin.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* BuddyPress Integration - Groups - Optionally, redirect to a sub page( e.g: members ) of the group if the front page is not configured for that group yet.
+* BuddyPress Integration - Members - Optionally, redirect to a sub page( e.g: activity ) if the front page for any member is not configured yet.
+* Settings screen - Fixed an issue with generating select options.
 
 = 1.0.0 =
 

@@ -81,9 +81,9 @@ class Groups extends \FrontPageBuddy\Integration {
 			'none' => 'Do not redirect',
 		);
 		if ( bp_is_active( 'activity' ) ) {
-			$group_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'TEXTDOMAIN' );
+			$group_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'frontpage-buddy' );
 		}
-		$group_navs[ bp_get_members_slug() ] = esc_html__( 'Members', 'TEXTDOMAIN' );
+		$group_navs[ bp_get_members_slug() ] = esc_html__( 'Members', 'frontpage-buddy' );
 
 		$redirect_to = $this->get_option( 'redirect_when_empty' );
 		$redirect_to = empty( $redirect_to ) || ! isset( $group_navs[ $redirect_to ] ) ? 'none' : $redirect_to;
