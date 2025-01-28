@@ -175,25 +175,27 @@ function generate_form_fields( $fields, $args = '' ) {
 				$html .= $input_attributes . ' >';
 
 				foreach ( $field['options'] as $option_val => $option_label ) {
-					$html .= "<option value='" . esc_attr( $option_val ) . "' ";
-
-					// checked ?
+					$selected = '';
 					if ( isset( $field['value'] ) && ! empty( $field['value'] ) ) {
 						if ( is_array( $field['value'] ) ) {
 							if ( in_array( $option_val, $field['value'], true ) ) {
-								$html .= " selected='selected'";
+								$selected = 'selected="selected"';
 							}
 						} elseif ( $option_val === $field['value'] ) {
-								$html .= " selected='selected'";
+								$selected = 'selected="selected"';
 						}
 					}
-
-					$html .= '>' . esc_html( $option_label ) . '</option>';
+					$html .= sprintf(
+						'<option value="%s" %s>%s</option>',
+						esc_attr( $option_val ),
+						$selected,
+						esc_html( $option_label )
+					);
 				}
 
 				$html .= '</select>';
-
 				break;
+
 			case 'textarea':
 			case 'richtext_editor':
 			case 'tinymce_tiny':
@@ -556,10 +558,11 @@ function form_elements_allowed_tags() {
 				'placeholder' => true,
 			)
 		),
-		'options'  => array(
-			'id'    => true,
-			'class' => true,
-			'value' => true,
+		'option'   => array(
+			'id'       => true,
+			'class'    => true,
+			'value'    => true,
+			'selected' => true,
 		),
 	);
 

@@ -68,6 +68,7 @@ class FacebookPage extends WidgetType {
 			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
 			'value'      => ! empty( $widget->get_data( 'url', 'edit' ) ) ? $widget->get_data( 'url', 'edit' ) : '',
 			'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
+			'is_required'=> true,
 		);
 
 		$fields['smallheader'] = array(
