@@ -1,7 +1,7 @@
-=== FrontPage Buddy ===
+=== FrontPage Buddy - Custom landing pages for members, groups and profiles ===
 Contributors: ckchaudhary
 Donate link: https://www.recycleb.in/u/chandan/
-Tags: buddypress, buddyboss, bbpress, customize profiles, customize groups
+Tags: buddypress, buddyboss, bbpress, customize profiles, customize groups, profile page builder, member landing pages, custom group pages
 Requires PHP: 7.4
 Requires at least: 5.8
 Tested up to: 6.7.1
@@ -13,18 +13,21 @@ Personalised front pages for buddypress & buddyboss members & groups, bbpress pr
 
 == Description ==
 
-Allow your website's members to provide detailed information about themselves, embed videos, their social media profiles, etc.
+FrontPage Buddy empowers members of your BuddyPress, BuddyBoss, bbPress & UltimateMember website to create custom profile and group landing pages. Add rich content, embed YouTube videos, and showcase social media profiles with ease.
+It is a 'page builder' like tool for your website members.
 
 ## 🔌 Integrations 
-It builds upon the default functionality of few other plugins. Currently it has integrations for the following plugins:
+
+FrontPage Buddy integrates seamlessly with popular WordPress plugins, giving users advanced profile customization options.
+Currently it has integrations for the following plugins:
 
 **1. BuddyPress & BuddyBoss Platform**
 
-- **Member profiles:** BuddyPress/BuddyBoss member profiles have always been very impersonal. This plugin allows your website's members to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding videos, embedding their social media profiles, etc. Check screenshots to see a preview.
+- **Member profiles:** BuddyPress/BuddyBoss member profiles have always been very impersonal. Member profile customization is practically non-existent. This plugin provides a front-page builder allowing your website's members to take control of their profile pages and add information about themselves. Your **members can customize their profile** by adding descriptions, embedding videos, embedding their social media profiles, etc. Check screenshots to see a preview.
 
-- **Groups** Allow group admins to customize the group's front page by adding details about the group, embedding videos, promoting related social media profiles, etc. Check screenshots to see a preview.
+- **Groups:** Create informative landing pages for buddypress/buddyboss groups. Allow group admins to customize the group's front page by adding details about the group, embedding videos, promoting related social media profiles, etc. Check screenshots to see a preview.
 
-👉 [Visit this link](https://www.recycleb.in/demo/wp/frontpage-buddy-buddypress/) for a live demonstration.
+👉 [**Visit this link**](https://www.recycleb.in/demo/wp/frontpage-buddy-buddypress/) for a live demonstration.
 
 **2. bbPress**
 
@@ -34,7 +37,7 @@ This plugin allows your bbPress forum's  members to take control of their profil
 
 This plugin allows your 'Ultimate Member' website's users to take control of their profile pages and add information about themselves. Your members can customize their profile pages by adding descriptions, embedding videos, embedding their social media profiles, etc.  
 
-📣 `Integration with other, compatible plugins may be added in future.`
+📣 *Integration with other, compatible plugins may be added in future.*
 
 
 ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -42,11 +45,19 @@ This plugin allows your 'Ultimate Member' website's users to take control of the
 
 ## ✏️ Widgets 
 
-This plugin provides a list of 'widgets' that can be added to the custom front pages. These are completely **unrelated to standard WordPress widgets** and are called so for the lack of a better word. These represent the type of content that can be added to custom front pages.
+FrontPage Buddy provides customizable widgets (content blocks) to enhance profile and group pages.
+These are completely **unrelated to standard WordPress widgets** and are called so for the lack of a better word. These represent the type of content that can be added to custom front pages.
+
+**Use cases:**
+
+- Add an 'About Me' section with rich text.
+- Embed a YouTube introduction video on group landing pages.
+- any many more...
 
 Currently the 'widgets' this plugins provides are: 
 
-- **Rich Content:** To add and format text. 
+- **Rich Text:** To add and format text. 
+- **My Links:** To add links to your website & social profiles.. 
 - **Youtube video embed:** To embed a youtube video player.
 - **Social media profiles:** To embed a facebook page, an instagram profile or a twitter/X profile feed.
 
@@ -60,7 +71,7 @@ All the widgets are disabled by default. As an administrator you have complete c
 
 ## ⏩ Use of 3rd Party Services 
 
-Some of the widgets use external APIs and/or services which may track your website visitor's data and may add cookies on their browser. Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.
+Some of the widgets use external APIs and/or services which may track your website visitor's data and may add cookies on their browser. Please update your privacy and cookie policies accordingly. It is your( the website administrator's ) responsibility to collect opt-in consent beforehand.
 Please review and do not enable any such widget if deemed necessary. Below are the details of those:
 
 **YouTube iFrame Embed**
@@ -102,6 +113,18 @@ First, please ensure that you go to plugin settings and check everything. In som
 
 Yes.
 
+= Can I add custom widgets? =
+
+Yes. Programmatically.
+
+= Is this plugin mobile-friendly? =
+
+FrontPage Buddy is designed with simplicity in mind, making it intuitive and user-friendly even for non-technical users. The mobile-friendly interface ensures seamless customization on any device.
+
+= Suggestions and feature requests =
+
+Please contact the plugin author if you have suggestions for new integrations or widgets. If you need help or find something not working as expected, [go to the support forums](https://wordpress.org/support/plugin/frontpage-buddy/).
+
 == Screenshots ==
 
 1. A default member profile page(before) and a sample of the same after making use of this plugin.
@@ -112,15 +135,14 @@ Yes.
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
-3. Use the Settings->FrontPage Buddy screen to configure the plugin
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Use the *Settings* -> *FrontPage Buddy* screen to configure the plugin.
 
 == Changelog ==
 
 = 1.0.0 =
 
-* Initial Release
-
-== Upgrade Notice ==
-
-Nothing yet.
+* Initial Release.
+* Added the core feature "Manage widgets screen".
+* Added support for BuddyPress, BuddyBoss, bbPress and Ultimate Member plugins.
+* Added 'Rich text', 'My Links', 'Youtube video embed', 'Facebook Page Feed', 'Instagram Profile Feed' and 'X Profile Feed' widgets.
