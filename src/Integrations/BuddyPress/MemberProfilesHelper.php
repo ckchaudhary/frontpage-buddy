@@ -42,6 +42,8 @@ class MemberProfilesHelper {
 
 		add_filter( 'is_active_sidebar', array( $this, 'is_buddypress_members_sidebar_active' ), 20, 2 );
 		add_action( 'dynamic_sidebar_after', array( $this, 'after_buddypress_members_sidebar' ), 20 );
+
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_empty_frontpage' ) );
 	}
 
 	/**
@@ -194,5 +196,36 @@ class MemberProfilesHelper {
 			// Show widgets output.
 			$integration->output_frontpage_content( $user_id );
 		}
+	}
+
+	/**
+	 * If a member hasn't added any content to their front page yet, redirect visitors to another tab of member's profile.
+	 * Someone visiting their own profile isn't redirected.
+	 * Admins, or anyone else who can edit others profiles, are also not redirected.
+	 *
+	 * @since NEW_RELEASE_VERSION
+	 * @return void
+	 */
+	public function maybe_redirect_empty_frontpage() {
+		$integration = frontpage_buddy()->get_integration( 'bp_members' );
+
+		if ( ! $integration->is_custom_front_page_screen() ) {
+			return;
+		}
+
+		if ( $integration->can_manage( bp_displayed_user_id() ) ) {
+			return;
+		}
+		if ( ! empty( $integration->get_added_widgets( bp_displayed_user_id() ) ) ) {
+			return;
+		}
+
+		$redirect_to = $integration->get_option( 'redirect_when_empty' );
+		if ( empty( $redirect_to ) || 'none' === $redirect_to ) {
+			return;
+		}
+
+		wp_safe_redirect( bp_displayed_user_url( bp_members_get_path_chunks( array( $redirect_to ) ) ) );
+		exit;
 	}
 }

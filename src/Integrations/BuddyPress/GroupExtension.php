@@ -55,6 +55,8 @@ class GroupExtension extends \BP_Group_Extension {
 		parent::init( $args );
 
 		add_action( 'groups_custom_group_boxes', array( $this, 'custom_group_boxes' ) );
+
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_empty_frontpage' ) );
 	}
 
 	/**
@@ -102,5 +104,35 @@ class GroupExtension extends \BP_Group_Extension {
 			// Show widgets output.
 			$integration->output_frontpage_content( bp_get_current_group_id() );
 		}
+	}
+
+	/**
+	 * If the group's frontpage is empty, redirect to another tab of the group like activity, members.
+	 * Group admins aren't redirected.
+	 *
+	 * @since NEW_RELEASE_VERSION
+	 * @return void
+	 */
+	public function maybe_redirect_empty_frontpage() {
+		$integration = frontpage_buddy()->get_integration( 'bp_groups' );
+		if ( ! $integration->is_custom_front_page_screen() ) {
+			return;
+		}
+
+		$group_id = bp_get_current_group_id();
+		if ( $integration->can_manage( $group_id ) ) {
+			return;
+		}
+		if ( ! empty( $integration->get_added_widgets( $group_id ) ) ) {
+			return;
+		}
+
+		$redirect_to = $integration->get_option( 'redirect_when_empty' );
+		if ( empty( $redirect_to ) || 'none' === $redirect_to ) {
+			return;
+		}
+
+		wp_safe_redirect( bp_get_group_url( $group_id, bp_groups_get_path_chunks( array( $redirect_to ) ) ) );
+		exit;
 	}
 }

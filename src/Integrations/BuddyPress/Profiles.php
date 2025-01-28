@@ -65,6 +65,19 @@ class Profiles extends \FrontPageBuddy\Integration {
 			);
 		}
 
+		$profile_navs = array(
+			'none' => 'Do not redirect',
+		);
+		if ( bp_is_active( 'activity' ) ) {
+			$profile_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'TEXTDOMAIN' );
+		}
+		if ( bp_is_active( 'xprofile' ) ) {
+			$profile_navs[ bp_get_profile_slug() ] = esc_html__( 'Profile', 'TEXTDOMAIN' );
+		}
+
+		$redirect_to = $this->get_option( 'redirect_when_empty' );
+		$redirect_to = empty( $redirect_to ) || ! isset( $profile_navs[ $redirect_to ] ) ? 'none' : $redirect_to;
+
 		return array(
 			'show_encourage_prompt' => array(
 				'type'        => 'switch',
@@ -85,6 +98,13 @@ class Profiles extends \FrontPageBuddy\Integration {
 				),
 				'sanitization'  => 'basic_html',
 				'wrapper_class' => $prompt_field_wrapper_class,
+			),
+			'redirect_when_empty'   => array(
+				'type'        => 'select',
+				'label'       => __( 'Redirect empty front page', 'frontpage-buddy' ),
+				'value'       => $redirect_to,
+				'options'     => $profile_navs,
+				'description' => __( 'If a member has not added any content for their front page, the front page will be blank. In such cases, it is better to simply redirect to another page/tab(e.g: \'Activity\' ) of the member\'s profile. If you are visiting your own profile, you will not be redirected though, you\'ll still see an empty front page with the prompt( mentioned in previous setting ).', 'frontpage-buddy' ),
 			),
 		);
 	}

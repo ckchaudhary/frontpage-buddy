@@ -77,6 +77,17 @@ class Groups extends \FrontPageBuddy\Integration {
 			);
 		}
 
+		$group_navs = array(
+			'none' => 'Do not redirect',
+		);
+		if ( bp_is_active( 'activity' ) ) {
+			$group_navs[ bp_get_activity_slug() ] = esc_html__( 'Activity', 'TEXTDOMAIN' );
+		}
+		$group_navs[ bp_get_members_slug() ] = esc_html__( 'Members', 'TEXTDOMAIN' );
+
+		$redirect_to = $this->get_option( 'redirect_when_empty' );
+		$redirect_to = empty( $redirect_to ) || ! isset( $group_navs[ $redirect_to ] ) ? 'none' : $redirect_to;
+
 		return array(
 			'show_encourage_prompt' => array(
 				'type'        => 'switch',
@@ -97,6 +108,13 @@ class Groups extends \FrontPageBuddy\Integration {
 				),
 				'sanitization'  => 'basic_html',
 				'wrapper_class' => $prompt_field_wrapper_class,
+			),
+			'redirect_when_empty'   => array(
+				'type'        => 'select',
+				'label'       => __( 'Redirect empty front page', 'frontpage-buddy' ),
+				'value'       => $redirect_to,
+				'options'     => $group_navs,
+				'description' => __( 'If a group\'s admins have not added any content for the front page, the front page will be blank. In such cases, it is better to simply redirect to another page/tab(e.g: \'Activity\' ) of the group. Group admins will not be redirected though, they\'ll still see an empty front page with the prompt( mentioned in previous setting ).', 'frontpage-buddy' ),
 			),
 		);
 	}
