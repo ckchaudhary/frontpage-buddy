@@ -256,18 +256,18 @@ class Plugin {
 		}
 
 		if ( $buddypress_active ) {
-			$this->register_integration( 'bp_groups', new Integrations\BuddyPress\Groups( 'bp_groups', 'BuddyPress Groups' ) );
-			// buddypress groups helper.
-			if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
-				if ( \bp_is_active( 'groups' ) ) {
-					\bp_register_group_extension( '\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
-				}
-			}
-
 			$this->register_integration( 'bp_members', new Integrations\BuddyPress\Profiles( 'bp_members', 'BuddyPress Member Profiles' ) );
 			// buddypress member profiles helper.
 			if ( ! empty( $enabled_for ) && in_array( 'bp_members', $enabled_for, true ) ) {
 				Integrations\BuddyPress\MemberProfilesHelper::get_instance();
+			}
+
+			if ( \bp_is_active( 'groups' ) ) {
+				$this->register_integration( 'bp_groups', new Integrations\BuddyPress\Groups( 'bp_groups', 'BuddyPress Groups' ) );
+				// buddypress groups helper.
+				if ( ! empty( $enabled_for ) && in_array( 'bp_groups', $enabled_for, true ) ) {
+					\bp_register_group_extension( '\FrontPageBuddy\Integrations\BuddyPress\GroupExtension' );
+				}
 			}
 		}
 
@@ -278,10 +278,10 @@ class Plugin {
 				Integrations\BuddyBoss\MemberProfilesHelper::get_instance();
 			}
 
-			$this->register_integration( 'buddyboss_groups', new Integrations\BuddyBoss\Groups( 'buddyboss_groups', 'BuddyBoss Social Groups' ) );
-			// group extension.
-			if ( ! empty( $enabled_for ) && in_array( 'buddyboss_groups', $enabled_for, true ) ) {
-				if ( \bp_is_active( 'groups' ) ) {
+			if ( \bp_is_active( 'groups' ) ) {
+				$this->register_integration( 'buddyboss_groups', new Integrations\BuddyBoss\Groups( 'buddyboss_groups', 'BuddyBoss Social Groups' ) );
+				// group extension.
+				if ( ! empty( $enabled_for ) && in_array( 'buddyboss_groups', $enabled_for, true ) ) {
 					/**
 					 * This class_exists check is crucial !
 					 * Otherwise this file is not loaded and function 'bp_register_group_extension' is undefined!
