@@ -1,7 +1,7 @@
 === FrontPage Buddy - Custom landing pages for members, groups and profiles ===
 Contributors: ckchaudhary
 Donate link: https://www.recycleb.in/u/chandan/
-Tags: buddypress, buddyboss, bbpress, customize profiles, customize groups, profile page builder, member landing pages, custom group pages
+Tags: buddypress, buddyboss, bbpress, profile page builder, custom group pages
 Requires PHP: 7.4
 Requires at least: 5.8
 Tested up to: 6.7.1
@@ -15,6 +15,11 @@ Personalised front pages for buddypress & buddyboss members & groups, bbpress pr
 
 FrontPage Buddy empowers members of your BuddyPress, BuddyBoss, bbPress & UltimateMember website to create custom profile and group landing pages. Add rich content, embed YouTube videos, and showcase social media profiles with ease.
 It is a 'page builder' like tool for your website members.
+
+See it in action:
+
+https://www.youtube.com/watch?v=vdjKgsEpnwg
+
 
 ## 🔌 Integrations 
 
@@ -52,7 +57,7 @@ These are completely **unrelated to standard WordPress widgets** and are called 
 
 - Add an 'About Me' section with rich text.
 - Embed a YouTube introduction video on group landing pages.
-- any many more...
+- and many more...
 
 Currently the 'widgets' this plugins provides are: 
 
