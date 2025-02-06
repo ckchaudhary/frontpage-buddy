@@ -255,6 +255,13 @@ class Admin {
 			'BuddyPress, BuddyBoss, bbPress & UltimateMember'
 		);
 
+		echo '<br>';
+		printf(
+			/* translators: %s: link to plugin documentation. */
+			esc_html__( 'Check %s for more details.', 'frontpage-buddy' ),
+			'<a href="https://www.recycleb.in/frontpage-buddy/integrations/about/" rel="noreferrer">' . esc_html__( 'plugin documentation', 'frontpage-buddy' ) . '</a>'
+		);
+
 		echo '</p></div>';
 	}
 
@@ -268,6 +275,14 @@ class Admin {
 		esc_html_e( 'Widgets are individual blocks of content that can be added on front pages.', 'frontpage-buddy' );
 		echo '<br>';
 		esc_html_e( 'These are completely unrelated to WordPress widgets.', 'frontpage-buddy' );
+
+		echo '<br>';
+		printf(
+			/* translators: %s: link to plugin documentation. */
+			esc_html__( 'Check %s for more details.', 'frontpage-buddy' ),
+			'<a href="https://www.recycleb.in/frontpage-buddy/widgets/about/" rel="noreferrer">' . esc_html__( 'plugin documentation', 'frontpage-buddy' ) . '</a>'
+		);
+
 		echo '</p></div>';
 	}
 
@@ -485,7 +500,7 @@ class Admin {
 			echo '<thead><tr><td colspan="100%"><h3 class="fpbuddy-box-title">' . esc_html( $widget_type_obj->name ) . '</h3></td></tr></thead>';
 			echo '<tbody>';
 
-			echo '<tr><td colspan="100%"><p class="description">' . wp_kses( $widget_type_obj->get_admin_description(), basic_html_allowed_tags() ) . '</p></td></tr>';
+			echo '<tr><td colspan="100%"><div class="description">' . wp_kses( $widget_type_obj->get_admin_description(), basic_html_allowed_tags() ) . '</div></td></tr>';
 
 			// widget specific settings.
 			$settings_fields = $widget_type_obj->get_settings_fields();

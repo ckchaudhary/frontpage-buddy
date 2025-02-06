@@ -27,13 +27,12 @@ class YoutubeEmbed extends WidgetType {
 		$this->icon_image  = '<i class="gg-youtube"></i>';
 
 		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a youtube video.', 'frontpage-buddy' ) . '</p>';
-		$this->description_admin .= '<br>';
 		$this->description_admin .= '<div class="notice notice-warning inline">';
-		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong><hr>';
+		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong></p><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
 		$this->description_admin .= esc_html__( 'Please update your privacy and cookie policies accordingly. It befalls on you ( the website administrator ) to collect opt-in consent beforehand.', 'frontpage-buddy' );
 
-		$this->description_admin .= '</p><p>';
+		$this->description_admin .= '<p>';
 
 		$this->description_admin .= '<strong>' . esc_html__( 'Data Usage', 'frontpage-buddy' ) . ': </strong>';
 		$this->description_admin .= esc_html__( 'Embedding videos through YouTube iFrame does not involve sending or storing personal user data. However, when a video is played, YouTube may collect data as per their policies.', 'frontpage-buddy' );
