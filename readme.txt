@@ -5,7 +5,7 @@ Tags: buddypress, buddyboss, bbpress, profile page builder, custom group pages
 Requires PHP: 7.4
 Requires at least: 5.8
 Tested up to: 6.7.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,6 +144,12 @@ Please contact the plugin author if you have suggestions for new integrations or
 3. Use the *Settings* -> *FrontPage Buddy* screen to configure the plugin.
 
 == Changelog ==
+
+= 1.0.2 =
+
+* Register buddypress & buddyboss group integrations only if groups component is enabled.
+* One minor error fix.
+* On plugin settings page, added links to plugin documentation.
 
 = 1.0.1 =
 

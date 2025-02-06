@@ -3,7 +3,7 @@
  * Plugin Name: FrontPage Buddy
  * Plugin URI: https://www.recycleb.in/frontpage-buddy/
  * Description: Personalized front pages for buddypress & buddyboss members & groups, bbpress profiles and 'Ultimate Member' profiles.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: ckchaudhary
  * Author URI: https://www.recycleb.in/u/chandan/
  * Text Domain: frontpage-buddy
@@ -38,7 +38,7 @@ if ( ! defined( 'FRONTPAGE_BUDDY_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'FRONTPAGE_BUDDY_PLUGIN_VERSION' ) ) {
-	define( 'FRONTPAGE_BUDDY_PLUGIN_VERSION', '1.0.1' );
+	define( 'FRONTPAGE_BUDDY_PLUGIN_VERSION', '1.0.2' );
 }
 
 /**
