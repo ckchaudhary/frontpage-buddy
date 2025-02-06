@@ -63,10 +63,10 @@ function get_output( $layout, $widgets, $integration_type, $target_id ) {
 				if ( $found ) {
 					$widget_obj = $widget_type_obj->get_widget(
 						array(
-							'id'          => $widget['id'],
+							'id'          => $found['id'],
 							'object_type' => $integration_type,
 							'object_id'   => $target_id,
-							'data'        => $widget['data'],
+							'data'        => $found['data'],
 						)
 					);
 
