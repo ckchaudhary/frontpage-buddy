@@ -26,7 +26,7 @@ class FacebookPage extends WidgetType {
 		$this->icon_image  = '<i class="gg-facebook"></i>';
 
 		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a facebook page.', 'frontpage-buddy' ) . '</p>';
-		
+
 		$this->description_admin .= '<div class="notice notice-warning inline">';
 		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong></p><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';
@@ -35,7 +35,7 @@ class FacebookPage extends WidgetType {
 		$this->description_admin .= '<p>';
 
 		$this->description_admin .= '<strong>' . esc_html__( 'Data Usage', 'frontpage-buddy' ) . ': </strong>';
-		$this->description_admin .= esc_html__( 'This integration uses the Facebook JavaScript SDK to fetch and display publicly available Facebook content. No personal user data is stored or transmitted by the plugin.', 'frontpage-buddy' );
+		$this->description_admin .= esc_html__( 'This widget uses the Facebook iframe API to fetch and display publicly available Facebook content. No personal user data is stored or transmitted by the plugin.', 'frontpage-buddy' );
 		$this->description_admin .= '<br>';
 
 		$this->description_admin .= '<strong>' . esc_html__( 'Privacy Note', 'frontpage-buddy' ) . ': </strong>';
@@ -85,13 +85,6 @@ class FacebookPage extends WidgetType {
 			'options' => array( 'yes' => __( 'Hide Cover Photo', 'frontpage-buddy' ) ),
 		);
 
-		$fields['showposts'] = array(
-			'type'    => 'checkbox',
-			'label'   => '',
-			'value'   => ! empty( $widget->get_data( 'showposts', 'edit' ) ) ? $widget->get_data( 'showposts', 'edit' ) : '',
-			'options' => array( 'yes' => __( 'Show Recent Posts', 'frontpage-buddy' ) ),
-		);
-
 		return $fields;
 	}
 
@@ -110,40 +103,20 @@ class FacebookPage extends WidgetType {
 
 		$use_small_header = $widget->get_data( 'smallheader', 'view' );
 		$use_small_header = ! empty( $use_small_header ) && in_array( 'yes', $use_small_header, true ) ? 'true' : '';
-		$showposts        = $widget->get_data( 'showposts', 'view' );
-		$showposts        = ! empty( $showposts ) && in_array( 'yes', $showposts, true ) ? 'true' : '';
 		$hidecover        = $widget->get_data( 'hidecover', 'view' );
 		$hidecover        = ! empty( $hidecover ) && in_array( 'yes', $hidecover, true ) ? 'true' : '';
 
-		$html  = '<div id="fb-root"></div>';
-		$html .= '<div class="fb-page" ';
-		$html .= 'data-href="' . esc_attr( $fp_page_url ) . '" ';
-
-		$html .= 'data-small-header="' . esc_attr( $use_small_header ) . '" ';
-		$html .= 'data-hide-cover="' . esc_attr( $hidecover ) . '" ';
-		$html .= 'data-show-facepile="" ';
-		$html .= 'data-show-posts="' . esc_attr( $showposts ) . '" ';
-
-		$html .= 'data-adapt-container-width="1" ';
-		$html .= 'data-width="600"';
-		$html .= 'data-height="500" >';
-
-		$html .= '<blockquote cite="' . esc_attr( $fp_page_url ) . '" class="fb-xfbml-parse-ignore">';
-		$html .= '<a href="' . esc_attr( $fp_page_url ) . '"></a>';
-		$html .= '</blockquote>';
-		$html .= '</div>';
-
-		wp_enqueue_script(
-			'facebook-sdk',
-			'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0',
-			array(),
-			// @todo: test and use 21.0
-			'20.0',
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
+		$html = '
+		<iframe 
+			src="https://www.facebook.com/plugins/page.php?href=' . rawurlencode( $fp_page_url ) . '&tabs=timeline&small_header=' . esc_attr( $use_small_header ) . '&height=500&adapt_container_width=true&hide_cover=' . esc_attr( $hidecover ) . '&show_facepile=false"
+			width="100%" 
+			height="500" 
+			style="border:none;overflow:hidden" 
+			scrolling="no" 
+			frameborder="0" 
+			allowfullscreen="true" 
+			allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+		</iframe>';
 
 		return apply_filters( 'frontpage_buddy_widget_output', $this->output_start( $widget ) . $html . $this->output_end( $widget ), $this, $widget );
 	}
