@@ -17,88 +17,98 @@ class Editor {
 	use \FrontPageBuddy\TraitSingleton;
 
 	/**
-	 * The array of all registered widgets.
+	 * Check if the current user has permissions for current rest request.
 	 *
-	 * @since 1.0.0
+	 * @since NEW_RELEASE_VERSION
 	 *
-	 * @var array
+	 * @param \WP_REST_Request $request Current request.
+	 * @return bool
 	 */
-	private $widgets = array();
+	public function rest_can_manage( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		if ( empty( $object_type ) ) {
+			return false;
+		}
 
-	/**
-	 * Setup everything.
-	 *
-	 * @since 1.0.0
-	 */
-	protected function init() {
-		add_action( 'wp_ajax_frontpage_buddy_change_status', array( $this, 'ajax_change_status' ) );
-		add_action( 'wp_ajax_frontpage_buddy_update_layout', array( $this, 'ajax_update_layout' ) );
-		add_action( 'wp_ajax_frontpage_buddy_widget_opts_get', array( $this, 'ajax_widget_opts_get' ) );
-		add_action( 'wp_ajax_frontpage_buddy_widget_opts_update', array( $this, 'ajax_widget_opts_update' ) );
+		$object_id = absint( $request->get_param( 'object_id' ) );
+		if ( ! $object_id ) {
+			return false;
+		}
+
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		if ( ! $integration ) {
+			return false;
+		}
+
+		return $integration->can_manage( $object_id );
 	}
 
 	/**
-	 * Handle ajax request to set whether an object has a custom front page or not.
+	 * Handle request to get whether an object has a custom front page or not.
 	 *
-	 * @since 1.0.0
+	 * @since NEW_RELEASE_VERSION
 	 *
-	 * @return void
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
 	 */
-	public function ajax_change_status() {
-		check_ajax_referer( 'frontpage_buddy_change_status' );
+	public function rest_get_status( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id   = absint( $request->get_param( 'object_id' ) );
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		if ( empty( $integration ) ) {
+			return rest_send_error( __( 'Invalid request.', 'frontpage-buddy' ), 400 );
+		}
+		return rest_send_response( true, $integration->has_custom_front_page( $object_id ) );
+	}
 
-		$updated_status = isset( $_POST['updated_status'] ) && ! empty( $_POST['updated_status'] ) ? sanitize_text_field( wp_unslash( $_POST['updated_status'] ) ) : '';
+	/**
+	 * Handle request to set whether an object has a custom front page or not.
+	 *
+	 * @since NEW_RELEASE_VERSION
+	 *
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
+	 */
+	public function rest_update_status( \WP_REST_Request $request ) {
+		$object_type    = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id      = absint( $request->get_param( 'object_id' ) );
+		$integration    = frontpage_buddy()->get_integration( $object_type );
+		$updated_status = sanitize_text_field( wp_unslash( $request->get_param( 'updated_status' ) ) );
 		$updated_status = 'yes' === $updated_status ? 'yes' : 'no';
-		$object_type    = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
-		$object_id      = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
 
-		if ( empty( $object_id ) || empty( $object_type ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
-		}
-
-		$integration = frontpage_buddy()->get_integration( $object_type );
-		if ( ! $integration ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
-		}
-
-		$can_manage = $integration->can_manage( $object_id );
-		if ( ! $can_manage ) {
-			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
-		}
-
-		$integration->has_custom_front_page( $object_id, $updated_status );
-
-		wp_send_json_success();
+		return rest_send_response( true, $integration->has_custom_front_page( $object_id, $updated_status ) );
 	}
 
 	/**
-	 * Handle ajax request to update the layout of the custom front page.
+	 * Handle request to get the frontpage layout of given object.
 	 *
-	 * @since 1.0.0
+	 * @since NEW_RELEASE_VERSION
 	 *
-	 * @return void
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
 	 */
-	public function ajax_update_layout() {
-		check_ajax_referer( 'frontpage_buddy_update_layout' );
-
-		$object_type = isset( $_POST['object_type'] ) && ! empty( $_POST['object_type'] ) ? sanitize_text_field( wp_unslash( $_POST['object_type'] ) ) : '';
-		$object_id   = isset( $_POST['object_id'] ) && ! empty( $_POST['object_id'] ) ? absint( $_POST['object_id'] ) : 0;
-		$layout      = isset( $_POST['layout'] ) && ! empty( $_POST['layout'] ) ? map_deep( wp_unslash( $_POST['layout'] ), 'sanitize_text_field' ) : '';
-
-		if ( empty( $object_id ) || empty( $object_type ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
-		}
-
+	public function rest_get_layout( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id   = absint( $request->get_param( 'object_id' ) );
 		$integration = frontpage_buddy()->get_integration( $object_type );
+		return rest_send_response( true, $integration->get_frontpage_layout( $object_id ) );
+	}
 
-		if ( ! $integration ) {
-			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
-		}
-
-		$can_manage = $integration->can_manage( $object_id );
-
-		if ( ! $can_manage ) {
-			wp_send_json_error( array( 'message' => __( 'Error', 'frontpage-buddy' ) ) );
+	/**
+	 * Handle request to update the frontpage layout of given object.
+	 *
+	 * @since NEW_RELEASE_VERSION
+	 *
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
+	 */
+	public function rest_update_layout( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id   = absint( $request->get_param( 'object_id' ) );
+		$integration = frontpage_buddy()->get_integration( $object_type );
+		$layout      = wp_unslash( $request->get_param( 'layout' ) );
+		if ( ! empty( $layout ) ) {
+			$layout = map_deep( $layout, 'sanitize_text_field' );
 		}
 
 		$integration->update_frontpage_layout( $object_id, $layout );
@@ -126,40 +136,32 @@ class Editor {
 			$integration->update_added_widgets( $object_id, $temp );
 		}
 
-		wp_send_json_success();
+		return rest_send_response( true, $integration->get_frontpage_layout( $object_id ) );
 	}
 
 	/**
-	 * Handle ajax request to get settings form for a given widget.
+	 * Handle request to get the html for widget options.
 	 *
-	 * @since 1.0.0
+	 * @since NEW_RELEASE_VERSION
 	 *
-	 * @return void
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
 	 */
-	public function ajax_widget_opts_get() {
-		check_ajax_referer( 'frontpage_buddy_widget_opts_get' );
+	public function rest_widget_opts_get( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id   = absint( $request->get_param( 'object_id' ) );
+		$widget_type = sanitize_text_field( wp_unslash( $request->get_param( 'widget_type' ) ) );
+		$widget_id   = sanitize_text_field( wp_unslash( $request->get_param( 'widget_id' ) ) );
 
-		$widget_type = isset( $_REQUEST['widget_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['widget_type'] ) ) : '';
-		$widget_id   = isset( $_REQUEST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['widget_id'] ) ) : '';
-		$object_type = isset( $_REQUEST['object_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['object_type'] ) ) : '';
-		$object_id   = isset( $_REQUEST['object_id'] ) ? absint( wp_unslash( $_REQUEST['object_id'] ) ) : 0;
-		if ( empty( $widget_type ) || empty( $object_type ) || empty( $object_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
+		if ( empty( $widget_type ) || empty( $widget_id ) ) {
+			return rest_send_error( __( 'Invalid request.', 'frontpage-buddy' ) );
 		}
 
 		$integration = frontpage_buddy()->get_integration( $object_type );
-		if ( ! $integration ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
-		}
-
-		$can_manage = $integration->can_manage( $object_id );
-		if ( ! $can_manage ) {
-			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
-		}
 
 		$widget_type_obj = frontpage_buddy()->get_widget_type( $widget_type );
 		if ( ! $widget_type_obj->is_enabled_for( $object_type, $object_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Widget not available', 'frontpage-buddy' ) ) );
+			return rest_send_error( __( 'Widget not available.', 'frontpage-buddy' ) );
 		}
 
 		$prev_saved_data = array();
@@ -185,46 +187,37 @@ class Editor {
 		);
 
 		if ( ! $widget_obj ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
+			return rest_send_error( __( 'Invalid request.', 'frontpage-buddy' ) );
 		}
 
 		ob_start();
 		$widget_type_obj->widget_input_ui( $widget_obj );
 		$html = ob_get_clean();
-		wp_send_json_success( array( 'html' => $html ) );
+		return rest_send_response( true, array( 'html' => $html ) );
 	}
 
 	/**
-	 * Handle ajax request to update settings for a given widget.
+	 * Handle request to update widget data/options.
 	 *
-	 * @since 1.0.0
+	 * @since NEW_RELEASE_VERSION
 	 *
-	 * @return void
+	 * @param \WP_REST_Request $request Current request.
+	 * @return \WP_REST_Response
 	 */
-	public function ajax_widget_opts_update() {
-		check_ajax_referer( 'frontpage_buddy_widget_opts_update' );
-
-		$widget_type = isset( $_REQUEST['widget_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['widget_type'] ) ) : '';
-		$widget_id   = isset( $_REQUEST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['widget_id'] ) ) : '';
-		$object_type = isset( $_REQUEST['object_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['object_type'] ) ) : '';
-		$object_id   = isset( $_REQUEST['object_id'] ) ? absint( wp_unslash( $_REQUEST['object_id'] ) ) : 0;
-		if ( empty( $widget_type ) || empty( $widget_id ) || empty( $object_type ) || empty( $object_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
+	public function rest_widget_opts_update( \WP_REST_Request $request ) {
+		$object_type = sanitize_text_field( wp_unslash( $request->get_param( 'object_type' ) ) );
+		$object_id   = absint( $request->get_param( 'object_id' ) );
+		$widget_type = sanitize_text_field( wp_unslash( $request->get_param( 'widget_type' ) ) );
+		$widget_id   = sanitize_text_field( wp_unslash( $request->get_param( 'widget_id' ) ) );
+		if ( empty( $widget_type ) || empty( $widget_id ) ) {
+			return rest_send_error( __( 'Invalid request.', 'frontpage-buddy' ) );
 		}
 
 		$integration = frontpage_buddy()->get_integration( $object_type );
-		if ( ! $integration ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
-		}
-
-		$can_manage = $integration->can_manage( $object_id );
-		if ( ! $can_manage ) {
-			wp_send_json_error( array( 'message' => __( 'Access denied!', 'frontpage-buddy' ) ) );
-		}
 
 		$widget_type_obj = frontpage_buddy()->get_widget_type( $widget_type );
 		if ( ! $widget_type_obj->is_enabled_for( $object_type, $object_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Widget not available', 'frontpage-buddy' ) ) );
+			return rest_send_error( __( 'Widget not available.', 'frontpage-buddy' ), 500 );
 		}
 
 		$widget_obj = $widget_type_obj->get_widget(
@@ -236,20 +229,17 @@ class Editor {
 		);
 
 		if ( ! $widget_obj ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'frontpage-buddy' ) ) );
+			return rest_send_error( __( 'Invalid request.', 'frontpage-buddy' ) );
 		}
 
-		$new_data = array();
+		$new_data      = array();
 		$widget_fields = $widget_type_obj->get_data_fields( $widget_obj );
 		if ( ! empty( $widget_fields ) ) {
 			foreach ( $widget_fields as $widget_field_name => $widget_field_attr ) {
-				$field_value = null;
-				if ( isset( $_POST[ $widget_field_name ] ) ) {
-					/**
-					 * The posted data is unslashed and sanitized by the function sanitize_field_value_for_db
-					 */
+				$field_value = $request->get_param( $widget_field_name );
+				if ( isset( $field_value ) ) {
 					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-					$field_value = $widget_type_obj->sanitize_field_value_for_db( $widget_field_name, $_POST[ $widget_field_name ], $widget_field_attr );
+					$field_value = $widget_type_obj->sanitize_field_value_for_db( $widget_field_name, $field_value, $widget_field_attr );
 				}
 
 				$new_data[ $widget_field_name ] = $field_value;
@@ -259,7 +249,7 @@ class Editor {
 		$update_status = $widget_obj->update( $new_data );
 		if ( ! $update_status['status'] ) {
 			// validation erorrs!
-			wp_send_json_error( array( 'message' => $update_status['message'] ) );
+			return rest_send_error( $update_status['message'] );
 		}
 
 		$widget_data_new = array(
@@ -288,6 +278,6 @@ class Editor {
 		}
 
 		$integration->update_added_widgets( $object_id, $saved_widgets );
-		wp_send_json_success( array( 'message' => __( 'Updated', 'frontpage-buddy' ) ) );
+		return rest_send_response( true, null, __( 'Updated', 'frontpage-buddy' ) );
 	}
 }

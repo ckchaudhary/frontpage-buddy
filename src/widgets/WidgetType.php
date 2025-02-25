@@ -313,11 +313,9 @@ abstract class WidgetType {
 	 */
 	public function widget_input_ui( $widget ) {
 		?>
-		<form method="POST" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>">
-			<?php wp_nonce_field( 'frontpage_buddy_widget_opts_update', '_wpnonce', false ); ?>
+		<form method="POST" action="<?php echo esc_attr( rest_url( FRONTPAGE_BUDDY_REST_ROUTE_NAMESPACE ) . '/widget-opts' ); ?>">
 			<input type="hidden" name="widget_id" value="<?php echo esc_attr( $widget->get_id() ); ?>" >
 			<input type="hidden" name="widget_type" value="<?php echo esc_attr( $widget->get_type() ); ?>" >
-			<input type="hidden" name="action" value="frontpage_buddy_widget_opts_update" >
 			<input type="hidden" name="object_type" value="<?php echo esc_attr( $widget->object_type ); ?>">
 			<input type="hidden" name="object_id" value="<?php echo esc_attr( $widget->object_id ); ?>">
 

@@ -15,7 +15,8 @@
         },
 		"files": [
 			"src/functions-misc.php",
-			"src/functions-widgets.php"
+			"src/functions-widgets.php",
+			"src/functions-rest-api.php"
 		]
     },
     "require": {}

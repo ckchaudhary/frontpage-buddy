@@ -131,19 +131,21 @@ class FPBuddyWidgetsManager {
 			jQuery('.hide_if_fp_enabled').removeClass( 'fpbuddy_hidden' );
         }
 
-        let data = {
-            'action': FRONTPAGE_BUDDY.config.req.change_status.action,
-            '_wpnonce': FRONTPAGE_BUDDY.config.req.change_status.nonce,
-			'object_type' : FRONTPAGE_BUDDY.object_type,
-			'object_id' : FRONTPAGE_BUDDY.object_id,
-			'updated_status': enabled,
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: FRONTPAGE_BUDDY.config.ajaxurl,
-            data: data,
-        });
+		fetch(
+			FRONTPAGE_BUDDY.config.rest_url_base + '/status',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': FRONTPAGE_BUDDY.config.rest_nonce
+				},
+				body: JSON.stringify({
+					'object_type' : FRONTPAGE_BUDDY.object_type,
+					'object_id' : FRONTPAGE_BUDDY.object_id,
+					'updated_status': enabled,
+				}),
+			}
+		);
     };
 
 	getWidgetsList() {
@@ -268,27 +270,48 @@ class FPBuddyWidgetsManager {
 		}
 
 		$widget.addClass( 'loading' );
+
+		let apiUrl = new URL(FRONTPAGE_BUDDY.config.rest_url_base + '/widget-opts', window.location.origin);
 		let data = {
-            'action': FRONTPAGE_BUDDY.config.req.widget_opts_get.action,
-            '_wpnonce': FRONTPAGE_BUDDY.config.req.widget_opts_get.nonce,
 			'object_type' : FRONTPAGE_BUDDY.object_type,
 			'object_id' : FRONTPAGE_BUDDY.object_id,
 			'widget_type' : $widget.data('type'),
 			'widget_id' : $widget.data('id'),
-        };
+		};
+		Object.keys(data).forEach(key => apiUrl.searchParams.append(key, data[key]));
 
-		jQuery.ajax({
-            type: 'GET',
-            url: FRONTPAGE_BUDDY.config.ajaxurl,
-            data: data,
-        }).done(function( res ){
-			$widget.removeClass( 'loading' );
-			if ( res.success ) {
-				$widget.closest('.row-contents').addClass( 'dblock' );
-				$widget.find('.widget-settings').html( res.data.html );
-				$widget.removeClass( 'state-preview' ).addClass( 'state-edit' );
-				jQuery(document).trigger( 'fpbuddy_on_widget_edit', [ $widget ] );
+		fetch(
+			apiUrl.toString(),
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': FRONTPAGE_BUDDY.config.rest_nonce
+				},
 			}
+		)
+		.then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.message || 'Server error occurred');
+                });
+            }
+            return response.json();
+        })
+		.then(responseJSON =>{
+			if (!responseJSON || !responseJSON.success) {
+                throw new Error(responseJSON.message || 'Invalid response format');
+            }
+			$widget.removeClass( 'loading' );
+			$widget.closest('.row-contents').addClass( 'dblock' );
+			$widget.find('.widget-settings').html( responseJSON.data.html );
+			$widget.removeClass( 'state-preview' ).addClass( 'state-edit' );
+			jQuery(document).trigger( 'fpbuddy_on_widget_edit', [ $widget ] );
+		})
+		.catch(error => {
+			$widget.removeClass('loading');
+			console.error('Error:', error);
+			$widget.find('.widget-settings').html(`<div class="response alert-error">${error.message}</div>`);
 		});
 	};
 
@@ -297,6 +320,9 @@ class FPBuddyWidgetsManager {
         let $form = $widget.find('form');
 
         var options = {
+			headers: {
+                'X-WP-Nonce': FRONTPAGE_BUDDY.config.rest_nonce
+            },
             beforeSerialize: function () {
 
             },
@@ -307,14 +333,14 @@ class FPBuddyWidgetsManager {
             success: function (response) {
 				$widget.removeClass( 'loading' );
 				if ( response.success ) {
-					if ( response.data.message ) {
-						$form.append( `<div class="response alert-success">${response.data.message}</div>` );
+					if ( response.message ) {
+						$form.append( `<div class="response alert-success">${response.message}</div>` );
 					}
 					$widget.trigger( 'widget_updated' );
 					_class._l.parent.trigger( 'content_updated' );
 				} else {
-					if ( response.data.message ) {
-						$form.append( `<div class="response alert-error">${response.data.message}</div>` );
+					if ( response.message ) {
+						$form.append( `<div class="response alert-error">${response.message}</div>` );
 					}
 				}
                 
@@ -501,19 +527,21 @@ class FPBuddyLayoutManager {
 				}
 			});
 
-			let data = {
-				'action': FRONTPAGE_BUDDY.config.req.update_layout.action,
-				'_wpnonce': FRONTPAGE_BUDDY.config.req.update_layout.nonce,
-				'object_type' : FRONTPAGE_BUDDY.object_type,
-				'object_id' : FRONTPAGE_BUDDY.object_id,
-				'layout': new_layout,
-			};
-	
-			jQuery.ajax({
-				type: 'POST',
-				url: FRONTPAGE_BUDDY.config.ajaxurl,
-				data: data,
-			});
+			fetch(
+				FRONTPAGE_BUDDY.config.rest_url_base + '/layout',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-WP-Nonce': FRONTPAGE_BUDDY.config.rest_nonce
+					},
+					body: JSON.stringify({
+						'object_type' : FRONTPAGE_BUDDY.object_type,
+						'object_id' : FRONTPAGE_BUDDY.object_id,
+						'layout': new_layout,
+					}),
+				}
+			);
 		} );
 	}
 

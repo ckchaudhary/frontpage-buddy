@@ -384,24 +384,9 @@ class Plugin {
 				'frontpage_buddy_script_data',
 				array(
 					'config'      => array(
-						'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-						'req'         => array(
-							'change_status'   => array(
-								'action' => 'frontpage_buddy_change_status',
-								'nonce'  => wp_create_nonce( 'frontpage_buddy_change_status' ),
-							),
-
-							'update_layout'   => array(
-								'action' => 'frontpage_buddy_update_layout',
-								'nonce'  => wp_create_nonce( 'frontpage_buddy_update_layout' ),
-							),
-
-							'widget_opts_get' => array(
-								'action' => 'frontpage_buddy_widget_opts_get',
-								'nonce'  => wp_create_nonce( 'frontpage_buddy_widget_opts_get' ),
-							),
-						),
-						'img_spinner' => FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
+						'rest_url_base' => rest_url( FRONTPAGE_BUDDY_REST_ROUTE_NAMESPACE ),
+						'rest_nonce'    => wp_create_nonce( 'wp_rest' ),
+						'img_spinner'   => FRONTPAGE_BUDDY_PLUGIN_URL . 'assets/images/spinner.gif',
 					),
 
 					'lang'        => array(
