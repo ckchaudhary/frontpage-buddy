@@ -636,7 +636,7 @@ class Admin {
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Constrast color of the primary color', 'frontpage-buddy' )
+			esc_html__( 'Contrast color of the primary color', 'frontpage-buddy' )
 		);
 
 		echo '</td></tr></table>';
@@ -684,7 +684,7 @@ class Admin {
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Constrast color of the secondary color', 'frontpage-buddy' )
+			esc_html__( 'Contrast color of the secondary color', 'frontpage-buddy' )
 		);
 
 		echo '</td></tr></table>';

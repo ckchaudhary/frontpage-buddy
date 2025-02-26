@@ -137,7 +137,7 @@ class MyLinks extends WidgetType {
 		if ( ! isset( $fields['heading']['attributes'] ) ) {
 			$fields['heading']['attributes'] = array();
 		}
-		$fields['heading']['attributes']['placeholder'] = esc_html__( 'E.g: Fine me on', 'frontpage-buddy' );
+		$fields['heading']['attributes']['placeholder'] = esc_html__( 'E.g: Find me on', 'frontpage-buddy' );
 
 		$all_link_types     = $this->get_link_types();
 		$allowed_link_types = $this->get_option( 'allowed_link_types' );
