@@ -246,6 +246,17 @@ class MyLinks extends WidgetType {
 		}
 
 		$formatted = trim( $raw_string );
+		if ( filter_var( $formatted, FILTER_VALIDATE_URL ) ) {
+			// Add 'https://' ?
+			if ( ! empty( $formatted ) ) {
+				if ( ! str_starts_with( $formatted, 'https://' ) && ! str_starts_with( $formatted, 'http://' ) ) {
+					$formatted = 'https://' . $formatted;
+				}
+			}
+
+			return wp_http_validate_url( $formatted );
+		}
+
 		switch ( $link_details['value_type'] ) {
 			case 'url':
 				// Add 'https://' ?
