@@ -78,7 +78,7 @@ class Widget {
 	/**
 	 * Constructor.
 	 *
-	 * @param array                                 $args initial data.
+	 * @param array                              $args initial data.
 	 * @param \FrontPageBuddy\Widgets\WidgetType $type Widget type object.
 	 */
 	public function __construct( $args, $type ) {

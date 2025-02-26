@@ -25,7 +25,7 @@ class FacebookPage extends WidgetType {
 		$this->description = __( 'Embed and promote any Facebook Page.', 'frontpage-buddy' );
 		$this->icon_image  = '<i class="gg-facebook"></i>';
 
-		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to embed a facebook page.', 'frontpage-buddy' ) . '</p>';
+		$this->description_admin = '<p>' . esc_html__( 'Enables your users to embed a facebook page.', 'frontpage-buddy' ) . '</p>';
 
 		$this->description_admin .= '<div class="notice notice-warning inline">';
 		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong></p><hr>';
@@ -64,11 +64,11 @@ class FacebookPage extends WidgetType {
 		$fields = $this->get_default_data_fields( $widget );
 
 		$fields['url'] = array(
-			'type'       => 'url',
-			'label'      => __( 'Facebook Page URL', 'frontpage-buddy' ),
-			'value'      => ! empty( $widget->get_data( 'url', 'edit' ) ) ? $widget->get_data( 'url', 'edit' ) : '',
-			'attributes' => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
-			'is_required'=> true,
+			'type'        => 'url',
+			'label'       => __( 'Facebook Page URL', 'frontpage-buddy' ),
+			'value'       => ! empty( $widget->get_data( 'url', 'edit' ) ) ? $widget->get_data( 'url', 'edit' ) : '',
+			'attributes'  => array( 'placeholder' => __( 'The url of the facebook page', 'frontpage-buddy' ) ),
+			'is_required' => true,
 		);
 
 		$fields['smallheader'] = array(

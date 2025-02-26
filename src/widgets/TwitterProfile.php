@@ -27,7 +27,6 @@ class TwitterProfile extends WidgetType {
 		$this->icon_image  = '<i class="gg-twitter"></i>';
 
 		$this->description_admin  = '<p>' . esc_html__( 'Enables your users to display an X/Twitter profile\'s feed.', 'frontpage-buddy' ) . '</p>';
-
 		$this->description_admin .= '<div class="notice notice-warning inline">';
 		$this->description_admin .= '<p><strong>' . esc_html__( 'Use of 3rd party service.', 'frontpage-buddy' ) . '</strong></p><hr>';
 		$this->description_admin .= esc_html__( 'This widget makes use of an external API which may track your website visitor\'s data and may add cookies on their devices.', 'frontpage-buddy' ) . ' ';

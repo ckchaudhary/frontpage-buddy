@@ -109,8 +109,8 @@ abstract class WidgetType {
 	 * Get an option's/setting's default value.
 	 * This function is to be overloaded by widgets.
 	 *
-	 * @param mixed                         $option_value value of the option.
-	 * @param string                        $option_name  name of the option.
+	 * @param mixed                      $option_value value of the option.
+	 * @param string                     $option_name  name of the option.
 	 * @param \FrontPageBuddy\WidgetType $widget_type  Widget type object.
 	 *
 	 * @return mixed null if no default value is to be provided.
@@ -241,7 +241,7 @@ abstract class WidgetType {
 	 * Performs basic validation on data fields before updating.
 	 *
 	 * @param \FrontPageBuddy\Widgets\Widget $widget   The current widget object.
-	 * @param array                             $new_data New data for all fields.
+	 * @param array                          $new_data New data for all fields.
 	 *
 	 * @return array of errors, if any.
 	 */

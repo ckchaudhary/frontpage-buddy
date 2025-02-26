@@ -66,8 +66,8 @@ class RichContent extends WidgetType {
 	 * Get an option's/setting's default value.
 	 * This function is to be overloaded by widgets.
 	 *
-	 * @param mixed                         $option_value value of the option.
-	 * @param string                        $option_name  name of the option.
+	 * @param mixed                      $option_value value of the option.
+	 * @param string                     $option_name  name of the option.
 	 * @param \FrontPageBuddy\WidgetType $widget_type  Widget type object.
 	 *
 	 * @return mixed null if no default value is to be provided.
