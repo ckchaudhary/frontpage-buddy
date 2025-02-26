@@ -1,6 +1,21 @@
 jQuery( ($) => {
 	$('.fpbuddy-color-picker').wpColorPicker();
 
+	$('#btn_color_scheme_reset').click(function(e){
+		const $this = $(this);
+		e.preventDefault();
+		if ( !confirm( $this.data('confirm') ) ) {
+			return;
+		}
+
+		$('.fpbuddy-color-picker').each(function(){
+			const default_val = $(this).data('default');
+			$(this).val(default_val).wpColorPicker('color', default_val);
+		});
+
+		$this.closest('form').trigger('submit');
+	});
+
 	$('.rb_tabify_marker').each(function(){
 		let $marker = $(this);
 		let $form = $marker.closest('form');

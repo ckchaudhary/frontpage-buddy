@@ -216,12 +216,13 @@ class Admin {
 			'<span class="dashicons dashicons-admin-appearance"></span> '
 		);
 		add_settings_section( 'section_theme', $label, array( $this, 'section_theme_desc' ), __FILE__ );
-		add_settings_field( 'editor_color_bg', '', array( $this, 'editor_color_bg' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
-		add_settings_field( 'editor_color_text', '', array( $this, 'editor_color_text' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
-		add_settings_field( 'editor_color_primary', '', array( $this, 'editor_color_primary' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
-		add_settings_field( 'editor_color_primary_contrast', '', array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
-		add_settings_field( 'editor_color_secondary', '', array( $this, 'editor_color_secondary' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
-		add_settings_field( 'editor_color_secondary_contrast', '', array( $this, 'editor_color_secondary_contrast' ), __FILE__, 'section_theme', array( 'class' => 'hide_field_heading' ) );
+		add_settings_field( 'editor_color_bg', __( 'Background Color', 'frontpage-buddy' ), array( $this, 'editor_color_bg' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_text', __( 'Text Color', 'frontpage-buddy' ), array( $this, 'editor_color_text' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_primary', __( 'Primary Color', 'frontpage-buddy' ), array( $this, 'editor_color_primary' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_primary_contrast', __( 'Primary Color - Contrast', 'frontpage-buddy' ), array( $this, 'editor_color_primary_contrast' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_secondary', __( 'Secondary Color', 'frontpage-buddy' ), array( $this, 'editor_color_secondary' ), __FILE__, 'section_theme' );
+		add_settings_field( 'editor_color_secondary_contrast', __( 'Secondary Color - Contrast', 'frontpage-buddy' ), array( $this, 'editor_color_secondary_contrast' ), __FILE__, 'section_theme' );
+		add_settings_field( 'custom_styling', '', array( $this, 'custom_styling' ), __FILE__, 'section_theme' );
 	}
 
 	/**
@@ -294,6 +295,17 @@ class Admin {
 	public function section_theme_desc() {
 		echo '<div class="notice notice-info inline"><p>';
 		esc_html_e( 'Settings for the screen where your website\'s users can manage/edit the front page.', 'frontpage-buddy' );
+		echo '<br>';
+		printf(
+			/* translators: %s: link to plugin documentation. */
+			esc_html__( 'Check %s for more details.', 'frontpage-buddy' ),
+			'<a href="https://www.recycleb.in/frontpage-buddy/styling/" rel="noreferrer">' . esc_html__( 'plugin documentation', 'frontpage-buddy' ) . '</a>'
+		);
+		printf(
+			'&nbsp;<button class="button button-secondary button-small" id="btn_color_scheme_reset" data-confirm="%s">%s</button>',
+			esc_attr( esc_html__( 'This will reset all color options to default values. Are you sure?', 'frontpage-buddy' ) ),
+			esc_html__( 'Reset', 'frontpage-buddy' )
+		);
 		echo '</p></div>';
 	}
 
@@ -323,6 +335,8 @@ class Admin {
 				case 'editor_color_text':
 				case 'editor_color_primary':
 				case 'editor_color_primary_contrast':
+				case 'editor_color_secondary':
+				case 'editor_color_secondary_contrast':
 					$field_value = sanitize_hex_color( $field_value );
 					break;
 
@@ -539,7 +553,7 @@ class Admin {
 		echo '</h3>';
 		echo '<p>';
 		printf(
-			'<a href="https://www.recycleb.in/u/chandan/" class="button button-hero button-primary button-link-external" target="_blank" rel="noreferrer">%s <sup><span class="dashicons dashicons-external"></span></sup></a>',
+			'<a href="https://www.recycleb.in/frontpage-buddy/widgets/custom/" class="button button-hero button-primary button-link-external" target="_blank" rel="noreferrer">%s <sup><span class="dashicons dashicons-external"></span></sup></a>',
 			esc_html__( 'Contact this plugin\'s developer', 'frontpage-buddy' )
 		);
 		echo '</p>';
@@ -555,9 +569,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Background Color', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#ffffff">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -566,8 +579,6 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Background color of the entire area.', 'frontpage-buddy' )
 		);
-
-		echo '</td></tr></table>';
 	}
 
 	/**
@@ -579,9 +590,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Text Color', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#333333">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -590,8 +600,6 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Text color of the entire area.', 'frontpage-buddy' )
 		);
-
-		echo '</td></tr></table>';
 	}
 
 	/**
@@ -603,9 +611,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Primary Color', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#235789">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -614,8 +621,6 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Used as: border colors, button colors, etc. for widgets/columns.', 'frontpage-buddy' )
 		);
-
-		echo '</td></tr></table>';
 	}
 
 	/**
@@ -627,9 +632,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Primary Color - Contrast', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#ffffff">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -638,8 +642,6 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Contrast color of the primary color', 'frontpage-buddy' )
 		);
-
-		echo '</td></tr></table>';
 	}
 
 	/**
@@ -651,9 +653,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Secondary Color', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#b9d6f2">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -662,8 +663,6 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Used as: border colors, button colors, etc. for sections/rows.', 'frontpage-buddy' )
 		);
-
-		echo '</td></tr></table>';
 	}
 
 	/**
@@ -675,9 +674,8 @@ class Admin {
 		$field_name  = __FUNCTION__;
 		$field_value = $this->option( $field_name );
 
-		echo '<table><tr><th>' . esc_html__( 'Secondary Color - Contrast', 'frontpage-buddy' ) . '</th><td>';
 		printf(
-			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s">',
+			'<input type="text" class="fpbuddy-color-picker" name="%s" value="%s" data-default="#000000">',
 			esc_attr( $this->option_name . '[' . $field_name . ']' ),
 			esc_attr( $field_value )
 		);
@@ -686,8 +684,27 @@ class Admin {
 			'<p class="description">%s</p>',
 			esc_html__( 'Contrast color of the secondary color', 'frontpage-buddy' )
 		);
+	}
 
-		echo '</td></tr></table>';
+	/**
+	 * Custom styling information.
+	 *
+	 * @return void
+	 */
+	public function custom_styling() {
+		echo '<div class="frontpage-buddy-notice-style1">';
+		echo '<h3 class="notice-title">';
+		esc_html_e( 'Need custom styling', 'frontpage-buddy' );
+		echo '<br>&nbsp;';
+		echo '<small>' . esc_html__( 'for frontpage and editor tailored to your website?', 'frontpage-buddy' ) . '</small>';
+		echo '</h3>';
+		echo '<p>';
+		printf(
+			'<a href="https://www.recycleb.in/frontpage-buddy/styling/" class="button button-hero button-primary button-link-external" target="_blank" rel="noreferrer">%s <sup><span class="dashicons dashicons-external"></span></sup></a>',
+			esc_html__( 'Contact this plugin\'s developer', 'frontpage-buddy' )
+		);
+		echo '</p>';
+		echo '</div>';
 	}
 
 	/**
