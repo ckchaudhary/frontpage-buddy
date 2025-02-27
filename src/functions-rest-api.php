@@ -3,7 +3,7 @@
  * Define REST API endpoints etc..
  *
  * @package FrontPage Buddy
- * @since NEW_RELEASE_VERSION
+ * @since 1.0.3
  */
 
 namespace FrontPageBuddy;

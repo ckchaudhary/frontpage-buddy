@@ -4,8 +4,8 @@ Donate link: https://www.recycleb.in/u/chandan/
 Tags: buddypress, buddyboss, bbpress, profile page builder, custom group pages
 Requires PHP: 7.4
 Requires at least: 5.8
-Tested up to: 6.7.1
-Stable tag: 1.0.2
+Tested up to: 6.7.2
+Stable tag: 1.0.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,13 @@ Please contact the plugin author if you have suggestions for new integrations or
 3. Use the *Settings* -> *FrontPage Buddy* screen to configure the plugin.
 
 == Changelog ==
+
+= 1.0.3 =
+
+* Facebook page widget - Use simple iframe embeds instead of javascript API as Iframe embeds are more reliable and straightforward.
+* Replaced ajax calls with REST API.
+* MyLinks widget - Adjust if the user has entered full url instead of just usernames.
+* Added 'reset to default' option for appearance settings.
 
 = 1.0.2 =
 

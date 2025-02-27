@@ -113,7 +113,7 @@ class Plugin {
 	/**
 	 * Register an integration.
 	 *
-	 * @param string                         $type identifier of the integration.
+	 * @param string                      $type identifier of the integration.
 	 * @param \FrontPageBuddy\Integration $obj an object of type \FrontPageBuddy\Integration.
 	 * @return \WP_Error|void \WP_Error if registration failed.
 	 */

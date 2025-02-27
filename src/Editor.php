@@ -19,7 +19,7 @@ class Editor {
 	/**
 	 * Check if the current user has permissions for current rest request.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return bool
@@ -46,7 +46,7 @@ class Editor {
 	/**
 	 * Handle request to get whether an object has a custom front page or not.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response
@@ -64,7 +64,7 @@ class Editor {
 	/**
 	 * Handle request to set whether an object has a custom front page or not.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response
@@ -82,7 +82,7 @@ class Editor {
 	/**
 	 * Handle request to get the frontpage layout of given object.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response
@@ -97,7 +97,7 @@ class Editor {
 	/**
 	 * Handle request to update the frontpage layout of given object.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response
@@ -142,7 +142,7 @@ class Editor {
 	/**
 	 * Handle request to get the html for widget options.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response
@@ -199,7 +199,7 @@ class Editor {
 	/**
 	 * Handle request to update widget data/options.
 	 *
-	 * @since NEW_RELEASE_VERSION
+	 * @since 1.0.3
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return \WP_REST_Response

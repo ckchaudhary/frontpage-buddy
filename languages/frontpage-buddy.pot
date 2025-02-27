@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FrontPage Buddy\n"
 "Report-Msgid-Bugs-To: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
-"POT-Creation-Date: 2025-01-28 10:50+0000\n"
-"PO-Revision-Date: 2025-02-06 12:07+0000\n"
+"POT-Creation-Date: 2025-02-27 06:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Chandan Chaudhary <ckchaudhary@hotmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -41,7 +41,7 @@ msgid "%s Widgets"
 msgstr ""
 
 #. %s: Name of the plugin 'Frontpage buddy'.
-#: src/Admin.php:409
+#: src/Admin.php:423
 #, php-format
 msgid "%s will have no effect."
 msgstr ""
@@ -58,16 +58,12 @@ msgid ""
 "make sure you have added some content for the front page."
 msgstr ""
 
-#: src/Editor.php:66 src/Editor.php:157 src/Editor.php:222
-msgid "Access denied!"
-msgstr ""
-
 #: src/Integrations/BuddyPress/Groups.php:84
 #: src/Integrations/BuddyPress/Profiles.php:72
 msgid "Activity"
 msgstr ""
 
-#: src/Plugin.php:409
+#: src/Plugin.php:394
 msgid "add section"
 msgstr ""
 
@@ -101,19 +97,19 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: src/Plugin.php:412
+#: src/Plugin.php:397
 msgid "Are you sure you want to delete this content?"
 msgstr ""
 
-#: src/Plugin.php:411
+#: src/Plugin.php:396
 msgid "Are you sure you want to delete this section?"
 msgstr ""
 
-#: src/Admin.php:558
+#: src/Admin.php:219
 msgid "Background Color"
 msgstr ""
 
-#: src/Admin.php:567
+#: src/Admin.php:580
 msgid "Background color of the entire area."
 msgstr ""
 
@@ -122,7 +118,7 @@ msgid "Bolden"
 msgstr ""
 
 #. %s: link to plugin documentation.
-#: src/Admin.php:261 src/Admin.php:282
+#: src/Admin.php:262 src/Admin.php:283 src/Admin.php:301
 #, php-format
 msgid "Check %s for more details."
 msgstr ""
@@ -131,20 +127,20 @@ msgstr ""
 msgid "Choose the buttons/options allowed in rich text editors."
 msgstr ""
 
-#: src/Widgets/WidgetType.php:336
+#: src/Widgets/WidgetType.php:334
 msgid "Close"
 msgstr ""
 
-#: src/Admin.php:639
-msgid "Constrast color of the primary color"
-msgstr ""
-
-#: src/Admin.php:687
-msgid "Constrast color of the secondary color"
-msgstr ""
-
-#: src/Admin.php:543
+#: src/Admin.php:557 src/Admin.php:704
 msgid "Contact this plugin's developer"
+msgstr ""
+
+#: src/Admin.php:643
+msgid "Contrast color of the primary color"
+msgstr ""
+
+#: src/Admin.php:685
+msgid "Contrast color of the secondary color"
 msgstr ""
 
 #: src/Integrations/BuddyPress/Groups.php:42
@@ -160,7 +156,7 @@ msgid "Currently enabled"
 msgstr ""
 
 #. %s: list of plugins frontpage-buddy works with.
-#: src/Admin.php:254
+#: src/Admin.php:255
 #, php-format
 msgid ""
 "Currently it works with the following plugins: %s. It automatically detects "
@@ -213,7 +209,7 @@ msgid "Customize your profile's front page by going %s."
 msgstr ""
 
 #: src/Widgets/InstagramProfile.php:36 src/Widgets/FacebookPage.php:37
-#: src/Widgets/YoutubeEmbed.php:37 src/Widgets/TwitterProfile.php:38
+#: src/Widgets/YoutubeEmbed.php:37 src/Widgets/TwitterProfile.php:37
 msgid "Data Usage"
 msgstr ""
 
@@ -227,16 +223,16 @@ msgid ""
 "has basic formatting options like \"bold\", \"italics\", etc."
 msgstr ""
 
-#: src/Plugin.php:410
+#: src/Plugin.php:395
 msgid "Drag to move up or down"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:75
+#: src/Widgets/TwitterProfile.php:74
 msgid "E.g: @johndoe"
 msgstr ""
 
 #: src/Widgets/MyLinks.php:140
-msgid "E.g: Fine me on"
+msgid "E.g: Find me on"
 msgstr ""
 
 #. 1: Link to edit-front-page url.
@@ -289,7 +285,7 @@ msgstr ""
 msgid "Enable for"
 msgstr ""
 
-#: src/Admin.php:438
+#: src/Admin.php:452
 msgid "Enable this integration?"
 msgstr ""
 
@@ -325,10 +321,6 @@ msgstr ""
 msgid "Enter the youtube video url."
 msgstr ""
 
-#: src/Editor.php:89 src/Editor.php:95 src/Editor.php:101
-msgid "Error"
-msgstr ""
-
 #. 1: link to https://www.facebook.com/privacy/policy
 #: src/Widgets/FacebookPage.php:44
 #, php-format
@@ -357,6 +349,10 @@ msgstr ""
 msgid "Fluid"
 msgstr ""
 
+#: src/Admin.php:699
+msgid "for frontpage and editor tailored to your website?"
+msgstr ""
+
 #: src/Widgets/RichContent.php:45
 msgid "Formatting - Quote/Paragraph/Headers"
 msgstr ""
@@ -382,7 +378,7 @@ msgstr ""
 msgid "FrontPage Buddy"
 msgstr ""
 
-#: src/Admin.php:249
+#: src/Admin.php:250
 msgid ""
 "FrontPage Buddy extends other plugins' functionality, by providing better "
 "profile pages for users and groups."
@@ -413,11 +409,11 @@ msgstr ""
 msgid "Heading"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:86
+#: src/Widgets/TwitterProfile.php:85
 msgid "Height"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:88
+#: src/Widgets/TwitterProfile.php:87
 msgid "Height in pixels (optional)"
 msgstr ""
 
@@ -489,7 +485,7 @@ msgid ""
 msgstr ""
 
 #: src/Widgets/InstagramProfile.php:49 src/Widgets/FacebookPage.php:50
-#: src/Widgets/YoutubeEmbed.php:50 src/Widgets/TwitterProfile.php:51
+#: src/Widgets/YoutubeEmbed.php:50 src/Widgets/TwitterProfile.php:50
 msgid "If you have concerns, you should keep this widget disabled."
 msgstr ""
 
@@ -501,20 +497,20 @@ msgstr ""
 msgid "Instagram's Privacy Policy"
 msgstr ""
 
-#: src/Plugin.php:408
+#: src/Plugin.php:393
 msgid "Invalid"
 msgstr ""
 
-#: src/Editor.php:56 src/Editor.php:61 src/Editor.php:147 src/Editor.php:152
-#: src/Editor.php:188 src/Editor.php:212 src/Editor.php:217 src/Editor.php:239
-msgid "Invalid request!"
+#: src/Editor.php:59 src/Editor.php:157 src/Editor.php:190 src/Editor.php:213
+#: src/Editor.php:232
+msgid "Invalid request."
 msgstr ""
 
 #: src/Widgets/RichContent.php:52
 msgid "Link"
 msgstr ""
 
-#: src/Admin.php:491
+#: src/Admin.php:505
 msgid "List of widgets is unavailable."
 msgstr ""
 
@@ -550,11 +546,15 @@ msgid ""
 "the screen from where admins can customize group's front page."
 msgstr ""
 
-#: src/Admin.php:538
+#: src/Admin.php:697
+msgid "Need custom styling"
+msgstr ""
+
+#: src/Admin.php:552
 msgid "Need more widgets for your website?"
 msgstr ""
 
-#: src/Admin.php:440 src/Widgets/TwitterProfile.php:93
+#: src/Admin.php:454 src/Widgets/TwitterProfile.php:92
 #: src/Integrations/BuddyPress/Groups.php:95
 #: src/Integrations/BuddyPress/Profiles.php:85
 #: src/Integrations/BBPress/Profiles.php:58
@@ -563,7 +563,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/Admin.php:404 src/Admin.php:489
+#: src/Admin.php:418 src/Admin.php:503
 msgid "No compatible plugins were found(active)."
 msgstr ""
 
@@ -602,7 +602,7 @@ msgid ""
 msgstr ""
 
 #: src/Widgets/InstagramProfile.php:33 src/Widgets/FacebookPage.php:33
-#: src/Widgets/YoutubeEmbed.php:33 src/Widgets/TwitterProfile.php:34
+#: src/Widgets/YoutubeEmbed.php:33 src/Widgets/TwitterProfile.php:33
 msgid ""
 "Please update your privacy and cookie policies accordingly. It befalls on "
 "you ( the website administrator ) to collect opt-in consent beforehand."
@@ -612,20 +612,20 @@ msgstr ""
 msgid "Please use a unique type."
 msgstr ""
 
-#: src/Admin.php:262 src/Admin.php:283
+#: src/Admin.php:263 src/Admin.php:284 src/Admin.php:302
 msgid "plugin documentation"
 msgstr ""
 
-#: src/Admin.php:606
+#: src/Admin.php:221
 msgid "Primary Color"
 msgstr ""
 
-#: src/Admin.php:630
+#: src/Admin.php:222
 msgid "Primary Color - Contrast"
 msgstr ""
 
 #: src/Widgets/InstagramProfile.php:40 src/Widgets/FacebookPage.php:41
-#: src/Widgets/YoutubeEmbed.php:41 src/Widgets/TwitterProfile.php:42
+#: src/Widgets/YoutubeEmbed.php:41 src/Widgets/TwitterProfile.php:41
 msgid "Privacy Note"
 msgstr ""
 
@@ -646,6 +646,10 @@ msgstr ""
 msgid "Redirect empty front page"
 msgstr ""
 
+#: src/Admin.php:307
+msgid "Reset"
+msgstr ""
+
 #: src/Widgets/RichContent.php:24
 msgid "Rich Text"
 msgstr ""
@@ -654,23 +658,23 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: src/Admin.php:654
+#: src/Admin.php:223
 msgid "Secondary Color"
 msgstr ""
 
-#: src/Admin.php:678
+#: src/Admin.php:224
 msgid "Secondary Color - Contrast"
 msgstr ""
 
-#: src/Plugin.php:413
+#: src/Plugin.php:398
 msgid "Select the type of content."
 msgstr ""
 
-#: src/Admin.php:741
+#: src/Admin.php:758
 msgid "Settings"
 msgstr ""
 
-#: src/Admin.php:296
+#: src/Admin.php:297
 msgid ""
 "Settings for the screen where your website's users can manage/edit the front "
 "page."
@@ -703,10 +707,6 @@ msgstr ""
 msgid "Show prompt when viewing one's own profile?"
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:92
-msgid "Show Recent Posts"
-msgstr ""
-
 #: src/Widgets/InstagramProfile.php:25
 msgid "Showcase an instagram profile."
 msgstr ""
@@ -725,15 +725,15 @@ msgstr ""
 msgid "Strike through"
 msgstr ""
 
-#: src/Admin.php:582
+#: src/Admin.php:220
 msgid "Text Color"
 msgstr ""
 
-#: src/Admin.php:591
+#: src/Admin.php:601
 msgid "Text color of the entire area."
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:39
+#: src/Widgets/TwitterProfile.php:38
 msgid ""
 "The \"https://platform.twitter.com/widgets.js\" script fetches publicly "
 "available Twitter content for display. No personal user data is collected or "
@@ -776,7 +776,7 @@ msgstr ""
 msgid "The widget type must extend \\FrontPageBuddy\\Widgets\\WidgetType."
 msgstr ""
 
-#: src/Admin.php:277
+#: src/Admin.php:278
 msgid "These are completely unrelated to WordPress widgets."
 msgstr ""
 
@@ -817,25 +817,29 @@ msgstr ""
 msgid "This group has a custom front page."
 msgstr ""
 
-#: src/Widgets/FacebookPage.php:38
-msgid ""
-"This integration uses the Facebook JavaScript SDK to fetch and display "
-"publicly available Facebook content. No personal user data is stored or "
-"transmitted by the plugin."
-msgstr ""
-
 #: src/Widgets/InstagramProfile.php:32 src/Widgets/FacebookPage.php:32
-#: src/Widgets/YoutubeEmbed.php:32 src/Widgets/TwitterProfile.php:33
+#: src/Widgets/YoutubeEmbed.php:32 src/Widgets/TwitterProfile.php:32
 msgid ""
 "This widget makes use of an external API which may track your website "
 "visitor's data and may add cookies on their devices."
+msgstr ""
+
+#: src/Widgets/FacebookPage.php:38
+msgid ""
+"This widget uses the Facebook iframe API to fetch and display publicly "
+"available Facebook content. No personal user data is stored or transmitted "
+"by the plugin."
+msgstr ""
+
+#: src/Admin.php:306
+msgid "This will reset all color options to default values. Are you sure?"
 msgstr ""
 
 #: src/Widgets/TwitterProfile.php:25
 msgid "Twitter Profile Feed"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:46
+#: src/Widgets/TwitterProfile.php:45
 msgid "Twitter's Privacy Policy"
 msgstr ""
 
@@ -847,20 +851,20 @@ msgstr ""
 msgid "Unorderd list"
 msgstr ""
 
-#: src/Widgets/WidgetType.php:335
+#: src/Widgets/WidgetType.php:333
 msgid "Update"
 msgstr ""
 
-#: src/Editor.php:291 src/Widgets/Widget.php:166
+#: src/Editor.php:281 src/Widgets/Widget.php:166
 msgid "Updated"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:92
+#: src/Widgets/TwitterProfile.php:91
 msgid "Use dark theme"
 msgstr ""
 
 #: src/Widgets/InstagramProfile.php:31 src/Widgets/FacebookPage.php:31
-#: src/Widgets/YoutubeEmbed.php:31 src/Widgets/TwitterProfile.php:32
+#: src/Widgets/YoutubeEmbed.php:31 src/Widgets/TwitterProfile.php:31
 msgid "Use of 3rd party service."
 msgstr ""
 
@@ -868,11 +872,11 @@ msgstr ""
 msgid "Use Small Header"
 msgstr ""
 
-#: src/Admin.php:663
+#: src/Admin.php:664
 msgid "Used as: border colors, button colors, etc. for sections/rows."
 msgstr ""
 
-#: src/Admin.php:615
+#: src/Admin.php:622
 msgid "Used as: border colors, button colors, etc. for widgets/columns."
 msgstr ""
 
@@ -904,7 +908,7 @@ msgid ""
 msgstr ""
 
 #. 1: Link to Twitter's privacy policy
-#: src/Widgets/TwitterProfile.php:45
+#: src/Widgets/TwitterProfile.php:44
 #, php-format
 msgid ""
 "When embedding Twitter content, Twitter may collect data such as IP "
@@ -912,28 +916,28 @@ msgid ""
 "refer to %s."
 msgstr ""
 
-#: src/Editor.php:162 src/Editor.php:227
-msgid "Widget not available"
+#: src/Editor.php:164 src/Editor.php:220
+msgid "Widget not available."
 msgstr ""
 
-#: src/Admin.php:275
+#: src/Admin.php:276
 msgid ""
 "Widgets are individual blocks of content that can be added on front pages."
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:80
+#: src/Widgets/TwitterProfile.php:79
 msgid "Width"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:82
+#: src/Widgets/TwitterProfile.php:81
 msgid "Width in pixels (optional)"
 msgstr ""
 
-#: src/Widgets/TwitterProfile.php:73
+#: src/Widgets/TwitterProfile.php:72
 msgid "X/Twitter Handle"
 msgstr ""
 
-#: src/Admin.php:441 src/Widgets/TwitterProfile.php:94
+#: src/Admin.php:455 src/Widgets/TwitterProfile.php:93
 #: src/Integrations/BuddyPress/Groups.php:96
 #: src/Integrations/BuddyPress/Profiles.php:86
 #: src/Integrations/BBPress/Profiles.php:59
